@@ -19,6 +19,5 @@
         "psr-4": {
             "Nimbusletruand\\CurriculumVitae\\": ""
         }
-    },
-    "target-dir": "nimbusletruand/curriculumvitae"
+    }
 }
