@@ -7,18 +7,18 @@
     "authors": [
         {
             "name": "nimbusletruand",
-            "email": "nimbusletruand@gmail.com",
+            "email": "nimbusletruand@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.6",
-        "symfony/framework-bundle": "~2.4",
+        "symfony/framework-bundle": "~2.4"
     },
     "autoload": {
         "psr-4": {
-            "Nimbusletruand\\CurriculumVitae\\": "",
+            "Nimbusletruand\\CurriculumVitae\\": ""
         }
     },
-    "target-dir": "nimbusletruand/curriculumvitae",
+    "target-dir": "nimbusletruand/curriculumvitae"
 }
