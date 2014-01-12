@@ -60,7 +60,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Nimbusletruand\CurriculumVitaeBundle\NimbusletruandCurriculumVitaeBundle();
+        new Nimbusletruand\CurriculumVitaeBundle\NimbusletruandCurriculumVitaeBundle(),
     );
 }
 // ...
