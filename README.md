@@ -86,3 +86,17 @@ Or if you prefer XML:
 <!-- app/config/routing.xml -->
 <import resource="@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.xml"/>
 ```
+
+## Usage
+
+### Assets installation
+
+``` bash
+$ php app/console assets:install
+```
+
+### View the result
+Go to your site and add /cv, for example:
+``` web
+http://localhost/app_dev.php/cv
+```
