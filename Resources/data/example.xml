@@ -1,0 +1,226 @@
+<xml version="1.0" encoding="UTF-8">
+<lang>
+    <en>English</en>
+    <fr>Français</fr>
+</lang>
+<CurriculumVitae>
+    <identity anchor="identity">
+        <AnchorTitle lang="en">About Me</AnchorTitle>
+        <AnchorTitle lang="fr">A propos</AnchorTitle>
+        <items>
+            <myself>
+                <Name>First Name Last Name</Name>
+                <BirthDay format="mm/dd/yy">01/01/1975</BirthDay>
+                <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
+                <BrithPlace lang="fr">Paris</BrithPlace>
+                <Nationality lang="en">French Citizenship</Nationality>
+            </myself>
+            <address>
+                <Street>Street</Street>
+                <PostalCode>PostalCode</PostalCode>
+                <City>City</City>
+                <Country>Country</Country>
+                <GoogleMap>http://maps.google.com</GoogleMap>
+            </address>
+            <contact>
+                <Mobile>Telephone</Mobile>
+                <Email>email arobase site dot com</Email>
+            </contact>
+            <social>
+                <Marital lang="fr">Célibataire</Marital>
+                <Military lang="fr">Dégagé des obligations militaires</Military>
+                <DriveLicences lang="en">French driving licence</DriveLicences>
+                <DriveLicences lang="fr">Titulaire du permis B</DriveLicences>
+            </social>
+        </items>
+    </identity>
+    <followMe anchor="followMe">
+        <AnchorTitle lang="en">Follow Me</AnchorTitle>
+        <AnchorTitle lang="fr">Suivez-moi</AnchorTitle>
+        <items>
+            <linkedin>
+                <title>Linked In</title>
+                <url>http://www.linkedin.com</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/linkedin.png</icon>
+            </linkedin>
+            <viadeo>
+                <title>viadeo</title>
+                <url>http://www.viadeo.com</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/viadeo.png</icon>
+            </viadeo>
+            <monster>
+                <title>Monster</title>
+                <url>http://beknown.com</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/monster.png</icon>
+            </monster>
+            <twitter>
+                <title>Twitter</title>
+                <url>https://twitter.com</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/twitter.png</icon>
+            </twitter>
+            <googleplus>
+                <title>Google+</title>
+                <url>https://plus.google.com</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/googleplus.png</icon>
+            </googleplus>
+            <facebook>
+                <title>Facebook</title>
+                <url>https://www.facebook.com</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/facebook.png</icon>
+            </facebook>
+            <scrum>
+                <title>Scrum</title>
+                <url>http://www.scrumalliance.org</url>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/scrum-alliance.png</icon>
+            </scrum>
+        </items>
+    </followMe>
+    <lookingFor>
+        <experience crossref="CurriculumVitae/experiences/items/FirstExperience"></experience>
+        <presentation lang="en">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem. </presentation>
+        <presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo. </presentation>
+    </lookingFor>
+    <experiences anchor="experiences">
+        <AnchorTitle lang="en">Experiences</AnchorTitle>
+        <AnchorTitle lang="fr">Expériences Professionnelles</AnchorTitle>
+        <items>
+            <FirstExperience>
+                <date lang="en">Jan 2007 - Present</date>
+                <date lang="fr">Jan. 2007 - Aujourd'hui</date>
+                <job lang="en">My current job</job>
+                <job lang="fr">Mon poste actuel</job>
+                <society crossref="Society/MyCompany"></society>
+                <missions lang="en">
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</item>
+                    <item>Suspendisse nec mauris eu orci dapibus mollis ac ac mi.</item>
+                </missions>
+                <missions lang="fr">
+                    <item>Donec gravida enim viverra tempor dignissim.</item>
+                    <item>Sed a eros at mauris placerat adipiscing.</item>
+                </missions>
+            </FirstExperience>
+            <SecondExperience>
+                <date>Sept - Dec 2006</date>
+                <job lang="en">My previsous job</job>
+                <job lang="fr">Mon poste précédent</job>
+                <society crossref="Society/MyCompany"></society>
+                <missions lang="en">
+                    <item>Suspendisse et arcu eget est feugiat elementum.</item>
+                </missions>
+                <missions lang="fr">
+                    <item>Praesent sagittis risus non libero rhoncus consectetur.</item>
+                </missions>
+            </SecondExperience>
+        </items>
+    </experiences>
+    <skills anchor="skills">
+        <AnchorTitle lang="en">Skills</AnchorTitle>
+        <AnchorTitle lang="fr">Compétences</AnchorTitle>
+        <items>
+            <Functional>
+                <title lang="en">Skills</title>
+                <title lang="fr">Compétences</title>
+                <lines>
+                    <sucess percentage="90" class="success" striped="true">
+                        <label lang="en">Skills List</label>
+                        <label lang="fr">Liste de Compétences</label>
+                    </sucess>
+                    <info percentage="40" class="info" striped="false">
+                        <label>Label</label>
+                    </info>
+                    <warning percentage="20" class="warning" striped="false">
+                        <label>Label</label>
+                    </warning>
+                </lines>
+            </Functional>
+            <OtherSkill>
+                <title lang="en">One other</title>
+                <title lang="fr">Une autre</title>
+                <lines>
+                    <sucess percentage="90" class="success" striped="true">
+                        <label lang="en">Skills List</label>
+                        <label lang="fr">Liste de Compétences</label>
+                    </sucess>
+                    <info percentage="40" class="info" striped="false">
+                        <label>Label</label>
+                    </info>
+                    <warning percentage="20" class="warning" striped="false">
+                        <label>Label</label>
+                    </warning>
+                </lines>
+            </OtherSkill>
+        </items>
+    </skills>
+    <educations anchor="educations">
+        <AnchorTitle lang="en">Educations</AnchorTitle>
+        <AnchorTitle lang="fr">Formations</AnchorTitle>
+        <items>
+            <University>
+                <date>2002 - 2005</date>
+                <education lang="en">My diploma in my university</education>
+                <education lang="fr">Mon diplôme dans mon université</education>
+                <descriptions lang="en">
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor ipsum. Nullam venenatis sem.</item>
+                </descriptions>
+                <descriptions lang="fr">
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim imperdiet consectetur. Praesent scelerisque neque.</item>
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
+                </descriptions>
+            </University>
+            <HighSchool>
+                <date lang="en">June 2002</date>
+                <date lang="fr">Juin 2002</date>
+                <education lang="en">My diploma in my high school</education>
+                <education lang="fr">Mon diplôme dans mon lycée</education>
+                <descriptions lang="en">
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim imperdiet consectetur. Praesent scelerisque neque.</item>
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
+                </descriptions>
+                <descriptions lang="fr">
+                    <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor ipsum. Nullam venenatis sem.</item>
+                </descriptions>
+            </HighSchool>
+        </items>
+    </educations>
+    <languageSkills anchor="languageSkills">
+        <AnchorTitle lang="en">Languages</AnchorTitle>
+        <AnchorTitle lang="fr">Langues</AnchorTitle>
+        <items>
+            <French>
+                <title lang="en">French</title>
+                <title lang="fr">Français</title>
+                <description lang="en">Level of the skill.</description>
+                <description lang="fr">Niveau</description>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/Flag-of-France.png</icon>
+            </French>
+            <English>
+                <title lang="en">English</title>
+                <title lang="fr">Anglais</title>
+                <description lang="en">Level of the skill.</description>
+                <description lang="fr">Niveau</description>
+                <icon>bundles/nimbusletruandcurriculumvitae/img/Flag-of-United-Kingdom.png</icon>
+            </English>
+        </items>
+    </languageSkills>
+    <miscellaneous anchor="miscellaneous">
+        <AnchorTitle lang="en">Miscellaneous</AnchorTitle>
+        <AnchorTitle lang="fr">Divers</AnchorTitle>
+        <items>
+            <Practical>
+                <title lang="en">Practices</title>
+                <title lang="fr">Pratiques</title>
+                <miscellaneous lang="en">My practices</miscellaneous>
+                <miscellaneous lang="fr">Mes pratiques</miscellaneous>
+                <description lang="fr">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque, est vitae mattis faucibus, felis sapien lobortis augue.</description>
+            </Practical>
+        </items>
+    </miscellaneous>
+</CurriculumVitae>
+<Society>
+    <MyCompany>
+        <name>MyCompany</name>
+        <address>The address of the company</address>
+        <siteurl>http://www.MyCompany.com</siteurl>
+    </MyCompany>
+</Society>
+</xml>

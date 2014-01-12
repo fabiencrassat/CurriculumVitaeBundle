@@ -1,0 +1,7 @@
+parameters:
+#    nimbusletruand_curriculumvitae.example.class: Nimbusletruand\CurriculumVitaeBundle
+
+services:
+#    nimbusletruand_curriculumvitae.example:
+#        class: %nimbusletruand_curriculumvitae.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
