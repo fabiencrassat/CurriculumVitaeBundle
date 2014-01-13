@@ -47,8 +47,7 @@ CV {{ cvxmlfile|title }}
     <div id="CurriculumVitae" class="container">
         <div id="{{ anchors.identity.href }}" class="media">
             <span class="pull-left">
-                <img class="img-circle pull-right" src="" alt="Image of me"/>
-                <img class="img-circle pull-right" src="" alt="Image of me"/>
+                <img class="img-circle pull-right" src="{{ asset('' ~ identity.myself.Picture) }}" alt="{{ identity.myself.Name }}"/>
             </span>
             <div class="media-body">
                 <h1 class="media-heading">{{ identity.myself.Name }}</h1>

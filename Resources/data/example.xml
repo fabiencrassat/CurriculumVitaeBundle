@@ -14,6 +14,7 @@
                 <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
                 <BrithPlace lang="fr">Paris</BrithPlace>
                 <Nationality lang="en">French Citizenship</Nationality>
+                <Picture>bundles/nimbusletruandcurriculumvitae/img/example.png</Picture>
             </myself>
             <address>
                 <Street>Street</Street>
