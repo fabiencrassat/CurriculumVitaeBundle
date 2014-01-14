@@ -19,6 +19,7 @@ CV {{ cvxmlfile|title }}
             <span class="icon-bar"></span>
           </button>
           <a href="#" class="brand">Curriculum Vitae</a>
+          {% if languages|length > 1 %}
           <ul class="nav">
             <li class="dropdown">
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -31,6 +32,7 @@ CV {{ cvxmlfile|title }}
               </ul>
             </li>
           </ul>
+          {% endif %}
           <div class="nav-collapse collapse" style="height: 0px;">
             <ul class="nav">
               {% for item in anchors %}
@@ -45,25 +47,25 @@ CV {{ cvxmlfile|title }}
     </div>
 
     <div id="CurriculumVitae" class="container">
-        <div id="{{ anchors.identity.href }}" class="media">
+        <div id="{{ anchors.identity.href|default('') }}" class="media">
             <span class="pull-left">
-                <img class="img-circle pull-right" src="{{ asset('' ~ identity.myself.Picture) }}" alt="{{ identity.myself.Name }}"/>
+                <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
             </span>
             <div class="media-body">
-                <h1 class="media-heading">{{ identity.myself.Name }}</h1>
-                <p class="lead">{{ lookingFor.experience.job }}</p>
-                <div class="label label-info">{{ lookingFor.presentation }}</div>
+                <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
+                <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
+                <div class="label label-info">{{ lookingFor.presentation|default('') }}</div>
             </div>
         </div>
 
         <div class="row">
             <div class="span6">
             <section class="well well-large">
-                <h3>{{ anchors.identity.title }}</h3>
+                <h3>{{ anchors.identity.title|default('') }}</h3>
                 <address>
-                <i class="icon-map-marker"></i> <a target="_blank" href="{{ identity.address.GoogleMap }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+                <i class="icon-map-marker"></i> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City|default('') }}, {{ identity.address.Country|default('') }}</a>
                 {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
-                <br><abbr title="Email"><i class="icon-envelope"></i></abbr> <a href="mailto:{{ identity.contact.Email }}">{{ identity.contact.Email }}</a>
+                <br><abbr title="Email"><i class="icon-envelope"></i></abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
                 {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
                     <br> Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}
                 {% endif %}
@@ -79,14 +81,14 @@ CV {{ cvxmlfile|title }}
                 {% if identity.social.Military is defined %}
                     <br>{{ identity.social.Military }}
                 {% endif %}
-                <br>{{ identity.social.DriveLicences }}
+                <br>{{ identity.social.DriveLicences|default('') }}
                 </address>
             </section>
             </div>
 
             <div class="span6">
-            <section id="{{ anchors.followMe.href }}" class="well well-large">
-                <h3>{{ anchors.followMe.title }}</h3>
+            <section id="{{ anchors.followMe.href|default('') }}" class="well well-large">
+                <h3>{{ anchors.followMe.title|default('') }}</h3>
                 {% for line in followMe %}
                     <a href="{{ line.url }}" class="linkimage" target="_blank">
                         <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
@@ -96,8 +98,8 @@ CV {{ cvxmlfile|title }}
             </div>
         </div>
 
-        <section id="{{ anchors.experiences.href }}" class="well well-large">
-            <h3>{{ anchors.experiences.title }}</h3>
+        <section id="{{ anchors.experiences.href|default('') }}" class="well well-large">
+            <h3>{{ anchors.experiences.title|default('') }}</h3>
             <dl class="timeline">
             {% for key, line in experiences %}
                 <dt><span class="label">{{ line.date }}</span></dt>
@@ -112,8 +114,8 @@ CV {{ cvxmlfile|title }}
             </dl>
         </section>
         
-        <section id="{{ anchors.skills.href }}" class="well well-large">
-            <h3>{{ anchors.skills.title }}</h3>
+        <section id="{{ anchors.skills.href|default('') }}" class="well well-large">
+            <h3>{{ anchors.skills.title|default('') }}</h3>
             <dl class="dl-horizontal">
             {% for categories in skills %}
                 <dt>{{ categories.title }}</dt>
@@ -129,8 +131,8 @@ CV {{ cvxmlfile|title }}
             </dl>
         </section>
 
-        <section id="{{ anchors.educations.href }}" class="well well-large">
-            <h3>{{ anchors.educations.title }}</h3>
+        <section id="{{ anchors.educations.href|default('') }}" class="well well-large">
+            <h3>{{ anchors.educations.title|default('') }}</h3>
             <dl class="timeline">
             {% for line in educations %}
                 <dt><span class="label">{{ line.date }}</span></dt>
@@ -144,8 +146,8 @@ CV {{ cvxmlfile|title }}
             </dl>
         </section>
         
-        <section id="{{ anchors.languageSkills.href }}" class="well well-large">
-            <h3>{{ anchors.languageSkills.title }}</h3>
+        <section id="{{ anchors.languageSkills.href|default('') }}" class="well well-large">
+            <h3>{{ anchors.languageSkills.title|default('') }}</h3>
             <div class="row">
             {% for line in languageSkills %}
             <div class="span5 {% if loop.index == 1 %} offset1 {% endif %}">
@@ -161,8 +163,8 @@ CV {{ cvxmlfile|title }}
             </div>
         </section>
 
-        <section id="{{ anchors.miscellaneous.href }}" class="well well-large">
-            <h3>{{ anchors.miscellaneous.title }}</h3>
+        <section id="{{ anchors.miscellaneous.href|default('') }}" class="well well-large">
+            <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
             <dl class="dl-horizontal">
             {% for line in miscellaneous %}
                 <dt>{{ line.title }}</dt>

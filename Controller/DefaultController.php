@@ -24,9 +24,14 @@ class DefaultController extends Controller
 
         $this->ReadCVXml = new CurriculumVitae($pathToFile, $this->Lang);
 
+        $exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
+        if (!array_key_exists($_locale, $exposedLanguages)) {
+            throw $this->createNotFoundException('There is no curriculum vitae defined for this language');
+        }
+
         return $this->render('NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig', array(
             'cvxmlfile'         => $this->FileToLoad,
-            'languages'         => $this->ReadCVXml->getDropDownLanguages(),
+            'languages'         => $exposedLanguages,
             'anchors'           => $this->ReadCVXml->getAnchors(),
             'identity'          => $this->ReadCVXml->getIdentity(),
             'followMe'          => $this->ReadCVXml->getFollowMe(),
