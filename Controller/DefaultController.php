@@ -17,7 +17,12 @@ class DefaultController extends Controller
         $this->FileToLoad = (string) $cvxmlfile;
         $this->Lang = (string) $_locale;
 
-        $this->ReadCVXml = new CurriculumVitae($this->FileToLoad, $this->Lang);
+        $pathToFile = __DIR__.'/../Resources/data/'.$this->FileToLoad.'.xml';
+        if (!is_file($pathToFile)) {
+            throw $this->createNotFoundException('There is no curriculum vitae file defined for '.$this->FileToLoad.'.');
+        }
+
+        $this->ReadCVXml = new CurriculumVitae($pathToFile, $this->Lang);
 
         return $this->render('NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig', array(
             'cvxmlfile'         => $this->FileToLoad,

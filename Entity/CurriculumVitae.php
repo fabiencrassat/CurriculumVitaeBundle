@@ -10,10 +10,10 @@ class CurriculumVitae
     private $Lang;
     private $nMaxRecursiveDepth = 8; 
 
-    public function __construct($file = 'example', $Lang = 'en')
+    public function __construct($pathToFile, $Lang = 'en')
     {
         $this->Lang = $Lang;
-        $this->CV = $this->getXmlCurriculumVitae($file);
+        $this->CV = $this->getXmlCurriculumVitae($pathToFile);
     }
 
     public function getDropDownLanguages()
@@ -101,31 +101,35 @@ class CurriculumVitae
         $bContinue = true;
         $attr = array();
 
-        // Specific Attributes
-        foreach($attributes as $attributeKey => $attributeValue) {
-            $valuetemp = trim($attributeValue);
-            if ($attributeKey == "lang") {
-                if($valuetemp <> $this->Lang) {
-                    $bContinue = false;
+        if ($depth == 1 && $key == "") {
+            throw new InvalidArgumentException("The curriculum vitae xml file is not valid");
+        } else {
+            // Specific Attributes
+            foreach($attributes as $attributeKey => $attributeValue) {
+                $valuetemp = trim($attributeValue);
+                if ($attributeKey == "lang") {
+                    if($valuetemp <> $this->Lang) {
+                        $bContinue = false;
+                        break;
+                    }
+                } elseif ($attributeKey == "crossref") {
+                    $CVCrossRef = $this->CV;
+                    $tabtemp = explode("/", $valuetemp);
+                    foreach ($tabtemp as $val) {
+                        $CVCrossRef = $CVCrossRef->{ $val };
+                    }
+                    $cr = $this->xml2array($CVCrossRef);
+                    if (count($cr) == 1) {
+                        $cr = implode("", $cr);
+                    }
+                    $arXML = array_merge($arXML, array($key => $cr));
                     break;
+                } else {
+                    $attr[$attributeKey] = $valuetemp;
                 }
-            } elseif ($attributeKey == "crossref") {
-                $CVCrossRef = $this->CV;
-                $tabtemp = explode("/", $valuetemp);
-                foreach ($tabtemp as $val) {
-                    $CVCrossRef = $CVCrossRef->{ $val };
-                }
-                $cr = $this->xml2array($CVCrossRef);
-                if (count($cr) == 1) {
-                    $cr = implode("", $cr);
-                }
-                $arXML = array_merge($arXML, array($key => $cr));
-                break;
-            } else {
-                $attr[$attributeKey] = $valuetemp;
             }
         }
-        
+
         if($bContinue) {
 
             if ($key == 'BirthDay') {
@@ -184,18 +188,12 @@ class CurriculumVitae
         }
     }
 
-    private function getXmlCurriculumVitae($file)
+    private function getXmlCurriculumVitae($pathToFile)
     {
-        $pathToFile = __DIR__.'/../Resources/data/'.$file.'.xml';
-        if (!is_file($pathToFile)) {
-            throw new InvalidArgumentException("The file " . $pathToFile . " does not exist.");
-        } else {
-            //var_dump($pathToFile);
+        if (is_null($pathToFile) || !is_file($pathToFile)) {
+            throw new InvalidArgumentException("The path " . $pathToFile . " is not a valid path to file.");
         }
-        
-        $XML = simplexml_load_file($pathToFile);
-
-        return $XML;
+        return simplexml_load_file($pathToFile);
     }
 
     private function getAge($birthday, $dateFormat)
