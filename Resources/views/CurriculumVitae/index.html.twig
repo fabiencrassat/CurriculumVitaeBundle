@@ -63,7 +63,9 @@ CV {{ cvxmlfile|title }}
             <section class="well well-large">
                 <h3>{{ anchors.identity.title|default('') }}</h3>
                 <address>
-                <i class="icon-map-marker"></i> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City|default('') }}, {{ identity.address.Country|default('') }}</a>
+                {% if identity.address.City is defined and identity.address.Country is defined %}
+                <i class="icon-map-marker"></i> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+                {% endif %}
                 {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
                 <br><abbr title="Email"><i class="icon-envelope"></i></abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
                 {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
