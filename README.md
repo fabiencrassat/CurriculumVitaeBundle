@@ -100,3 +100,9 @@ Go to your site and add /cv, for example:
 ``` web
 http://localhost/app_dev.php/cv
 ```
+
+## Documentation
+
+The bulk of the documentation is stored in the `Resources/doc/index.md` file in this bundle:
+
+- [Custom your curriculum vitae](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
