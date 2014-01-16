@@ -1,5 +1,6 @@
 parameters:
 #    nimbusletruand_curriculumvitae.example.class: Nimbusletruand\CurriculumVitaeBundle
+   nimbusletruand_curriculumvitae.path_to_cv: ../Resources/data/
 
 services:
 #    nimbusletruand_curriculumvitae.example:
