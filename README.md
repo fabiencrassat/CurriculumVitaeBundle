@@ -1,4 +1,4 @@
-#nimbusletruand / Curriculumvitae Bundle
+#Nimbusletruand / Curriculumvitae Bundle
 
 Welcome to the Curriculumvitae bundle of nimbusletruand - an experimental CV display
 with [Symfony2][1] application that you can use to display your curriculum vitae.
@@ -105,4 +105,4 @@ http://localhost/app_dev.php/cv
 
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
-- [Custom your curriculum vitae](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/index.rst)
+- [Custom your curriculum vitae](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
