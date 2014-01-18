@@ -1,12 +1,12 @@
 <?php
 namespace Nimbusletruand\CurriculumVitaeBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 use Nimbusletruand\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
-class DefaultController extends Controller
+class DefaultController extends ContainerAware
 {
     private $Lang;
     private $ReadCVXml;
@@ -29,7 +29,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('There is no curriculum vitae defined for this language');
         }
 
-        return $this->render('NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig', array(
+        return $this->container->get('templating')->renderResponse('NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig', array(
             'cvxmlfile'         => $this->FileToLoad,
             'languages'         => $exposedLanguages,
             'anchors'           => $this->ReadCVXml->getAnchors(),
