@@ -119,9 +119,9 @@ class CurriculumVitae
                         $CVCrossRef = $CVCrossRef->{ $val };
                     }
                     $cr = $this->xml2array($CVCrossRef);
-                    if (count($cr) == 1) {
-                        $cr = implode("", $cr);
-                    }
+                    // if (count($cr) == 1) {
+                    //     $cr = implode("", $cr);
+                    // }
                     $arXML = array_merge($arXML, array($key => $cr));
                     break;
                 } else {
@@ -211,8 +211,9 @@ class CurriculumVitae
                 if ($day > $today['day'])
                     $age--;
             }
-            else
+            else {
                 $age--;
+            }
         };
 
         return $age;

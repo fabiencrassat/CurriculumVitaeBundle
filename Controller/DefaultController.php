@@ -3,6 +3,7 @@ namespace Nimbusletruand\CurriculumVitaeBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Nimbusletruand\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
@@ -19,14 +20,14 @@ class DefaultController extends ContainerAware
 
         $pathToFile = __DIR__.'/'.$this->container->getParameter('nimbusletruand_curriculumvitae.path_to_cv').$this->FileToLoad.'.xml';
         if (!is_file($pathToFile)) {
-            throw $this->createNotFoundException('There is no curriculum vitae file defined for '.$this->FileToLoad.'.');
+            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->FileToLoad.'.');
         }
 
         $this->ReadCVXml = new CurriculumVitae($pathToFile, $this->Lang);
 
         $exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
         if (!array_key_exists($_locale, $exposedLanguages)) {
-            throw $this->createNotFoundException('There is no curriculum vitae defined for this language');
+            throw new NotFoundHttpException('There is no curriculum vitae defined for this language');
         }
 
         return $this->container->get('templating')->renderResponse('NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig', array(
