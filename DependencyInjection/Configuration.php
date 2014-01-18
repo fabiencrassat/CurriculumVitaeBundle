@@ -18,11 +18,19 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('nimbusletruand_curriculumvitae');
+        $rootNode = $treeBuilder->root('nimbusletruand_curriculum_vitae');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('path_to_cv')
+                    ->info('Defines the path where the bundle grabs the curriculum vitae xml file')
+                    ->example('@AcmeHelloBundle/Resources/curriculumvitae/')
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
