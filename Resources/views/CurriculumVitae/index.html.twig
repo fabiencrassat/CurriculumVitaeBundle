@@ -27,7 +27,7 @@ CV {{ cvxmlfile|title }}
               </a>
               <ul class="dropdown-menu">
                 {% for key, language in languages %}
-                <li><a href="{{ path('NimbusletruandCurriculumVitaeBundle', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
+                <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
                 {% endfor %}
               </ul>
             </li>
