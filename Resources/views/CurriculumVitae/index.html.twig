@@ -10,178 +10,145 @@ CV {{ cvxmlfile|title }}
 
 {% block body %}
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#" class="brand">Curriculum Vitae</a>
-          {% if languages|length > 1 %}
-          <ul class="nav">
-            <li class="dropdown">
-              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-              {{ 'Nimbusletruand_curriculumvitae.language'|trans }} <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                {% for key, language in languages %}
-                <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-          </ul>
-          {% endif %}
-          <div class="nav-collapse collapse" style="height: 0px;">
-            <ul class="nav">
-              {% for item in anchors %}
-              <li class="">
-                <a href="#{{ item.href }}">{{ item.title }}</a>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
+<div>
+    <a href="#">Curriculum Vitae</a>
+    {% if languages|length > 1 %}
+    <ul><li>
+        <a href="#">{{ 'Nimbusletruand_curriculumvitae.language'|trans }}</a>
+        <ul>
+            {% for key, language in languages %}
+            <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
+            {% endfor %}
+        </ul>
+    </li></ul>
+    {% endif %}
+    <div><ul>
+        {% for item in anchors %}
+        <li><a href="#{{ item.href }}">{{ item.title }}</a></li>
+        {% endfor %}
+    </ul></div>
+</div>
+
+<div id="CurriculumVitae">
+    <div id="{{ anchors.identity.href|default('') }}">
+        <span>
+            <img src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+        </span>
+        <div>
+            <h1>{{ identity.myself.Name|default('') }}</h1>
+            <p>{{ lookingFor.experience.job|default('') }}</p>
+            <div>{{ lookingFor.presentation|default('') }}</div>
         </div>
-      </div>
     </div>
 
-    <div id="CurriculumVitae" class="container">
-        <div id="{{ anchors.identity.href|default('') }}" class="media">
-            <span class="pull-left">
-                <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
-            </span>
-            <div class="media-body">
-                <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
-                <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
-                <div class="label label-info">{{ lookingFor.presentation|default('') }}</div>
-            </div>
-        </div>
+    <div>
+        <h3>{{ anchors.identity.title|default('') }}</h3>
+        <address>
+            {% if identity.address.City is defined and identity.address.Country is defined %}
+            <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% endif %}
+            {# <div>M: {{ identity.contact.Mobile }}</div> #}
+            <div><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a></div>
+            {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
+            <div>Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}</div>
+            {% endif %}
+            {% if identity.myself.Age is defined %}
+            <div>Age: {{ identity.myself.Age }}</div>
+            {% endif %}
+            {% if identity.myself.Nationality is defined %}
+            <div>{{ identity.myself.Nationality }}</div>
+            {% endif %}
+            {% if identity.social.Marital is defined %}
+            <div>{{ identity.social.Marital }}</div>
+            {% endif %}
+            {% if identity.social.Military is defined %}
+            <div>{{ identity.social.Military }}</div>
+            {% endif %}
+            <div>{{ identity.social.DriveLicences|default('') }}</div>
+        </address>
+    </div>
 
-        <div class="row">
-            <div class="span6">
-            <section class="well well-large">
-                <h3>{{ anchors.identity.title|default('') }}</h3>
-                <address>
-                {% if identity.address.City is defined and identity.address.Country is defined %}
-                <i class="icon-map-marker"></i> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
-                {% endif %}
-                {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
-                <br><abbr title="Email"><i class="icon-envelope"></i></abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
-                {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
-                    <br> Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}
-                {% endif %}
-                {% if identity.myself.Age is defined %}
-                    <br>Age: {{ identity.myself.Age }}
-                {% endif %}
-                {% if identity.myself.Nationality is defined %}
-                    <br>{{ identity.myself.Nationality }}
-                {% endif %}
-                {% if identity.social.Marital is defined %}
-                    <br>{{ identity.social.Marital }}
-                {% endif %}
-                {% if identity.social.Military is defined %}
-                    <br>{{ identity.social.Military }}
-                {% endif %}
-                <br>{{ identity.social.DriveLicences|default('') }}
-                </address>
-            </section>
-            </div>
+    <div id="{{ anchors.followMe.href|default('') }}">
+        <h3>{{ anchors.followMe.title|default('') }}</h3>
+        {% for line in followMe %}
+        <a href="{{ line.url }}" target="_blank">
+            <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+        </a>
+        {% endfor %}
+    </div>
 
-            <div class="span6">
-            <section id="{{ anchors.followMe.href|default('') }}" class="well well-large">
-                <h3>{{ anchors.followMe.title|default('') }}</h3>
-                {% for line in followMe %}
-                    <a href="{{ line.url }}" class="linkimage" target="_blank">
-                        <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
-                    </a>
+    <div id="{{ anchors.experiences.href|default('') }}">
+        <h3>{{ anchors.experiences.title|default('') }}</h3>
+        <dl>
+            {% for line in experiences %}
+            <dt>{{ line.date }}</dt>
+            <dd>
+                <strong>{{ line.job }}</strong>
+                <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+                {% for item in line.missions.item %}
+                <br><small>- {{ item }}</small>
                 {% endfor %}
-            </section>
-            </div>
-        </div>
-
-        <section id="{{ anchors.experiences.href|default('') }}" class="well well-large">
-            <h3>{{ anchors.experiences.title|default('') }}</h3>
-            <dl class="timeline">
-            {% for key, line in experiences %}
-                <dt><span class="label">{{ line.date }}</span></dt>
-                <dd>
-                    <strong>{{ line.job }}</strong>
-                    <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
-                    {% for item in line.missions.item %}
-                    <br><small>- {{ item }}</small>
-                    {% endfor %}
-                </dd>
+            </dd>
             {% endfor %}
-            </dl>
-        </section>
-        
-        <section id="{{ anchors.skills.href|default('') }}" class="well well-large">
-            <h3>{{ anchors.skills.title|default('') }}</h3>
-            <dl class="dl-horizontal">
+        </dl>
+    </div>
+    
+    <div id="{{ anchors.skills.href|default('') }}">
+        <h3>{{ anchors.skills.title|default('') }}</h3>
+        <dl>
             {% for categories in skills %}
-                <dt>{{ categories.title }}</dt>
-                <dd>
+            <dt>{{ categories.title }}</dt>
+            <dd>
                 {% for key, line in categories.lines %}
-                {{ line.label }}
-                <div class="progress {% if line.striped == 'true' %} progress-striped {% endif %} progress-{{ line.class }}">
-                    <div class="bar" style="width:{{ line.percentage }}%;"></div>
+                <div>{% for i in 1..line.percentage/4 %}
+                {% if line.striped == 'true' %}|{% else %}.{% endif %}
+                {% endfor %} {{ line.label }} ({{ line.class }})
                 </div>
                 {% endfor %}
-                </dd>
+            </dd>
             {% endfor %}
-            </dl>
-        </section>
-
-        <section id="{{ anchors.educations.href|default('') }}" class="well well-large">
-            <h3>{{ anchors.educations.title|default('') }}</h3>
-            <dl class="timeline">
-            {% for line in educations %}
-                <dt><span class="label">{{ line.date }}</span></dt>
-                <dd>
-                    {{ line.education }}
-                    {% for item in line.descriptions.item %}
-                    <br><small>- {{ item }}</small>
-                    {% endfor %}
-                </dd>
-            {% endfor %}
-            </dl>
-        </section>
-        
-        <section id="{{ anchors.languageSkills.href|default('') }}" class="well well-large">
-            <h3>{{ anchors.languageSkills.title|default('') }}</h3>
-            <div class="row">
-            {% for line in languageSkills %}
-            <div class="span5 {% if loop.index == 1 %} offset1 {% endif %}">
-                <div class="pull-left">
-                    <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ line.title }}</h4>
-                    {{ line.description }}
-                </div>
-            </div>
-            {% endfor %}
-            </div>
-        </section>
-
-        <section id="{{ anchors.miscellaneous.href|default('') }}" class="well well-large">
-            <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
-            <dl class="dl-horizontal">
-            {% for line in miscellaneous %}
-                <dt>{{ line.title }}</dt>
-                <dd>
-                    {{ line.miscellaneous }}
-                    {% if line.description is defined %}
-                    <br><small>{{ line.description }}</small>
-                    {% endif %}
-                </dd>
-            {% endfor %}
-            </dl>
-        </section>
+        </dl>
     </div>
 
-    {# Top button #}
-    <a href="#" class="btn btn-mini btn-inverse" style="position: fixed; bottom: 2em; right: 0;">{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}</a>
+    <div id="{{ anchors.educations.href|default('') }}">
+        <h3>{{ anchors.educations.title|default('') }}</h3>
+        <dl>
+            {% for line in educations %}
+            <dt>{{ line.date }}</dt>
+            <dd>
+                {{ line.education }}
+                {% for item in line.descriptions.item %}
+                <br><small>- {{ item }}</small>
+                {% endfor %}
+            </dd>
+            {% endfor %}
+        </dl>
+    </div>
+    
+    <div id="{{ anchors.languageSkills.href|default('') }}">
+        <h3>{{ anchors.languageSkills.title|default('') }}</h3>
+        {% for line in languageSkills %}
+        <div>
+        <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
+        <strong>{{ line.title }}</strong> {{ line.description }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="{{ anchors.miscellaneous.href|default('') }}">
+        <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
+        <dl>
+            {% for line in miscellaneous %}
+            <dt>{{ line.title }}</dt>
+            <dd>
+                {{ line.miscellaneous }}
+                {% if line.description is defined %}
+                <br><small>{{ line.description }}</small>
+                {% endif %}
+            </dd>
+            {% endfor %}
+        </dl>
+    </div>
+</div>
 
 {% endblock %}
