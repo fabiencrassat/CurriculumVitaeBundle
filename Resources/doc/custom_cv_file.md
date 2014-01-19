@@ -77,6 +77,34 @@ The following example allow to use the english and the french language in the ro
 </lang>
 ```
 
+### Identity tag
+
+The identity tag allows to define you. It is with different parts with inside some other tag.
+
+#### Myself tag
+Myself tag is to present you.
+``` xml
+<myself>
+    <Name>First Name Last Name</Name>
+    <BirthDay format="mm/dd/yy">01/01/1975</BirthDay>
+    <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
+    <BrithPlace lang="fr">Paris</BrithPlace>
+    <Nationality lang="en">French Citizenship</Nationality>
+    <Picture>bundles/nimbusletruandcurriculumvitae/img/example.png</Picture>
+</myself>
+```
+At this moment, the bundle have some restriction:
+*   ```BirtDay``` tag accept only the format "mm/dd/yy"
+*   ```Picture``` tag is the link to the filesystem of ```web/``` directory,  
+    so it is necessary to expose your file inside ```Resources/public/img``` of your bundle  
+    and launch the ``` php app/console assets:install ``` command
+
+#### Address tag
+
+#### contact tag
+
+#### Social tag
+
 ### Society tag
 
 The Society tag allows to define each society you have worked (are working).
