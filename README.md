@@ -106,3 +106,4 @@ http://localhost/app_dev.php/cv
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
 - [Custom your curriculum vitae](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
+- [Expose you custom Curriculum Vitae Files](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)

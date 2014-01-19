@@ -107,7 +107,7 @@ CV {{ cvxmlfile|title }}
                 <dt><span class="label">{{ line.date }}</span></dt>
                 <dd>
                     <strong>{{ line.job }}</strong>
-                    <br><a href="{{ line.society.siteurl }}">{{ line.society.name }}</a>, <small>{{ line.society.address }}</small>
+                    <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
                     {% for item in line.missions.item %}
                     <br><small>- {{ item }}</small>
                     {% endfor %}
