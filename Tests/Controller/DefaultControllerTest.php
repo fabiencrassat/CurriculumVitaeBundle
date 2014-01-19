@@ -10,6 +10,9 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $crawler = $client->request('GET', '/cv');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
+
         $crawler = $client->request('GET', '/cv/example');
 		$this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
 
