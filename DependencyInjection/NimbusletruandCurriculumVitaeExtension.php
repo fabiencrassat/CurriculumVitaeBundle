@@ -25,6 +25,7 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        // Path to Curriculum Vitae Directory
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
         if(isset($config['path_to_cv'])) {
@@ -33,5 +34,13 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
             $path_to_cv = $baseDir.'/../'.$container->getParameter('nimbusletruand_curriculumvitae.path_to_cv');
         }
         $container->setParameter('nimbusletruand_curriculumvitae.path_to_cv',  $path_to_cv);
+
+        // Default Curriculum Vitae
+        if(isset($config['custo_default_cv'])) {
+            $container->setParameter(
+                'nimbusletruand_curriculumvitae.custo_default_cv',
+                $config['custo_default_cv']
+            );
+        }
     }
 }

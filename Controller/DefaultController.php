@@ -15,6 +15,12 @@ class DefaultController extends ContainerAware
 
     public function indexAction($cvxmlfile, $_locale)
     {
+        if ($this->container->getParameter('nimbusletruand_curriculumvitae.default_cv') == $cvxmlfile) {
+            $custo_default_cv = $this->container->getParameter('nimbusletruand_curriculumvitae.custo_default_cv');
+            if(!is_null($custo_default_cv)) {
+                $cvxmlfile = $custo_default_cv;
+            }
+        }
         $this->FileToLoad = (string) $cvxmlfile;
         $this->Lang = (string) $_locale;
 

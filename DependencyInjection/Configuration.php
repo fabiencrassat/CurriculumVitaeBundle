@@ -29,6 +29,10 @@ class Configuration implements ConfigurationInterface
                     ->info('Defines the path where the bundle grabs the curriculum vitae xml file')
                     ->example('@AcmeHelloBundle/Resources/curriculumvitae/')
                 ->end()
+                ->scalarNode('custo_default_cv')
+                    ->info('Defines your default curriculum vitae')
+                    ->example('example')
+                ->end()
             ->end()
         ;
 
