@@ -42,5 +42,13 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
                 $config['custo_default_cv']
             );
         }
+
+        // Twig template of the Curriculum Vitae
+        if(isset($config['template'])) {
+            $container->setParameter(
+                'nimbusletruand_curriculumvitae.template',
+                $config['template']
+            );
+        }
     }
 }

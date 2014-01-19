@@ -36,19 +36,20 @@ class DefaultController extends ContainerAware
             throw new NotFoundHttpException('There is no curriculum vitae defined for this language');
         }
 
-        return $this->container->get('templating')->renderResponse('NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig', array(
-            'cvxmlfile'         => $this->FileToLoad,
-            'languages'         => $exposedLanguages,
-            'anchors'           => $this->ReadCVXml->getAnchors(),
-            'identity'          => $this->ReadCVXml->getIdentity(),
-            'followMe'          => $this->ReadCVXml->getFollowMe(),
-            'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-            'experiences'       => $this->ReadCVXml->getExperiences(),
-            'skills'            => $this->ReadCVXml->getSkills(),
-            'educations'        => $this->ReadCVXml->getEducations(),
-            'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-            'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
-            'society'           => $this->ReadCVXml->getSociety()
+        return $this->container->get('templating')->renderResponse(
+            $this->container->getParameter('nimbusletruand_curriculumvitae.template'), array(
+                'cvxmlfile'         => $this->FileToLoad,
+                'languages'         => $exposedLanguages,
+                'anchors'           => $this->ReadCVXml->getAnchors(),
+                'identity'          => $this->ReadCVXml->getIdentity(),
+                'followMe'          => $this->ReadCVXml->getFollowMe(),
+                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
+                'experiences'       => $this->ReadCVXml->getExperiences(),
+                'skills'            => $this->ReadCVXml->getSkills(),
+                'educations'        => $this->ReadCVXml->getEducations(),
+                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
+                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
+                'society'           => $this->ReadCVXml->getSociety()
         ));
     }
 }

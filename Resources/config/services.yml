@@ -1,7 +1,10 @@
 parameters:
 #    nimbusletruand_curriculumvitae.example.class: Nimbusletruand\CurriculumVitaeBundle
+    # Parameters for the controler
     nimbusletruand_curriculumvitae.path_to_cv: "Nimbusletruand\CurriculumVitae\Resources\Data"
     nimbusletruand_curriculumvitae.default_cv: "example"
+    nimbusletruand_curriculumvitae.template:   "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig"
+    # Parameters to app/config/config.yml
     nimbusletruand_curriculumvitae.custo_default_cv: ~
 
 services:

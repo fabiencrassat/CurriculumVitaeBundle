@@ -33,6 +33,10 @@ class Configuration implements ConfigurationInterface
                     ->info('Defines your default curriculum vitae')
                     ->example('example')
                 ->end()
+                ->scalarNode('template')
+                    ->info('Defines your own twig template for you curriculum vitae')
+                    ->example('AcmeHelloBundle:CurriculumVitae:index.html.twig')
+                ->end()
             ->end()
         ;
 
