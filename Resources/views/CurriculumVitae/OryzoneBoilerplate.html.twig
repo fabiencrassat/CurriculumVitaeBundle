@@ -1,0 +1,247 @@
+{# Nbs/Bundle/CVBundle/Resources/views/Default/index.html.twig #}
+
+{% extends "OryzoneBoilerplateBundle::html5.html.twig" %}
+
+{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+
+{% block head_title %}CV {{ cvxmlfile|title }}{% endblock %}
+
+{% block head_css %}
+{{ parent() }}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{% block body_css_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css{% endblock %}">
+<script>window.bootstrap || document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}{# {% stylesheet 'components/bootstrap/bootstrap.min.css' %}{{ asset_url }}{% endstylesheet %} #}/bundles/nbscv/css/bootstrap.min.css{% endblock %}">')</script>
+<style type="text/css">
+body {
+    padding-top:70px;
+    background-color:#EEE
+}
+@media (min-width: 797px) and (max-width: 959px) { /* les tailles dépendent de la langue */
+body {
+    padding-top: 110px;
+}
+}
+@media (min-width: 768px) and (max-width: 796px) {
+body {
+    padding-top: 160px;
+}
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+.img-circle {
+    border-radius: 6px;
+}
+.panel-heading {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 700;
+}
+a.linkimage:hover {
+    text-decoration: none;
+}
+dl.timeline {
+    border-left: 2px solid #CCCCCC;
+}
+dl.timeline dt {
+    background: url("/bundles/nbscv/img/timeline_century_tick.gif") no-repeat scroll left center rgba(0, 0, 0, 0);
+    margin-bottom: 5px;
+    padding-left: 20px;
+}
+dl.timeline > dd {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+#languageSkills .col-md-5 {
+    padding-bottom: 20px;
+}
+</style>
+{% endblock %}
+
+{% block body_js %}
+{{ parent() }}
+<!-- Latest compiled and minified JavaScript -->
+<script src="{% block body_js_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js{% endblock %}"></script>
+<script>window.bootstrap || document.write('<script src="{% block body_js_bootstrap_offlineSrc %}{# {% javascripts 'components/bootstrap/bootstrap.min.js' %}{{ asset_url }}{% endjavascripts %} #}/bundles/nbscv/js/bootstrap.min.js{% endblock %}"><\/script>')</script>
+{% endblock %}
+
+{% block body_container_main %}
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Curriculum Vitae</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            {% if languages|length > 1 %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ 'Nimbusletruand_curriculumvitae.language'|trans }} <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="language">
+                    {% for key, language in languages %}
+                    <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endif %}
+            {% for item in anchors %}
+            <li class="">
+                <a href="#{{ item.href }}">{{ item.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
+
+<div id="CurriculumVitae" class="container">
+    <div id="{{ anchors.identity.href|default('') }}" class="media">
+        <span class="pull-left">
+            <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+        </span>
+        <div class="media-body">
+            <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
+            <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+        <section class="well">
+            <h3>{{ anchors.identity.title|default('') }}</h3>
+            <address>
+                {% if identity.address.City is defined and identity.address.Country is defined %}
+                <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+                {% endif %}
+                {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
+                <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
+                {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
+                    <br> Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}
+                {% endif %}
+                {% if identity.myself.Age is defined %}
+                    <br>Age: {{ identity.myself.Age }}
+                {% endif %}
+                {% if identity.myself.Nationality is defined %}
+                    <br>{{ identity.myself.Nationality }}
+                {% endif %}
+                {% if identity.social.Marital is defined %}
+                    <br>{{ identity.social.Marital }}
+                {% endif %}
+                {% if identity.social.Military is defined %}
+                    <br>{{ identity.social.Military }}
+                {% endif %}
+                <br>{{ identity.social.DriveLicences|default('') }}
+            </address>
+        </section>
+        </div>
+
+        <div class="col-md-6">
+        <section id="{{ anchors.followMe.href|default('') }}" class="well">
+            <h3>{{ anchors.followMe.title|default('') }}</h3>
+            {% for line in followMe %}
+                <a href="{{ line.url }}" class="linkimage" target="_blank">
+                    <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+                </a>
+            {% endfor %}
+        </section>
+        </div>
+    </div>
+
+    <section id="{{ anchors.experiences.href|default('') }}" class="well">
+        <h3>{{ anchors.experiences.title|default('') }}</h3>
+        <dl class="timeline">
+        {% for key, line in experiences %}
+            <dt><span class="label label-default">{{ line.date }}</span></dt>
+            <dd>
+                <strong>{{ line.job }}</strong>
+                <br><a href="{{ line.society.siteurl }}">{{ line.society.name }}</a>, <small>{{ line.society.address }}</small>
+                {% for item in line.missions.item %}
+                <br><small>- {{ item }}</small>
+                {% endfor %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </section>
+    
+    <section id="{{ anchors.skills.href|default('') }}" class="well">
+        <h3>{{ anchors.skills.title|default('') }}</h3>
+        <dl class="dl-horizontal">
+        {% for categories in skills %}
+            <dt>{{ categories.title }}</dt>
+            <dd>
+            {% for key, line in categories.lines %}
+            {{ line.label }}
+            <div class="progress {% if line.striped == 'true' %} progress-striped {% endif %}">
+                <div class="progress-bar progress-bar-{{ line.class }}"role="progressbar" aria-valuenow="{{ line.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ line.percentage }}%;">
+                    <span class="sr-only"></span >
+                </div>
+            </div>
+            {% endfor %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </section>
+
+    <section id="{{ anchors.educations.href|default('') }}" class="well">
+        <h3>{{ anchors.educations.title|default('') }}</h3>
+        <dl class="timeline">
+        {% for line in educations %}
+            <dt><span class="label label-default">{{ line.date }}</span></dt>
+            <dd>
+                {{ line.education }}
+                {% for item in line.descriptions.item %}
+                <br><small>- {{ item }}</small>
+                {% endfor %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </section>
+    
+    <section id="{{ anchors.languageSkills.href|default('') }}" class="well">
+        <h3>{{ anchors.languageSkills.title|default('') }}</h3>
+        <div class="row">
+        {% for line in languageSkills %}
+        <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %}">
+            <div class="pull-left">
+                <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ line.title }}</h4>
+                {{ line.description }}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </section>
+
+    <section id="{{ anchors.miscellaneous.href|default('') }}" class="well">
+        <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
+        <dl class="dl-horizontal">
+        {% for line in miscellaneous %}
+            <dt>{{ line.title }}</dt>
+            <dd>
+                {{ line.miscellaneous }}
+                {% if line.description is defined %}
+                <br><small>{{ line.description }}</small>
+                {% endif %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </section>
+</div>
+
+{# Top button #}
+<a href="#" alt="{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}" title="{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}" class="btn btn-default btn-sm" style="position: fixed; bottom: 2em; right: 0;">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+</a>
+{% endblock %}

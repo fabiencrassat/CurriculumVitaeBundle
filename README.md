@@ -107,3 +107,4 @@ The bulk of the documentation is stored in the `Resources/doc/` directory in thi
 
 - [Custom your curriculum vitae](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
 - [Expose you custom Curriculum Vitae Files](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
+- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
