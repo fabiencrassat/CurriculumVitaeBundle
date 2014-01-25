@@ -9,8 +9,7 @@
 {% block head_css %}
 {{ parent() }}
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{% block body_css_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css{% endblock %}">
-<script>window.bootstrap || document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}{# {% stylesheet 'components/bootstrap/bootstrap.min.css' %}{{ asset_url }}{% endstylesheet %} #}/bundles/nbscv/css/bootstrap.min.css{% endblock %}">')</script>
+<link rel="stylesheet" href="{% block body_css_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css{% endblock %}" id="body_css_bootstrap">
 <style type="text/css">
 body {
     padding-top:70px;
@@ -62,7 +61,7 @@ dl.timeline > dd {
 {{ parent() }}
 <!-- Latest compiled and minified JavaScript -->
 <script src="{% block body_js_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js{% endblock %}"></script>
-<script>window.bootstrap || document.write('<script src="{% block body_js_bootstrap_offlineSrc %}{# {% javascripts 'components/bootstrap/bootstrap.min.js' %}{{ asset_url }}{% endjavascripts %} #}/bundles/nbscv/js/bootstrap.min.js{% endblock %}"><\/script>')</script>
+<script>$.fn.button || (document.write('<script src="{% block body_js_bootstrap_offlineSrc %}/bundles/nbscv/js/bootstrap.min.js{% endblock %}"><\/script>');document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}/bundles/nbscv/css/bootstrap.min.css{% endblock %}" id="body_css_bootstrap_offlineSrc">');$('document').ready(function(){$('link#body_css_bootstrap_offlineSrc').appendTo('link#body_css_bootstrap')}))</script>
 {% endblock %}
 
 {% block body_container_main %}
