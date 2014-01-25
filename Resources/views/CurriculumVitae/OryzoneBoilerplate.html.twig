@@ -43,7 +43,7 @@ dl.timeline {
     border-left: 2px solid #CCCCCC;
 }
 dl.timeline dt {
-    background: url("/bundles/nbscv/img/timeline_century_tick.gif") no-repeat scroll left center rgba(0, 0, 0, 0);
+    background: url("/bundles/nimbusletruandcurriculumvitae/img/timeline_century_tick.gif") no-repeat scroll left center rgba(0, 0, 0, 0);
     margin-bottom: 5px;
     padding-left: 20px;
 }
@@ -61,7 +61,15 @@ dl.timeline > dd {
 {{ parent() }}
 <!-- Latest compiled and minified JavaScript -->
 <script src="{% block body_js_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js{% endblock %}"></script>
-<script>$.fn.button || (document.write('<script src="{% block body_js_bootstrap_offlineSrc %}/bundles/nbscv/js/bootstrap.min.js{% endblock %}"><\/script>');document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}/bundles/nbscv/css/bootstrap.min.css{% endblock %}" id="body_css_bootstrap_offlineSrc">');$('document').ready(function(){$('link#body_css_bootstrap_offlineSrc').appendTo('link#body_css_bootstrap')}))</script>
+<script>
+if ($.fn.button == undefined) {
+    document.write('<script type="text/javascript" src="{% block body_js_bootstrap_offlineSrc %}{% javascripts '@NimbusletruandCurriculumVitaeBundle/Resources/offline/js/bootstrap.min.js' %}{{ asset_url }}{% endjavascripts %}{% endblock %}"><\/script>');
+    document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}{% stylesheets '@NimbusletruandCurriculumVitaeBundle/Resources/offline/css/bootstrap.min.css' %}{{ asset_url }}{% endstylesheets %}{% endblock %}" id="body_css_bootstrap_offlineSrc">');
+    $('document').ready(function(){
+        $('link#body_css_bootstrap_offlineSrc').appendTo('link#body_css_bootstrap')
+    })
+};
+</script>
 {% endblock %}
 
 {% block body_container_main %}
