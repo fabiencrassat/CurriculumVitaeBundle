@@ -1,0 +1,43 @@
+body {
+    padding-top:70px;
+    background-color:#EEE
+}
+@media (min-width: 797px) and (max-width: 959px) { /* les tailles dépendent de la langue */
+body {
+    padding-top: 110px;
+}
+}
+@media (min-width: 768px) and (max-width: 796px) {
+body {
+    padding-top: 160px;
+}
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+.img-circle {
+    border-radius: 6px;
+}
+.panel-heading {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 700;
+}
+a.linkimage:hover {
+    text-decoration: none;
+}
+dl.timeline {
+    border-left: 2px solid #CCCCCC;
+}
+dl.timeline dt {
+    background: url("/bundles/nimbusletruandcurriculumvitae/img/timeline_century_tick.gif") no-repeat scroll left center rgba(0, 0, 0, 0);
+    margin-bottom: 5px;
+    padding-left: 20px;
+}
+dl.timeline > dd {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+#languageSkills .col-md-5 {
+    padding-bottom: 20px;
+}
