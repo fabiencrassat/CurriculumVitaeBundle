@@ -2,7 +2,7 @@ body {
     padding-top:70px;
     background-color:#EEE
 }
-@media (min-width: 797px) and (max-width: 959px) { /* les tailles dépendent de la langue */
+@media (min-width: 797px) and (max-width: 959px) { /* les tailles dependent de la langue */
 body {
     padding-top: 110px;
 }
