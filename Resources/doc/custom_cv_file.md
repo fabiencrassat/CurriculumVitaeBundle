@@ -93,7 +93,7 @@ Myself tag is to present you.
     <Picture>bundles/nimbusletruandcurriculumvitae/img/example.png</Picture>
 </myself>
 ```
-At this moment, the bundle have some restriction:
+And the bundle have some restriction:
 *   ```BirtDay``` tag accept only the format "mm/dd/yy"
 *   ```Picture``` tag is the link to the filesystem of ```web/``` directory,  
     so it is necessary to expose your file inside ```Resources/public/img``` of your bundle  
