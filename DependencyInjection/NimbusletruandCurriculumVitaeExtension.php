@@ -29,7 +29,7 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
         if(isset($config['path_to_cv'])) {
-            $path_to_cv = $baseDir.'/../../Src/'.$config['path_to_cv'];
+            $path_to_cv = $baseDir.'/../../src/'.$config['path_to_cv'];
         } else {
             $path_to_cv = $baseDir.'/../'.$container->getParameter('nimbusletruand_curriculumvitae.path_to_cv');
         }

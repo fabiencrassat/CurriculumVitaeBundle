@@ -15,7 +15,7 @@ For example:
 ``` yml
 # app/config/config.yml
 nimbusletruand_curriculum_vitae:
-    path_to_cv:       "Acme\Bundle\HelloBundle\Resources\curriculumvitae"
+    path_to_cv:       "Acme/Bundle/HelloBundle/Resources/curriculumvitae"
     custo_default_cv: "mycv"
     template:         "AcmeHelloBundle:CurriculumVitae:index.html.twig"
 ```

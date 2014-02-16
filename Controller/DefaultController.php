@@ -26,7 +26,7 @@ class DefaultController extends ContainerAware
 
         $pathToFile = $this->container->getParameter('nimbusletruand_curriculumvitae.path_to_cv').'/'.$this->FileToLoad.'.xml';
         if (!is_file($pathToFile)) {
-            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->FileToLoad.'.');
+            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->FileToLoad.' ('.$pathToFile.').');
         }
 
         $this->ReadCVXml = new CurriculumVitae($pathToFile, $this->Lang);
