@@ -21,7 +21,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $CV = new CurriculumVitae($pathToFile);
         $dropdown = $CV->getDropDownLanguages();
 
-        // vérifie que le fichier contient au moins la DropDown en!
+        // Check if the file contains at least the Dropdown 'en'!
+        // Test passed //
         $this->assertArrayHasKey('en', $dropdown);
     }
 
@@ -35,6 +36,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             $CV = new CurriculumVitae($pathToFile);
         }
 
+        // Test failed //
         catch (InvalidArgumentException $expected) {
             return;
         }
@@ -51,6 +53,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             $CV->getSociety();
         }
 
+        // Test failed //
         catch (InvalidArgumentException $expected) {
             return;
         }
@@ -67,6 +70,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             $CV->getSociety();
         }
 
+        // Test failed //
         catch (InvalidArgumentException $expected) {
             return;
         }
@@ -83,6 +87,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             $CV->getIdentity();
         }
 
+        // Test failed //
         catch (InvalidArgumentException $expected) {
             return;
         }
@@ -91,6 +96,13 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testGetAgeBeforeBirthday()
     {
         $pathToFile = __DIR__.'/../Resources/data/getAge.xml';
+        $CV = new CurriculumVitae($pathToFile);
+        $CV->getIdentity();
+    }
+    public function testGetAgeInBirthdayMonth()
+    {
+        // The month of birthday in the xml must be the month of today
+        $pathToFile = __DIR__.'/../Resources/data/getAgeInBirthdayMonth.xml';
         $CV = new CurriculumVitae($pathToFile);
         $CV->getIdentity();
     }

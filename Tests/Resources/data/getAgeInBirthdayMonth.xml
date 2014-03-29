@@ -6,7 +6,7 @@
     <identity>
         <items>
             <myself>
-                <BirthDay format="mm/dd/yy">13/32/1981</BirthDay>
+                <BirthDay format="mm/dd/yy">03/32/1981</BirthDay>
                 <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
             </myself>
         </items>
