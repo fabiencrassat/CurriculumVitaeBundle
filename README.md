@@ -1,6 +1,6 @@
-#Nimbusletruand / Curriculumvitae Bundle
+#Fabien Crassat / Curriculumvitae Bundle
 
-Welcome to the Curriculumvitae bundle of nimbusletruand - an experimental CV display
+Welcome to the Curriculumvitae bundle - an experimental CV display
 with [Symfony2][1] application that you can use to display your curriculum vitae.
 
 [1]: http://symfony.com
@@ -25,11 +25,11 @@ For more information about translations, check [Symfony documentation](http://sy
 
 ## Installation
 
-1. Install Nimbusletruand Curriculumvitae Bundle
+1. Install Curriculumvitae Bundle
 2. Enable the bundle
 3. Import the routing file
 
-### Step 1: Install Nimbusletruand Curriculumvitae Bundle
+### Step 1: Install Curriculumvitae Bundle
 
 Add the following dependency to your composer.json file:
 ``` json
@@ -105,7 +105,7 @@ http://localhost/app_dev.php/cv
 
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
-- [Custom your curriculum vitae](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
-- [Expose you custom Curriculum Vitae Files](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
-- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
-- [Understand the link beetween xml file and twig variables](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
+- [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
+- [Expose you custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
+- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
+- [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
