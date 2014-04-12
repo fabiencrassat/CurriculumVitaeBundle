@@ -41,3 +41,8 @@ dl.timeline > dd {
 #languageSkills .col-md-5 {
     padding-bottom: 20px;
 }
+@media print {
+    #topButton {
+        display:none;
+    }
+}
