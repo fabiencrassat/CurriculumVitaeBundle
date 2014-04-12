@@ -42,7 +42,10 @@ dl.timeline > dd {
     padding-bottom: 20px;
 }
 @media print {
+    .followMeImage {
+        display: block;
+    }
     #topButton {
-        display:none;
+        display: none;
     }
 }

@@ -125,9 +125,9 @@ if ($.fn.button == undefined) {
         <section id="{{ anchors.followMe.href|default('') }}" class="well">
             <h3>{{ anchors.followMe.title|default('') }}</h3>
             {% for line in followMe %}
-                <a href="{{ line.url }}" class="linkimage" target="_blank">
+                <span class="followMeImage"><a href="{{ line.url }}" class="linkimage" target="_blank">
                     <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
-                </a>
+                </a></span>
             {% endfor %}
         </section>
         </div>
