@@ -36,7 +36,7 @@ dl.timeline span.indent {
     display: inline-block;
     border-top: 2px solid #CCCCCC;
     width: 20px;
-    height: 6px;
+    height: 4px;
 }
 dl.timeline > dd {
     margin-bottom: 10px;
