@@ -30,9 +30,13 @@ dl.timeline {
     border-left: 2px solid #CCCCCC;
 }
 dl.timeline dt {
-    background: url("/bundles/nimbusletruandcurriculumvitae/img/timeline_century_tick.gif") no-repeat scroll left center rgba(0, 0, 0, 0);
     margin-bottom: 5px;
-    padding-left: 20px;
+}
+dl.timeline span.indent {
+    display: inline-block;
+    border-top: 2px solid #CCCCCC;
+    width: 20px;
+    height: 6px;
 }
 dl.timeline > dd {
     margin-bottom: 10px;

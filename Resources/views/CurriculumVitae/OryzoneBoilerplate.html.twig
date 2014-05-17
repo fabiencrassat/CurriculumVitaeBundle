@@ -137,7 +137,7 @@ if ($.fn.button == undefined) {
         <h3>{{ anchors.experiences.title|default('') }}</h3>
         <dl class="timeline">
         {% for key, line in experiences %}
-            <dt><span class="label label-default">{{ line.date }}</span></dt>
+            <dt><span class="indent"></span><span class="label label-default">{{ line.date }}</span></dt>
             <dd>
                 <strong>{{ line.job }}</strong>
                 <br><a href="{{ line.society.siteurl }}">{{ line.society.name }}</a>, <small>{{ line.society.address }}</small>
@@ -174,7 +174,7 @@ if ($.fn.button == undefined) {
         <h3>{{ anchors.educations.title|default('') }}</h3>
         <dl class="timeline">
         {% for line in educations %}
-            <dt><span class="label label-default">{{ line.date }}</span></dt>
+            <dt><span class="indent"></span><span class="label label-default">{{ line.date }}</span></dt>
             <dd>
                 {{ line.education }}
                 {% for item in line.descriptions.item %}
