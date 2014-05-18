@@ -49,4 +49,28 @@ dl.timeline > dd {
     .followMeImage {
         display: block;
     }
+    /* Progress Bar for Print */
+    .progress {
+    border: 2px solid #F5F5F5 !important;
+    }
+    .progress-bar-info {
+        border: 2px solid #428BCA !important;
+        display: block !important;
+    }
+    .progress-bar-success {
+        border: 2px solid #5CB85C !important;
+        display: block !important;
+    }
+    .progress-bar-warning {
+        border: 2px solid #F0AD4E !important;
+        display: block !important;
+    }
+    .progress-bar-danger {
+        border: 2px solid #D9534F !important;
+        display: block !important;
+    }
+    .progress, .progress > .progress-bar {
+        box-shadow: 0 0 inset !important;
+        display: block !important;
+    }
 }

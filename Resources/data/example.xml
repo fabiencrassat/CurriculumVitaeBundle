@@ -132,13 +132,16 @@
                     <warning percentage="20" class="warning" striped="false">
                         <label>Label</label>
                     </warning>
+                    <danger percentage="10" class="danger" striped="false">
+                        <label>Label</label>
+                    </danger>
                 </lines>
             </Functional>
             <OtherSkill>
                 <title lang="en">One other</title>
                 <title lang="fr">Une autre</title>
                 <lines>
-                    <sucess percentage="90" class="success" striped="true">
+                    <sucess percentage="90" class="success" striped="false">
                         <label lang="en">Skills List</label>
                         <label lang="fr">Liste de Compétences</label>
                     </sucess>
@@ -148,6 +151,9 @@
                     <warning percentage="20" class="warning" striped="false">
                         <label>Label</label>
                     </warning>
+                    <danger percentage="10" class="danger" striped="true">
+                        <label>Label</label>
+                    </danger>
                 </lines>
             </OtherSkill>
         </items>
