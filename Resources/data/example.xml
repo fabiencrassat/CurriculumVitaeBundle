@@ -102,7 +102,7 @@
             </FirstExperience>
             <SecondExperience>
                 <date>Sept - Dec 2006</date>
-                <job lang="en">My previsous job</job>
+                <job lang="en">My previous job</job>
                 <job lang="fr">Mon poste précédent</job>
                 <society crossref="Society/MyOtherCompany"></society>
                 <missions lang="en">
@@ -112,7 +112,7 @@
                     <item>Praesent sagittis risus non libero rhoncus consectetur.</item>
                 </missions>
             </SecondExperience>
-            <ThirdExperience>
+            <ThirdExperience collapse="true">
                 <date>Summer 2006</date>
                 <job lang="en">A summer job</job>
                 <job lang="fr">Un travail d'été</job>
@@ -180,7 +180,7 @@
                     <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
                 </descriptions>
             </University>
-            <HighSchool>
+            <HighSchool  collapse="true">
                 <date lang="en">June 2002</date>
                 <date lang="fr">Juin 2002</date>
                 <education lang="en">My diploma in my high school</education>

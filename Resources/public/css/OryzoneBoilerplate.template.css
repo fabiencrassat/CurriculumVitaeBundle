@@ -73,4 +73,7 @@ dl.timeline > dd {
         box-shadow: 0 0 inset !important;
         display: block !important;
     }
+    .collapse {
+        display: inherit;
+    }
 }
