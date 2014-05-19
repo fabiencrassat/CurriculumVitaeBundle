@@ -94,41 +94,43 @@ if ($.fn.button == undefined) {
     <div class="row">
         <div class="col-md-6">
         <section class="well">
-            <h3>{{ anchors.identity.title|default('') }}</h3>
-            <address>
-                {% if identity.address.City is defined and identity.address.Country is defined %}
-                <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
-                {% endif %}
-                {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
-                <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
-                {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
-                    <br> Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}
-                {% endif %}
-                {% if identity.myself.Age is defined %}
-                    <br>Age: {{ identity.myself.Age }}
-                {% endif %}
-                {% if identity.myself.Nationality is defined %}
-                    <br>{{ identity.myself.Nationality }}
-                {% endif %}
-                {% if identity.social.Marital is defined %}
-                    <br>{{ identity.social.Marital }}
-                {% endif %}
-                {% if identity.social.Military is defined %}
-                    <br>{{ identity.social.Military }}
-                {% endif %}
-                <br>{{ identity.social.DriveLicences|default('') }}
-            </address>
+        <h3>{{ anchors.identity.title|default('') }}</h3>
+        <address>
+            {% if identity.address.City is defined and identity.address.Country is defined %}
+            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% endif %}
+            {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
+            <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
+            {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
+                <br> Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}
+            {% endif %}
+            {% if identity.myself.Age is defined %}
+                <br>Age: {{ identity.myself.Age }}
+            {% endif %}
+            {% if identity.myself.Nationality is defined %}
+                <br>{{ identity.myself.Nationality }}
+            {% endif %}
+            {% if identity.social.Marital is defined %}
+                <br>{{ identity.social.Marital }}
+            {% endif %}
+            {% if identity.social.Military is defined %}
+                <br>{{ identity.social.Military }}
+            {% endif %}
+            <br>{{ identity.social.DriveLicences|default('') }}
+        </address>
         </section>
         </div>
 
         <div class="col-md-6">
         <section id="{{ anchors.followMe.href|default('') }}" class="well">
-            <h3>{{ anchors.followMe.title|default('') }}</h3>
-            {% for line in followMe %}
-                <span class="followMeImage"><a href="{{ line.url }}" class="linkimage" target="_blank">
-                    <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
-                </a></span>
-            {% endfor %}
+        <h3>{{ anchors.followMe.title|default('') }}</h3>
+        {% for line in followMe %}
+        <span class="followMeImage">
+        <a href="{{ line.url }}" class="linkimage" target="_blank">
+            <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+        </a>
+        </span>
+        {% endfor %}
         </section>
         </div>
     </div>
@@ -136,14 +138,16 @@ if ($.fn.button == undefined) {
     <section id="{{ anchors.experiences.href|default('') }}" class="well">
         <h3>{{ anchors.experiences.title|default('') }}</h3>
         <dl class="timeline">
-        {% for key, line in experiences %}
+        {% for line in experiences %}
             <dt><span class="indent"></span><span class="label label-default">{{ line.date }}</span></dt>
             <dd>
                 <strong>{{ line.job }}</strong>
-                <br><a href="{{ line.society.siteurl }}">{{ line.society.name }}</a>, <small>{{ line.society.address }}</small>
+                <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+                {% if line.missions is defined %}
                 {% for item in line.missions.item %}
                 <br><small>- {{ item }}</small>
                 {% endfor %}
+                {% endif %}
             </dd>
         {% endfor %}
         </dl>

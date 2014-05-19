@@ -91,40 +91,42 @@ CV {{ cvxmlfile|title }}
     <div id="{{ anchors.experiences.href|default('') }}">
         <h3>{{ anchors.experiences.title|default('') }}</h3>
         <dl>
-            {% for line in experiences %}
+        {% for line in experiences %}
             <dt>{{ line.date }}</dt>
             <dd>
                 <strong>{{ line.job }}</strong>
                 <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+                {% if line.missions is defined %}
                 {% for item in line.missions.item %}
                 <br><small>- {{ item }}</small>
                 {% endfor %}
+                {% endif %}
             </dd>
-            {% endfor %}
+        {% endfor %}
         </dl>
     </div>
     
     <div id="{{ anchors.skills.href|default('') }}">
         <h3>{{ anchors.skills.title|default('') }}</h3>
         <dl>
-            {% for categories in skills %}
+        {% for categories in skills %}
             <dt>{{ categories.title }}</dt>
             <dd>
-                {% for key, line in categories.lines %}
-                <div>{% for i in 1..line.percentage/4 %}
-                {% if line.striped == 'true' %}|{% else %}.{% endif %}
-                {% endfor %} {{ line.label }} ({{ line.class }})
-                </div>
-                {% endfor %}
-            </dd>
+            {% for key, line in categories.lines %}
+            <div>{% for i in 1..line.percentage/4 %}
+            {% if line.striped == 'true' %}|{% else %}.{% endif %}
+            {% endfor %} {{ line.label }} ({{ line.class }})
+            </div>
             {% endfor %}
+            </dd>
+        {% endfor %}
         </dl>
     </div>
 
     <div id="{{ anchors.educations.href|default('') }}">
         <h3>{{ anchors.educations.title|default('') }}</h3>
         <dl>
-            {% for line in educations %}
+        {% for line in educations %}
             <dt>{{ line.date }}</dt>
             <dd>
                 {{ line.education }}
@@ -132,7 +134,7 @@ CV {{ cvxmlfile|title }}
                 <br><small>- {{ item }}</small>
                 {% endfor %}
             </dd>
-            {% endfor %}
+        {% endfor %}
         </dl>
     </div>
     
@@ -149,7 +151,7 @@ CV {{ cvxmlfile|title }}
     <div id="{{ anchors.miscellaneous.href|default('') }}">
         <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
         <dl>
-            {% for line in miscellaneous %}
+        {% for line in miscellaneous %}
             <dt>{{ line.title }}</dt>
             <dd>
                 {{ line.miscellaneous }}
@@ -157,7 +159,7 @@ CV {{ cvxmlfile|title }}
                 <br><small>{{ line.description }}</small>
                 {% endif %}
             </dd>
-            {% endfor %}
+        {% endfor %}
         </dl>
     </div>
 </div>
