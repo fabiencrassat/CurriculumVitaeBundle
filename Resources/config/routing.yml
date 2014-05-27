@@ -1,5 +1,5 @@
 nimbusletruand_curriculumvitae_default:
-    path:       /cv/{cvxmlfile}/{_locale}
+    path:       /{cvxmlfile}/{_locale}
     defaults:
         _controller:    NimbusletruandCurriculumVitaeBundle:Default:index
         _locale:        en

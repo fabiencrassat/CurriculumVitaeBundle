@@ -78,13 +78,14 @@ In YAML:
 # app/config/routing.yml
 nimbusletruand_curriculumvitae:
     resource: "@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.yml"
+    prefix:   /cv
 ```
 
 Or if you prefer XML:
 
 ``` xml
 <!-- app/config/routing.xml -->
-<import resource="@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.xml"/>
+<import resource="@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.xml" prefix="/cv" />
 ```
 
 ## Usage
