@@ -167,7 +167,7 @@ if ($.fn.button == undefined) {
             {% for key, line in categories.lines %}
             {{ line.label }}
             <div class="progress {% if line.striped == 'true' %} progress-striped {% endif %}">
-                <div class="progress-bar progress-bar-{{ line.class }}"role="progressbar" aria-valuenow="{{ line.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ line.percentage }}%;">
+                <div class="progress-bar progress-bar-{{ line.class }}" role="progressbar" aria-valuenow="{{ line.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ line.percentage }}%;">
                     <span class="sr-only">
                         {{ line.percentage }}
                     </span >
@@ -233,7 +233,7 @@ if ($.fn.button == undefined) {
 </div>
 
 {# Top button #}
-<a href="#" alt="{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}" title="{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}" class="btn btn-default btn-sm hidden-print" style="position: fixed; bottom: 0; right: 0;">
+<a href="#" title="{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}" class="btn btn-default btn-sm hidden-print" style="position: fixed; bottom: 0; right: 0;">
     <span class="glyphicon glyphicon-arrow-up"></span>
 </a>
 {% endblock %}
