@@ -4,12 +4,10 @@
     "description": "Symfony CV bundle",
     "keywords": ["curriculum vitae", "xml", "cv"],
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Fabien Crassat",
-            "email": "fabien@crassat.com"
-        }
-    ],
+    "authors": [{
+        "name": "Fabien Crassat",
+        "email": "fabien@crassat.com"
+    }],
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
@@ -22,6 +20,7 @@
     },
     "suggest": {
         "oryzone/boilerplate-bundle": "Make the curriculum vitae beautiful",
+        "knplabs/knp-snappy-bundle": "Export your curriculum vitae to PDF",
         "php": "PHP 5.5 is my website version"
     }
 }
