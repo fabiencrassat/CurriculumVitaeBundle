@@ -28,7 +28,7 @@ CV {{ cvxmlfile|title }}
         <a href="#">{{ 'Nimbusletruand_curriculumvitae.language'|trans }}</a>
         <ul>
             {% for key, language in languages %}
-            <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
+            <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile }) }}">{{ language }}</a></li>
             {% endfor %}
         </ul>
     </li></ul>
@@ -38,6 +38,7 @@ CV {{ cvxmlfile|title }}
         <li><a href="#{{ item.href }}">{{ item.title }}</a></li>
         {% endfor %}
     </ul></div>
+    <div><a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">Export to PDF</a></div>
 </div>
 
 <div id="CurriculumVitae">
