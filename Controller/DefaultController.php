@@ -51,8 +51,8 @@ class DefaultController extends Controller
     {
         $this->readCVFile($cvxmlfile, $_locale);
 
-        $html = $this->container->get('templating')->renderResponse(
-            $this->container->getParameter('nimbusletruand_curriculumvitae.template'), array(
+        $html = $this->container->get('templating')->render(
+            "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", array(
                 'cvxmlfile'         => $this->FileToLoad,
                 'languageView'      => $this->Lang,
                 'languages'         => $this->exposedLanguages,

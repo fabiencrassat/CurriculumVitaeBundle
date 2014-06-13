@@ -1,0 +1,131 @@
+{#
+
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{# Nimbusletruand/CurriculumVitaeBundle/Resources/views/Default/index.pdf.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+
+{% block title %}
+CV {{ cvxmlfile|title }}
+{% endblock %}
+
+{% block body %}
+
+<div id="CurriculumVitae">
+    <div id="{{ anchors.identity.href|default('') }}">
+        <div>
+            <h1>{{ identity.myself.Name|default('') }}</h1>
+            <p>{{ lookingFor.experience.job|default('') }}</p>
+            <div>{{ lookingFor.presentation|default('') }}</div>
+        </div>
+    </div>
+
+    <div>
+        <h3>{{ anchors.identity.title|default('') }}</h3>
+        <address>
+            {% if identity.address.City is defined and identity.address.Country is defined %}
+            <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% endif %}
+            {# <div>M: {{ identity.contact.Mobile }}</div> #}
+            <div><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a></div>
+            {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
+            <div>Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}</div>
+            {% endif %}
+            {% if identity.myself.Age is defined %}
+            <div>Age: {{ identity.myself.Age }}</div>
+            {% endif %}
+            {% if identity.myself.Nationality is defined %}
+            <div>{{ identity.myself.Nationality }}</div>
+            {% endif %}
+            {% if identity.social.Marital is defined %}
+            <div>{{ identity.social.Marital }}</div>
+            {% endif %}
+            {% if identity.social.Military is defined %}
+            <div>{{ identity.social.Military }}</div>
+            {% endif %}
+            <div>{{ identity.social.DriveLicences|default('') }}</div>
+        </address>
+    </div>
+
+    <div id="{{ anchors.experiences.href|default('') }}">
+        <h3>{{ anchors.experiences.title|default('') }}</h3>
+        <dl>
+        {% for line in experiences %}
+            <dt>{{ line.date }}</dt>
+            <dd>
+                <strong>{{ line.job }}</strong>, {% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+                {% if line.missions is defined %}
+                {% for item in line.missions.item %}
+                <br><small>- {{ item }}</small>
+                {% endfor %}
+                {% endif %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </div>
+    
+    <div id="{{ anchors.skills.href|default('') }}">
+        <h3>{{ anchors.skills.title|default('') }}</h3>
+        <dl>
+        {% for categories in skills %}
+            <dt>{{ categories.title }}</dt>
+            <dd>
+            {% for key, line in categories.lines %}
+            {{ line.label }},
+            {% endfor %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </div>
+
+    <div id="{{ anchors.educations.href|default('') }}">
+        <h3>{{ anchors.educations.title|default('') }}</h3>
+        <dl>
+        {% for line in educations %}
+            <dt>{{ line.date }}</dt>
+            <dd>
+                {{ line.education }}
+                {% for item in line.descriptions.item %}
+                <br><small>- {{ item }}</small>
+                {% endfor %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </div>
+    
+    <div id="{{ anchors.languageSkills.href|default('') }}">
+        <h3>{{ anchors.languageSkills.title|default('') }}</h3>
+        {% for line in languageSkills %}
+        <div>
+        <strong>{{ line.title }}</strong> {{ line.description }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="{{ anchors.miscellaneous.href|default('') }}">
+        <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
+        <dl>
+        {% for line in miscellaneous %}
+            <dt>{{ line.title }}</dt>
+            <dd>
+                {{ line.miscellaneous }}
+                {% if line.description is defined %}
+                <br><small>{{ line.description }}</small>
+                {% endif %}
+            </dd>
+        {% endfor %}
+        </dl>
+    </div>
+</div>
+
+{% endblock %}
