@@ -38,7 +38,7 @@ CV {{ cvxmlfile|title }}
         <li><a href="#{{ item.href }}">{{ item.title }}</a></li>
         {% endfor %}
     </ul></div>
-    <div><a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">Export to PDF</a></div>
+    <div><a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}</a></div>
 </div>
 
 <div id="CurriculumVitae">

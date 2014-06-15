@@ -10,6 +10,10 @@
                 <source>Nimbusletruand_curriculumvitae.back_to_top_button</source>
                 <target>Back to Top</target>
             </trans-unit>
+            <trans-unit id="Nimbusletruand_curriculumvitae.export_to_PDF">
+                <source>Nimbusletruand_curriculumvitae.export_to_PDF</source>
+                <target>Export to PDF</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -84,8 +84,15 @@ if ($.fn.button == undefined) {
         </span>
         <div class="media-body">
             <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
+            <div class="pull-right hidden-print">
+                <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
+                    <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-cloud-download"></span>
+                    {{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}
+                    </button>
+                </a>
+            </div>
             <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
-            <div><a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">Export to PDF</a></div>
             <div class="panel panel-primary">
                 <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
             </div>
