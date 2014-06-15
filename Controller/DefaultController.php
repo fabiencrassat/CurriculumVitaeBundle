@@ -51,11 +51,11 @@ class DefaultController extends Controller
 
     public function exportPDFAction($cvxmlfile, $_locale)
     {
+        $this->readCVFile($cvxmlfile, $_locale);
+
         if (!$this->hasSnappyPDF) {
             throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
         };
-
-        $this->readCVFile($cvxmlfile, $_locale);
 
         $html = $this->container->get('templating')->render(
             "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", array(
@@ -116,6 +116,6 @@ class DefaultController extends Controller
         };
 
         // Check if knp_snappy is existent
-        $this->hasSnappyPDF = $this->has('knp_snappy.pdf');
+        $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
     }
 };
