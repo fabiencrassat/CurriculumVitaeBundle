@@ -35,4 +35,13 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/example/xx');
         $this->assertGreaterThan(0, $crawler->filter('html:contains("There is no curriculum vitae defined for this language")')->count());
     }
+
+    public function testExportPDFAction()
+    {
+        $client = static::createClient();
+
+        // Test failed //
+        $crawler = $client->request('GET', '/example/en/pdf');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
+    }
 }
