@@ -1,5 +1,5 @@
 nimbusletruand_curriculumvitae_exportPDF:
-    path:       /{cvxmlfile}.pdf/{_locale}
+    path:       /{cvxmlfile}/{_locale}/pdf
     defaults:
         _controller:    NimbusletruandCurriculumVitaeBundle:Default:exportPDF
         _locale:        en
