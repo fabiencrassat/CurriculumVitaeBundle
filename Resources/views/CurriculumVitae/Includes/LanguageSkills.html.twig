@@ -1,0 +1,28 @@
+{% if template is defined %}
+<section id="{{ anchors.languageSkills.href|default('') }}" class="well">
+    <h3>{{ anchors.languageSkills.title|default('') }}</h3>
+    <div class="row">
+    {% for line in languageSkills %}
+    <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %}">
+        <div class="pull-left">
+            <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">{{ line.title }}</h4>
+            {{ line.description }}
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</section>
+{% else %}
+<div id="{{ anchors.languageSkills.href|default('') }}">
+    <h3>{{ anchors.languageSkills.title|default('') }} [<a href=#>top</a>]</h3>
+    {% for line in languageSkills %}
+    <div>
+    <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
+    <strong>{{ line.title }}</strong> {{ line.description }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

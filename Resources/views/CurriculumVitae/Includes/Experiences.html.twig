@@ -1,0 +1,42 @@
+{% if template is defined %}
+<section id="{{ anchors.experiences.href|default('') }}" class="well">
+    <h3>{{ anchors.experiences.title|default('') }}</h3>
+    <dl class="timeline">
+    {% for line in experiences %}
+        <dt>
+            <span class="indent"></span>
+            <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#experience{{ loop.index }}">{{ line.date }}</button>
+        </dt>
+        <dd>
+            <div id="experience{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
+            <strong>{{ line.job }}</strong>
+            <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+            {% if line.missions is defined %}
+            {% for item in line.missions.item %}
+            <br><small>- {{ item }}</small>
+            {% endfor %}
+            {% endif %}
+            </div>
+        </dd>
+    {% endfor %}
+    </dl>
+</section>
+{% else %}
+<div id="{{ anchors.experiences.href|default('') }}">
+    <h3>{{ anchors.experiences.title|default('') }} [<a href=#>top</a>]</h3>
+    <dl>
+    {% for line in experiences %}
+        <dt>{{ line.date }}</dt>
+        <dd>
+            <strong>{{ line.job }}</strong>
+            <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+            {% if line.missions is defined %}
+            {% for item in line.missions.item %}
+            <br><small>- {{ item }}</small>
+            {% endfor %}
+            {% endif %}
+        </dd>
+    {% endfor %}
+    </dl>
+</div>
+{% endif %}

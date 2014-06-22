@@ -1,0 +1,21 @@
+{% if template is defined %}
+<section id="{{ anchors.followMe.href|default('') }}" class="well">
+    <h3>{{ anchors.followMe.title|default('') }}</h3>
+    {% for line in followMe %}
+    <span class="followMeImage">
+    <a href="{{ line.url }}" class="linkimage" target="_blank">
+        <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+    </a>
+    </span>
+    {% endfor %}
+</section>
+{% else %}
+<div id="{{ anchors.followMe.href|default('') }}">
+    <h3>{{ anchors.followMe.title|default('') }} [<a href=#>top</a>]</h3>
+    {% for line in followMe %}
+    <a href="{{ line.url }}" target="_blank">
+        <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}

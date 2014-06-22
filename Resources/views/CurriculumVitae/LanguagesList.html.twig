@@ -1,0 +1,27 @@
+{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+
+{% if template is defined %}
+{% if languages|length > 1 %}
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {{ 'Nimbusletruand_curriculumvitae.language'|trans }} <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu" role="language">
+        {% for key, language in languages %}
+        <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endif %}
+{% else %}
+{% if languages|length > 1 %}
+<ul><li>
+    <a href="#">{{ 'Nimbusletruand_curriculumvitae.language'|trans }}</a>
+    <ul>
+        {% for key, language in languages %}
+        <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile }) }}">{{ language }}</a></li>
+        {% endfor %}
+    </ul>
+</li></ul>
+{% endif %}
+{% endif %}

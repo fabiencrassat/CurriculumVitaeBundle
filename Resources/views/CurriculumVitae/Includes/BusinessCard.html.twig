@@ -1,0 +1,42 @@
+{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+
+{% if template is defined %}
+<div class="media">
+    <span class="pull-left">
+        <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+    </span>
+    <div class="media-body">
+        <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
+        {% if hasSnappyPDF %}
+        <div class="pull-right hidden-print">
+            <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
+                <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-cloud-download"></span>
+                {{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div>
+    <span>
+        <img src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+    </span>
+    <div>
+        <h1>{{ identity.myself.Name|default('') }}</h1>
+        {% if hasSnappyPDF %}
+        <div>
+            <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}</a>
+        </div>
+        {% endif %}
+        <p>{{ lookingFor.experience.job|default('') }}</p>
+        <div>{{ lookingFor.presentation|default('') }}</div>
+    </div>
+</div>
+{% endif %}

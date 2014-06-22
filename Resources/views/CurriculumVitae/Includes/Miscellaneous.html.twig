@@ -1,0 +1,31 @@
+{% if template is defined %}
+<section id="{{ anchors.miscellaneous.href|default('') }}" class="well">
+    <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
+    <dl class="dl-horizontal">
+    {% for line in miscellaneous %}
+        <dt>{{ line.title }}</dt>
+        <dd>
+            {{ line.miscellaneous }}
+            {% if line.description is defined %}
+            <br><small>{{ line.description }}</small>
+            {% endif %}
+        </dd>
+    {% endfor %}
+    </dl>
+</section>
+{% else %}
+<div id="{{ anchors.miscellaneous.href|default('') }}">
+    <h3>{{ anchors.miscellaneous.title|default('') }} [<a href=#>top</a>]</h3>
+    <dl>
+    {% for line in miscellaneous %}
+        <dt>{{ line.title }}</dt>
+        <dd>
+            {{ line.miscellaneous }}
+            {% if line.description is defined %}
+            <br><small>{{ line.description }}</small>
+            {% endif %}
+        </dd>
+    {% endfor %}
+    </dl>
+</div>
+{% endif %}
