@@ -1,36 +1,57 @@
-{% if template is defined %}
-<section id="{{ anchors.educations.href|default('') }}" class="well">
-    <h3>{{ anchors.educations.title|default('') }}</h3>
-    <dl class="timeline">
-    {% for line in educations %}
-        <dt>
-            <span class="indent"></span>
-            <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#education{{ loop.index }}">{{ line.date }}</button>
-        </dt>
-        <dd>
-            <div id="education{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
-            {{ line.education }}
-            {% for item in line.descriptions.item %}
-            <br><small>- {{ item }}</small>
-            {% endfor %}
-            </div>
-        </dd>
-    {% endfor %}
-    </dl>
-</section>
+{% set template = template|default("") %}
+{% set id    = "id=" ~ anchors.educations.href|default('') ~ "" %}
+{% set title = anchors.educations.title|default('') %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ id }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.Education(educations, template) }}
+    </section>
 {% else %}
-<div id="{{ anchors.educations.href|default('') }}">
-    <h3>{{ anchors.educations.title|default('') }} [<a href=#>top</a>]</h3>
-    <dl>
-    {% for line in educations %}
-        <dt>{{ line.date }}</dt>
-        <dd>
-            {{ line.education }}
-            {% for item in line.descriptions.item %}
-            <br><small>- {{ item }}</small>
-            {% endfor %}
-        </dd>
-    {% endfor %}
-    </dl>
-</div>
+    <div {{ id }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.Education(educations, template) }}
+    </div>
 {% endif %}
+
+{# Display each block section in the main section #}
+{% macro Education(educations, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        <dl class="timeline">
+        {% for line in educations %}
+            <dt>
+                <span class="indent"></span>
+                <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#education{{ loop.index }}">
+                {{ line.date }}
+                </button>
+            </dt>
+            <dd>
+                <div id="education{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
+                {{ SelfFunction.EducationItem(line) }}
+                </div>
+            </dd>
+        {% endfor %}
+        </dl>
+    {% else %}
+        <dl>
+        {% for line in educations %}
+            <dt>
+                {{ line.date }}
+            </dt>
+            <dd>
+                {{ SelfFunction.EducationItem(line) }}
+            </dd>
+        {% endfor %}
+        </dl>
+    {% endif %}
+{% endmacro %}
+
+{# Display each item section inside block section #}
+{% macro EducationItem(line) %}
+    {{ line.education }}
+    {% for item in line.descriptions.item %}
+    <br><small>- {{ item }}</small>
+    {% endfor %}
+{% endmacro  %}
