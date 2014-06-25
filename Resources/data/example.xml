@@ -180,7 +180,7 @@
                     <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
                 </descriptions>
             </University>
-            <HighSchool  collapse="true">
+            <HighSchool collapse="true">
                 <date lang="en">June 2002</date>
                 <date lang="fr">Juin 2002</date>
                 <education lang="en">My diploma in my high school</education>
