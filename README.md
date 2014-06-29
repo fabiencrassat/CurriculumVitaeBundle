@@ -7,7 +7,9 @@ with [Symfony2][1] application that you can use to display your curriculum vitae
 
 [![knpbundles.com](http://knpbundles.com/fabiencrassat/CurriculumVitaeBundle/badge)](http://knpbundles.com/fabiencrassat/CurriculumVitaeBundle)
 
-[![Latest Stable Version](https://poser.pugx.org/nimbusletruand/curriculumvitae/v/stable.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![Total Downloads](https://poser.pugx.org/nimbusletruand/curriculumvitae/downloads.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![Latest Unstable Version](https://poser.pugx.org/nimbusletruand/curriculumvitae/v/unstable.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![License](https://poser.pugx.org/nimbusletruand/curriculumvitae/license.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae)
+[![Build Status](https://travis-ci.org/fabiencrassat/CurriculumVitaeBundle.svg?branch=master)](https://travis-ci.org/fabiencrassat/CurriculumVitaeBundle) [![Latest Stable Version](https://poser.pugx.org/nimbusletruand/curriculumvitae/v/stable.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![Latest Unstable Version](https://poser.pugx.org/nimbusletruand/curriculumvitae/v/unstable.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![License](https://poser.pugx.org/nimbusletruand/curriculumvitae/license.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![Total Downloads](https://poser.pugx.org/nimbusletruand/curriculumvitae/downloads.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) 
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8248628f-176d-440f-a918-0bcc6e66f368/big.png)](https://insight.sensiolabs.com/projects/8248628f-176d-440f-a918-0bcc6e66f368) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fabiencrassat/CurriculumVitaeBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/fabiencrassat/CurriculumVitaeBundle/?branch=master)
 
 ## Prerequisites
 
