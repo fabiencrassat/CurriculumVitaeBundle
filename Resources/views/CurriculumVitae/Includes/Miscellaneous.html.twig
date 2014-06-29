@@ -1,31 +1,49 @@
-{% if template is defined %}
-<section id="{{ anchors.miscellaneous.href|default('') }}" class="well">
-    <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
-    <dl class="dl-horizontal">
-    {% for line in miscellaneous %}
-        <dt>{{ line.title }}</dt>
-        <dd>
-            {{ line.miscellaneous }}
-            {% if line.description is defined %}
-            <br><small>{{ line.description }}</small>
-            {% endif %}
-        </dd>
-    {% endfor %}
-    </dl>
-</section>
+{% set template = template|default("") %}
+{% set id       = anchors.miscellaneous.href|default('') %}
+{% set anchorId = "id=" ~ id ~ "" %}
+{% set title    = anchors.miscellaneous.title|default('') %}
+{% set blocks   = miscellaneous %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ anchorId }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </section>
 {% else %}
-<div id="{{ anchors.miscellaneous.href|default('') }}">
-    <h3>{{ anchors.miscellaneous.title|default('') }} [<a href=#>top</a>]</h3>
-    <dl>
-    {% for line in miscellaneous %}
-        <dt>{{ line.title }}</dt>
-        <dd>
-            {{ line.miscellaneous }}
-            {% if line.description is defined %}
-            <br><small>{{ line.description }}</small>
-            {% endif %}
-        </dd>
-    {% endfor %}
-    </dl>
-</div>
+    <div {{ anchorId }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </div>
 {% endif %}
+
+{# Display each block section in the main section #}
+{% macro displayBlockInMainSection(blocks, id, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        <dl class="dl-horizontal">
+        {% for line in blocks %}
+            {{ SelfFunction.DisplayItem(line) }}
+        {% endfor %}
+        </dl>
+    {% else %}
+        <dl>
+        {% for line in blocks %}
+            {{ SelfFunction.DisplayItem(line) }}
+        {% endfor %}
+        </dl>
+    {% endif %}
+{% endmacro %}
+
+{# Display each item section inside block section #}
+{% macro DisplayItem(line) %}
+    <dt>
+        {{ line.title }}
+    </dt>
+    <dd>
+        {{ line.miscellaneous }}
+        {% if line.description is defined %}
+        <br><small>{{ line.description }}</small>
+        {% endif %}
+    </dd>
+{% endmacro  %}

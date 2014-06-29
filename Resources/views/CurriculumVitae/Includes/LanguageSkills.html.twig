@@ -1,28 +1,45 @@
-{% if template is defined %}
-<section id="{{ anchors.languageSkills.href|default('') }}" class="well">
-    <h3>{{ anchors.languageSkills.title|default('') }}</h3>
-    <div class="row">
-    {% for line in languageSkills %}
-    <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %}">
-        <div class="pull-left">
-            <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
-        </div>
-        <div class="media-body">
-            <h4 class="media-heading">{{ line.title }}</h4>
-            {{ line.description }}
-        </div>
-    </div>
-    {% endfor %}
-    </div>
-</section>
+{% set template = template|default("") %}
+{% set id       = anchors.languageSkills.href|default('') %}
+{% set anchorId = "id=" ~ id ~ "" %}
+{% set title    = anchors.languageSkills.title|default('') %}
+{% set blocks   = languageSkills %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ anchorId }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </section>
 {% else %}
-<div id="{{ anchors.languageSkills.href|default('') }}">
-    <h3>{{ anchors.languageSkills.title|default('') }} [<a href=#>top</a>]</h3>
-    {% for line in languageSkills %}
-    <div>
-    <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
-    <strong>{{ line.title }}</strong> {{ line.description }}
+    <div {{ anchorId }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </div>
-    {% endfor %}
-</div>
 {% endif %}
+
+{# Display each block section in the main section #}
+{% macro displayBlockInMainSection(blocks, id, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        <div class="row">
+        {% for line in blocks %}
+        <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %}">
+            <div class="pull-left">
+                <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ line.title }}</h4>
+                {{ line.description }}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        {% for line in blocks %}
+        <div>
+            <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
+            <strong>{{ line.title }}</strong> {{ line.description }}
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}

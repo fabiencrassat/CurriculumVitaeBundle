@@ -1,21 +1,43 @@
-{% if template is defined %}
-<section id="{{ anchors.followMe.href|default('') }}" class="well">
-    <h3>{{ anchors.followMe.title|default('') }}</h3>
-    {% for line in followMe %}
-    <span class="followMeImage">
-    <a href="{{ line.url }}" class="linkimage" target="_blank">
-        <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
-    </a>
-    </span>
-    {% endfor %}
-</section>
+{% set template = template|default("") %}
+{% set id       = anchors.followMe.href|default('') %}
+{% set anchorId = "id=" ~ id ~ "" %}
+{% set title    = anchors.followMe.title|default('') %}
+{% set blocks   = followMe %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ anchorId }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </section>
 {% else %}
-<div id="{{ anchors.followMe.href|default('') }}">
-    <h3>{{ anchors.followMe.title|default('') }} [<a href=#>top</a>]</h3>
-    {% for line in followMe %}
-    <a href="{{ line.url }}" target="_blank">
-        <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
-    </a>
-    {% endfor %}
-</div>
+    <div {{ anchorId }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </div>
 {% endif %}
+
+{# Display each block section in the main section #}
+{% macro displayBlockInMainSection(blocks, id, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        {% for line in blocks %}
+        <span class="followMeImage">
+        <a href="{{ line.url }}" class="linkimage" target="_blank">
+            {{ SelfFunction.DisplayItem(line) }}
+        </a>
+        </span>
+        {% endfor %}
+    {% else %}
+        {% for line in blocks %}
+        <a href="{{ line.url }}" target="_blank">
+            {{ SelfFunction.DisplayItem(line) }}
+        </a>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{# Display each item section inside block section #}
+{% macro DisplayItem(line) %}
+    <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+{% endmacro  %}
