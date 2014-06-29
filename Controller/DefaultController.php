@@ -28,7 +28,7 @@ class DefaultController extends Controller
     {
         $this->readCVFile($cvxmlfile, $_locale);
 
-        $templateVariables = array_merge($this->CVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
+        $templateVariables = array_merge($this->defineCVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
         return $this->container->get('templating')->renderResponse(
             $this->container->getParameter('nimbusletruand_curriculumvitae.template'), $templateVariables);
     }
@@ -42,7 +42,7 @@ class DefaultController extends Controller
         };
 
         $html = $this->container->get('templating')->render(
-            "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",  $this->CVViewVariables());
+            "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",  $this->defineCVViewVariables());
 
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
@@ -89,7 +89,7 @@ class DefaultController extends Controller
         // Check if knp_snappy is existent
         $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
     }
-    private function CVViewVariables()
+    private function defineCVViewVariables()
     {
         return array(
                 'cvxmlfile'         => $this->FileToLoad,
