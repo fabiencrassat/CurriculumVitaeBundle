@@ -11,6 +11,10 @@
     syntaxCheck="false"
     bootstrap="./Tests/bootstrap.php"
 >
+
+    <php>
+        <server name="KERNEL_DIR" value="./Tests/Fixtures/App/app" />
+    </php>
     <!-- Les fichiers de tests à lancer -->
     <testsuites>
         <testsuite name="Curriculum Vitae">

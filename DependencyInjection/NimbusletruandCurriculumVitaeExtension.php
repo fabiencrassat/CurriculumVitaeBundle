@@ -11,10 +11,11 @@
 
 namespace Nimbusletruand\CurriculumVitaeBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -41,6 +42,9 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
             $path_to_cv = $baseDir.'/../../src/'.$config['path_to_cv'];
         } else {
             $path_to_cv = $baseDir.'/../'.$container->getParameter('nimbusletruand_curriculumvitae.path_to_cv');
+        }
+        if (!is_dir($path_to_cv)) {
+            throw new NotFoundHttpException('There is no directory defined here ('.$path_to_cv.').');
         }
         $container->setParameter('nimbusletruand_curriculumvitae.path_to_cv',  $path_to_cv);
 

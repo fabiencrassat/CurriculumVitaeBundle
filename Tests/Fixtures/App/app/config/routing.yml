@@ -1,0 +1,2 @@
+nimbusletruand_curriculumvitae:
+    resource: "@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.yml"
