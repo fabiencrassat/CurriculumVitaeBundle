@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="true" bootstrap="vendor/autoload.php">
+<phpunit backupGlobals="false"
+    backupStaticAttributes="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    syntaxCheck="false"
+    bootstrap="./Tests/bootstrap.php"
+>
     <testsuites>
         <testsuite name="Curriculum Vitae">
             <directory>./Tests</directory>
@@ -9,7 +19,7 @@
 
     <filter>
         <whitelist>
-            <directory>.</directory>
+            <directory>./</directory>
             <exclude>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
