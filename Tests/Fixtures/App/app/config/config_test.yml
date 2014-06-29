@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-    - { resource: ../../../../../Resources/config/services.yml }
+    - { resource: services.yml }
 
 framework:
     test: ~
