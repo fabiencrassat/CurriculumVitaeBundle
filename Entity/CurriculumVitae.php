@@ -195,6 +195,9 @@ class CurriculumVitae
         }
     }
 
+    /**
+     * @param string $pathToFile
+     */
     private function getXmlCurriculumVitae($pathToFile)
     {
         if (is_null($pathToFile) || !is_file($pathToFile)) {
