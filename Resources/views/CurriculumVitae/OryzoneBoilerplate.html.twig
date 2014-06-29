@@ -9,11 +9,9 @@ file that was distributed with this source code.
 
 #}
 
-{# Nimbusletruand/CurriculumVitaeBundle/Resources/views/Default/OryzoneBoilerplate.html.twig #}
+{# Nimbusletruand/CurriculumVitaeBundle/Resources/views/CurriculumVitae/OryzoneBoilerplate.html.twig #}
 
 {% extends "OryzoneBoilerplateBundle::html5.html.twig" %}
-
-{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
 
 {% block head_title %}CV {{ cvxmlfile|title }}{% endblock %}
 
@@ -56,194 +54,31 @@ if ($.fn.button == undefined) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            {% if languages|length > 1 %}
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    {{ 'Nimbusletruand_curriculumvitae.language'|trans }} <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu" role="language">
-                    {% for key, language in languages %}
-                    <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endif %}
-            {% for item in anchors %}
-            <li class="">
-                <a href="#{{ item.href }}">{{ item.title }}</a>
-            </li>
-            {% endfor %}
+            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
         </ul>
     </div>
 </nav>
 
 <div id="CurriculumVitae" class="container">
-    <div id="{{ anchors.identity.href|default('') }}" class="media">
-        <span class="pull-left">
-            <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
-        </span>
-        <div class="media-body">
-            <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
-            {% if hasSnappyPDF %}
-            <div class="pull-right hidden-print">
-                <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
-                    <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-cloud-download"></span>
-                    {{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}
-                    </button>
-                </a>
-            </div>
-            {% endif %}
-            <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
-            <div class="panel panel-primary">
-                <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
-            </div>
-        </div>
-    </div>
+    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 
     <div class="row">
         <div class="col-md-6">
-        <section class="well">
-        <h3>{{ anchors.identity.title|default('') }}</h3>
-        <address>
-            {% if identity.address.City is defined and identity.address.Country is defined %}
-            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
-            {% endif %}
-            {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
-            <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
-            {% if identity.myself.BirthDay is defined and identity.myself.BrithPlace is defined %}
-                <br> Né le {{ identity.myself.BirthDay }} à {{ identity.myself.BrithPlace }}
-            {% endif %}
-            {% if identity.myself.Age is defined %}
-                <br>Age: {{ identity.myself.Age }}
-            {% endif %}
-            {% if identity.myself.Nationality is defined %}
-                <br>{{ identity.myself.Nationality }}
-            {% endif %}
-            {% if identity.social.Marital is defined %}
-                <br>{{ identity.social.Marital }}
-            {% endif %}
-            {% if identity.social.Military is defined %}
-                <br>{{ identity.social.Military }}
-            {% endif %}
-            <br>{{ identity.social.DriveLicences|default('') }}
-        </address>
-        </section>
+            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'OryzoneBoilerplate'} %}
         </div>
 
         <div class="col-md-6">
-        <section id="{{ anchors.followMe.href|default('') }}" class="well">
-        <h3>{{ anchors.followMe.title|default('') }}</h3>
-        {% for line in followMe %}
-        <span class="followMeImage">
-        <a href="{{ line.url }}" class="linkimage" target="_blank">
-            <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
-        </a>
-        </span>
-        {% endfor %}
-        </section>
+            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' with {'template': 'OryzoneBoilerplate'} %}
         </div>
     </div>
 
-    <section id="{{ anchors.experiences.href|default('') }}" class="well">
-        <h3>{{ anchors.experiences.title|default('') }}</h3>
-        <dl class="timeline">
-        {% for line in experiences %}
-            <dt>
-                <span class="indent"></span>
-                <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#experience{{ loop.index }}">{{ line.date }}</button>
-            </dt>
-            <dd>
-                <div id="experience{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
-                <strong>{{ line.job }}</strong>
-                <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
-                {% if line.missions is defined %}
-                {% for item in line.missions.item %}
-                <br><small>- {{ item }}</small>
-                {% endfor %}
-                {% endif %}
-                </div>
-            </dd>
-        {% endfor %}
-        </dl>
-    </section>
-    
-    <section id="{{ anchors.skills.href|default('') }}" class="well">
-        <h3>{{ anchors.skills.title|default('') }}</h3>
-        <dl class="dl-horizontal">
-        {% for categories in skills %}
-            <dt>{{ categories.title }}</dt>
-            <dd>
-            {% for key, line in categories.lines %}
-            {{ line.label }}
-            <div class="progress {% if line.striped == 'true' %} progress-striped {% endif %}">
-                <div class="progress-bar progress-bar-{{ line.class }}" role="progressbar" aria-valuenow="{{ line.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ line.percentage }}%;">
-                    <span class="sr-only">
-                        {{ line.percentage }}
-                    </span >
-                </div>
-            </div>
-            {% endfor %}
-            </dd>
-        {% endfor %}
-        </dl>
-    </section>
-
-    <section id="{{ anchors.educations.href|default('') }}" class="well">
-        <h3>{{ anchors.educations.title|default('') }}</h3>
-        <dl class="timeline">
-        {% for line in educations %}
-            <dt>
-                <span class="indent"></span>
-                <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#education{{ loop.index }}">{{ line.date }}</button>
-            </dt>
-            <dd>
-                <div id="education{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
-                {{ line.education }}
-                {% for item in line.descriptions.item %}
-                <br><small>- {{ item }}</small>
-                {% endfor %}
-                </div>
-            </dd>
-        {% endfor %}
-        </dl>
-    </section>
-    
-    <section id="{{ anchors.languageSkills.href|default('') }}" class="well">
-        <h3>{{ anchors.languageSkills.title|default('') }}</h3>
-        <div class="row">
-        {% for line in languageSkills %}
-        <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %}">
-            <div class="pull-left">
-                <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">{{ line.title }}</h4>
-                {{ line.description }}
-            </div>
-        </div>
-        {% endfor %}
-        </div>
-    </section>
-
-    <section id="{{ anchors.miscellaneous.href|default('') }}" class="well">
-        <h3>{{ anchors.miscellaneous.title|default('') }}</h3>
-        <dl class="dl-horizontal">
-        {% for line in miscellaneous %}
-            <dt>{{ line.title }}</dt>
-            <dd>
-                {{ line.miscellaneous }}
-                {% if line.description is defined %}
-                <br><small>{{ line.description }}</small>
-                {% endif %}
-            </dd>
-        {% endfor %}
-        </dl>
-    </section>
+    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 </div>
 
-{# Top button #}
-<a href="#" title="{{ 'Nimbusletruand_curriculumvitae.back_to_top_button'|trans }}" class="btn btn-default btn-sm hidden-print" style="position: fixed; bottom: 0; right: 0;">
-    <span class="glyphicon glyphicon-arrow-up"></span>
-</a>
+{% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 {% endblock %}

@@ -1,0 +1,54 @@
+{#
+
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% set template = template|default("") %}
+{% set id       = anchors.followMe.href|default('') %}
+{% set anchorId = "id=" ~ id ~ "" %}
+{% set title    = anchors.followMe.title|default('') %}
+{% set blocks   = followMe %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ anchorId }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </section>
+{% else %}
+    <div {{ anchorId }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </div>
+{% endif %}
+
+{# Display each block section in the main section #}
+{% macro displayBlockInMainSection(blocks, id, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        {% for line in blocks %}
+        <span class="followMeImage">
+        <a href="{{ line.url }}" class="linkimage" target="_blank">
+            {{ SelfFunction.DisplayItem(line) }}
+        </a>
+        </span>
+        {% endfor %}
+    {% else %}
+        {% for line in blocks %}
+        <a href="{{ line.url }}" target="_blank">
+            {{ SelfFunction.DisplayItem(line) }}
+        </a>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{# Display each item section inside block section #}
+{% macro DisplayItem(line) %}
+    <img src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}" title="{{ line.title }}"/>
+{% endmacro  %}

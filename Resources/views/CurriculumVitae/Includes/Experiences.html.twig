@@ -1,0 +1,78 @@
+{#
+
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% set template = template|default("") %}
+{% set id       = anchors.experiences.href|default('') %}
+{% set anchorId = "id=" ~ id ~ "" %}
+{% set title    = anchors.experiences.title|default('') %}
+{% set blocks   = experiences %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ anchorId }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </section>
+{% elseif template == "pdf" %}
+    <div {{ anchorId }}>
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </div>
+{% else %}
+    <div {{ anchorId }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </div>
+{% endif %}
+
+{# Display each block section in the main section #}
+{% macro displayBlockInMainSection(blocks, id, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        <dl class="timeline">
+        {% for line in blocks %}
+            <dt>
+                <span class="indent"></span>
+                <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#{{ id }}{{ loop.index }}">
+                {{ line.date }}
+                </button>
+            </dt>
+            <dd>
+                <div id="{{ id }}{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
+                {{ SelfFunction.DisplayItem(line) }}
+                </div>
+            </dd>
+        {% endfor %}
+        </dl>
+    {% else %}
+        <dl>
+        {% for line in blocks %}
+            <dt>
+                {{ line.date }}
+            </dt>
+            <dd>
+                {{ SelfFunction.DisplayItem(line) }}
+            </dd>
+        {% endfor %}
+        </dl>
+    {% endif %}
+{% endmacro %}
+
+{# Display each item section inside block section #}
+{% macro DisplayItem(line) %}
+    <strong>{{ line.job }}</strong>
+    <br>{% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{% endif %}{{ line.society.name|default('') }}</a>{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}
+    {% if line.missions is defined %}
+    {% for item in line.missions.item %}
+    <br><small>- {{ item }}</small>
+    {% endfor %}
+    {% endif %}
+{% endmacro  %}

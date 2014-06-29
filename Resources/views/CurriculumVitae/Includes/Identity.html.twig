@@ -1,0 +1,81 @@
+{#
+
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% set template = template|default("") %}
+{% set id       = anchors.identity.href|default('') %}
+{% set anchorId = "id=" ~ id ~ "" %}
+{% set title    = anchors.identity.title|default('') %}
+
+{# Display the main section #}
+{% if template == "OryzoneBoilerplate" %}
+    <section {{ anchorId }} class="well">
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(identity, id, template) }}
+    </section>
+{% elseif template == "pdf" %}
+    <div {{ anchorId }}>
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(identity, id, template) }}
+    </div>
+{% else %}
+    <div {{ anchorId }}>
+        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        {{ _self.displayBlockInMainSection(identity, id, template) }}
+    </div>
+{% endif %}
+
+{# Display each block section in the main section #}
+{% macro displayBlockInMainSection(identity, id, template) %}
+    {% import _self as SelfFunction %}
+    {% if template == "OryzoneBoilerplate" %}
+        <address>
+            {% if identity.address.City is defined and identity.address.Country is defined %}
+            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% endif %}
+            {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
+            <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
+            {{ SelfFunction.DisplayMyself(identity.myself) }}
+            {{ SelfFunction.DisplaySocial(identity.social) }}
+        </address>
+    {% else %}
+        <address>
+            {% if identity.address.City is defined and identity.address.Country is defined %}
+            <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% endif %}
+            {# <br>M: {{ identity.contact.Mobile }} #}
+            <br><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
+            {{ SelfFunction.DisplayMyself(identity.myself) }}
+            {{ SelfFunction.DisplaySocial(identity.social) }}
+        </address>
+    {% endif %}
+{% endmacro %}
+
+{# Display each item section inside block section #}
+{% macro DisplayMyself(myself) %}
+    {% if myself.BirthDay is defined and myself.BrithPlace is defined %}
+        <br>Né le {{ myself.BirthDay }} à {{ myself.BrithPlace }}
+    {% endif %}
+    {% if myself.Age is defined %}
+        <br>Age: {{ myself.Age }}
+    {% endif %}
+    {% if myself.Nationality is defined %}
+        <br>{{ myself.Nationality }}
+    {% endif %}
+{% endmacro  %}
+{% macro DisplaySocial(social) %}
+    {% if social.Marital is defined %}
+        <br>{{ social.Marital }}
+    {% endif %}
+    {% if social.Military is defined %}
+        <br>{{ social.Military }}
+    {% endif %}
+    <br>{{ social.DriveLicences|default('') }}
+{% endmacro  %}
