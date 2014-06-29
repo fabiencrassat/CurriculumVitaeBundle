@@ -54,8 +54,8 @@ if ($.fn.button == undefined) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Anchors.html.twig' %}
+            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
         </ul>
     </div>
 </nav>
@@ -80,5 +80,5 @@ if ($.fn.button == undefined) {
     {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 </div>
 
-{% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:IncludesOrizone/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+{% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 {% endblock %}
