@@ -36,7 +36,7 @@ For more information about translations, check [Symfony documentation](http://sy
 ### Step 1: Install Curriculumvitae Bundle
 
 Add the following dependency to your composer.json file:
-``` json
+``` js
 {
     "require": {
         "_some_packages": "...",
@@ -101,10 +101,7 @@ $ php app/console assets:install
 ```
 
 ### View the result
-Go to your site and add /cv, for example:
-``` web
-http://localhost/app_dev.php/cv
-```
+Go to your site and add /cv, for example: `http://localhost/app_dev.php/cv`
 
 ## Documentation
 
