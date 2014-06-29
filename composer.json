@@ -2,7 +2,7 @@
     "name": "nimbusletruand/curriculumvitae",
     "type": "symfony-bundle",
     "description": "Symfony CV bundle",
-    "keywords": ["curriculum vitae", "xml", "cv"],
+    "keywords": ["symfony2", "curriculum vitae", "xml", "cv"],
     "license": "MIT",
     "authors": [{
         "name": "Fabien Crassat",
