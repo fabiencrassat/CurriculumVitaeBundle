@@ -12,6 +12,7 @@
 namespace Nimbusletruand\CurriculumVitaeBundle\Test\Entity;
 
 use Nimbusletruand\CurriculumVitaeBundle\Entity\CurriculumVitae;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {

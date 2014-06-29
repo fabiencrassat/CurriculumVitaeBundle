@@ -19,6 +19,9 @@ class CurriculumVitae
     private $Lang;
     private $nMaxRecursiveDepth = 8; 
 
+    /**
+     * @param string $pathToFile
+     */
     public function __construct($pathToFile, $Lang = 'en')
     {
         $this->Lang = $Lang;
@@ -200,6 +203,9 @@ class CurriculumVitae
         return simplexml_load_file($pathToFile);
     }
 
+    /**
+     * @param string $birthday
+     */
     private function getAge($birthday, $dateFormat)
     {
         if($dateFormat <> "mm/dd/yy") {

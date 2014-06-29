@@ -14,7 +14,6 @@ namespace Nimbusletruand\CurriculumVitaeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
-
 use Nimbusletruand\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
 class DefaultController extends Controller
@@ -29,23 +28,9 @@ class DefaultController extends Controller
     {
         $this->readCVFile($cvxmlfile, $_locale);
 
+        $templateVariables = array_merge($this->CVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
         return $this->container->get('templating')->renderResponse(
-            $this->container->getParameter('nimbusletruand_curriculumvitae.template'), array(
-                'cvxmlfile'         => $this->FileToLoad,
-                'languageView'      => $this->Lang,
-                'languages'         => $this->exposedLanguages,
-                'hasSnappyPDF'      => $this->hasSnappyPDF,
-                'anchors'           => $this->ReadCVXml->getAnchors(),
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
-                'society'           => $this->ReadCVXml->getSociety()
-        ));
+            $this->container->getParameter('nimbusletruand_curriculumvitae.template'), $templateVariables);
     }
 
     public function exportPDFAction($cvxmlfile, $_locale)
@@ -57,21 +42,7 @@ class DefaultController extends Controller
         };
 
         $html = $this->container->get('templating')->render(
-            "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", array(
-                'cvxmlfile'         => $this->FileToLoad,
-                'languageView'      => $this->Lang,
-                'languages'         => $this->exposedLanguages,
-                'anchors'           => $this->ReadCVXml->getAnchors(),
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
-                'society'           => $this->ReadCVXml->getSociety()
-        ));
+            "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",  $this->CVViewVariables());
 
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
@@ -117,5 +88,23 @@ class DefaultController extends Controller
 
         // Check if knp_snappy is existent
         $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
+    }
+    private function CVViewVariables()
+    {
+        return array(
+                'cvxmlfile'         => $this->FileToLoad,
+                'languageView'      => $this->Lang,
+                'languages'         => $this->exposedLanguages,
+                'anchors'           => $this->ReadCVXml->getAnchors(),
+                'identity'          => $this->ReadCVXml->getIdentity(),
+                'followMe'          => $this->ReadCVXml->getFollowMe(),
+                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
+                'experiences'       => $this->ReadCVXml->getExperiences(),
+                'skills'            => $this->ReadCVXml->getSkills(),
+                'educations'        => $this->ReadCVXml->getEducations(),
+                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
+                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
+                'society'           => $this->ReadCVXml->getSociety()
+        );
     }
 };

@@ -11,8 +11,6 @@
 
 namespace Nimbusletruand\CurriculumVitaeBundle\Test\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Nimbusletruand\CurriculumVitaeBundle\DependencyInjection\Configuration;
 
 /**

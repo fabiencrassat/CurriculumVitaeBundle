@@ -12,9 +12,6 @@
 namespace Nimbusletruand\CurriculumVitaeBundle\Test\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Yaml\Parser;
 use Nimbusletruand\CurriculumVitaeBundle\DependencyInjection\NimbusletruandCurriculumVitaeExtension;
 
@@ -35,19 +32,6 @@ class testNimbusletruandCurriculumVitaeExtension extends \PHPUnit_Framework_Test
 
         $extension = new NimbusletruandCurriculumVitaeExtension();
         $extension->load($configs, $container);
-    }
-
-    /**
-     * Tests extension loading throws exception if captcha type is empty
-     *
-     * @expectedException        \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The value "" is not allowed for path "mremi_contact.form.captcha_type". Permissible values: "genemu_captcha", "genemu_recaptcha"
-     */
-    public function testCustoConfiguration()
-    {
-        $loader = new NimbusletruandCurriculumVitaeExtension;
-        $config = $this->createFullConfiguration();
-        $loader->load(array($config), new ContainerBuilder);
     }
 
     /**
