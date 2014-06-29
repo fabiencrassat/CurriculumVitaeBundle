@@ -7,6 +7,8 @@ with [Symfony2][1] application that you can use to display your curriculum vitae
 
 [![knpbundles.com](http://knpbundles.com/fabiencrassat/CurriculumVitaeBundle/badge)](http://knpbundles.com/fabiencrassat/CurriculumVitaeBundle)
 
+[![Latest Stable Version](https://poser.pugx.org/nimbusletruand/curriculumvitae/v/stable.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![Total Downloads](https://poser.pugx.org/nimbusletruand/curriculumvitae/downloads.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![Latest Unstable Version](https://poser.pugx.org/nimbusletruand/curriculumvitae/v/unstable.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae) [![License](https://poser.pugx.org/nimbusletruand/curriculumvitae/license.svg)](https://packagist.org/packages/nimbusletruand/curriculumvitae)
+
 ## Prerequisites
 
 This version of the bundle requires Symfony 2.4.1+.
