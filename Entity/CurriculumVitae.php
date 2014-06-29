@@ -35,7 +35,6 @@ class CurriculumVitae
         $anchorsAttribute = $this->CV->xpath("CurriculumVitae/*[attribute::anchor]");
         
         $anchors = array();
-        $i = 0;
         foreach ($anchorsAttribute as $key => $value) {
             $anchor = (string) $value['anchor'];
             $title = $value->xpath("AnchorTitle[@lang='" . $this->Lang . "']");
@@ -128,9 +127,6 @@ class CurriculumVitae
                         $CVCrossRef = $CVCrossRef->{ $val };
                     }
                     $cr = $this->xml2array($CVCrossRef);
-                    // if (count($cr) == 1) {
-                    //     $cr = implode("", $cr);
-                    // }
                     $arXML = array_merge($arXML, array($key => $cr));
                     break;
                 } else {
@@ -178,7 +174,6 @@ class CurriculumVitae
             }
             // Children
             if (Count($children) > 0) {
-                $t = array();
                 foreach($children as $childKey => $childValue) {
                     $child = $this->xml2array($childValue, $depth);
                     if ($child) {
@@ -211,6 +206,7 @@ class CurriculumVitae
             throw new InvalidArgumentException("The format " . $dateFormat . " is not defined.");
         };
         list($month, $day, $year) = preg_split('[/]', $birthday);
+        $today = array();
         $today['day'] = date('j');
         $today['month'] = date('n');
         $today['year'] = date('Y');

@@ -12,7 +12,6 @@
 namespace Nimbusletruand\CurriculumVitaeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -111,9 +110,10 @@ class DefaultController extends Controller
 
         // Check if there is at least 1 language defined
         $this->exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
+        if(is_array($this->exposedLanguages)) {
         if (!array_key_exists($_locale, $this->exposedLanguages)) {
             throw new NotFoundHttpException('There is no curriculum vitae defined for this language');
-        };
+        }};
 
         // Check if knp_snappy is existent
         $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
