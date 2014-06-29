@@ -11,12 +11,14 @@
     syntaxCheck="false"
     bootstrap="./Tests/bootstrap.php"
 >
+    <!-- Les fichiers de tests à lancer -->
     <testsuites>
         <testsuite name="Curriculum Vitae">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
 
+    <!-- Quels fichiers sont concernés par l'évaluation du code coverage -->
     <filter>
         <whitelist>
             <directory>./</directory>
