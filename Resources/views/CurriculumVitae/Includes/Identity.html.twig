@@ -1,3 +1,14 @@
+{#
+
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
 {% set template = template|default("") %}
 {% set id       = anchors.identity.href|default('') %}
 {% set anchorId = "id=" ~ id ~ "" %}
@@ -9,6 +20,11 @@
         <h3>{{ title }}</h3>
         {{ _self.displayBlockInMainSection(identity, id, template) }}
     </section>
+{% elseif template == "pdf" %}
+    <div {{ anchorId }}>
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(identity, id, template) }}
+    </div>
 {% else %}
     <div {{ anchorId }}>
         <h3>{{ title }} [<a href=#>top</a>]</h3>
@@ -34,8 +50,8 @@
             {% if identity.address.City is defined and identity.address.Country is defined %}
             <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
             {% endif %}
-            {# <div>M: {{ identity.contact.Mobile }}</div> #}
-            <div><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a></div>
+            {# <br>M: {{ identity.contact.Mobile }} #}
+            <br><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
             {{ SelfFunction.DisplayMyself(identity.myself) }}
             {{ SelfFunction.DisplaySocial(identity.social) }}
         </address>

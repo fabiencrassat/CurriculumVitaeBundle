@@ -1,3 +1,14 @@
+{#
+
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
 {% set template = template|default("") %}
 {% set id       = anchors.languageSkills.href|default('') %}
 {% set anchorId = "id=" ~ id ~ "" %}
@@ -10,6 +21,11 @@
         <h3>{{ title }}</h3>
         {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </section>
+{% elseif template == "pdf" %}
+    <div {{ anchorId }}>
+        <h3>{{ title }}</h3>
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+    </div>
 {% else %}
     <div {{ anchorId }}>
         <h3>{{ title }} [<a href=#>top</a>]</h3>
@@ -19,7 +35,6 @@
 
 {# Display each block section in the main section #}
 {% macro displayBlockInMainSection(blocks, id, template) %}
-    {% import _self as SelfFunction %}
     {% if template == "OryzoneBoilerplate" %}
         <div class="row">
         {% for line in blocks %}
@@ -34,6 +49,12 @@
         </div>
         {% endfor %}
         </div>
+    {% elseif template == "pdf" %}
+        {% for line in blocks %}
+        <div>
+            <strong>{{ line.title }}</strong> {{ line.description }}
+        </div>
+        {% endfor %}
     {% else %}
         {% for line in blocks %}
         <div>

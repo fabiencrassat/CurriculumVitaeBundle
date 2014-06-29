@@ -1,6 +1,18 @@
-{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+{#
 
-{% if template is defined %}
+This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+{% set template = template|default("") %}
+
+{% if template == "OryzoneBoilerplate" %}
 <div class="media">
     <span class="pull-left">
         <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
@@ -23,20 +35,26 @@
         </div>
     </div>
 </div>
-{% else %}
-<div>
-    <span>
-        <img src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
-    </span>
+{% elseif template == "pdf" %}
     <div>
         <h1>{{ identity.myself.Name|default('') }}</h1>
-        {% if hasSnappyPDF %}
-        <div>
-            <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}</a>
-        </div>
-        {% endif %}
         <p>{{ lookingFor.experience.job|default('') }}</p>
         <div>{{ lookingFor.presentation|default('') }}</div>
     </div>
-</div>
+{% else %}
+    <div>
+        <span>
+            <img src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+        </span>
+        <div>
+            <h1>{{ identity.myself.Name|default('') }}</h1>
+            {% if hasSnappyPDF %}
+            <div>
+                <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}</a>
+            </div>
+            {% endif %}
+            <p>{{ lookingFor.experience.job|default('') }}</p>
+            <div>{{ lookingFor.presentation|default('') }}</div>
+        </div>
+    </div>
 {% endif %}
