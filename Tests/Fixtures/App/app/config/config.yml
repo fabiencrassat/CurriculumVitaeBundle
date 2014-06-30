@@ -13,4 +13,4 @@ framework:
 
 # FabienCrassat Configuration
 fabien_crassat_curriculum_vitae:
-    path_to_cv:       "Resources/Data"
+    path_to_cv:       "%kernel.root_dir%/Resources/Data"
