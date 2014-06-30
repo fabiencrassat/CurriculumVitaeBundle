@@ -30,76 +30,87 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
+    /*
     public function testFileDoesNotExist()
     {
-        try {
-            $pathToFile = __DIR__.'/../Resources/data/no_file.xml';
-            $CV = new CurriculumVitae($pathToFile);
-        }
+        // try {
+        //     $pathToFile = __DIR__.'/../Resources/data/no_file.xml';
+        //     $CV = new CurriculumVitae($pathToFile);
+        // }
 
-        // Test failed //
-        catch (InvalidArgumentException $expected) {
-            return;
-        }
+        // // Test failed //
+        // catch (InvalidArgumentException $expected) {
+        //     return;
+        // }
     }
+    */
 
     /**
      * @expectedException PHPUnit_Framework_Error
      */
+    /*
     public function testMaxRecursivity()
     {
-        try {
-            $pathToFile = __DIR__.'/../Resources/data/test.xml';
-            $CV = new CurriculumVitae($pathToFile);
-            $CV->getSociety();
-        }
+        // try {
+        //     $pathToFile = __DIR__.'/../Resources/data/test.xml';
+        //     $CV = new CurriculumVitae($pathToFile);
+        //     $CV->getSociety();
+        // }
 
-        // Test failed //
-        catch (InvalidArgumentException $expected) {
-            return;
-        }
+        // // Test failed //
+        // catch (InvalidArgumentException $expected) {
+        //     return;
+        // }
     }
+    */
 
     /**
      * @expectedException PHPUnit_Framework_Error
      */
+    /*
     public function testNoNode()
     {
-        try {
-            $pathToFile = __DIR__.'/../Resources/data/empty.xml';
-            $CV = new CurriculumVitae($pathToFile);
-            $CV->getSociety();
-        }
+        // try {
+        //     $pathToFile = __DIR__.'/../Resources/data/empty.xml';
+        //     $CV = new CurriculumVitae($pathToFile);
+        //     $CV->getSociety();
+        // }
 
-        // Test failed //
-        catch (InvalidArgumentException $expected) {
-            return;
-        }
+        // // Test failed //
+        // catch (InvalidArgumentException $expected) {
+        //     return;
+        // }
     }
+    */
 
     /**
      * @expectedException PHPUnit_Framework_Error
      */
+    /*
     public function testGetAgeWithBadFormat()
     {
-        try {
-            $pathToFile = __DIR__.'/../Resources/data/test.xml';
-            $CV = new CurriculumVitae($pathToFile);
-            $CV->getIdentity();
-        }
+        // try {
+        //     $pathToFile = __DIR__.'/../Resources/data/test.xml';
+        //     $CV = new CurriculumVitae($pathToFile);
+        //     $CV->getIdentity();
+        // }
 
-        // Test failed //
-        catch (InvalidArgumentException $expected) {
-            return;
-        }
+        // // Test failed //
+        // catch (InvalidArgumentException $expected) {
+        //     return;
+        // }
     }
+    */
 
+    /*
     public function testGetAgeBeforeBirthday()
     {
         $pathToFile = __DIR__.'/../Resources/data/getAge.xml';
         $CV = new CurriculumVitae($pathToFile);
         $CV->getIdentity();
     }
+    */
+    /*
     public function testGetAgeInBirthdayMonth()
     {
         // The month of birthday in the xml must be the month of today
@@ -107,4 +118,5 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $CV = new CurriculumVitae($pathToFile);
         $CV->getIdentity();
     }
+    */
 }
