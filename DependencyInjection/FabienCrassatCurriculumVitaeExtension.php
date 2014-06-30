@@ -39,7 +39,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
         if(isset($config['path_to_cv'])) {
-            $path_to_cv = __DIR__.'/../'.$config['path_to_cv'];
+            $path_to_cv = $config['path_to_cv'];
         } else {
             $path_to_cv = $baseDir.'/../'.$container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
         }

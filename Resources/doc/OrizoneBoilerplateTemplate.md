@@ -11,7 +11,7 @@ assetic:
     # ...
     bundles:    ["OryzoneBoilerplateBundle", "FabienCrassatCurriculumVitaeBundle"]
 
-fabiencrassat_curriculum_vitae:
+fabien_crassat_curriculum_vitae:
     # ...
     template:   "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:OryzoneBoilerplate.html.twig"
 ```

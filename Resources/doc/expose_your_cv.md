@@ -14,7 +14,7 @@ So if you want to customized the bundle to call your CVs you have to define this
 For example:
 ``` yml
 # app/config/config.yml
-fabiencrassat_curriculum_vitae:
+fabien_crassat_curriculum_vitae:
     path_to_cv:       "Acme/Bundle/HelloBundle/Resources/curriculumvitae"
     custo_default_cv: "mycv"
     template:         "AcmeHelloBundle:CurriculumVitae:index.html.twig"
