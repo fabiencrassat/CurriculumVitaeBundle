@@ -1,6 +1,6 @@
 {#
 
-This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
 
 (c) Fabien Crassat <fabien@crassat.com>
 
@@ -9,17 +9,17 @@ file that was distributed with this source code.
 
 #}
 
-{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+{% trans_default_domain 'FabienCrassatCurriculumVitaeBundle' %}
 
 {% if template is defined %}
 {% if languages|length > 1 %}
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        {{ 'Nimbusletruand_curriculumvitae.language'|trans }} <b class="caret"></b>
+        {{ 'fabiencrassat_curriculumvitae.language'|trans }} <b class="caret"></b>
     </a>
     <ul class="dropdown-menu" role="language">
         {% for key, language in languages %}
-        <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
+        <li><a href="{{ path('fabiencrassat_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile } ) }}">{{ language }}</a></li>
         {% endfor %}
     </ul>
 </li>
@@ -27,10 +27,10 @@ file that was distributed with this source code.
 {% else %}
 {% if languages|length > 1 %}
 <ul><li>
-    <a href="#">{{ 'Nimbusletruand_curriculumvitae.language'|trans }}</a>
+    <a href="#">{{ 'fabiencrassat_curriculumvitae.language'|trans }}</a>
     <ul>
         {% for key, language in languages %}
-        <li><a href="{{ path('nimbusletruand_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile }) }}">{{ language }}</a></li>
+        <li><a href="{{ path('fabiencrassat_curriculumvitae_default', {'_locale': key, 'cvxmlfile': cvxmlfile }) }}">{{ language }}</a></li>
         {% endfor %}
     </ul>
 </li></ul>

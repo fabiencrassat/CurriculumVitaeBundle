@@ -40,17 +40,17 @@ Add the following dependency to your composer.json file:
 {
     "require": {
         "_some_packages": "...",
-        "nimbusletruand/curriculumvitae": "dev-master"
+        "fabiencrassat/curriculumvitae": "dev-master"
     }
 }
 ```
 Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ php composer.phar update nimbusletruand/curriculumvitae
+$ php composer.phar update fabiencrassat/curriculumvitae
 ```
 
-Composer will install the bundle to your project's `vendor/nimbusletruand` directory.
+Composer will install the bundle to your project's `vendor/FabienCrassat` directory.
 
 ### Step 2: Enable the bundle
 
@@ -64,14 +64,14 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Nimbusletruand\CurriculumVitaeBundle\NimbusletruandCurriculumVitaeBundle(),
+        new FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle(),
     );
 }
 // ...
 ?>
 ```
 
-### Step 3: Import Nimbusletruand CurriculumVitae Bundle routing
+### Step 3: Import FabienCrassat CurriculumVitae Bundle routing
 
 Finally, now that you have activated and configured the bundle, all that is left to do is
 import the routing file.
@@ -80,8 +80,8 @@ In YAML:
 
 ``` yaml
 # app/config/routing.yml
-nimbusletruand_curriculumvitae:
-    resource: "@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.yml"
+fabiencrassat_curriculumvitae:
+    resource: "@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.yml"
     prefix:   /cv
 ```
 
@@ -89,7 +89,7 @@ Or if you prefer XML:
 
 ``` xml
 <!-- app/config/routing.xml -->
-<import resource="@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.xml" prefix="/cv" />
+<import resource="@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.xml" prefix="/cv" />
 ```
 
 ## Usage
@@ -107,8 +107,8 @@ Go to your site and add /cv, for example: `http://localhost/app_dev.php/cv`
 
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
-- [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
-- [Expose you custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
-- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
-- [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
-- [Add the export to PDF with Knp Snappy](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
+- [Custom your curriculum vitae](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
+- [Expose you custom Curriculum Vitae Files](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
+- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
+- [Understand the link beetween xml file and twig variables](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
+- [Add the export to PDF with Knp Snappy](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)

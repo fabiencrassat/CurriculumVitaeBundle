@@ -1,6 +1,6 @@
 {#
 
-This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
 
 (c) Fabien Crassat <fabien@crassat.com>
 
@@ -9,7 +9,7 @@ file that was distributed with this source code.
 
 #}
 
-{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+{% trans_default_domain 'FabienCrassatCurriculumVitaeBundle' %}
 {% set template = template|default("") %}
 
 {% if template == "OryzoneBoilerplate" %}
@@ -21,10 +21,10 @@ file that was distributed with this source code.
         <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
         {% if hasSnappyPDF %}
         <div class="pull-right hidden-print">
-            <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
+            <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
                 <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-cloud-download"></span>
-                {{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}
+                {{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}
                 </button>
             </a>
         </div>
@@ -50,7 +50,7 @@ file that was distributed with this source code.
             <h1>{{ identity.myself.Name|default('') }}</h1>
             {% if hasSnappyPDF %}
             <div>
-                <a href="{{ path('nimbusletruand_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'Nimbusletruand_curriculumvitae.export_to_PDF'|trans }}</a>
+                <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}</a>
             </div>
             {% endif %}
             <p>{{ lookingFor.experience.job|default('') }}</p>

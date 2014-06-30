@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *
@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Nimbusletruand\CurriculumVitaeBundle\NimbusletruandCurriculumVitaeBundle(),
+            new FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle(),
         );
     }
 
@@ -38,7 +38,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
-        return sys_get_temp_dir().'/NimbusletruandCurriculumVitaeBundle/cache';
+        return sys_get_temp_dir().'/FabienCrassatCurriculumVitaeBundle/cache';
     }
 
     /**
@@ -46,6 +46,6 @@ class AppKernel extends Kernel
      */
     public function getLogDir()
     {
-        return sys_get_temp_dir().'/NimbusletruandCurriculumVitaeBundle/logs';
+        return sys_get_temp_dir().'/FabienCrassatCurriculumVitaeBundle/logs';
     }
 }

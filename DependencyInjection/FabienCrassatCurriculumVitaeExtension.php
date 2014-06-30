@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nimbusletruand\CurriculumVitaeBundle\DependencyInjection;
+namespace FabienCrassat\CurriculumVitaeBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class NimbusletruandCurriculumVitaeExtension extends Extension
+class FabienCrassatCurriculumVitaeExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -39,19 +39,19 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
         if(isset($config['path_to_cv'])) {
-            $path_to_cv = $baseDir.'/../../src/'.$config['path_to_cv'];
+            $path_to_cv = __DIR__.'/../'.$config['path_to_cv'];
         } else {
-            $path_to_cv = $baseDir.'/../'.$container->getParameter('nimbusletruand_curriculumvitae.path_to_cv');
+            $path_to_cv = $baseDir.'/../'.$container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
         }
         if (!is_dir($path_to_cv)) {
             throw new NotFoundHttpException('There is no directory defined here ('.$path_to_cv.').');
         }
-        $container->setParameter('nimbusletruand_curriculumvitae.path_to_cv',  $path_to_cv);
+        $container->setParameter('fabiencrassat_curriculumvitae.path_to_cv',  $path_to_cv);
 
         // Default Curriculum Vitae
         if(isset($config['custo_default_cv'])) {
             $container->setParameter(
-                'nimbusletruand_curriculumvitae.custo_default_cv',
+                'fabiencrassat_curriculumvitae.custo_default_cv',
                 $config['custo_default_cv']
             );
         }
@@ -59,7 +59,7 @@ class NimbusletruandCurriculumVitaeExtension extends Extension
         // Twig template of the Curriculum Vitae
         if(isset($config['template'])) {
             $container->setParameter(
-                'nimbusletruand_curriculumvitae.template',
+                'fabiencrassat_curriculumvitae.template',
                 $config['template']
             );
         }

@@ -1,6 +1,6 @@
 {#
 
-This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
 
 (c) Fabien Crassat <fabien@crassat.com>
 
@@ -9,7 +9,7 @@ file that was distributed with this source code.
 
 #}
 
-{# Nimbusletruand/CurriculumVitaeBundle/Resources/views/CurriculumVitae/OryzoneBoilerplate.html.twig #}
+{# FabienCrassat/CurriculumVitaeBundle/Resources/views/CurriculumVitae/OryzoneBoilerplate.html.twig #}
 
 {% extends "OryzoneBoilerplateBundle::html5.html.twig" %}
 
@@ -19,7 +19,7 @@ file that was distributed with this source code.
 {{ parent() }}
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="{% block body_css_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css{% endblock %}" id="body_css_bootstrap">
-{% stylesheets '@NimbusletruandCurriculumVitaeBundle/Resources/public/css/OryzoneBoilerplate.template.css' %}
+{% stylesheets '@FabienCrassatCurriculumVitaeBundle/Resources/public/css/OryzoneBoilerplate.template.css' %}
 <link rel="stylesheet" href="{{ asset_url }}">
 {% endstylesheets %}
 {% endblock %}
@@ -30,8 +30,8 @@ file that was distributed with this source code.
 <script src="{% block body_js_bootstrap_onlineSrc %}//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js{% endblock %}"></script>
 <script>
 if ($.fn.button == undefined) {
-    document.write('<script type="text/javascript" src="{% block body_js_bootstrap_offlineSrc %}{% javascripts '@NimbusletruandCurriculumVitaeBundle/Resources/offline/js/bootstrap.min.js' %}{{ asset_url }}{% endjavascripts %}{% endblock %}"><\/script>');
-    document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}{% stylesheets '@NimbusletruandCurriculumVitaeBundle/Resources/offline/css/bootstrap.min.css' %}{{ asset_url }}{% endstylesheets %}{% endblock %}" id="body_css_bootstrap_offlineSrc">');
+    document.write('<script type="text/javascript" src="{% block body_js_bootstrap_offlineSrc %}{% javascripts '@FabienCrassatCurriculumVitaeBundle/Resources/offline/js/bootstrap.min.js' %}{{ asset_url }}{% endjavascripts %}{% endblock %}"><\/script>');
+    document.write('<link rel="stylesheet" href="{% block body_css_bootstrap_offlineSrc %}{% stylesheets '@FabienCrassatCurriculumVitaeBundle/Resources/offline/css/bootstrap.min.css' %}{{ asset_url }}{% endstylesheets %}{% endblock %}" id="body_css_bootstrap_offlineSrc">');
     $('document').ready(function(){
         $('link#body_css_bootstrap_offlineSrc').appendTo('link#body_css_bootstrap')
     })
@@ -54,31 +54,31 @@ if ($.fn.button == undefined) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
         </ul>
     </div>
 </nav>
 
 <div id="CurriculumVitae" class="container">
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 
     <div class="row">
         <div class="col-md-6">
-            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'OryzoneBoilerplate'} %}
         </div>
 
         <div class="col-md-6">
-            {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' with {'template': 'OryzoneBoilerplate'} %}
         </div>
     </div>
 
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 </div>
 
-{% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Nav/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 {% endblock %}

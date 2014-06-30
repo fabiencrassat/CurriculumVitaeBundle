@@ -1,12 +1,12 @@
-nimbusletruand_curriculumvitae_exportPDF:
+fabiencrassat_curriculumvitae_exportPDF:
     path:       /{cvxmlfile}/{_locale}/pdf
     defaults:
-        _controller:    NimbusletruandCurriculumVitaeBundle:Default:exportPDF
+        _controller:    FabienCrassatCurriculumVitaeBundle:Default:exportPDF
         _locale:        en
         cvxmlfile:      example
-nimbusletruand_curriculumvitae_default:
+fabiencrassat_curriculumvitae_default:
     path:       /{cvxmlfile}/{_locale}
     defaults:
-        _controller:    NimbusletruandCurriculumVitaeBundle:Default:index
+        _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
         _locale:        en
         cvxmlfile:      example

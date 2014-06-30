@@ -1,13 +1,13 @@
 parameters:
-#    nimbusletruand_curriculumvitae.example.class: Nimbusletruand\CurriculumVitaeBundle
+#    fabiencrassat_curriculumvitae.example.class: FabienCrassat\CurriculumVitaeBundle
     # Parameters for the controler
-    nimbusletruand_curriculumvitae.path_to_cv: "Nimbusletruand/CurriculumVitaeBundle/Resources/Data"
-    nimbusletruand_curriculumvitae.default_cv: "example"
-    nimbusletruand_curriculumvitae.template:   "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.html.twig"
+    fabiencrassat_curriculumvitae.path_to_cv: "FabienCrassat/CurriculumVitaeBundle/Resources/Data"
+    fabiencrassat_curriculumvitae.default_cv: "example"
+    fabiencrassat_curriculumvitae.template:   "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig"
     # Parameters to app/config/config.yml
-    nimbusletruand_curriculumvitae.custo_default_cv: ~
+    fabiencrassat_curriculumvitae.custo_default_cv: ~
 
 services:
-#    nimbusletruand_curriculumvitae.example:
-#        class: %nimbusletruand_curriculumvitae.example.class%
+#    fabiencrassat_curriculumvitae.example:
+#        class: %fabiencrassat_curriculumvitae.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

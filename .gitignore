@@ -1,2 +1,7 @@
 *.tmp
 *.db
+
+vendor
+composer.lock
+composer.phar
+Tests/Fixtures/App/app/cache

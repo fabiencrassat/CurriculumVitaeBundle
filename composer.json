@@ -1,5 +1,5 @@
 {
-    "name": "nimbusletruand/curriculumvitae",
+    "name": "fabiencrassat/curriculumvitae",
     "type": "symfony-bundle",
     "description": "Symfony CV bundle",
     "keywords": ["symfony2", "curriculum vitae", "xml", "cv"],
@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Nimbusletruand\\CurriculumVitaeBundle\\": ""
+            "FabienCrassat\\CurriculumVitaeBundle\\": ""
         }
     }
 }

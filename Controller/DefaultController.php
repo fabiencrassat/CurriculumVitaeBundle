@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Nimbusletruand\CurriculumVitaeBundle\Controller;
+namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
-use Nimbusletruand\CurriculumVitaeBundle\Entity\CurriculumVitae;
+use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
 class DefaultController extends Controller
 {
@@ -30,7 +30,7 @@ class DefaultController extends Controller
 
         $templateVariables = array_merge($this->defineCVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
         return $this->container->get('templating')->renderResponse(
-            $this->container->getParameter('nimbusletruand_curriculumvitae.template'), $templateVariables);
+            $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $templateVariables);
     }
 
     public function exportPDFAction($cvxmlfile, $_locale)
@@ -42,7 +42,7 @@ class DefaultController extends Controller
         };
 
         $html = $this->container->get('templating')->render(
-            "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",  $this->defineCVViewVariables());
+            "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",  $this->defineCVViewVariables());
 
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
@@ -61,8 +61,8 @@ class DefaultController extends Controller
     private function readCVFile($cvxmlfile, $_locale)
     {
         // Retreive the CV file depending the configuration
-        if ($this->container->getParameter('nimbusletruand_curriculumvitae.default_cv') == $cvxmlfile) {
-            $custo_default_cv = $this->container->getParameter('nimbusletruand_curriculumvitae.custo_default_cv');
+        if ($this->container->getParameter('fabiencrassat_curriculumvitae.default_cv') == $cvxmlfile) {
+            $custo_default_cv = $this->container->getParameter('fabiencrassat_curriculumvitae.custo_default_cv');
             if(!is_null($custo_default_cv)) {
                 $cvxmlfile = $custo_default_cv;
             }
@@ -71,7 +71,7 @@ class DefaultController extends Controller
         $this->Lang = (string) $_locale;
 
         // Check the file in the filesystem
-        $pathToFile = $this->container->getParameter('nimbusletruand_curriculumvitae.path_to_cv').'/'.$this->FileToLoad.'.xml';
+        $pathToFile = $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv').'/'.$this->FileToLoad.'.xml';
         if (!is_file($pathToFile)) {
             throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->FileToLoad.' ('.$pathToFile.').');
         }

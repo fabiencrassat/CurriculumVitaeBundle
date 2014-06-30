@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *

@@ -2,7 +2,7 @@
 
 The structure of the Curriculum is not store in database, but in xml file.
 
-You can see an example of all you can do with the [example.xml](https://github.com/nimbusletruand/CurriculumVitaeBundle/blob/master/Resources/data/example.xml "example.xml")
+You can see an example of all you can do with the [example.xml](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/data/example.xml "example.xml")
 
 ## Summarize
 *   [Custom Structure](#custom-structure "Custom Structure")
@@ -90,7 +90,7 @@ Myself tag is to present you.
     <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
     <BrithPlace lang="fr">Paris</BrithPlace>
     <Nationality lang="en">French Citizenship</Nationality>
-    <Picture>bundles/nimbusletruandcurriculumvitae/img/example.png</Picture>
+    <Picture>bundles/fabiencrassatcurriculumvitae/img/example.png</Picture>
 </myself>
 ```
 And the bundle have some restriction:

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *
@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Nimbusletruand\CurriculumVitaeBundle\Test\Entity;
+namespace FabienCrassat\CurriculumVitaeBundle\Test\Entity;
 
-use Nimbusletruand\CurriculumVitaeBundle\Entity\CurriculumVitae;
+use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase

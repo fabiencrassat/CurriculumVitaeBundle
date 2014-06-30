@@ -1,2 +1,2 @@
-nimbusletruand_curriculumvitae:
-    resource: "@NimbusletruandCurriculumVitaeBundle/Resources/config/routing.yml"
+fabiencrassat_curriculumvitae:
+    resource: "@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.yml"

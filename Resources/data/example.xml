@@ -14,7 +14,7 @@
                 <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
                 <BrithPlace lang="fr">Paris</BrithPlace>
                 <Nationality lang="en">French Citizenship</Nationality>
-                <Picture>bundles/nimbusletruandcurriculumvitae/img/example.png</Picture>
+                <Picture>bundles/fabiencrassatcurriculumvitae/img/example.png</Picture>
             </myself>
             <address>
                 <Street>Street</Street>
@@ -42,37 +42,37 @@
             <linkedin>
                 <title>Linked In</title>
                 <url>http://www.linkedin.com</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/linkedin.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/linkedin.png</icon>
             </linkedin>
             <viadeo>
                 <title>Viadeo</title>
                 <url>http://www.viadeo.com</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/viadeo.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/viadeo.png</icon>
             </viadeo>
             <monster>
                 <title>Monster</title>
                 <url>http://beknown.com</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/monster.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/monster.png</icon>
             </monster>
             <twitter>
                 <title>Twitter</title>
                 <url>https://twitter.com</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/twitter.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/twitter.png</icon>
             </twitter>
             <googleplus>
                 <title>Google+</title>
                 <url>https://plus.google.com</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/googleplus.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/googleplus.png</icon>
             </googleplus>
             <facebook>
                 <title>Facebook</title>
                 <url>https://www.facebook.com</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/facebook.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/facebook.png</icon>
             </facebook>
             <scrum>
                 <title>Scrum</title>
                 <url>http://www.scrumalliance.org</url>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/scrum-alliance.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png</icon>
             </scrum>
         </items>
     </followMe>
@@ -204,14 +204,14 @@
                 <title lang="fr">Français</title>
                 <description lang="en">Level of the skill.</description>
                 <description lang="fr">Niveau</description>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/Flag-of-France.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>
             </French>
             <English>
                 <title lang="en">English</title>
                 <title lang="fr">Anglais</title>
                 <description lang="en">Level of the skill.</description>
                 <description lang="fr">Niveau</description>
-                <icon>bundles/nimbusletruandcurriculumvitae/img/Flag-of-United-Kingdom.png</icon>
+                <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png</icon>
             </English>
         </items>
     </languageSkills>

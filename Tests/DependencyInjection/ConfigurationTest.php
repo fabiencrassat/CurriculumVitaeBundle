@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *
@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Nimbusletruand\CurriculumVitaeBundle\Test\DependencyInjection;
+namespace FabienCrassat\CurriculumVitaeBundle\Test\DependencyInjection;
 
-use Nimbusletruand\CurriculumVitaeBundle\DependencyInjection\Configuration;
+use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\Configuration;
 
 /**
  * This is the class that validates and merges configuration from your app/config files

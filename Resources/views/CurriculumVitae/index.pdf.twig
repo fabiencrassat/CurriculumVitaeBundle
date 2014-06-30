@@ -1,6 +1,6 @@
 {#
 
-This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
 
 (c) Fabien Crassat <fabien@crassat.com>
 
@@ -9,24 +9,24 @@ file that was distributed with this source code.
 
 #}
 
-{# Nimbusletruand/CurriculumVitaeBundle/Resources/views/CurriculumVitae/index.pdf.twig #}
+{# FabienCrassat/CurriculumVitaeBundle/Resources/views/CurriculumVitae/index.pdf.twig #}
 
 {% extends "::base.html.twig" %}
 
-{% trans_default_domain 'NimbusletruandCurriculumVitaeBundle' %}
+{% trans_default_domain 'FabienCrassatCurriculumVitaeBundle' %}
 
 {% block title %}CV {{ cvxmlfile|title }}{% endblock %}
 
 {% block body %}
 
 <div id="CurriculumVitae">
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'pdf'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'pdf'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': 'pdf'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': 'pdf'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': 'pdf'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': 'pdf'} %}
-    {% include 'NimbusletruandCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': 'pdf'} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'pdf'} %}
 </div>
 
 {% endblock %}

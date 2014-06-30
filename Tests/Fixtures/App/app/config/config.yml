@@ -10,3 +10,7 @@ framework:
     default_locale: en
     translator: { fallback: en }
     profiler: { only_exceptions: false }
+
+# FabienCrassat Configuration
+fabiencrassat_curriculum_vitae:
+    path_to_cv:       "Resources/Data"

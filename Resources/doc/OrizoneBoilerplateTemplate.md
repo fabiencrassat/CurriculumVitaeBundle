@@ -9,11 +9,11 @@
 
 assetic:
     # ...
-    bundles:    ["OryzoneBoilerplateBundle", "NimbusletruandCurriculumVitaeBundle"]
+    bundles:    ["OryzoneBoilerplateBundle", "FabienCrassatCurriculumVitaeBundle"]
 
-nimbusletruand_curriculum_vitae:
+fabiencrassat_curriculum_vitae:
     # ...
-    template:   "NimbusletruandCurriculumVitaeBundle:CurriculumVitae:OryzoneBoilerplate.html.twig"
+    template:   "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:OryzoneBoilerplate.html.twig"
 ```
 
 ## Deployment

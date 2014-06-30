@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Nimbusletruand\CurriculumVitaeBundle Symfony bundle.
+ * This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
  *
  * (c) Fabien Crassat <fabien@crassat.com>
  *
@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Nimbusletruand\CurriculumVitaeBundle\Test\DependencyInjection;
+namespace FabienCrassat\CurriculumVitaeBundle\Test\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
-use Nimbusletruand\CurriculumVitaeBundle\DependencyInjection\NimbusletruandCurriculumVitaeExtension;
+use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\FabienCrassatCurriculumVitaeExtension;
 
 /**
  * This is the class that loads and manages your bundle configuration
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class testNimbusletruandCurriculumVitaeExtension extends \PHPUnit_Framework_TestCase
+class testFabienCrassatCurriculumVitaeExtension extends \PHPUnit_Framework_TestCase
 {
     /**
      * {@inheritDoc}
@@ -30,7 +30,7 @@ class testNimbusletruandCurriculumVitaeExtension extends \PHPUnit_Framework_Test
         $configs = array();
         $container = new ContainerBuilder();
 
-        $extension = new NimbusletruandCurriculumVitaeExtension();
+        $extension = new FabienCrassatCurriculumVitaeExtension();
         $extension->load($configs, $container);
     }
 
@@ -40,7 +40,7 @@ class testNimbusletruandCurriculumVitaeExtension extends \PHPUnit_Framework_Test
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder;
-        $loader = new NimbusletruandCurriculumVitaeExtension;
+        $loader = new FabienCrassatCurriculumVitaeExtension;
         $config = $this->getFullConfig();
         $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
