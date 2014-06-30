@@ -12,5 +12,5 @@ framework:
     profiler: { only_exceptions: false }
 
 # FabienCrassat Configuration
-fabien_crassat_curriculum_vitae:
-    path_to_cv:       "%kernel.root_dir%/../../../../Resources/Data"
+# fabien_crassat_curriculum_vitae:
+#     path_to_cv:       "%kernel.root_dir%/../../../../Resources/Data"
