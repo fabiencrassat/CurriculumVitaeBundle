@@ -1,7 +1,7 @@
 parameters:
 #    fabiencrassat_curriculumvitae.example.class: FabienCrassat\CurriculumVitaeBundle
     # Parameters for the controler
-    fabiencrassat_curriculumvitae.path_to_cv: "FabienCrassat/CurriculumVitaeBundle/Resources/Data"
+    fabiencrassat_curriculumvitae.path_to_cv: "fabiencrassat/CurriculumVitaeBundle/Resources/Data"
     fabiencrassat_curriculumvitae.default_cv: "example"
     fabiencrassat_curriculumvitae.template:   "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig"
     # Parameters to app/config/config.yml

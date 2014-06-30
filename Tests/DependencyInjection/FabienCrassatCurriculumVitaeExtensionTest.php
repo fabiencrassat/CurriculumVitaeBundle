@@ -20,7 +20,7 @@ use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\FabienCrassatCurricu
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class testFabienCrassatCurriculumVitaeExtension extends \PHPUnit_Framework_TestCase
+class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * {@inheritDoc}
