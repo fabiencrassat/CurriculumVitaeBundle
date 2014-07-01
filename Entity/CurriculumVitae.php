@@ -11,6 +11,7 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Entity;
 
+use FabienCrassat\CurriculumVitaeBundle\Utility\Calculator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class CurriculumVitae
@@ -90,12 +91,14 @@ class CurriculumVitae
         return $this->xml2array($this->CV->CurriculumVitae->miscellaneous->items);
     }
 
-        public function getSociety()
+    public function getSociety()
     {
         return $this->xml2array($this->CV->Society);
     }
 
     private function xml2array($xml, $depth = 0, $format = true) {
+        $calculator = new Calculator();
+
         if ($depth >= $this->nMaxRecursiveDepth) {
             throw new InvalidArgumentException("The recursive funtion xml2array (depth=" . $depth . ") is too high.");
         } else {
@@ -160,7 +163,7 @@ class CurriculumVitae
                 $dateFormat = $CVCrossRef['@attributes']['format'];
 
                 $attr = array();
-                $value = $this->getAge((string) $cr, $dateFormat);
+                $value = $calculator->getAge((string) $cr, $dateFormat);
             }
 
             // Value
@@ -206,33 +209,4 @@ class CurriculumVitae
         return simplexml_load_file($pathToFile);
     }
 
-    /**
-     * @param string $birthday
-     */
-    private function getAge($birthday, $dateFormat)
-    {
-        if($dateFormat <> "mm/dd/yy") {
-            throw new InvalidArgumentException("The format " . $dateFormat . " is not defined.");
-        };
-        list($month, $day, $year) = preg_split('[/]', $birthday);
-        $today = array();
-        $today['day'] = date('j');
-        $today['month'] = date('n');
-        $today['year'] = date('Y');
-        $age = $today['year'] - $year;
-        if ($today['month'] <= $month) {
-            if ($month == $today['month']) {
-                if ($day > $today['day'])
-                    $age--;
-            }
-            else {
-                $age--;
-            }
-        };
-
-        return $age;
-    }
-
 }
-
-?>
