@@ -14,8 +14,6 @@ namespace FabienCrassat\CurriculumVitaeBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
