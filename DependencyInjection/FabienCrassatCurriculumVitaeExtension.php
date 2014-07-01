@@ -14,6 +14,8 @@ namespace FabienCrassat\CurriculumVitaeBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -24,43 +26,58 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class FabienCrassatCurriculumVitaeExtension extends Extension
 {
+
+    private $config;
+    private $container;
+
     /**
      * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $this->container = $container;
+        $this->config = $this->processConfiguration(new Configuration(), $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        $this->setPathToCVDirectory();
+        $this->setCustomDefaultCV();
+        $this->setTemplate();
+    }
+
+    private function setPathToCVDirectory()
+    {
         // Path to Curriculum Vitae Directory
-        $vendorDir = dirname(dirname(__FILE__));
-        $baseDir = dirname($vendorDir);
-        if(isset($config['path_to_cv'])) {
-            $path_to_cv = $config['path_to_cv'];
+        if(isset($this->config['path_to_cv'])) {
+            $path_to_cv = $this->config['path_to_cv'];
         } else {
-            $path_to_cv = __DIR__.'/../'.$container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
+            $path_to_cv = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
         }
         if (!is_dir($path_to_cv)) {
             throw new NotFoundHttpException('There is no directory defined here ('.$path_to_cv.').');
         }
-        $container->setParameter('fabiencrassat_curriculumvitae.path_to_cv',  $path_to_cv);
+        $this->container->setParameter('fabiencrassat_curriculumvitae.path_to_cv',  $path_to_cv);
+    }
 
+    private function setCustomDefaultCV()
+    {
         // Default Curriculum Vitae
-        if(isset($config['custo_default_cv'])) {
-            $container->setParameter(
+        if(isset($this->config['custo_default_cv'])) {
+            $this->container->setParameter(
                 'fabiencrassat_curriculumvitae.custo_default_cv',
-                $config['custo_default_cv']
+                $this->config['custo_default_cv']
             );
         }
+    }
 
+    private function setTemplate()
+    {
         // Twig template of the Curriculum Vitae
-        if(isset($config['template'])) {
-            $container->setParameter(
+        if(isset($this->config['template'])) {
+            $this->container->setParameter(
                 'fabiencrassat_curriculumvitae.template',
-                $config['template']
+                $this->config['template']
             );
         }
     }
