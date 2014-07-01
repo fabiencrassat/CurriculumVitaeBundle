@@ -1,5 +1,5 @@
 # .scrutinizer.yml
 tools:
-    external_code_coverage: true
+    php_code_coverage: true
 before_commands:
     - "composer install --dev"
