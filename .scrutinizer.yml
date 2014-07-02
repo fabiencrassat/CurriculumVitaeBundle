@@ -6,8 +6,8 @@ filter:
         - 'app/*'
         - 'bin/*'
         - 'library/*'
-        - 'Tests/Fixtures/App/app/cache'
-        - 'Tests/Fixtures/App/app/logs'
+        - 'Tests/Fixtures/App/app/cache/*'
+        - 'Tests/Fixtures/App/app/logs/*'
     paths: {  }
 tools:
     php_sim: true
