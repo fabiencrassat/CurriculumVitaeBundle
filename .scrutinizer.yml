@@ -1,5 +1,74 @@
 # .scrutinizer.yml
+filter:
+    excluded_paths:
+        - 'vendor/*'
+        - 'tests/*'
+        - 'app/*'
+        - 'bin/*'
+        - 'library/*'
+    paths: {  }
 tools:
-    php_code_coverage: true
+    php_sim:
+        enabled: true
+        min_mass: 16
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'tests/*'
+                - 'app/*'
+                - 'bin/*'
+                - 'library/*'
+            paths: {  }
+    php_pdepend:
+        enabled: true
+        configuration_file: null
+        suffixes:
+            - php
+        excluded_dirs: {  }
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'tests/*'
+                - 'app/*'
+                - 'bin/*'
+                - 'library/*'
+            paths: {  }
+    php_analyzer:
+        enabled: true
+        extensions:
+            - php
+        dependency_paths: {  }
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'tests/*'
+                - 'app/*'
+                - 'bin/*'
+                - 'library/*'
+            paths: {  }
+        path_configs: {  }
+    php_changetracking:
+        enabled: true
+        bug_patterns:
+            - '\bfix(?:es|ed)?\b'
+        feature_patterns:
+            - '\badd(?:s|ed)?\b'
+            - '\bimplement(?:s|ed)?\b'
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'tests/*'
+                - 'app/*'
+                - 'bin/*'
+                - 'library/*'
+            paths: {  }
+    php_code_coverage:
+        enabled: true
+        config_path: null
+        only_changesets: false
+        filter:
+            paths: {  }
+            excluded_paths: {  }
+build_failure_conditions: {  }
 before_commands:
     - "composer install --dev"
