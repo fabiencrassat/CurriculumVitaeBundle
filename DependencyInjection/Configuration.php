@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('path_to_cv')
                     ->info('Defines the path where the bundle grabs the curriculum vitae xml file')
-                    ->example('@AcmeHelloBundle/Resources/curriculumvitae/')
+                    ->example('%kernel.root_dir%\..\src\FabienCrassat\CurriculumVitaeBundle\Resources\data')
                 ->end()
                 ->scalarNode('custo_default_cv')
                     ->info('Defines your default curriculum vitae')
@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('template')
                     ->info('Defines your own twig template for you curriculum vitae')
-                    ->example('AcmeHelloBundle:CurriculumVitae:index.html.twig')
+                    ->example('FabienCrassatCurriculumVitaeBundle:CurriculumVitae:OryzoneBoilerplate.html.twig')
                 ->end()
             ->end()
         ;
