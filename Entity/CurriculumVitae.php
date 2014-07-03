@@ -149,9 +149,9 @@ class CurriculumVitae
                     $value = strftime('%d %B %Y', strtotime(date($value)));
                 }
                 $attr = array();
-            } elseif ($key == 'Age') {
+            } elseif ($key == 'Age' AND array_key_exists("getAge", $attr)) {
                 $CVCrossRef = $this->CV;
-                $tabtemp = explode("/", $valuetemp);
+                $tabtemp = explode("/", $attr["getAge"]);
                 foreach ($tabtemp as $val) {
                     $CVCrossRef = $CVCrossRef->{ $val };
                 }

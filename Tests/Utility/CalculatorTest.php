@@ -17,39 +17,51 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $year = 2000;
     private $assert;
-    private $month;
+    private $minDay = 0;
+    private $maxDay = 32;
+    private $minMonth = 0;
+    private $actualMonth;
+    private $maxMonth = 13;
+    private $year = 2000;
 
     public function __construct()
     {
         $this->calculator = new Calculator();
         $this->assert = date('Y') - $this->year;
-        $this->month = date('n');
+        $this->actualMonth = date('n');
     }
 
     public function testEarlyYear()
     {
-        $result = $this->calculator->getAge("00/00/".$this->year);
-        $this->assertEquals($this->assert, $result);
+        $this->assertEquals(
+            $this->assert,
+            $this->calculator->getAge($this->minMonth."/".$this->minDay."/".$this->year)
+        );
     }
 
     public function testSameMonth()
     {
-        $result = $this->calculator->getAge($this->month."/00/".$this->year);
-        $this->assertEquals($this->assert, $result);
+        $this->assertEquals(
+            $this->assert,
+            $this->calculator->getAge($this->actualMonth."/".$this->minDay."/".$this->year)
+        );
     }
 
     public function testEndOfTheYear()
     {
-        $result = $this->calculator->getAge("13/32/".$this->year);
-        $this->assertEquals($this->assert - 1, $result);
+        $this->assertEquals(
+            $this->assert - 1,
+            $this->calculator->getAge($this->maxMonth."/".$this->maxDay."/".$this->year)
+        );
     }
 
     public function testSameMonthAndLastDay()
     {
-        $result = $this->calculator->getAge($this->month."/32/".$this->year);
-        $this->assertEquals($this->assert - 1, $result);
+        $this->assertEquals(
+            $this->assert - 1,
+            $this->calculator->getAge($this->actualMonth."/".$this->maxDay."/".$this->year)
+        );
     }
 
     /**
@@ -57,6 +69,6 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateFormatException()
     {
-        $this->calculator->getAge("00/00/0000", "bad argument");
+        $this->calculator->getAge($this->minMonth."/".$this->minDay."/0000", "bad argument");
     }
 }
