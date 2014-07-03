@@ -21,13 +21,14 @@ tools:
     # php_mess_detector: true
     php_code_coverage:
         enabled: true
-        excluded_paths:
-            - 'vendor/*'
-            - 'tests/*'
-            - 'app/*'
-            - 'bin/*'
-            - 'library/*'
-            - 'Tests/*'
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'tests/*'
+                - 'app/*'
+                - 'bin/*'
+                - 'library/*'
+                - 'Tests/*'
 build_failure_conditions: {  }
 before_commands:
     - "composer install --dev"
