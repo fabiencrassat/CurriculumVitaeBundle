@@ -12,7 +12,6 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {

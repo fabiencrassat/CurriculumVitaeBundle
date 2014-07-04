@@ -33,6 +33,6 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/nofile');
+        $client->request('GET', '/nofile');
     }
 }
