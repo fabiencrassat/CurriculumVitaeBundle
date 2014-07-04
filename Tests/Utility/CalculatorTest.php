@@ -52,6 +52,9 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEqualsForAge($this->actualMonth, $this->maxDay, TRUE);
     }
 
+    /**
+     * @param integer $day
+     */
     private function assertEqualsForAge($month, $day, $beforeBirthday = FALSE)
     {
         $assert = $this->assert;
