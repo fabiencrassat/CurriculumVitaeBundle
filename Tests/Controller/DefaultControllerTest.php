@@ -20,7 +20,19 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/example');
-
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
+
+        // $crawler = $client->request('GET', '/example/en/pdf');
+        // $this->assertTrue($client->getResponse()->isOk());
+    }
+
+    /**
+     * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+     */
+    public function testCVDoesNotExistIndex()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/nofile');
     }
 }

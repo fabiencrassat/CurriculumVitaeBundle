@@ -34,34 +34,34 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testEarlyYear()
     {
-        $this->assertEquals(
-            $this->assert,
-            $this->calculator->getAge($this->minMonth."/".$this->minDay."/".$this->year)
-        );
+        $this->assertEqualsForAge($this->minMonth, $this->minDay);
     }
 
     public function testSameMonth()
     {
-        $this->assertEquals(
-            $this->assert,
-            $this->calculator->getAge($this->actualMonth."/".$this->minDay."/".$this->year)
-        );
+        $this->assertEqualsForAge($this->actualMonth, $this->minDay);
     }
 
     public function testEndOfTheYear()
     {
-        $this->assertEquals(
-            $this->assert - 1,
-            $this->calculator->getAge($this->maxMonth."/".$this->maxDay."/".$this->year)
-        );
+        $this->assertEqualsForAge($this->maxMonth, $this->maxDay, TRUE);
     }
 
     public function testSameMonthAndLastDay()
     {
-        $this->assertEquals(
-            $this->assert - 1,
-            $this->calculator->getAge($this->actualMonth."/".$this->maxDay."/".$this->year)
-        );
+        $this->assertEqualsForAge($this->actualMonth, $this->maxDay, TRUE);
+    }
+
+    private function assertEqualsForAge($month, $day, $beforeBirthday = FALSE)
+    {
+        $assert = $this->assert;
+        if($beforeBirthday) {
+            $assert = $this->assert - 1;
+        }
+
+        $age = $this->calculator->getAge($month."/".$day."/".$this->year);
+        
+        $this->assertEquals($assert, $age);
     }
 
     /**
