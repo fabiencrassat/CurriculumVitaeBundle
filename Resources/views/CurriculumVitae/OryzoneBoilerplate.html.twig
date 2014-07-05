@@ -13,6 +13,8 @@ file that was distributed with this source code.
 
 {% extends "OryzoneBoilerplateBundle::html5.html.twig" %}
 
+{% set bp_body_attributes = "data-spy='scroll' data-target='#bs-example-navbar-collapse-1'" %}
+
 {% block head_title %}CV {{ cvxmlfile|title }}{% endblock %}
 
 {% block head_css %}
@@ -41,6 +43,7 @@ if ($.fn.button == undefined) {
 
 {% block body_container_main %}
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -51,6 +54,7 @@ if ($.fn.button == undefined) {
         </button>
         <a href="#" class="navbar-brand">Curriculum Vitae</a>
     </div>
+
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -58,8 +62,8 @@ if ($.fn.button == undefined) {
             {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
         </ul>
     </div>
+  </div>
 </nav>
-
 <div id="CurriculumVitae" class="container">
     {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 

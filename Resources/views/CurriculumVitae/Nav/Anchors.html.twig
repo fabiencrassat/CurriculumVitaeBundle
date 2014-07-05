@@ -10,7 +10,7 @@ file that was distributed with this source code.
 #}
 
 {% for item in anchors %}
-<li class="">
+<li class="{% if loop.index == 1 %}active{% endif %}">
     <a href="#{{ item.href }}">{{ item.title }}</a>
 </li>
 {% endfor %}
