@@ -36,7 +36,7 @@ For more information about translations, check [Symfony documentation](http://sy
 ### Step 1: Install Curriculumvitae Bundle
 
 Add the following dependency to your composer.json file:
-``` js
+``` json
 {
     "require": {
         "_some_packages": "...",

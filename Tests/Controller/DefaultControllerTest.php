@@ -30,11 +30,31 @@ class DefaultControllerTest extends WebTestCase
     /**
      * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
      */
+    public function testSnappyPDFisNotPresent()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/example/en/pdf');
+    }
+
+    /**
+     * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+     */
     public function testCVDoesNotExistIndex()
     {
         $client = static::createClient();
 
         $client->request('GET', '/nofile');
+    }
+
+    /**
+     * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+     */
+    public function testBadLanguage()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/example/XX');
     }
 
     private $ReadCVXml;
