@@ -1,0 +1,39 @@
+{#
+
+This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{# FabienCrassat/CurriculumVitaeBundle/Resources/views/CurriculumVitae/body.html.twig #}
+
+{% set template = template|default("") %}
+
+<div id="CurriculumVitae" class="container">
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': template} %}
+    {% if template == "OryzoneBoilerplate" %}
+        <div class="row">
+            <div class="col-md-6">
+                {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            </div>
+
+            <div class="col-md-6">
+                {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            </div>
+        </div>
+    {% else %}
+        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' %}
+        {% if template != "pdf" %}
+        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' %}
+        {% endif %}
+    {% endif %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': template} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': template} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': template} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': template} %}
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': template} %}
+</div>

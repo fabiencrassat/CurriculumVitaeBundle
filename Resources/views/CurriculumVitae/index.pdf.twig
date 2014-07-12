@@ -13,20 +13,8 @@ file that was distributed with this source code.
 
 {% extends "::base.html.twig" %}
 
-{% trans_default_domain 'FabienCrassatCurriculumVitaeBundle' %}
-
 {% block title %}CV {{ cvxmlfile|title }}{% endblock %}
 
 {% block body %}
-
-<div id="CurriculumVitae">
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': 'pdf'} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'pdf'} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': 'pdf'} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': 'pdf'} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': 'pdf'} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': 'pdf'} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': 'pdf'} %}
-</div>
-
+{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:body.html.twig' with {'template': 'pdf'} %}
 {% endblock %}

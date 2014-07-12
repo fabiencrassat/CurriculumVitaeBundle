@@ -21,14 +21,9 @@ file that was distributed with this source code.
         <h3>{{ title }}</h3>
         {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </section>
-{% elseif template == "pdf" %}
-    <div {{ anchorId }}>
-        <h3>{{ title }}</h3>
-        {{ _self.displayBlockInMainSection(blocks, id, template) }}
-    </div>
 {% else %}
     <div {{ anchorId }}>
-        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
         {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </div>
 {% endif %}
@@ -36,19 +31,11 @@ file that was distributed with this source code.
 {# Display each block section in the main section #}
 {% macro displayBlockInMainSection(blocks, id, template) %}
     {% import _self as SelfFunction %}
-    {% if template == "OryzoneBoilerplate" %}
-        <dl class="dl-horizontal">
-        {% for line in blocks %}
-            {{ SelfFunction.DisplayItem(line) }}
-        {% endfor %}
-        </dl>
-    {% else %}
-        <dl>
-        {% for line in blocks %}
-            {{ SelfFunction.DisplayItem(line) }}
-        {% endfor %}
-        </dl>
-    {% endif %}
+    <dl class="dl-horizontal">
+    {% for line in blocks %}
+        {{ SelfFunction.DisplayItem(line) }}
+    {% endfor %}
+    </dl>
 {% endmacro %}
 
 {# Display each item section inside block section #}

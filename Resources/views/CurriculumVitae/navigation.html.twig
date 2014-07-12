@@ -1,0 +1,47 @@
+{#
+
+This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
+
+(c) Fabien Crassat <fabien@crassat.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{# FabienCrassat/CurriculumVitaeBundle/Resources/views/CurriculumVitae/navigation.html.twig #}
+
+{% set template = template|default("") %}
+
+{% if template == "OryzoneBoilerplate" %}
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Curriculum Vitae</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
+        </ul>
+    </div>
+  </div>
+</nav>
+{% else %}
+<div>
+    <a href="#">Curriculum Vitae</a>
+    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' %}
+    <div><ul>
+        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
+    </ul></div>
+</div>
+{% endif %}

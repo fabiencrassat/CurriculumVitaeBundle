@@ -13,28 +13,28 @@ file that was distributed with this source code.
 {% set template = template|default("") %}
 
 {% if template == "OryzoneBoilerplate" %}
-<div class="media">
-    <span class="pull-left">
-        <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
-    </span>
-    <div class="media-body">
-        <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
-        {% if hasSnappyPDF %}
-        <div class="pull-right hidden-print">
-            <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
-                <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-cloud-download"></span>
-                {{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}
-                </button>
-            </a>
-        </div>
-        {% endif %}
-        <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
-        <div class="panel panel-primary">
-            <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
+    <div class="media">
+        <span class="pull-left">
+            <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+        </span>
+        <div class="media-body">
+            <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
+            {% if hasSnappyPDF %}
+            <div class="pull-right hidden-print">
+                <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
+                    <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-cloud-download"></span>
+                    {{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}
+                    </button>
+                </a>
+            </div>
+            {% endif %}
+            <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
+            </div>
         </div>
     </div>
-</div>
 {% elseif template == "pdf" %}
     <div>
         <h1>{{ identity.myself.Name|default('') }}</h1>

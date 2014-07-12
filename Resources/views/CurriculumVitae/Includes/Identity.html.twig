@@ -20,14 +20,9 @@ file that was distributed with this source code.
         <h3>{{ title }}</h3>
         {{ _self.displayBlockInMainSection(identity, id, template) }}
     </section>
-{% elseif template == "pdf" %}
-    <div {{ anchorId }}>
-        <h3>{{ title }}</h3>
-        {{ _self.displayBlockInMainSection(identity, id, template) }}
-    </div>
 {% else %}
     <div {{ anchorId }}>
-        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
         {{ _self.displayBlockInMainSection(identity, id, template) }}
     </div>
 {% endif %}
@@ -35,27 +30,23 @@ file that was distributed with this source code.
 {# Display each block section in the main section #}
 {% macro displayBlockInMainSection(identity, id, template) %}
     {% import _self as SelfFunction %}
-    {% if template == "OryzoneBoilerplate" %}
-        <address>
+    <address>
+        {% if template == "OryzoneBoilerplate" %}
             {% if identity.address.City is defined and identity.address.Country is defined %}
             <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
             {% endif %}
             {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
             <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
-            {{ SelfFunction.DisplayMyself(identity.myself) }}
-            {{ SelfFunction.DisplaySocial(identity.social) }}
-        </address>
-    {% else %}
-        <address>
+        {% else %}
             {% if identity.address.City is defined and identity.address.Country is defined %}
             <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
             {% endif %}
             {# <br>M: {{ identity.contact.Mobile }} #}
             <br><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
-            {{ SelfFunction.DisplayMyself(identity.myself) }}
-            {{ SelfFunction.DisplaySocial(identity.social) }}
-        </address>
-    {% endif %}
+        {% endif %}
+        {{ SelfFunction.DisplayMyself(identity.myself) }}
+        {{ SelfFunction.DisplaySocial(identity.social) }}
+    </address>
 {% endmacro %}
 
 {# Display each item section inside block section #}

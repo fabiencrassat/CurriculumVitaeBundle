@@ -21,14 +21,9 @@ file that was distributed with this source code.
         <h3>{{ title }}</h3>
         {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </section>
-{% elseif template == "pdf" %}
-    <div {{ anchorId }}>
-        <h3>{{ title }}</h3>
-        {{ _self.displayBlockInMainSection(blocks, id, template) }}
-    </div>
 {% else %}
     <div {{ anchorId }}>
-        <h3>{{ title }} [<a href=#>top</a>]</h3>
+        <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
         {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </div>
 {% endif %}
@@ -36,9 +31,9 @@ file that was distributed with this source code.
 {# Display each block section in the main section #}
 {% macro displayBlockInMainSection(blocks, id, template) %}
     {% import _self as SelfFunction %}
-    {% if template == "OryzoneBoilerplate" %}
-        <dl class="timeline">
-        {% for line in blocks %}
+    <dl class="timeline">
+    {% for line in blocks %}
+        {% if template == "OryzoneBoilerplate" %}
             <dt>
                 <span class="indent"></span>
                 <button type="button" class="btn btn-default btn-xs active" data-toggle="collapse" data-target="#{{ id }}{{ loop.index }}">
@@ -50,20 +45,16 @@ file that was distributed with this source code.
                 {{ SelfFunction.DisplayItem(line) }}
                 </div>
             </dd>
-        {% endfor %}
-        </dl>
-    {% else %}
-        <dl>
-        {% for line in blocks %}
+        {% else %}
             <dt>
                 {{ line.date }}
             </dt>
             <dd>
                 {{ SelfFunction.DisplayItem(line) }}
             </dd>
-        {% endfor %}
-        </dl>
-    {% endif %}
+        {% endif %}
+    {% endfor %}
+    </dl>
 {% endmacro %}
 
 {# Display each item section inside block section #}

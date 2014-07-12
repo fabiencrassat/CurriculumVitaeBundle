@@ -31,21 +31,19 @@ file that was distributed with this source code.
 {# Display each block section in the main section #}
 {% macro displayBlockInMainSection(blocks, id, template) %}
     {% import _self as SelfFunction %}
-    {% if template == "OryzoneBoilerplate" %}
-        {% for line in blocks %}
-        <span class="followMeImage">
-        <a href="{{ line.url }}" class="linkimage" target="_blank">
-            {{ SelfFunction.DisplayItem(line) }}
-        </a>
-        </span>
-        {% endfor %}
-    {% else %}
-        {% for line in blocks %}
-        <a href="{{ line.url }}" target="_blank">
-            {{ SelfFunction.DisplayItem(line) }}
-        </a>
-        {% endfor %}
-    {% endif %}
+    {% for line in blocks %}
+        {% if template == "OryzoneBoilerplate" %}
+            <span class="followMeImage">
+            <a href="{{ line.url }}" class="linkimage" target="_blank">
+                {{ SelfFunction.DisplayItem(line) }}
+            </a>
+            </span>
+        {% else %}
+            <a href="{{ line.url }}" target="_blank">
+                {{ SelfFunction.DisplayItem(line) }}
+            </a>
+        {% endif %}
+    {% endfor %}
 {% endmacro %}
 
 {# Display each item section inside block section #}

@@ -11,6 +11,7 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\Controller;
 
+use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
@@ -34,5 +35,58 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/nofile');
+    }
+
+    private $ReadCVXml;
+    private $client;
+
+    public function testOutputHtmlXmlComparaison()
+    {
+        $this->client = static::createClient();
+
+        $langs = array('en', 'fr');
+        foreach ($langs as $key => $value) {
+            $this->OutputHtmlXmlComparaison($value);
+        }
+    }
+
+    private function OutputHtmlXmlComparaison($lang = 'en')
+    {
+        $crawler = $this->client->request('GET', '/example/'.$lang);
+
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../../Resources/data/example.xml';
+        $this->ReadCVXml = new CurriculumVitae($pathToFile, $lang);
+
+        $CVXml = array(
+                'identity'          => $this->ReadCVXml->getIdentity(),
+                'followMe'          => $this->ReadCVXml->getFollowMe(),
+                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
+                'experiences'       => $this->ReadCVXml->getExperiences(),
+                'skills'            => $this->ReadCVXml->getSkills(),
+                'educations'        => $this->ReadCVXml->getEducations(),
+                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
+                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+        );
+
+        $testValue = $this->array_values_recursive($CVXml);
+        foreach ($testValue as $key => $value) {
+            $this->assertGreaterThan(0,
+                $crawler->filter('html:contains("'.$value.'")')->count(),
+                'The value '.$value.' is not diplay for language '.$lang
+            );
+        }
+    }
+
+    private function array_values_recursive($array)
+    {
+        $return = array();
+        foreach($array as $key => $value)
+            if(is_array($value)) {
+                $return = array_merge($return, $this->array_values_recursive($value));
+            } else {
+                $return = array_merge($return, array($value));
+            }
+        return $return;
     }
 }

@@ -16,24 +16,6 @@ file that was distributed with this source code.
 {% block title %}CV {{ cvxmlfile|title }}{% endblock %}
 
 {% block body %}
-
-<div>
-    <a href="#">Curriculum Vitae</a>
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' %}
-    <div><ul>
-        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
-    </ul></div>
-</div>
-
-<div id="CurriculumVitae">
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' %}
-</div>
-
+{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:navigation.html.twig' %}
+{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:body.html.twig' %}
 {% endblock %}
