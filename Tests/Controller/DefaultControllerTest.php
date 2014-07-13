@@ -19,12 +19,8 @@ class DefaultControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = static::createClient();
-
         $crawler = $client->request('GET', '/example');
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
-
-        // $crawler = $client->request('GET', '/example/en/pdf');
-        // $this->assertTrue($client->getResponse()->isOk());
     }
 
     /**
@@ -33,8 +29,7 @@ class DefaultControllerTest extends WebTestCase
     public function testSnappyPDFisNotPresent()
     {
         $client = static::createClient();
-
-        $crawler = $client->request('GET', '/example/en/pdf');
+        $client->request('GET', '/example/en/pdf');
     }
 
     /**
@@ -43,7 +38,6 @@ class DefaultControllerTest extends WebTestCase
     public function testCVDoesNotExistIndex()
     {
         $client = static::createClient();
-
         $client->request('GET', '/nofile');
     }
 
@@ -53,7 +47,6 @@ class DefaultControllerTest extends WebTestCase
     public function testBadLanguage()
     {
         $client = static::createClient();
-
         $client->request('GET', '/example/XX');
     }
 
