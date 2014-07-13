@@ -5,7 +5,8 @@ The structure of the Curriculum is not store in database, but in xml file.
 You can see an example of all you can do with the [example.xml](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/data/example.xml "example.xml")
 
 ## Summarize
-*   [Custom Structure](#custom-structure "Custom Structure")
+*   [Main Structure](#main-structure "Main Structure")
+*   [Block tag](#block-tag "Block tag")
     *   [Lang tag](#lang-tag "Lang tag")
     *   [Identity tag](#identity-tag "Identity tag") [todo]
     *   [FollowMe tag](#followme-tag "FollowMe tag") [todo]
@@ -17,50 +18,18 @@ You can see an example of all you can do with the [example.xml](https://github.c
     *   [Miscellaneous tag](#miscellaneous-tag "Miscellaneous tag") [todo]
     *   [Society tag](#society-tag "Society tag")
 
-## Custom Structure
+## Main Structure
 
-The main structure you need to allow the personlization of the twig template is:
+The main structure you need to allow the personlization of the CV is:
 
 ``` xml
 <xml version="1.0" encoding="UTF-8">
-<lang>
-</lang>
 <CurriculumVitae>
-    <identity>
-        <items>
-        </items>
-    </identity>
-    <followMe>
-        <items>
-        </items>
-    </followMe>
-    <lookingFor>
-    </lookingFor>
-    <experiences>
-        <items>
-        </items>
-    </experiences>
-    <skills>
-        <items>
-        </items>
-    </skills>
-    <educations>
-        <items>
-        </items>
-    </educations>
-    <languageSkills>
-        <items>
-        </items>
-    </languageSkills>
-    <miscellaneous>
-        <items>
-        </items>
-    </miscellaneous>
 </CurriculumVitae>
-<Society>
-</Society>
 </xml>
 ```
+
+## Block tag
 
 ### Lang tag
 
