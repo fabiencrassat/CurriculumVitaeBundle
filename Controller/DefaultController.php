@@ -82,7 +82,12 @@ class DefaultController extends Controller
 
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
-        $filename = $identity['myself']['Name'].' - '.$lookingFor['experience']['job'].'.pdf';
+
+        if ($identity['myself']['Name'] && $lookingFor['experience']['job']) {
+            $filename = $identity['myself']['Name'].' - '.$lookingFor['experience']['job'].'.pdf';
+        } else {
+            $filename = $this->FileToLoad;
+        }
 
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
@@ -113,7 +118,6 @@ class DefaultController extends Controller
         if (!$_locale) {
             $_locale = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
         }
-
         $this->Lang = (string) $_locale;
     }
 

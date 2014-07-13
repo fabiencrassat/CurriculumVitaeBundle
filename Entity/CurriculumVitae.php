@@ -31,11 +31,10 @@ class CurriculumVitae
 
     public function getDropDownLanguages()
     {
-        if(!$this->CV->lang) {
+        $return = $this->xml2array($this->CV->lang);
+        if(Count($return) == 0) {
             $return = array($this->Lang => $this->Lang);
-        } else {
-            $return = $this->xml2array($this->CV->lang);
-        } 
+        }
 
         return $return;
     }
