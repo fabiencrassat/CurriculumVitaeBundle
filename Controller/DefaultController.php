@@ -102,12 +102,7 @@ class DefaultController extends Controller
     private function fileToLoad($cvxmlfile = null) {
         if (!$cvxmlfile) {
             // Retreive the CV file depending the configuration
-            $custo_default_cv = $this->container->getParameter('fabiencrassat_curriculumvitae.custo_default_cv');
-            if(is_null($custo_default_cv)) {
-                $cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
-            } else {
-                $cvxmlfile = $custo_default_cv;
-            }
+            $cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
         }
 
         $this->FileToLoad = (string) $cvxmlfile;
@@ -136,12 +131,13 @@ class DefaultController extends Controller
         $this->exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
         if(is_array($this->exposedLanguages)) {
         if (!array_key_exists($this->Lang, $this->exposedLanguages)) {
-            throw new NotFoundHttpException('There is no curriculum vitae defined for this language');
+            throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->Lang);
         }};
 
         // Check if knp_snappy is existent
         $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
     }
+
     private function defineCVViewVariables()
     {
         return array(

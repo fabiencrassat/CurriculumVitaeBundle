@@ -40,8 +40,9 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         $loader->load('services.yml');
 
         $this->setPathToCVDirectory();
-        $this->setCustomDefaultCV();
+        $this->setDefaultCV();
         $this->setTemplate();
+        $this->setDefaultLanguage();
     }
 
     private function setPathToCVDirectory()
@@ -58,12 +59,12 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         $this->container->setParameter('fabiencrassat_curriculumvitae.path_to_cv',  $path_to_cv);
     }
 
-    private function setCustomDefaultCV()
+    private function setDefaultCV()
     {
         // Default Curriculum Vitae
         if(isset($this->config['custo_default_cv'])) {
             $this->container->setParameter(
-                'fabiencrassat_curriculumvitae.custo_default_cv',
+                'fabiencrassat_curriculumvitae.default_cv',
                 $this->config['custo_default_cv']
             );
         }
@@ -76,6 +77,17 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
             $this->container->setParameter(
                 'fabiencrassat_curriculumvitae.template',
                 $this->config['template']
+            );
+        }
+    }
+
+    private function setDefaultLanguage()
+    {
+        // default_lang of the Curriculum Vitae
+        if(isset($this->config['default_lang'])) {
+            $this->container->setParameter(
+                'fabiencrassat_curriculumvitae.default_lang',
+                $this->config['default_lang']
             );
         }
     }
