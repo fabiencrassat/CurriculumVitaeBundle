@@ -12,8 +12,10 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
 class DefaultController extends Controller
@@ -24,9 +26,41 @@ class DefaultController extends Controller
     private $exposedLanguages;
     private $hasSnappyPDF;
 
-    public function indexAction($cvxmlfile, $_locale)
+    public function indexAction($cvxmlfile = null)
     {
-        $this->readCVFile($cvxmlfile, $_locale);
+        $this->fileToLoad($cvxmlfile);
+        $this->lang();
+        $this->readCVFile();
+
+        if($cvxmlfile) {
+            $path = array(
+                '_controller' => 'FabienCrassatCurriculumVitaeBundle:Default:display',
+                'cvxmlfile'   => $this->FileToLoad,
+                '_locale'     => $this->Lang,
+            );
+            $request = $this->container->get('request');
+            $subRequest = $request->duplicate(array(), null, $path);
+
+            $httpKernel = $this->container->get('http_kernel');
+            $response = $httpKernel->handle(
+                $subRequest,
+                HttpKernelInterface::SUB_REQUEST
+            );
+            return $response;
+        } else {
+            return new RedirectResponse($this->generateUrl(
+                'fabiencrassat_curriculumvitae_cvxmlfileonly',
+                array(
+                    'cvxmlfile'   => $this->FileToLoad,
+                )), 301);
+        }
+    }
+
+    public function displayAction($cvxmlfile, $_locale)
+    {
+        $this->fileToLoad($cvxmlfile);
+        $this->lang($_locale);
+        $this->readCVFile();
 
         $templateVariables = array_merge($this->defineCVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
         return $this->container->get('templating')->renderResponse(
@@ -35,7 +69,9 @@ class DefaultController extends Controller
 
     public function exportPDFAction($cvxmlfile, $_locale)
     {
-        $this->readCVFile($cvxmlfile, $_locale);
+        $this->fileToLoad($cvxmlfile);
+        $this->lang($_locale);
+        $this->readCVFile();
 
         if (!$this->hasSnappyPDF) {
             throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
@@ -58,18 +94,31 @@ class DefaultController extends Controller
         );
     }
 
-    private function readCVFile($cvxmlfile, $_locale)
-    {
-        // Retreive the CV file depending the configuration
-        if ($this->container->getParameter('fabiencrassat_curriculumvitae.default_cv') == $cvxmlfile) {
+    private function fileToLoad($cvxmlfile = null) {
+        if (!$cvxmlfile) {
+            // Retreive the CV file depending the configuration
             $custo_default_cv = $this->container->getParameter('fabiencrassat_curriculumvitae.custo_default_cv');
-            if(!is_null($custo_default_cv)) {
+            if(is_null($custo_default_cv)) {
+                $cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
+            } else {
                 $cvxmlfile = $custo_default_cv;
             }
         }
-        $this->FileToLoad = (string) $cvxmlfile;
-        $this->Lang = (string) $_locale;
 
+        $this->FileToLoad = (string) $cvxmlfile;
+    }
+
+    private function lang($_locale = null)
+    {
+        if (!$_locale) {
+            $_locale = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
+        }
+
+        $this->Lang = (string) $_locale;
+    }
+
+    private function readCVFile()
+    {
         // Check the file in the filesystem
         $pathToFile = $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv').'/'.$this->FileToLoad.'.xml';
         if (!is_file($pathToFile)) {
@@ -82,7 +131,7 @@ class DefaultController extends Controller
         // Check if there is at least 1 language defined
         $this->exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
         if(is_array($this->exposedLanguages)) {
-        if (!array_key_exists($_locale, $this->exposedLanguages)) {
+        if (!array_key_exists($this->Lang, $this->exposedLanguages)) {
             throw new NotFoundHttpException('There is no curriculum vitae defined for this language');
         }};
 

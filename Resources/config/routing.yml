@@ -1,12 +1,19 @@
+fabiencrassat_curriculumvitae_root:
+    pattern:    /
+    defaults:
+        _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
+
 fabiencrassat_curriculumvitae_exportPDF:
     path:       /{cvxmlfile}/{_locale}/pdf
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:exportPDF
-        _locale:        en
-        cvxmlfile:      example
+
 fabiencrassat_curriculumvitae_default:
     path:       /{cvxmlfile}/{_locale}
     defaults:
+        _controller:    FabienCrassatCurriculumVitaeBundle:Default:display
+
+fabiencrassat_curriculumvitae_cvxmlfileonly:
+    pattern:    /{cvxmlfile}
+    defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
-        _locale:        en
-        cvxmlfile:      example
