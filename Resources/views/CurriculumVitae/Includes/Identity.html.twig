@@ -13,39 +13,42 @@ file that was distributed with this source code.
 {% set id       = anchors.identity.href|default('') %}
 {% set anchorId = "id=" ~ id ~ "" %}
 {% set title    = anchors.identity.title|default('') %}
+{% set blocks   = identity %}
 
+{% if blocks is not null %}
 {# Display the main section #}
 {% if template == "OryzoneBoilerplate" %}
     <section {{ anchorId }} class="well">
         <h3>{{ title }}</h3>
-        {{ _self.displayBlockInMainSection(identity, id, template) }}
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </section>
 {% else %}
     <div {{ anchorId }}>
         <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
-        {{ _self.displayBlockInMainSection(identity, id, template) }}
+        {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </div>
+{% endif %}
 {% endif %}
 
 {# Display each block section in the main section #}
-{% macro displayBlockInMainSection(identity, id, template) %}
+{% macro displayBlockInMainSection(blocks, id, template) %}
     {% import _self as SelfFunction %}
     <address>
         {% if template == "OryzoneBoilerplate" %}
-            {% if identity.address.City is defined and identity.address.Country is defined %}
-            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% if blocks.address.City is defined and blocks.address.Country is defined %}
+            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ blocks.address.GoogleMap|default('') }}">{{ blocks.address.City }}, {{ blocks.address.Country }}</a>
             {% endif %}
-            {# <br><abbr title="Mobile">M:</abbr> {{ identity.contact.Mobile }} #}
-            <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
+            {# <br><abbr title="Mobile">M:</abbr> {{ blocks.contact.Mobile }} #}
+            <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ blocks.contact.Email|default('') }}">{{ blocks.contact.Email|default('') }}</a>
         {% else %}
-            {% if identity.address.City is defined and identity.address.Country is defined %}
-            <a target="_blank" href="{{ identity.address.GoogleMap|default('') }}">{{ identity.address.City }}, {{ identity.address.Country }}</a>
+            {% if blocks.address.City is defined and blocks.address.Country is defined %}
+            <a target="_blank" href="{{ blocks.address.GoogleMap|default('') }}">{{ blocks.address.City }}, {{ blocks.address.Country }}</a>
             {% endif %}
-            {# <br>M: {{ identity.contact.Mobile }} #}
-            <br><a href="mailto:{{ identity.contact.Email|default('') }}">{{ identity.contact.Email|default('') }}</a>
+            {# <br>M: {{ blocks.contact.Mobile }} #}
+            <br><a href="mailto:{{ blocks.contact.Email|default('') }}">{{ blocks.contact.Email|default('') }}</a>
         {% endif %}
-        {{ SelfFunction.DisplayMyself(identity.myself) }}
-        {{ SelfFunction.DisplaySocial(identity.social) }}
+        {{ SelfFunction.DisplayMyself(blocks.myself|default('')) }}
+        {{ SelfFunction.DisplaySocial(blocks.social|default('')) }}
     </address>
 {% endmacro %}
 
