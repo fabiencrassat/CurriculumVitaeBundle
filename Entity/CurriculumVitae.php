@@ -31,7 +31,13 @@ class CurriculumVitae
 
     public function getDropDownLanguages()
     {
-        return $this->xml2array($this->CV->lang);
+        if(!$this->CV->lang) {
+            $return = array($this->Lang => $this->Lang);
+        } else {
+            $return = $this->xml2array($this->CV->lang);
+        } 
+
+        return $return;
     }
 
     public function getAnchors()
@@ -53,47 +59,56 @@ class CurriculumVitae
 
     public function getIdentity()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->identity->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->identity->items);
     }
 
     public function getFollowMe()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->followMe->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->followMe->items);
     }
 
     public function getLookingFor()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->lookingFor);
+        return $this->getXMLValue($this->CV->CurriculumVitae->lookingFor);
     }
 
     public function getExperiences()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->experiences->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->experiences->items);
     }
 
     public function getSkills()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->skills->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->skills->items);
     }
 
     public function getEducations()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->educations->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->educations->items);
     }
 
     public function getLanguageSkills()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->languageSkills->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->languageSkills->items);
     }
 
     public function getMiscellaneous()
     {
-        return $this->xml2array($this->CV->CurriculumVitae->miscellaneous->items);
+        return $this->getXMLValue($this->CV->CurriculumVitae->miscellaneous->items);
     }
 
     public function getSociety()
     {
-        return $this->xml2array($this->CV->Society);
+        return $this->getXMLValue($this->CV->Society);
+    }
+
+    private function getXMLValue($xml)
+    {
+        if (!$xml) {
+            return null;
+        } else {
+            return $this->xml2array($xml);
+        }
     }
 
     private function xml2array($xml, $depth = 0, $format = true) {

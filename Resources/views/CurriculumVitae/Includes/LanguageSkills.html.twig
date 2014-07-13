@@ -15,6 +15,7 @@ file that was distributed with this source code.
 {% set title    = anchors.languageSkills.title|default('') %}
 {% set blocks   = languageSkills %}
 
+{% if blocks is not null %}
 {# Display the main section #}
 {% if template == "OryzoneBoilerplate" %}
     <section {{ anchorId }} class="well">
@@ -26,6 +27,7 @@ file that was distributed with this source code.
         <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
         {{ _self.displayBlockInMainSection(blocks, id, template) }}
     </div>
+{% endif %}
 {% endif %}
 
 {# Display each block section in the main section #}
