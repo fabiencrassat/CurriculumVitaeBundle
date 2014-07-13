@@ -36,16 +36,20 @@ file that was distributed with this source code.
     <address>
         {% if template == "OryzoneBoilerplate" %}
             {% if blocks.address.City is defined and blocks.address.Country is defined %}
-            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ blocks.address.GoogleMap|default('') }}">{{ blocks.address.City }}, {{ blocks.address.Country }}</a>
+            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ blocks.address.GoogleMap|default('') }}">{{ blocks.address.City }}, {{ blocks.address.Country }}</a><br>
             {% endif %}
-            {# <br><abbr title="Mobile">M:</abbr> {{ blocks.contact.Mobile }} #}
-            <br><abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ blocks.contact.Email|default('') }}">{{ blocks.contact.Email|default('') }}</a>
+            {# <abbr title="Mobile">M:</abbr> {{ blocks.contact.Mobile }}<br> #}
+            {% if blocks.contact.Email is defined %}
+            <abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ blocks.contact.Email|default('') }}">{{ blocks.contact.Email|default('') }}</a><br>
+            {% endif %}
         {% else %}
             {% if blocks.address.City is defined and blocks.address.Country is defined %}
-            <a target="_blank" href="{{ blocks.address.GoogleMap|default('') }}">{{ blocks.address.City }}, {{ blocks.address.Country }}</a>
+            <a target="_blank" href="{{ blocks.address.GoogleMap|default('') }}">{{ blocks.address.City }}, {{ blocks.address.Country }}</a><br>
             {% endif %}
-            {# <br>M: {{ blocks.contact.Mobile }} #}
-            <br><a href="mailto:{{ blocks.contact.Email|default('') }}">{{ blocks.contact.Email|default('') }}</a>
+            {# M: {{ blocks.contact.Mobile }}<br> #}
+            {% if blocks.contact.Email is defined %}
+            <a href="mailto:{{ blocks.contact.Email|default('') }}">{{ blocks.contact.Email|default('') }}</a><br>
+            {% endif %}
         {% endif %}
         {{ SelfFunction.DisplayMyself(blocks.myself|default('')) }}
         {{ SelfFunction.DisplaySocial(blocks.social|default('')) }}
@@ -55,21 +59,23 @@ file that was distributed with this source code.
 {# Display each item section inside block section #}
 {% macro DisplayMyself(myself) %}
     {% if myself.BirthDay is defined and myself.BrithPlace is defined %}
-        <br>Né le {{ myself.BirthDay }} à {{ myself.BrithPlace }}
+        Né le {{ myself.BirthDay }} à {{ myself.BrithPlace }}<br>
     {% endif %}
     {% if myself.Age is defined %}
-        <br>Age: {{ myself.Age }}
+        Age: {{ myself.Age }}<br>
     {% endif %}
     {% if myself.Nationality is defined %}
-        <br>{{ myself.Nationality }}
+        {{ myself.Nationality }}<br>
     {% endif %}
 {% endmacro  %}
 {% macro DisplaySocial(social) %}
     {% if social.Marital is defined %}
-        <br>{{ social.Marital }}
+        {{ social.Marital }}<br>
     {% endif %}
     {% if social.Military is defined %}
-        <br>{{ social.Military }}
+        {{ social.Military }}<br>
     {% endif %}
-    <br>{{ social.DriveLicences|default('') }}
+    {% if social.DriveLicences is defined %}
+        {{ social.DriveLicences }}<br>
+    {% endif %}
 {% endmacro  %}

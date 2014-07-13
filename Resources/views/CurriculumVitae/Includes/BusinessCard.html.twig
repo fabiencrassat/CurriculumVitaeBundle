@@ -30,9 +30,11 @@ file that was distributed with this source code.
             </div>
             {% endif %}
             <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
+            {% if lookingFor.presentation is defined %}
             <div class="panel panel-primary">
-                <div class="panel-heading">{{ lookingFor.presentation|default('') }}</div>
+                <div class="panel-heading">{{ lookingFor.presentation }}</div>
             </div>
+            {% endif %}
         </div>
     </div>
 {% elseif template == "pdf" %}
