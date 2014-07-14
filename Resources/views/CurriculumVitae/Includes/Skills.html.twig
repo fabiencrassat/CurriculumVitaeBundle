@@ -33,48 +33,34 @@ file that was distributed with this source code.
 {# Display each block section in the main section #}
 {% macro displayBlockInMainSection(blocks, id, template) %}
     {% import _self as SelfFunction %}
-    {% if template == "OryzoneBoilerplate" %}
-        <dl class="dl-horizontal">
-        {% for line in blocks %}
-            <dt>{{ line.title }}</dt>
-            <dd>
-                {% for key, line in line.lines %}
+    <dl class="dl-horizontal">
+    {% for line in blocks %}
+        <dt>{{ line.title }}</dt>
+        <dd>
+        {% for key, line in line.lines %}
+            {% if template == "OryzoneBoilerplate" %}
                 {{ line.label }}
-                <div class="progress {% if line.striped == 'true' %} progress-striped {% endif %}">
-                    <div class="progress-bar progress-bar-{{ line.class }}" role="progressbar" aria-valuenow="{{ line.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ line.percentage }}%;">
+                <div class="progress {% if line.striped|default('false') == 'true' %} progress-striped {% endif %}">
+                    <div class="progress-bar progress-bar-{{ line.class|default('info') }}" role="progressbar" aria-valuenow="{{ line.percentage|default(0) }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ line.percentage|default(0) }}%;">
                         <span class="sr-only">
-                            {{ line.percentage }}
+                            {{ line.percentage|default(0) }}
                         </span >
                     </div>
                 </div>
-                {% endfor %}
-            </dd>
-        {% endfor %}
-        </dl>
-    {% elseif template == "pdf" %}
-        <dl>
-        {% for line in blocks %}
-            <dt>{{ line.title }}</dt>
-            <dd>
-            {% for key, line in line.lines %}
-            {{ line.label }},
-            {% endfor %}
-            </dd>
-        {% endfor %}
-        </dl>
-    {% else %}
-        <dl>
-        {% for line in blocks %}
-            <dt>{{ line.title }}</dt>
-            <dd>
-                {% for key, line in line.lines %}
-                <div>{% for i in 1..line.percentage/4 %}
-                {% if line.striped == 'true' %}|{% else %}.{% endif %}
-                {% endfor %} {{ line.label }} ({{ line.class }})
+            {% elseif template == "pdf" %}
+                {{ line.label }},
+            {% else %}
+                <div>
+                {% if line.percentage|default(0) != 0 %}
+                {% for i in 1..((line.percentage|default(0))/4)|round %}
+                {% if line.striped|default('false') == 'true' %}|{% else %}.{% endif %}
+                {% endfor %} 
+                {% endif %}
+                {{ line.label }}
                 </div>
-                {% endfor %}
-            </dd>
+            {% endif %}
         {% endfor %}
-        </dl>
-    {% endif %}
+        </dd>
+    {% endfor %}
+    </dl>
 {% endmacro %}

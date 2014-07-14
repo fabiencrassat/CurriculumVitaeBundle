@@ -29,7 +29,7 @@ file that was distributed with this source code.
                 </a>
             </div>
             {% endif %}
-            <p class="lead">{{ lookingFor.experience.job|default('') }}</p>
+            <p class="lead">{{ lookingFor.experience.job|default(lookingFor.experience|default('')) }}</p>
             {% if lookingFor.presentation is defined %}
             <div class="panel panel-primary">
                 <div class="panel-heading">{{ lookingFor.presentation }}</div>
@@ -40,7 +40,7 @@ file that was distributed with this source code.
 {% elseif template == "pdf" %}
     <div>
         <h1>{{ identity.myself.Name|default('') }}</h1>
-        <p>{{ lookingFor.experience.job|default('') }}</p>
+        <p>{{ lookingFor.experience.job|default(lookingFor.experience|default('')) }}</p>
         <div>{{ lookingFor.presentation|default('') }}</div>
     </div>
 {% else %}
@@ -55,7 +55,7 @@ file that was distributed with this source code.
                 <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}</a>
             </div>
             {% endif %}
-            <p>{{ lookingFor.experience.job|default('') }}</p>
+            <p>{{ lookingFor.experience.job|default(lookingFor.experience|default('')) }}</p>
             <div>{{ lookingFor.presentation|default('') }}</div>
         </div>
     </div>

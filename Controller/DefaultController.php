@@ -83,8 +83,10 @@ class DefaultController extends Controller
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
 
-        if ($identity['myself']['Name'] && $lookingFor['experience']['job']) {
-            $filename = $identity['myself']['Name'].' - '.$lookingFor['experience']['job'].'.pdf';
+        if (isset($identity['myself']['Name']) && isset($lookingFor['experience']['job'])) {
+            $filename = $identity['myself']['Name'].' - '.$lookingFor['experience']['job'];
+        } elseif (isset($identity['myself']['Name']) && isset($lookingFor['experience'])) {
+            $filename = $identity['myself']['Name'].' - '.$lookingFor['experience'];
         } else {
             $filename = $this->FileToLoad;
         }
@@ -94,7 +96,7 @@ class DefaultController extends Controller
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="'.$filename.'"'
+                'Content-Disposition'   => 'attachment; filename="'.$filename.'.pdf"'
             )
         );
     }

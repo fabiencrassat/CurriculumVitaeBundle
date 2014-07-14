@@ -31,4 +31,4 @@ After the configuration, you can display your CV like `http://localhost/app_dev.
 
 If you have other files in the exposed directory, you have just to name the file in the route: `http://localhost/app_dev.php/cv/an_other_cv` will grab `an_other_cv.xml` file.
 
-Don't forget to [custom your curriculum vitae](https://github.com/FabienCrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md) if you do not want an error 500 ;)
+Don't forget to [custom your curriculum vitae](custom_cv_file.md) if you do not want an error 500 ;)

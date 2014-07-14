@@ -77,7 +77,8 @@
         </items>
     </followMe>
     <lookingFor>
-        <experience crossref="CurriculumVitae/experiences/items/FirstExperience"></experience>
+        <experience lang="en">Curriculum Vitae Title</experience>
+        <experience lang="fr">Titre du curriculum vitae</experience>
         <presentation lang="en">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem. </presentation>
         <presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo. </presentation>
     </lookingFor>
@@ -129,18 +130,27 @@
                 <title lang="fr">Compétences</title>
                 <lines>
                     <sucess percentage="90" class="success" striped="true">
-                        <label lang="en">Skills List</label>
-                        <label lang="fr">Liste de Compétences</label>
+                        <label lang="en">Increasing Skills</label>
+                        <label lang="fr">Compétences grandissantes</label>
                     </sucess>
+                    <otherSucess percentage="90" class="success">
+                        <label>sucess</label>
+                    </otherSucess>
                     <info percentage="40" class="info" striped="false">
-                        <label>Label</label>
+                        <label>info</label>
                     </info>
-                    <warning percentage="20" class="warning" striped="false">
-                        <label>Label</label>
+                    <warning percentage="20" class="warning">
+                        <label>warning</label>
                     </warning>
-                    <danger percentage="10" class="danger" striped="false">
-                        <label>Label</label>
+                    <danger percentage="10" class="danger">
+                        <label>danger</label>
                     </danger>
+                    <noClass percentage="5">
+                        <label>noClass</label>
+                    </noClass>
+                    <nothing>
+                        <label>nothing</label>
+                    </nothing>
                 </lines>
             </Functional>
             <OtherSkill>
