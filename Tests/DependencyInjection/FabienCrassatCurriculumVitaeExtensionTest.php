@@ -12,7 +12,6 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\DependencyInjection;
 
 use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\FabienCrassatCurriculumVitaeExtension;
-
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
@@ -27,6 +26,13 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     * @var ContainerBuilder
     */
     private $configuration;
+    private $loader;
+
+    public function __construct()
+    {
+        $this->configuration = new ContainerBuilder;
+        $this->loader = new FabienCrassatCurriculumVitaeExtension;
+    }
 
     /**
     * Tests services existence
@@ -35,27 +41,19 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.path_to_cv');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_cv');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_lang');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.template');
+        $this->assertHasParameters();
 
         $this->assertStringEndsWith(
             'Resources/data',
             $this->configuration->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
         );
-        $this->assertEquals(
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.default_cv'),
-            'example'
+
+        $parameters = array(
+            'fabiencrassat_curriculumvitae.default_cv' => 'example',
+            'fabiencrassat_curriculumvitae.default_lang' => 'en',
+            'fabiencrassat_curriculumvitae.template' => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig',
         );
-        $this->assertEquals(
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.default_lang'),
-            'en'
-        );
-        $this->assertEquals(
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.template'),
-            'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig'
-        );
+        $this->compareParameters($parameters);
     }
 
     /**
@@ -65,27 +63,15 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     {
         $this->createFullConfiguration();
 
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.path_to_cv');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_cv');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_lang');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.template');
+        $this->assertHasParameters();
 
-        $this->assertEquals(
-            './Tests/Resources/data',
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
+        $parameters = array(
+            'fabiencrassat_curriculumvitae.path_to_cv' => './Tests/Resources/data',
+            'fabiencrassat_curriculumvitae.default_cv' => 'mycv',
+            'fabiencrassat_curriculumvitae.default_lang' => 'fr',
+            'fabiencrassat_curriculumvitae.template' => 'AcmeHelloBundle:CV:index.html.twig',
         );
-        $this->assertEquals(
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.default_cv'),
-            'mycv'
-        );
-        $this->assertEquals(
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.default_lang'),
-            'fr'
-        );
-        $this->assertEquals(
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.template'),
-            'AcmeHelloBundle:CV:index.html.twig'
-        );
+        $this->compareParameters($parameters);
     }
 
     /**
@@ -101,11 +87,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     */
     private function createEmptyConfiguration()
     {
-        $this->configuration = new ContainerBuilder;
-        $loader = new FabienCrassatCurriculumVitaeExtension;
-        $config = $this->getEmptyConfig();
-        $loader->load(array($config), $this->configuration);
-        $this->assertTrue($this->configuration instanceof ContainerBuilder);
+        $this->createConfiguration($this->getEmptyConfig());
     }
 
     /**
@@ -113,11 +95,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     */
     private function createFullConfiguration()
     {
-        $this->configuration = new ContainerBuilder;
-        $loader = new FabienCrassatCurriculumVitaeExtension;
-        $config = $this->getFullConfig();
-        $loader->load(array($config), $this->configuration);
-        $this->assertTrue($this->configuration instanceof ContainerBuilder);
+        $this->createConfiguration($this->getFullConfig());
     }
 
     /**
@@ -125,10 +103,15 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     */
     private function createBadConfiguration()
     {
-        $this->configuration = new ContainerBuilder;
-        $loader = new FabienCrassatCurriculumVitaeExtension;
-        $config = $this->getBadPathToCvConfig();
-        $loader->load(array($config), $this->configuration);
+        $this->createConfiguration($this->getBadPathToCvConfig());
+    }
+
+    /**
+    * Creates a configuration
+    */
+    private function createConfiguration($config)
+    {
+        $this->loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
@@ -182,6 +165,30 @@ EOF;
         $parser = new Parser;
 
         return $parser->parse($yaml);
+    }
+
+    /**
+    * Asserts the identifiers matched parameters
+    */
+    private function assertHasParameters()
+    {
+        $this->assertHasParameter('fabiencrassat_curriculumvitae.path_to_cv');
+        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_cv');
+        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_lang');
+        $this->assertHasParameter('fabiencrassat_curriculumvitae.template');
+    }
+
+    /**
+    * Compare the identifiers matched parameters
+    */
+    private function compareParameters($parameters)
+    {
+        foreach ($parameters as $parameter => $valueToCompare) {
+            $this->assertEquals(
+                $this->configuration->getParameter($parameter),
+                $valueToCompare
+            );
+        }
     }
 
     /**
