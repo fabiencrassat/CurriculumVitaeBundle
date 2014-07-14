@@ -24,7 +24,9 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $pathToFile = __DIR__.'/../Resources/data/core.xml';
         $this->CV = new CurriculumVitae($pathToFile);
         $language = $this->CV->getDropDownLanguages();
-        $this->assertTrue($this->arrays_are_similar(array('en' => 'en'), $language));
+        if (is_array($language)) {
+            $this->assertTrue($this->arrays_are_similar(array('en' => 'en'), $language));
+        }
     }
 
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag()
