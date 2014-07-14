@@ -44,6 +44,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         // Read the Curriculum Vitae
         $pathToFile = __DIR__.'/../Resources/data/empty.xml';
         $this->CV = new CurriculumVitae($pathToFile);
-        $this->CV->getSociety();
+        $this->CV->getDropDownLanguages();
     }
 }
