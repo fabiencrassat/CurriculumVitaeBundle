@@ -16,6 +16,25 @@ use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {
     private $CV;
+    private $Lang;
+
+    public function testNoLanguage()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../Resources/data/core.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $language = $this->CV->getDropDownLanguages();
+        $this->assertTrue($this->arrays_are_similar(array('en' => 'en'), $language));
+    }
+
+    public function testNullReturnWithNoDeclarationInCurriculumVitaeTag()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../Resources/data/core.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $identity = $this->CV->getIdentity();
+        $this->assertNull($identity);
+    }
 
     /**
      * @expectedException InvalidArgumentException
@@ -45,5 +64,32 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $pathToFile = __DIR__.'/../Resources/data/empty.xml';
         $this->CV = new CurriculumVitae($pathToFile);
         $this->CV->getDropDownLanguages();
+    }
+
+    /**
+     * Determine if two associative arrays are similar
+     *
+     * Both arrays must have the same indexes with identical values
+     * without respect to key ordering 
+     * 
+     * @param array $a
+     * @param array $b
+     * @return bool
+     */
+    private function arrays_are_similar($a, $b)
+    {
+        // if the indexes don't match, return immediately
+        if (count(array_diff_assoc($a, $b))) {
+            return false;
+        }
+        // we know that the indexes, but maybe not values, match.
+        // compare the values between the two arrays
+        foreach($a as $k => $v) {
+            if ($v !== $b[$k]) {
+                return false;
+            }
+        }
+        // we have identical indexes, and no unequal values
+        return true;
     }
 }

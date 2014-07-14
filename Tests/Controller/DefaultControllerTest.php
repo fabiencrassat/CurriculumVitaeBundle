@@ -19,6 +19,13 @@ class DefaultControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+        $this->assertEquals(301, $client->getResponse()->getStatusCode());
+    }
+
+    public function testDisplay()
+    {
+        $client = static::createClient();
         $crawler = $client->request('GET', '/example');
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
     }
