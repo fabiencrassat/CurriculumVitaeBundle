@@ -21,11 +21,9 @@ file that was distributed with this source code.
             <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
             {% if hasSnappyPDF %}
             <div class="pull-right hidden-print">
-                <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">
-                    <button type="button" class="btn btn-default">
+                <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}" class="btn btn-default" role="button">
                     <span class="glyphicon glyphicon-cloud-download"></span>
                     {{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}
-                    </button>
                 </a>
             </div>
             {% endif %}
