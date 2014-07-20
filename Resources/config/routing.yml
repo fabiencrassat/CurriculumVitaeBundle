@@ -12,10 +12,10 @@ fabiencrassat_curriculumvitae_default:
     path:       /{cvxmlfile}/{_locale}.{_format}
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:display
-        _format:        html|json|rss|xml
+        _format:        html|json|xml
 
 fabiencrassat_curriculumvitae_cvxmlfileonly:
     pattern:    /{cvxmlfile}.{_format}
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
-        _format:        html|json|rss|xml
+        _format:        html|json|xml
