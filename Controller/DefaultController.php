@@ -68,7 +68,7 @@ class DefaultController extends Controller
         $this->readCVFile();
         $this->requestFormat = $this->getRequest()->getRequestFormat();
 
-        $templateVariables = array_merge($this->defineCVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
+        $templateVariables = $this->defineCVViewVariables();
         switch ($this->requestFormat) {
             case 'json':
                 return new Response(json_encode($templateVariables));
@@ -171,17 +171,18 @@ class DefaultController extends Controller
         } else {
             $return = array_merge($return,
                 array(
-                    'cvxmlfile'         => $this->FileToLoad,
-                    'languageView'      => $this->Lang,
-                    'society'           => $this->ReadCVXml->getSociety(),
+                    'cvxmlfile'    => $this->FileToLoad,
+                    'languageView' => $this->Lang,
+                    'society'      => $this->ReadCVXml->getSociety(),
+                    'languages'    => $this->exposedLanguages,
+                    'anchors'      => $this->ReadCVXml->getAnchors(),
+                    'hasSnappyPDF' => $this->hasSnappyPDF,
                 )
             );
         }
 
         $return = array_merge($return,
             array(
-                'languages'         => $this->exposedLanguages,
-                'anchors'           => $this->ReadCVXml->getAnchors(),
                 'identity'          => $this->ReadCVXml->getIdentity(),
                 'followMe'          => $this->ReadCVXml->getFollowMe(),
                 'lookingFor'        => $this->ReadCVXml->getLookingFor(),
