@@ -110,6 +110,7 @@ class DefaultControllerTest extends WebTestCase
         foreach ($langs as $key => $value) {
             $crawler = $this->client->request('GET', '/example/'.$value.'.xml');
             $response = $this->client->getResponse();
+            $response->headers->set('Content-Type', 'application/xml');
             $data = $response->getContent();
 
             // Read the Curriculum Vitae
