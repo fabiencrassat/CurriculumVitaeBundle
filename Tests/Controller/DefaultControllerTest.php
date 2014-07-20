@@ -13,6 +13,9 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Controller;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class DefaultControllerTest extends WebTestCase
 {
@@ -67,6 +70,69 @@ class DefaultControllerTest extends WebTestCase
         $langs = array('en', 'fr');
         foreach ($langs as $key => $value) {
             $this->OutputHtmlXmlComparaison($value);
+        }
+    }
+
+    public function testOutputJSONXmlComparaison()
+    {
+        $this->client = static::createClient();
+
+        $langs = array('en', 'fr');
+        foreach ($langs as $key => $value) {
+            $this->client->request('GET', '/example/'.$value.'.json');
+            $response = $this->client->getResponse();
+            $data = json_decode($response->getContent(), true);
+
+            // Read the Curriculum Vitae
+            $pathToFile = __DIR__.'/../../Resources/data/example.xml';
+            $this->ReadCVXml = new CurriculumVitae($pathToFile, $value);
+
+            $CVXml = array(
+                'identity'          => $this->ReadCVXml->getIdentity(),
+                'followMe'          => $this->ReadCVXml->getFollowMe(),
+                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
+                'experiences'       => $this->ReadCVXml->getExperiences(),
+                'skills'            => $this->ReadCVXml->getSkills(),
+                'educations'        => $this->ReadCVXml->getEducations(),
+                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
+                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+            );
+
+            $this->assertSame($CVXml, $data);
+        }
+    }
+
+    public function testOutputXmlXmlComparaison()
+    {
+        $this->client = static::createClient();
+
+        $langs = array('en', 'fr');
+        foreach ($langs as $key => $value) {
+            $this->client->request('GET', '/example/'.$value.'.xml');
+            $response = $this->client->getResponse();
+            $response->headers->set('Content-Type', 'application/xml');
+            $data = $response->getContent();
+
+            // Read the Curriculum Vitae
+            $pathToFile = __DIR__.'/../../Resources/data/example.xml';
+            $this->ReadCVXml = new CurriculumVitae($pathToFile, $value);
+
+            $CVXml = array(
+                'identity'          => $this->ReadCVXml->getIdentity(),
+                'followMe'          => $this->ReadCVXml->getFollowMe(),
+                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
+                'experiences'       => $this->ReadCVXml->getExperiences(),
+                'skills'            => $this->ReadCVXml->getSkills(),
+                'educations'        => $this->ReadCVXml->getEducations(),
+                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
+                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+            );
+            //initialisation du serializer
+            $encoders = array(new XmlEncoder('CurriculumVitae'));
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
+            $this->assertSame($serializer->serialize($CVXml, 'xml'), $data);
         }
     }
 

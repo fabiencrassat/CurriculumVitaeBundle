@@ -11,12 +11,17 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
+use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class DefaultController extends Controller
 {
@@ -25,6 +30,7 @@ class DefaultController extends Controller
     private $FileToLoad;
     private $exposedLanguages;
     private $hasSnappyPDF;
+    private $requestFormat;
 
     public function indexAction($cvxmlfile = null)
     {
@@ -56,15 +62,32 @@ class DefaultController extends Controller
         }
     }
 
-    public function displayAction($cvxmlfile, $_locale)
+    public function displayAction($cvxmlfile, $_locale, Request $request)
     {
         $this->fileToLoad($cvxmlfile);
         $this->lang($_locale);
         $this->readCVFile();
+        $this->requestFormat = $request->getRequestFormat();
 
-        $templateVariables = array_merge($this->defineCVViewVariables(), array('hasSnappyPDF' => $this->hasSnappyPDF));
-        return $this->container->get('templating')->renderResponse(
-            $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $templateVariables);
+        $templateVariables = $this->defineCVViewVariables();
+        switch ($this->requestFormat) {
+            case 'json':
+                return new Response(json_encode($templateVariables));
+            case 'xml':
+                //initialisation du serializer
+                $encoders = array(new XmlEncoder('CurriculumVitae'), new JsonEncoder());
+                $normalizers = array(new GetSetMethodNormalizer());
+                $serializer = new Serializer($normalizers, $encoders);
+
+                $response = new Response();
+                $response->setContent($serializer->serialize($templateVariables, 'xml'));
+                $response->headers->set('Content-Type', 'application/xml');
+
+                return $response;
+            default:
+                return $this->container->get('templating')->renderResponse(
+                $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $templateVariables);
+        }
     }
 
     public function exportPDFAction($cvxmlfile, $_locale)
@@ -142,11 +165,25 @@ class DefaultController extends Controller
 
     private function defineCVViewVariables()
     {
-        return array(
-                'cvxmlfile'         => $this->FileToLoad,
-                'languageView'      => $this->Lang,
-                'languages'         => $this->exposedLanguages,
-                'anchors'           => $this->ReadCVXml->getAnchors(),
+        $return = array();
+
+        if ($this->requestFormat == 'json' || $this->requestFormat == 'xml') {
+            null;
+        } else {
+            $return = array_merge($return,
+                array(
+                    'cvxmlfile'    => $this->FileToLoad,
+                    'languageView' => $this->Lang,
+                    'society'      => $this->ReadCVXml->getSociety(),
+                    'languages'    => $this->exposedLanguages,
+                    'anchors'      => $this->ReadCVXml->getAnchors(),
+                    'hasSnappyPDF' => $this->hasSnappyPDF,
+                )
+            );
+        }
+
+        $return = array_merge($return,
+            array(
                 'identity'          => $this->ReadCVXml->getIdentity(),
                 'followMe'          => $this->ReadCVXml->getFollowMe(),
                 'lookingFor'        => $this->ReadCVXml->getLookingFor(),
@@ -155,7 +192,9 @@ class DefaultController extends Controller
                 'educations'        => $this->ReadCVXml->getEducations(),
                 'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
                 'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
-                'society'           => $this->ReadCVXml->getSociety()
+            )
         );
+        
+        return $return;
     }
 };
