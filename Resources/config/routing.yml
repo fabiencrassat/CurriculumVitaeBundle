@@ -9,11 +9,13 @@ fabiencrassat_curriculumvitae_exportPDF:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:exportPDF
 
 fabiencrassat_curriculumvitae_default:
-    path:       /{cvxmlfile}/{_locale}
+    path:       /{cvxmlfile}/{_locale}.{_format}
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:display
+        _format:        html|json|rss|xml
 
 fabiencrassat_curriculumvitae_cvxmlfileonly:
-    pattern:    /{cvxmlfile}
+    pattern:    /{cvxmlfile}.{_format}
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
+        _format:        html|json|rss|xml
