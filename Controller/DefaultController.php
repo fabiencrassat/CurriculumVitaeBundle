@@ -11,12 +11,13 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
+use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -61,12 +62,12 @@ class DefaultController extends Controller
         }
     }
 
-    public function displayAction($cvxmlfile, $_locale)
+    public function displayAction($cvxmlfile, $_locale, Request $request)
     {
         $this->fileToLoad($cvxmlfile);
         $this->lang($_locale);
         $this->readCVFile();
-        $this->requestFormat = $this->getRequest()->getRequestFormat();
+        $this->requestFormat = $request->getRequestFormat();
 
         $templateVariables = $this->defineCVViewVariables();
         switch ($this->requestFormat) {

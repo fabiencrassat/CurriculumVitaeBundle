@@ -79,7 +79,7 @@ class DefaultControllerTest extends WebTestCase
 
         $langs = array('en', 'fr');
         foreach ($langs as $key => $value) {
-            $crawler = $this->client->request('GET', '/example/'.$value.'.json');
+            $this->client->request('GET', '/example/'.$value.'.json');
             $response = $this->client->getResponse();
             $data = json_decode($response->getContent(), true);
 
@@ -108,7 +108,7 @@ class DefaultControllerTest extends WebTestCase
 
         $langs = array('en', 'fr');
         foreach ($langs as $key => $value) {
-            $crawler = $this->client->request('GET', '/example/'.$value.'.xml');
+            $this->client->request('GET', '/example/'.$value.'.xml');
             $response = $this->client->getResponse();
             $response->headers->set('Content-Type', 'application/xml');
             $data = $response->getContent();
