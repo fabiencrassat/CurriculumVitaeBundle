@@ -107,8 +107,8 @@ Go to your site and add /cv, for example: `http://localhost/app_dev.php/cv`
 
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
-- [Expose you custom Curriculum Vitae Files](Resources/doc/expose_your_cv.md)
-- [Custom your curriculum vitae](Resources/doc/custom_cv_file.md)
-- [Make the curriculum vitae beautiful with OrizoneBoilerplate](Resources/doc/OrizoneBoilerplateTemplate.md)
-- [Understand the link beetween xml file and twig variables](Resources/doc/xml_twig_variables.md)
-- [Add the export to PDF with Knp Snappy](Resources/doc/export_to_PDF.md)
+- [Expose you custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
+- [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
+- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
+- [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
+- [Add the export to PDF with Knp Snappy](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)

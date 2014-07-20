@@ -2,7 +2,7 @@
 
 The structure of the Curriculum is not store in database, but in xml file.
 
-You can see an example of all you can do with the [example.xml](../data/example.xml "example.xml")
+You can see an example of all you can do with the [example.xml](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/data/example.xml "example.xml")
 
 ## Summarize
 *   [Main Structure](#main-structure "Main Structure")
@@ -160,7 +160,7 @@ And the bundle have some restriction:
 
 #### FollowMe block
 
-The FollowMe block presents site links. If you use [the export with Knp Snappy PDF](export_to_PDF.md), this block is not export.
+The FollowMe block presents site links. If you use [the export with Knp Snappy PDF](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md), this block is not export.
 ``` xml
 <CurriculumVitae>
     ...
@@ -186,15 +186,15 @@ In the ```<items>```, the structure is defined below:
 
 To help you, there are the following list of icons:
 
-Icon            | Image                                                               | Property in icon tag
-:---------------|:--------------------------------------------------------------------|:------------------------------------------------------------------------------
- facebook       | ![facebook](../public/img/facebook.png "facebook")                  | ```<icon>bundles/fabiencrassatcurriculumvitae/img/facebook.png</icon>```
- google+        | ![googleplus](../public/img/googleplus.png "googleplus")            | ```<icon>bundles/fabiencrassatcurriculumvitae/img/googleplus.png</icon>```
- linkedin       | ![linkedin](../public/img/linkedin.png "linkedin")                  | ```<icon>bundles/fabiencrassatcurriculumvitae/img/linkedin.png</icon>```
- monster        | ![monster](../public/img/monster.png "monster")                     | ```<icon>bundles/fabiencrassatcurriculumvitae/img/monster.png</icon>```
- scrum-alliance | ![scrum-alliance](../public/img/scrum-alliance.png "scrum-alliance")| ```<icon>bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png</icon>```
- twitter        | ![twitter](../public/img/twitter.png "twitter")                     | ```<icon>bundles/fabiencrassatcurriculumvitae/img/twitter.png</icon>```
- viadeo         | ![viadeo](../public/img/viadeo.png "viadeo")                        | ```<icon>bundles/fabiencrassatcurriculumvitae/img/viadeo.png</icon>```
+Icon            | Image                                                                                                                                         | Property in icon tag
+:---------------|:----------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------
+ facebook       | ![facebook](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/facebook.png "facebook")                  | ```<icon>bundles/fabiencrassatcurriculumvitae/img/facebook.png</icon>```
+ google+        | ![googleplus](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/googleplus.png "googleplus")            | ```<icon>bundles/fabiencrassatcurriculumvitae/img/googleplus.png</icon>```
+ linkedin       | ![linkedin](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/linkedin.png "linkedin")                  | ```<icon>bundles/fabiencrassatcurriculumvitae/img/linkedin.png</icon>```
+ monster        | ![monster](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/monster.png "monster")                     | ```<icon>bundles/fabiencrassatcurriculumvitae/img/monster.png</icon>```
+ scrum-alliance | ![scrum-alliance](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/scrum-alliance.png "scrum-alliance")| ```<icon>bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png</icon>```
+ twitter        | ![twitter](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/twitter.png "twitter")                     | ```<icon>bundles/fabiencrassatcurriculumvitae/img/twitter.png</icon>```
+ viadeo         | ![viadeo](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/viadeo.png "viadeo")                        | ```<icon>bundles/fabiencrassatcurriculumvitae/img/viadeo.png</icon>```
 
 #### LookingFor block
 
@@ -369,10 +369,10 @@ In the ```<items>```, the structure is defined below:
 
 To help you, there are the following list of icons:
 
-Icon     | Image                                                          | Property in icon tag
-:--------|:---------------------------------------------------------------|:----------------------------------------------------------------------------------
- French  | ![French](../public/img/Flag-of-France.png "French")           | ```<icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>```
- English | ![English](../public/img/Flag-of-United-Kingdom.png "English") | ```<icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom</icon>```
+Icon     | Image                                                                                                                                    | Property in icon tag
+:--------|:-----------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------
+ French  | ![French](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-France.png "French")           | ```<icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>```
+ English | ![English](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-United-Kingdom.png "English") | ```<icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom</icon>```
 
 #### miscellaneous block
 
