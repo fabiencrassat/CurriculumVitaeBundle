@@ -43,7 +43,7 @@ file that was distributed with this source code.
                 </button>
             </dt>
             <dd>
-                <div id="{{ id }}{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
+                <div id="{{ id }}{{ loop.index }}" class="{% if line.collapse is defined and line.collapse == 'true' %}collapse {% else %}in{% endif %}">
                 {{ SelfFunction.DisplayItem(line) }}
                 </div>
             </dd>
@@ -61,13 +61,10 @@ file that was distributed with this source code.
 
 {# Display each item section inside block section #}
 {% macro DisplayItem(line) %}
+    {% set societyName = line.society.name|default(line.society|default('')) %}
+
     <strong>{{ line.job }}</strong><br>
-    {% if line.society.siteurl is defined %}
-        <a href="{{ line.society.siteurl }}">{{ line.society.name|default(line.society|default('')) }}</a><br>
-    {% else %}
-        {{ line.society.name|default(line.society|default('')) }}<br>
-    {% endif %}
-    {% if line.society.address is defined %}, <small>{{ line.society.address }}</small><br>{% endif %}
+    {% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{{ societyName }}</a>{% else %}{{ societyName }}<br>{% endif %}{% if line.society.address is defined %}, <small>{{ line.society.address }}</small><br>{% endif %}
     {% if line.missions is defined %}
         {% for item in line.missions.item %}
         <small>- {{ item }}</small><br>

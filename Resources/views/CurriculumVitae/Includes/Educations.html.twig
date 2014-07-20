@@ -43,7 +43,7 @@ file that was distributed with this source code.
                 </button>
             </dt>
             <dd>
-                <div id="{{ id }}{{ loop.index }}" class="{% if line.collapse is defined %}collapse {% else %}in{% endif %}">
+                <div id="{{ id }}{{ loop.index }}" class="{% if line.collapse is defined and line.collapse == 'true' %}collapse {% else %}in{% endif %}">
                 {{ SelfFunction.DisplayItem(line) }}
                 </div>
             </dd>
@@ -62,7 +62,9 @@ file that was distributed with this source code.
 {# Display each item section inside block section #}
 {% macro DisplayItem(line) %}
     {{ line.education }}
+    {% if line.descriptions.item is defined %}
     {% for item in line.descriptions.item %}
     <br><small>- {{ item }}</small>
     {% endfor %}
+    {% endif %}
 {% endmacro  %}

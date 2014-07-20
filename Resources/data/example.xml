@@ -101,23 +101,20 @@
                     <item>Sed a eros at mauris placerat adipiscing.</item>
                 </missions>
             </FirstExperience>
-            <SecondExperience>
+            <SecondExperience collapse="false">
                 <date>Sept - Dec 2006</date>
                 <job lang="en">My previous job</job>
                 <job lang="fr">Mon poste précédent</job>
                 <society crossref="Society/MyOtherCompany"></society>
-                <missions lang="en">
-                    <item>Suspendisse et arcu eget est feugiat elementum.</item>
-                </missions>
-                <missions lang="fr">
-                    <item>Praesent sagittis risus non libero rhoncus consectetur.</item>
-                </missions>
             </SecondExperience>
             <ThirdExperience collapse="true">
                 <date>Summer 2006</date>
                 <job lang="en">A summer job</job>
                 <job lang="fr">Un travail d'été</job>
-                <society crossref="Society/MyOtherCompany"></society>
+                <society>A society</society>
+                <missions>
+                    <item>Suspendisse et arcu eget est feugiat elementum.</item>
+                </missions>
             </ThirdExperience>
         </items>
     </experiences>
@@ -190,7 +187,7 @@
                     <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
                 </descriptions>
             </University>
-            <HighSchool collapse="true">
+            <HighSchool collapse="false">
                 <date lang="en">June 2002</date>
                 <date lang="fr">Juin 2002</date>
                 <education lang="en">My diploma in my high school</education>
@@ -203,6 +200,12 @@
                     <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor ipsum. Nullam venenatis sem.</item>
                 </descriptions>
             </HighSchool>
+            <FirstSchool collapse="true">
+                <date lang="en">June 2000</date>
+                <date lang="fr">Juin 2000</date>
+                <education lang="en">My diploma in my first school</education>
+                <education lang="fr">Mon diplôme dans mon collège</education>
+            </FirstSchool>
         </items>
     </educations>
     <languageSkills anchor="languageSkills">
