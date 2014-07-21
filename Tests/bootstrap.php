@@ -14,7 +14,7 @@ $autoloads = array(
     __DIR__.'/../../../../vendor/autoload.php', // symfony & composer test
 );
 
-$autoloadFile = false;
+$autoloadFile = FALSE;
 
 foreach ($autoloads as $file) {
     if (is_file($file)) {

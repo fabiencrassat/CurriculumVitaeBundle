@@ -26,15 +26,15 @@ class Calculator
 
         // Retreive the date and transform it to integer
         list($month, $day, $year) = preg_split('[/]', $birthday);
-        $day = (int)$day;
-        $month = (int)$month;
-        $year = (int)$year;
+        $day = (int) $day;
+        $month = (int) $month;
+        $year = (int) $year;
         $today = array();
 
         // Retreive today and transform it to integer
-        $today['day'] = (int)date('j');
-        $today['month'] = (int)date('n');
-        $today['year'] = (int)date('Y');
+        $today['day'] = (int) date('j');
+        $today['month'] = (int) date('n');
+        $today['year'] = (int) date('Y');
 
 
         // The calculator of the age

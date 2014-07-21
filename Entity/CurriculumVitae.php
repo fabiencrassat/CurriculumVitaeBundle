@@ -104,13 +104,13 @@ class CurriculumVitae
     private function getXMLValue($xml)
     {
         if (!$xml) {
-            return null;
+            return NULL;
         } else {
             return $this->xml2array($xml);
         }
     }
 
-    private function xml2array($xml, $depth = 0, $format = true) {
+    private function xml2array($xml, $depth = 0, $format = TRUE) {
         $calculator = new Calculator();
 
         if ($depth >= $this->nMaxRecursiveDepth) {
@@ -121,12 +121,12 @@ class CurriculumVitae
 
         // Extraction of the node
         $key = trim($xml->getName());
-        $value = trim((string)$xml);
+        $value = trim((string) $xml);
         $attributes = $xml->attributes();
         $children = $xml->children();
 
         $arXML = array();
-        $bContinue = true;
+        $bContinue = TRUE;
         $attr = array();
 
         if ($depth == 1 && $key == "") {
@@ -137,7 +137,7 @@ class CurriculumVitae
                 $valuetemp = trim($attributeValue);
                 if ($attributeKey == "lang") {
                     if($valuetemp <> $this->Lang) {
-                        $bContinue = false;
+                        $bContinue = FALSE;
                         break;
                     }
                 } elseif ($attributeKey == "crossref") {
@@ -208,7 +208,7 @@ class CurriculumVitae
             
             return $arXML;
         } else {
-            return null;
+            return NULL;
         }
     }
 

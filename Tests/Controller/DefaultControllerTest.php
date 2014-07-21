@@ -81,7 +81,7 @@ class DefaultControllerTest extends WebTestCase
         foreach ($langs as $key => $value) {
             $this->client->request('GET', '/example/'.$value.'.json');
             $response = $this->client->getResponse();
-            $data = json_decode($response->getContent(), true);
+            $data = json_decode($response->getContent(), TRUE);
 
             // Read the Curriculum Vitae
             $pathToFile = __DIR__.'/../../Resources/data/example.xml';
@@ -167,12 +167,13 @@ class DefaultControllerTest extends WebTestCase
     private function array_values_recursive($array)
     {
         $return = array();
-        foreach($array as $key => $value)
+        foreach($array as $key => $value) {
             if(is_array($value)) {
                 $return = array_merge($return, $this->array_values_recursive($value));
             } else {
                 $return = array_merge($return, array($value));
             }
+        }
         return $return;
     }
 }

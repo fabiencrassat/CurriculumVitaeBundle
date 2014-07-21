@@ -32,7 +32,7 @@ class DefaultController extends Controller
     private $hasSnappyPDF;
     private $requestFormat;
 
-    public function indexAction($cvxmlfile = null)
+    public function indexAction($cvxmlfile = NULL)
     {
         $this->fileToLoad($cvxmlfile);
         $this->lang();
@@ -45,7 +45,7 @@ class DefaultController extends Controller
                 '_locale'     => $this->Lang,
             );
             $request = $this->container->get('request');
-            $subRequest = $request->duplicate(array(), null, $path);
+            $subRequest = $request->duplicate(array(), NULL, $path);
 
             $httpKernel = $this->container->get('http_kernel');
             $response = $httpKernel->handle(
@@ -101,7 +101,7 @@ class DefaultController extends Controller
         };
 
         $html = $this->container->get('templating')->render(
-            "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",  $this->defineCVViewVariables());
+            "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", $this->defineCVViewVariables());
 
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
@@ -124,7 +124,7 @@ class DefaultController extends Controller
         );
     }
 
-    private function fileToLoad($cvxmlfile = null) {
+    private function fileToLoad($cvxmlfile = NULL) {
         if (!$cvxmlfile) {
             // Retreive the CV file depending the configuration
             $cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
@@ -133,7 +133,7 @@ class DefaultController extends Controller
         $this->FileToLoad = (string) $cvxmlfile;
     }
 
-    private function lang($_locale = null)
+    private function lang($_locale = NULL)
     {
         if (!$_locale) {
             $_locale = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
@@ -155,9 +155,10 @@ class DefaultController extends Controller
         // Check if there is at least 1 language defined
         $this->exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
         if(is_array($this->exposedLanguages)) {
-        if (!array_key_exists($this->Lang, $this->exposedLanguages)) {
-            throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->Lang);
-        }};
+            if (!array_key_exists($this->Lang, $this->exposedLanguages)) {
+                throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->Lang);
+            }
+        };
 
         // Check if knp_snappy is existent
         $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
@@ -168,7 +169,7 @@ class DefaultController extends Controller
         $return = array();
 
         if ($this->requestFormat == 'json' || $this->requestFormat == 'xml') {
-            null;
+            NULL;
         } else {
             $return = array_merge($return,
                 array(
