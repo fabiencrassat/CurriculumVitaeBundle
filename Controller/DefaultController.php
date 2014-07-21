@@ -12,7 +12,7 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class DefaultController extends Controller
+class DefaultController extends ContainerAware
 {
     private $Lang;
     private $ReadCVXml;
@@ -54,7 +54,7 @@ class DefaultController extends Controller
             );
             return $response;
         } else {
-            return new RedirectResponse($this->generateUrl(
+            return new RedirectResponse($this->container->get('router')->generate(
                 'fabiencrassat_curriculumvitae_cvxmlfileonly',
                 array(
                     'cvxmlfile'   => $this->FileToLoad,
