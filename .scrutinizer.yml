@@ -1,4 +1,5 @@
 # .scrutinizer.yml
+
 build:
     tests:
         override:
@@ -7,5 +8,7 @@ build:
                 coverage:
                     file: my-coverage-file
                     format: php-clover
-# before_commands:
-#     - "composer install --dev"
+
+before_commands:
+    - "composer self-update"
+    - "composer install --prefer-source --dev"
