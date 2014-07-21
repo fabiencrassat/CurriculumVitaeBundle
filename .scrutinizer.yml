@@ -13,5 +13,4 @@ build:
                     file: my-coverage-file
                     format: php-clover
 before_commands:
-    - "composer self-update"
     - "composer install --prefer-source --dev"
