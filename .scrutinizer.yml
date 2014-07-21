@@ -1,34 +1,16 @@
 # .scrutinizer.yml
-filter:
-    excluded_paths:
-        - 'vendor/*'
-        - 'tests/*'
-        - 'app/*'
-        - 'bin/*'
-        - 'library/*'
-        - 'Tests/Fixtures/App/app/cache/*'
-        - 'Tests/Fixtures/App/app/logs/*'
-    paths: {  }
-tools:
-    php_sim: true
-    php_pdepend: true
-    php_analyzer: true
-    php_changetracking: true
-    # php_code_sniffer: true
-    # php_cpd: true
-    # php_cs_fixer: true
-    # php_hhvm: true
-    # php_mess_detector: true
-    php_code_coverage:
-        enabled: true
-        filter:
-            excluded_paths:
-                - 'vendor/*'
-                - 'tests/*'
-                - 'app/*'
-                - 'bin/*'
-                - 'library/*'
-                - 'Tests/*'
-build_failure_conditions: {  }
+
+# inherit the next configuration down the chain
+inherit: true
+
+tools: ~
+build:
+    tests:
+        override:
+            -
+                command: phpunit --coverage-clover=my-coverage-file
+                coverage:
+                    file: my-coverage-file
+                    format: php-clover
 before_commands:
-    - "composer install --dev"
+    - "composer install --prefer-source --dev"
