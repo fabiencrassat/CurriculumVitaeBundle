@@ -146,7 +146,7 @@ class DefaultControllerTest extends WebTestCase
 
         $CVXml = array(
                 'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
+                // 'followMe'          => $this->ReadCVXml->getFollowMe(),
                 'lookingFor'        => $this->ReadCVXml->getLookingFor(),
                 'experiences'       => $this->ReadCVXml->getExperiences(),
                 'skills'            => $this->ReadCVXml->getSkills(),
@@ -154,6 +154,53 @@ class DefaultControllerTest extends WebTestCase
                 'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
                 'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
         );
+        # Remove all no visible elements
+        switch ($lang) {
+            case 'en':
+                unset($CVXml['identity']['myself']['BirthDay']);
+                break;
+            default:
+                # code...
+                break;
+        }
+        unset($CVXml['identity']['myself']['Picture']);
+        unset($CVXml['identity']['address']['Street']);
+        unset($CVXml['identity']['address']['PostalCode']);
+        unset($CVXml['identity']['address']['GoogleMap']);
+        unset($CVXml['identity']['contact']['Mobile']);
+        unset($CVXml['experiences']['FirstExperience']['society']['siteurl']);
+        unset($CVXml['experiences']['SecondExperience']['collapse']);
+        unset($CVXml['experiences']['SecondExperience']['society']['siteurl']);
+        unset($CVXml['experiences']['ThirdExperience']['collapse']);
+        unset($CVXml['skills']['Functional']['lines']['sucess']['percentage']);
+        unset($CVXml['skills']['Functional']['lines']['sucess']['class']);
+        unset($CVXml['skills']['Functional']['lines']['sucess']['striped']);
+        unset($CVXml['skills']['Functional']['lines']['otherSucess']['percentage']);
+        unset($CVXml['skills']['Functional']['lines']['otherSucess']['class']);
+        unset($CVXml['skills']['Functional']['lines']['info']['percentage']);
+        unset($CVXml['skills']['Functional']['lines']['info']['class']);
+        unset($CVXml['skills']['Functional']['lines']['info']['striped']);
+        unset($CVXml['skills']['Functional']['lines']['warning']['percentage']);
+        unset($CVXml['skills']['Functional']['lines']['warning']['class']);
+        unset($CVXml['skills']['Functional']['lines']['danger']['percentage']);
+        unset($CVXml['skills']['Functional']['lines']['danger']['class']);
+        unset($CVXml['skills']['Functional']['lines']['noClass']['percentage']);
+        unset($CVXml['skills']['OtherSkill']['lines']['sucess']['percentage']);
+        unset($CVXml['skills']['OtherSkill']['lines']['sucess']['class']);
+        unset($CVXml['skills']['OtherSkill']['lines']['sucess']['striped']);
+        unset($CVXml['skills']['OtherSkill']['lines']['info']['percentage']);
+        unset($CVXml['skills']['OtherSkill']['lines']['info']['class']);
+        unset($CVXml['skills']['OtherSkill']['lines']['info']['striped']);
+        unset($CVXml['skills']['OtherSkill']['lines']['warning']['percentage']);
+        unset($CVXml['skills']['OtherSkill']['lines']['warning']['class']);
+        unset($CVXml['skills']['OtherSkill']['lines']['warning']['striped']);
+        unset($CVXml['skills']['OtherSkill']['lines']['danger']['percentage']);
+        unset($CVXml['skills']['OtherSkill']['lines']['danger']['class']);
+        unset($CVXml['skills']['OtherSkill']['lines']['danger']['striped']);
+        unset($CVXml['educations']['HighSchool']['collapse']);
+        unset($CVXml['educations']['FirstSchool']['collapse']);
+        unset($CVXml['languageSkills']['French']['icon']);
+        unset($CVXml['languageSkills']['English']['icon']);
 
         $testValue = $this->array_values_recursive($CVXml);
         foreach ($testValue as $key => $value) {
