@@ -153,13 +153,13 @@ class CurriculumVitae
 
         if($bContinue) {
 
-            if ($key == 'BirthDay') {
+            if ($key == 'birthday') {
                 if ($format) {
                     setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
                     $value = strftime('%d %B %Y', strtotime(date($value)));
                 }
                 $attr = array();
-            } elseif ($key == 'Age' && array_key_exists("getAge", $attr)) {
+            } elseif ($key == 'age' && array_key_exists("getAge", $attr)) {
                 $CVCrossRef = $this->CV;
                 $tabtemp = explode("/", $attr["getAge"]);
                 foreach ($tabtemp as $val) {

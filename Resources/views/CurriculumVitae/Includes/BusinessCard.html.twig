@@ -15,10 +15,10 @@ file that was distributed with this source code.
 {% if template == "OryzoneBoilerplate" %}
     <div class="media">
         <span class="pull-left">
-            <img class="img-circle pull-right" src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+            <img class="img-circle pull-right" src="{% if identity.myself.picture is defined %}{{ asset('' ~ identity.myself.picture) }}{% endif %}" alt="{{ identity.myself.name|default('') }}"/>
         </span>
         <div class="media-body">
-            <h1 class="media-heading">{{ identity.myself.Name|default('') }}</h1>
+            <h1 class="media-heading">{{ identity.myself.name|default('') }}</h1>
             {% if hasSnappyPDF %}
             <div class="pull-right hidden-print">
                 <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}" class="btn btn-default" role="button">
@@ -37,17 +37,17 @@ file that was distributed with this source code.
     </div>
 {% elseif template == "pdf" %}
     <div>
-        <h1>{{ identity.myself.Name|default('') }}</h1>
+        <h1>{{ identity.myself.name|default('') }}</h1>
         <p>{{ lookingFor.experience.job|default(lookingFor.experience|default('')) }}</p>
         <div>{{ lookingFor.presentation|default('') }}</div>
     </div>
 {% else %}
     <div>
         <span>
-            <img src="{% if identity.myself.Picture is defined %}{{ asset('' ~ identity.myself.Picture) }}{% endif %}" alt="{{ identity.myself.Name|default('') }}"/>
+            <img src="{% if identity.myself.picture is defined %}{{ asset('' ~ identity.myself.picture) }}{% endif %}" alt="{{ identity.myself.name|default('') }}"/>
         </span>
         <div>
-            <h1>{{ identity.myself.Name|default('') }}</h1>
+            <h1>{{ identity.myself.name|default('') }}</h1>
             {% if hasSnappyPDF %}
             <div>
                 <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}</a>

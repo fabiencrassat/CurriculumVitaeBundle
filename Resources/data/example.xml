@@ -12,7 +12,7 @@
                 <myself>
                     <name>First Name Last Name</name>
                     <birthday>1975-01-01</birthday>
-                    <age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></age>
+                    <age lang="en" getAge="curriculumVitae/identity/items/myself/birthday"></age>
                     <birthplace lang="fr">Paris</birthplace>
                     <nationality lang="en">French Citizenship</nationality>
                     <picture>bundles/fabiencrassatcurriculumvitae/img/example.png</picture>
