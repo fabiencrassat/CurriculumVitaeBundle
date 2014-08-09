@@ -40,41 +40,41 @@
             <anchorTitle lang="en">Follow Me</anchorTitle>
             <anchorTitle lang="fr">Suivez-moi</anchorTitle>
             <items>
-                <linkedin>
+                <followItem id="linkedin">
                     <title>Linked In</title>
                     <url>http://www.linkedin.com</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/linkedin.png</icon>
-                </linkedin>
-                <viadeo>
+                </followItem>
+                <followItem id="viadeo">
                     <title>Viadeo</title>
                     <url>http://www.viadeo.com</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/viadeo.png</icon>
-                </viadeo>
-                <monster>
+                </followItem>
+                <followItem id="monster">
                     <title>Monster</title>
                     <url>http://beknown.com</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/monster.png</icon>
-                </monster>
-                <twitter>
+                </followItem>
+                <followItem id="twitter">
                     <title>Twitter</title>
                     <url>https://twitter.com</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/twitter.png</icon>
-                </twitter>
-                <googleplus>
+                </followItem>
+                <followItem id="googleplus">
                     <title>Google+</title>
                     <url>https://plus.google.com</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/googleplus.png</icon>
-                </googleplus>
-                <facebook>
+                </followItem>
+                <followItem id="facebook">
                     <title>Facebook</title>
                     <url>https://www.facebook.com</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/facebook.png</icon>
-                </facebook>
-                <scrum>
+                </followItem>
+                <followItem id="scrum">
                     <title>Scrum</title>
                     <url>http://www.scrumalliance.org</url>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png</icon>
-                </scrum>
+                </followItem>
             </items>
         </followMe>
         <lookingFor>
@@ -87,7 +87,7 @@
             <anchorTitle lang="en">Experiences</anchorTitle>
             <anchorTitle lang="fr">Expériences Professionnelles</anchorTitle>
             <items>
-                <FirstExperience>
+                <experience id="FirstExperience">
                     <date lang="en">Jan 2007 - Present</date>
                     <date lang="fr">Jan. 2007 - Aujourd'hui</date>
                     <job lang="en">My current job</job>
@@ -101,14 +101,14 @@
                         <item>Donec gravida enim viverra tempor dignissim.</item>
                         <item>Sed a eros at mauris placerat adipiscing.</item>
                     </missions>
-                </FirstExperience>
-                <SecondExperience collapse="false">
+                </experience>
+                <experience id="SecondExperience" collapse="false">
                     <date>Sept - Dec 2006</date>
                     <job lang="en">My previous job</job>
                     <job lang="fr">Mon poste précédent</job>
                     <society crossref="societies/society[@ref='MyOtherCompany']"></society>
-                </SecondExperience>
-                <ThirdExperience collapse="true">
+                </experience>
+                <experience id="ThirdExperience" collapse="true">
                     <date>Summer 2006</date>
                     <job lang="en">A summer job</job>
                     <job lang="fr">Un travail d'été</job>
@@ -116,14 +116,14 @@
                     <missions>
                         <item>Suspendisse et arcu eget est feugiat elementum.</item>
                     </missions>
-                </ThirdExperience>
+                </experience>
             </items>
         </experiences>
         <skills anchor="skills">
             <anchorTitle lang="en">Skills</anchorTitle>
             <anchorTitle lang="fr">Compétences</anchorTitle>
             <items>
-                <Functional>
+                <skill id="Functional">
                     <title lang="en">Skills</title>
                     <title lang="fr">Compétences</title>
                     <lines>
@@ -150,8 +150,8 @@
                             <label>nothing</label>
                         </nothing>
                     </lines>
-                </Functional>
-                <OtherSkill>
+                </skill>
+                <skill id="OtherSkill">
                     <title lang="en">One other</title>
                     <title lang="fr">Une autre</title>
                     <lines>
@@ -169,14 +169,14 @@
                             <label>Label</label>
                         </danger>
                     </lines>
-                </OtherSkill>
+                </skill>
             </items>
         </skills>
         <educations anchor="educations">
             <anchorTitle lang="en">Educations</anchorTitle>
             <anchorTitle lang="fr">Formations</anchorTitle>
             <items>
-                <University>
+                <education id="University">
                     <date>2002 - 2005</date>
                     <education lang="en">My diploma in my university</education>
                     <education lang="fr">Mon diplôme dans mon université</education>
@@ -187,8 +187,8 @@
                         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim imperdiet consectetur. Praesent scelerisque neque.</item>
                         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
                     </descriptions>
-                </University>
-                <HighSchool collapse="false">
+                </education>
+                <education id="HighSchool" collapse="false">
                     <date lang="en">June 2002</date>
                     <date lang="fr">Juin 2002</date>
                     <education lang="en">My diploma in my high school</education>
@@ -200,46 +200,46 @@
                     <descriptions lang="fr">
                         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor ipsum. Nullam venenatis sem.</item>
                     </descriptions>
-                </HighSchool>
-                <FirstSchool collapse="true">
+                </education>
+                <education id="FirstSchool" collapse="true">
                     <date lang="en">June 2000</date>
                     <date lang="fr">Juin 2000</date>
                     <education lang="en">My diploma in my first school</education>
                     <education lang="fr">Mon diplôme dans mon collège</education>
-                </FirstSchool>
+                </education>
             </items>
         </educations>
         <languageSkills anchor="languageSkills">
             <anchorTitle lang="en">Languages</anchorTitle>
             <anchorTitle lang="fr">Langues</anchorTitle>
             <items>
-                <French>
+                <languageSkill id="French">
                     <title lang="en">French</title>
                     <title lang="fr">Français</title>
                     <description lang="en">Level of the skill.</description>
                     <description lang="fr">Niveau</description>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>
-                </French>
-                <English>
+                </languageSkill>
+                <languageSkill id="English">
                     <title lang="en">English</title>
                     <title lang="fr">Anglais</title>
                     <description lang="en">Level of the skill.</description>
                     <description lang="fr">Niveau</description>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png</icon>
-                </English>
+                </languageSkill>
             </items>
         </languageSkills>
         <miscellaneous anchor="miscellaneous">
             <anchorTitle lang="en">Miscellaneous</anchorTitle>
             <anchorTitle lang="fr">Divers</anchorTitle>
             <items>
-                <Practical>
+                <miscellaneous id="Practical">
                     <title lang="en">Practices</title>
                     <title lang="fr">Pratiques</title>
                     <miscellaneous lang="en">My practices</miscellaneous>
                     <miscellaneous lang="fr">Mes pratiques</miscellaneous>
                     <description lang="fr">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque, est vitae mattis faucibus, felis sapien lobortis augue.</description>
-                </Practical>
+                </miscellaneous>
             </items>
         </miscellaneous>
     </curriculumVitae>

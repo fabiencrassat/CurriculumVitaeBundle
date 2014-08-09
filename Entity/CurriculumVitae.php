@@ -145,6 +145,8 @@ class CurriculumVitae
                     $cr = $this->xml2array($CVCrossRef[0]);
                     $arXML = array_merge($arXML, array($key => $cr));
                     break;
+                } elseif ($attributeKey == "id") {
+                    $key = (string) $attributeValue;
                 } else {
                     $attr[$attributeKey] = $valuetemp;
                 }
@@ -190,14 +192,10 @@ class CurriculumVitae
             if (Count($children) > 0) {
                 foreach($children as $childKey => $childValue) {
                     $child = $this->xml2array($childValue, $depth);
-                    if ($childKey == "lang" && isset($child['lang']['id'])) {
-                        $arXML = array_merge_recursive($arXML, array($child['lang']['id'] => (string) $childValue));
+                    if ($depth > 1) {
+                        $arXML = array_merge_recursive($arXML, array($key => $child));
                     } elseif ($child) {
-                        if ($depth > 1) {
-                            $arXML = array_merge_recursive($arXML, array($key => $child));
-                        } else {
-                            $arXML = array_merge_recursive($arXML, $child);
-                        }
+                        $arXML = array_merge_recursive($arXML, $child);
                     }
                 }
             }
