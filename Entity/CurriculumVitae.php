@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class CurriculumVitae
 {
-    public $CV;
+    private $CV;
     private $Lang;
     private $nMaxRecursiveDepth = 8; 
 
@@ -110,7 +110,7 @@ class CurriculumVitae
         }
     }
 
-    private function xml2array($xml, $depth = 0, $format = TRUE) {
+    private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $calculator = new Calculator();
 
         if ($depth >= $this->nMaxRecursiveDepth) {
