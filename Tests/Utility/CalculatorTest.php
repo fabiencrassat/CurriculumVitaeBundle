@@ -18,11 +18,11 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
 
     private $assert;
-    private $minDay = 0;
-    private $maxDay = 32;
-    private $minMonth = 0;
+    private $minDay = 1;
+    private $maxDay = 31;
+    private $minMonth = 1;
     private $actualMonth;
-    private $maxMonth = 13;
+    private $maxMonth = 12;
     private $year = 2000;
 
     public function __construct()
@@ -62,7 +62,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
             $assert = $this->assert - 1;
         }
 
-        $age = $this->calculator->getAge($month."/".$day."/".$this->year);
+        $age = $this->calculator->getAge($this->year."-".$month."-".$day);
         
         $this->assertEquals($assert, $age);
     }
@@ -70,8 +70,16 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testDateFormatException()
+    public function testBadFormat()
     {
-        $this->calculator->getAge($this->minMonth."/".$this->minDay."/0000", "bad argument");
+        $this->calculator->getAge("0000/0/0");
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testBadDate()
+    {
+        $this->calculator->getAge("0000-0-0");
     }
 }

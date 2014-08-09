@@ -18,18 +18,22 @@ class Calculator
     /**
      * @param string $birthday
      */
-    public function getAge($birthday, $dateFormat = "mm/dd/yy")
+    public function getAge($birthday)
     {
-        if($dateFormat <> "mm/dd/yy") {
-            throw new InvalidArgumentException("The format " . $dateFormat . " is not defined.");
-        };
+        $birthdayDate = date_parse_from_format("Y-m-d", $birthday);
+        if ($birthdayDate['error_count'] > 0) {
+            throw new InvalidArgumentException("The date (". $birthday .") is bad formatted, expected Y-m-d.");
+        }
 
         // Retreive the date and transform it to integer
-        list($month, $day, $year) = preg_split('[/]', $birthday);
-        $day = (int) $day;
-        $month = (int) $month;
-        $year = (int) $year;
+        $day = (int) $birthdayDate["day"];
+        $month = (int) $birthdayDate["month"];
+        $year = (int) $birthdayDate["year"];
         $today = array();
+
+        if(!checkdate($month, $day, $year)) {
+            throw new InvalidArgumentException("The date (". $birthday .") is unknown.");
+        };
 
         // Retreive today and transform it to integer
         $today['day'] = (int) date('j');

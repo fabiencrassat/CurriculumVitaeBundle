@@ -172,12 +172,10 @@ class CurriculumVitae
                 $cr = $this->xml2array($CVCrossRef, NULL, FALSE);
                 if (count($cr) == 1) {
                     $cr = implode("", $cr);
-                }
-                $CVCrossRef = (array) $CVCrossRef;
-                $dateFormat = $CVCrossRef['@attributes']['format'];
+                };
 
                 $attr = array();
-                $value = $calculator->getAge((string) $cr, $dateFormat);
+                $value = $calculator->getAge((string) $cr);
             }
 
             // Value
