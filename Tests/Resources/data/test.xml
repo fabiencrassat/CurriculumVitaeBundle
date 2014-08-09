@@ -1,13 +1,13 @@
 <xml version="1.0" encoding="UTF-8">
-<lang>
-    <en>English</en>
-</lang>
-<CurriculumVitae>
+<langs>
+    <lang id="en">English</lang>
+</langs>
+<curriculumVitae>
     <identity>
         <items>
             <myself>
-                <BirthDay format="dd/mm/yy">01/01/1975</BirthDay>
-                <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
+                <birthday format="dd/mm/yy">01/01/1975</birthday>
+                <age lang="en" getAge="curriculumVitae/identity/items/myself/BirthDay"></age>
             </myself>
         </items>
     </identity>
@@ -16,7 +16,7 @@
         </items>
     </followMe>
     <lookingFor>
-        <experience crossref="Society/MyCompany"></experience>
+        <experience crossref="societies/MyCompany"></experience>
     </lookingFor>
     <experiences>
         <items>
@@ -38,8 +38,8 @@
         <items>
         </items>
     </miscellaneous>
-</CurriculumVitae>
-<Society>
+</curriculumVitae>
+<societies>
     <recursivity1>
     <recursivity2>
     <recursivity3>
@@ -61,5 +61,5 @@
         <address>The address of the company</address>
         <siteurl>http://www.MyCompany.com</siteurl>
     </MyCompany>
-</Society>
+</societies>
 </xml>

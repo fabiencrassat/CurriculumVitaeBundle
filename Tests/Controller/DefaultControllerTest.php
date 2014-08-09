@@ -157,19 +157,21 @@ class DefaultControllerTest extends WebTestCase
         # Remove all no visible elements
         switch ($lang) {
             case 'en':
-                unset($CVXml['identity']['myself']['BirthDay']);
+                unset($CVXml['identity']['myself']['birthday']);
                 break;
             default:
                 # code...
                 break;
         }
-        unset($CVXml['identity']['myself']['Picture']);
-        unset($CVXml['identity']['address']['Street']);
-        unset($CVXml['identity']['address']['PostalCode']);
-        unset($CVXml['identity']['address']['GoogleMap']);
-        unset($CVXml['identity']['contact']['Mobile']);
+        unset($CVXml['identity']['myself']['picture']);
+        unset($CVXml['identity']['address']['street']);
+        unset($CVXml['identity']['address']['postalcode']);
+        unset($CVXml['identity']['address']['googlemap']);
+        unset($CVXml['identity']['contact']['mobile']);
+        unset($CVXml['experiences']['FirstExperience']['society']['society']['ref']);
         unset($CVXml['experiences']['FirstExperience']['society']['siteurl']);
         unset($CVXml['experiences']['SecondExperience']['collapse']);
+        unset($CVXml['experiences']['SecondExperience']['society']['society']['ref']);
         unset($CVXml['experiences']['SecondExperience']['society']['siteurl']);
         unset($CVXml['experiences']['ThirdExperience']['collapse']);
         unset($CVXml['skills']['Functional']['lines']['sucess']['percentage']);

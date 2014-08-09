@@ -7,7 +7,7 @@ You can see an example of all you can do with the [example.xml](https://github.c
 ## Summarize
 *   [Main Structure](#main-structure "Main Structure")
 *   [Block tag](#block-tag "Block tag")
-    *   [Lang Block](#lang-block "Lang Block")
+    *   [Langs Block](#lang-block "Langs Block")
     *   [CurriculumVitae Block](#curriculumvitae-block "CurriculumVitae Block")
         *   [Identity block](#identity-block "Identity block")
             *   [Myself tag](#myself-tag "Myself tag")
@@ -30,33 +30,33 @@ The main structure you need to allow the personlization of the CV is:
 ``` xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <root xsi:noNamespaceSchemaLocation="../../Entity/validator.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <lang>
-    </lang>
-    <CurriculumVitae>
-    </CurriculumVitae>
+    <langs>
+    </langs>
+    <curriculumVitae>
+    </curriculumVitae>
 </root>
 ```
 
 ## Block tag
 
-### Lang Block
+### Langs Block
 
 #### Declaration
 
 It is all languages you want to expose in your curriculum vitae.
 
-```<en>``` value at least have to be filled, except if you set your own ```default_lang``` in your config file.
+```'<lang id="en">English</lang>``` value at least have to be filled, except if you set your own ```default_lang``` in your config file.
 
-Each lang defined here will be used to determine the visibility of each element in the ```<CurriculumVitae>``` block.
-That allow you to write all information in your curriculum vitae and after exposing the translation just when you want with the addition of the language in the ```<lang>``` block.
+Each lang defined here will be used to determine the visibility of each element in the ```<curriculumVitae>``` block.
+That allow you to write all information in your curriculum vitae and after exposing the translation just when you want with the addition of the language in the ```<langs>``` block.
 
 The following example allow to use the english and the french language in the route with the **en** and **fr** parameters, like ```/cv/example/en``` and ```/cv/example/fr```.
 
 ``` xml
-<lang>
-    <en>English</en>
-    <fr>Français</fr>
-</lang>
+<langs>
+    <lang id="en">English</lang>
+    <lang id="fr">Français</lang>
+</langs>
 ```
 
 #### How to use
@@ -77,16 +77,16 @@ This block is the main part of your curriculum vitae, where you will write all a
 
 All blocks inside will follow this structure:
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <oneblock anchor="anchor_id">
-        <AnchorTitle lang="en">Block title</AnchorTitle>
-        <AnchorTitle lang="fr">Titre du block</AnchorTitle>
+        <anchorTitle lang="en">Block title</anchorTitle>
+        <anchorTitle lang="fr">Titre du block</anchorTitle>
         <items>
         </items>
     </oneblock>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 
@@ -94,16 +94,16 @@ All blocks inside will follow this structure:
 
 The identity block allows to define you. There are different parts inside ```<items>``` tag.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <identity anchor="identity">
-        <AnchorTitle lang="en">About Me</AnchorTitle>
-        <AnchorTitle lang="fr">A propos</AnchorTitle>
+        <anchorTitle lang="en">About Me</anchorTitle>
+        <anchorTitle lang="fr">A propos</anchorTitle>
         <items>
         </items>
     </identity>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 ##### Myself tag
@@ -111,30 +111,30 @@ The identity block allows to define you. There are different parts inside ```<it
 ```<myself>``` tag is to present you.
 ``` xml
 <myself>
-    <Name>Fabien Crassat</Name>
-    <BirthDay format="mm/dd/yy">01/01/1981</BirthDay>
-    <Age getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
-    <BrithPlace>Paris</BrithPlace>
-    <Nationality lang="en">French Citizenship</Nationality>
-    <Nationality lang="fr">Citoyen français</Nationality>
-    <Picture>bundles/fabiencrassatcurriculumvitae/img/example.png</Picture>
+    <name>Fabien Crassat</name>
+    <birthday>1981-12-31</birthday>
+    <age getAge="curriculumVitae/identity/items/myself/birthday"></age>
+    <birthplace>Paris</birthplace>
+    <nationality lang="en">French Citizenship</nationality>
+    <nationality lang="fr">Citoyen français</nationality>
+    <picture>bundles/fabiencrassatcurriculumvitae/img/example.png</picture>
 </myself>
 ```
 
 And the bundle have some restriction:
 
-*   ```BirtDay``` tag accept only the format attribute "mm/dd/yy"
-*   ```Picture``` tag is the link to the filesystem of ```web/``` directory, so it is necessary to expose your file inside ```Resources/public/img``` of your bundle and launch the ``` php app/console assets:install ``` command
+*   ```birthday``` tag accept only the format attribute "YYYY-mm-dd"
+*   ```picture``` tag is the link to the filesystem of ```web/``` directory, so it is necessary to expose your file inside ```Resources/public/img``` of your bundle and launch the ``` php app/console assets:install ``` command
 
 ##### Address tag
 
 ```<address>``` tag is to present where you live.
 ``` xml
 <address>
-    <City>Chicago</City>
-    <Country lang="en">USA</Country>
-    <Country lang="fr">Etat Unis</Country>
-    <GoogleMap>http://maps.google.com</GoogleMap>
+    <city>Chicago</city>
+    <country lang="en">USA</country>
+    <country lang="fr">Etat Unis</country>
+    <googlemap>http://maps.google.com</googlemap>
 </address>
 ```
 
@@ -143,7 +143,7 @@ And the bundle have some restriction:
 ```<contact>``` tag is to present how contact you.
 ``` xml
 <contact>
-    <Email>email_arobase_site_dot_com</Email>
+    <email>email_arobase_site_dot_com</email>
 </contact>
 ```
 
@@ -152,10 +152,10 @@ And the bundle have some restriction:
 ```<social>``` tag is to present the social references.
 ``` xml
 <social>
-    <Marital lang="fr">Célibataire</Marital>
-    <Military lang="fr">Dégagé des obligations militaires</Military>
-    <DriveLicences lang="en">French driving licence</DriveLicences>
-    <DriveLicences lang="fr">Titulaire du permis B</DriveLicences>
+    <marital lang="fr">Célibataire</marital>
+    <military lang="fr">Dégagé des obligations militaires</military>
+    <drivelicences lang="en">French driving licence</drivelicences>
+    <drivelicences lang="fr">Titulaire du permis B</drivelicences>
 </social>
 ```
 
@@ -163,7 +163,7 @@ And the bundle have some restriction:
 
 The FollowMe block presents site links. If you use [the export with Knp Snappy PDF](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md), this block is not export.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <followMe anchor="followMe">
         <AnchorTitle lang="en">Follow Me</AnchorTitle>
@@ -172,7 +172,7 @@ The FollowMe block presents site links. If you use [the export with Knp Snappy P
         </items>
     </followMe>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<items>```, the structure is defined below:
@@ -201,12 +201,12 @@ Icon            | Image                                                         
 
 The LookingFor block presents the head of you curriculum vitae.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <lookingFor>
     </lookingFor>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<lookingFor>```, the structure is defined below:
@@ -221,7 +221,7 @@ In the ```<lookingFor>```, the structure is defined below:
 
 The Experiences block presents your experiences.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <experiences anchor="experiences">
         <AnchorTitle lang="en">Experiences</AnchorTitle>
@@ -230,7 +230,7 @@ The Experiences block presents your experiences.
         </items>
     </experiences>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<items>```, the structure is defined below:
@@ -258,7 +258,7 @@ In the ```<items>```, the structure is defined below:
 
 The Skills block presents your skills.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <skills anchor="skills">
         <AnchorTitle lang="en">Skills</AnchorTitle>
@@ -267,7 +267,7 @@ The Skills block presents your skills.
         </items>
     </skills>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<items>```, the structure is defined below:
@@ -310,7 +310,7 @@ In the ```<items>```, the structure is defined below:
 
 The Education block presents your educations.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <educations anchor="educations">
         <AnchorTitle lang="en">Educations</AnchorTitle>
@@ -319,7 +319,7 @@ The Education block presents your educations.
         </items>
     </educations>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<items>```, the structure is defined below:
@@ -345,7 +345,7 @@ In the ```<items>```, the structure is defined below:
 
 The LanguageSkills block presents your language level.
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <languageSkills anchor="languageSkills">
         <AnchorTitle lang="en">Languages</AnchorTitle>
@@ -354,7 +354,7 @@ The LanguageSkills block presents your language level.
         </items>
     </languageSkills>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<items>```, the structure is defined below:
@@ -379,7 +379,7 @@ Icon     | Image                                                                
 
 The miscellaneous block presents what you want ;).
 ``` xml
-<CurriculumVitae>
+<curriculumVitae>
     ...
     <miscellaneous anchor="miscellaneous">
         <AnchorTitle lang="en">Miscellaneous</AnchorTitle>
@@ -388,7 +388,7 @@ The miscellaneous block presents what you want ;).
         </items>
     </miscellaneous>
     ...
-</CurriculumVitae>
+</curriculumVitae>
 ```
 
 In the ```<items>```, the structure is defined below:
@@ -408,16 +408,16 @@ The Society block allows to define each society you have worked (are working).
 Inside the block, you can declare all society you want like the following example. And the block **name** is one to be filled, but you can add the others tags to have more information.
 
 ``` xml
-<Society>
-    <MyCompany>
+<societies>
+    <society ref="MyCompany">
         <name>My Company</name>
         <address>The address of the company</address>
         <siteurl>http://www.MyCompany.com</siteurl>
-    </MyCompany>
-</Society>
+    </society>
+</societies>
 ```
 
 To use one of societies in your curriculum vitae, you have to use the cross reference like this:
 ``` xml
-<society crossref="Society/MyCompany"></society>
+<society crossref="societies/society[@ref='MyCompany']"></society>
 ```

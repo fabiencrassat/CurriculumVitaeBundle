@@ -58,8 +58,8 @@ file that was distributed with this source code.
 
 {# Display each item section inside block section #}
 {% macro DisplayMyself(myself) %}
-    {% if myself.birthday is defined and myself.brithplace is defined %}
-        Né le {{ myself.birthday }} à {{ myself.brithplace }}<br>
+    {% if myself.birthday is defined and myself.birthplace is defined %}
+        Né le {{ myself.birthday }} à {{ myself.birthplace }}<br>
     {% endif %}
     {% if myself.age is defined %}
         Age: {{ myself.age }}<br>
