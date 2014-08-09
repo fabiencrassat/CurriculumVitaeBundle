@@ -31,7 +31,7 @@ class CurriculumVitae
 
     public function getDropDownLanguages()
     {
-        $return = $this->xml2array($this->CV->lang);
+        $return = $this->xml2array($this->CV->langs);
         if(Count($return) == 0) {
             $return = array($this->Lang => $this->Lang);
         }
@@ -141,12 +141,8 @@ class CurriculumVitae
                         break;
                     }
                 } elseif ($attributeKey == "crossref") {
-                    $CVCrossRef = $this->CV;
-                    $tabtemp = explode("/", $valuetemp);
-                    foreach ($tabtemp as $val) {
-                        $CVCrossRef = $CVCrossRef->{ $val };
-                    }
-                    $cr = $this->xml2array($CVCrossRef);
+                    $CVCrossRef = $this->CV->xpath($valuetemp);
+                    $cr = $this->xml2array($CVCrossRef[0]);
                     $arXML = array_merge($arXML, array($key => $cr));
                     break;
                 } else {
@@ -194,7 +190,9 @@ class CurriculumVitae
             if (Count($children) > 0) {
                 foreach($children as $childKey => $childValue) {
                     $child = $this->xml2array($childValue, $depth);
-                    if ($child) {
+                    if ($childKey == "lang" && isset($child['lang']['id'])) {
+                        $arXML = array_merge_recursive($arXML, array($child['lang']['id'] => (string) $childValue));
+                    } elseif ($child) {
                         if ($depth > 1) {
                             $arXML = array_merge_recursive($arXML, array($key => $child));
                         } else {

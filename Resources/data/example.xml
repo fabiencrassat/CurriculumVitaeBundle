@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <root xsi:noNamespaceSchemaLocation="../../Entity/validator.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <lang>
-        <en>English</en>
-        <fr>Français</fr>
-    </lang>
+    <langs>
+        <lang id="en">English</lang>
+        <lang id="fr">Français</lang>
+    </langs>
     <curriculumVitae>
         <identity anchor="identity">
             <anchorTitle lang="en">About Me</anchorTitle>
@@ -92,7 +92,7 @@
                     <date lang="fr">Jan. 2007 - Aujourd'hui</date>
                     <job lang="en">My current job</job>
                     <job lang="fr">Mon poste actuel</job>
-                    <society crossref="societies/MyCompany"></society>
+                    <society crossref="societies/society[@ref='MyCompany']"></society>
                     <missions lang="en">
                         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</item>
                         <item>Suspendisse nec mauris eu orci dapibus mollis ac ac mi.</item>
@@ -106,7 +106,7 @@
                     <date>Sept - Dec 2006</date>
                     <job lang="en">My previous job</job>
                     <job lang="fr">Mon poste précédent</job>
-                    <society crossref="societies/MyOtherCompany"></society>
+                    <society crossref="societies/society[@ref='MyOtherCompany']"></society>
                 </SecondExperience>
                 <ThirdExperience collapse="true">
                     <date>Summer 2006</date>
@@ -244,17 +244,17 @@
         </miscellaneous>
     </curriculumVitae>
     <societies>
-        <MyCompany>
+        <society ref="MyCompany">
             <name>My Company</name>
             <address>the address of the company</address>
             <siteurl>http://www.MyCompany.com</siteurl>
-        </MyCompany>
-        <MyOtherCompany>
+        </society>
+        <society ref="MyOtherCompany">
             <name lang="en">My Other Company</name>
             <name lang="fr">Mon autre compagnie</name>
             <address lang="en">the address of the company</address>
             <address lang="fr">l'adresse de la compagnie</address>
             <siteurl>http://www.MyCompany.com</siteurl>
-        </MyOtherCompany>
+        </society>
     </societies>
 </root>
