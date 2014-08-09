@@ -41,12 +41,12 @@ class CurriculumVitae
 
     public function getAnchors()
     {
-        $anchorsAttribute = $this->CV->xpath("CurriculumVitae/*[attribute::anchor]");
+        $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
         
         $anchors = array();
         foreach ($anchorsAttribute as $key => $value) {
             $anchor = (string) $value['anchor'];
-            $title = $value->xpath("AnchorTitle[@lang='" . $this->Lang . "']");
+            $title = $value->xpath("anchorTitle[@lang='" . $this->Lang . "']");
             $anchors[$anchor] = array(
                 'href'  => $anchor,
                 'title' => (string) $title[0],
@@ -58,47 +58,47 @@ class CurriculumVitae
 
     public function getIdentity()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->identity->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->identity->items);
     }
 
     public function getFollowMe()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->followMe->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->followMe->items);
     }
 
     public function getLookingFor()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->lookingFor);
+        return $this->getXMLValue($this->CV->curriculumVitae->lookingFor);
     }
 
     public function getExperiences()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->experiences->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->experiences->items);
     }
 
     public function getSkills()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->skills->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->skills->items);
     }
 
     public function getEducations()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->educations->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->educations->items);
     }
 
     public function getLanguageSkills()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->languageSkills->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->languageSkills->items);
     }
 
     public function getMiscellaneous()
     {
-        return $this->getXMLValue($this->CV->CurriculumVitae->miscellaneous->items);
+        return $this->getXMLValue($this->CV->curriculumVitae->miscellaneous->items);
     }
 
     public function getSociety()
     {
-        return $this->getXMLValue($this->CV->Society);
+        return $this->getXMLValue($this->CV->societies);
     }
 
     private function getXMLValue($xml)

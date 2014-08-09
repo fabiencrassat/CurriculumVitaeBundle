@@ -4,41 +4,41 @@
         <en>English</en>
         <fr>Français</fr>
     </lang>
-    <CurriculumVitae>
+    <curriculumVitae>
         <identity anchor="identity">
-            <AnchorTitle lang="en">About Me</AnchorTitle>
-            <AnchorTitle lang="fr">A propos</AnchorTitle>
+            <anchorTitle lang="en">About Me</anchorTitle>
+            <anchorTitle lang="fr">A propos</anchorTitle>
             <items>
                 <myself>
-                    <Name>First Name Last Name</Name>
-                    <BirthDay>1975-01-01</BirthDay>
-                    <Age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></Age>
-                    <BrithPlace lang="fr">Paris</BrithPlace>
-                    <Nationality lang="en">French Citizenship</Nationality>
-                    <Picture>bundles/fabiencrassatcurriculumvitae/img/example.png</Picture>
+                    <name>First Name Last Name</name>
+                    <birthday>1975-01-01</birthday>
+                    <age lang="en" getAge="CurriculumVitae/identity/items/myself/BirthDay"></age>
+                    <birthplace lang="fr">Paris</birthplace>
+                    <nationality lang="en">French Citizenship</nationality>
+                    <picture>bundles/fabiencrassatcurriculumvitae/img/example.png</picture>
                 </myself>
                 <address>
-                    <Street>Street</Street>
-                    <PostalCode>PostalCode</PostalCode>
-                    <City>City</City>
-                    <Country>Country</Country>
-                    <GoogleMap>http://maps.google.com</GoogleMap>
+                    <street>Street</street>
+                    <postalcode>PostalCode</postalcode>
+                    <city>City</city>
+                    <country>Country</country>
+                    <googlemap>http://maps.google.com</googlemap>
                 </address>
                 <contact>
-                    <Mobile>Telephone</Mobile>
-                    <Email>email_arobase_site_dot_com</Email>
+                    <mobile>Telephone</mobile>
+                    <email>email_arobase_site_dot_com</email>
                 </contact>
                 <social>
-                    <Marital lang="fr">Célibataire</Marital>
-                    <Military lang="fr">Dégagé des obligations militaires</Military>
-                    <DriveLicences lang="en">French driving licence</DriveLicences>
-                    <DriveLicences lang="fr">Titulaire du permis B</DriveLicences>
+                    <marital lang="fr">Célibataire</marital>
+                    <military lang="fr">Dégagé des obligations militaires</military>
+                    <drivelicences lang="en">French driving licence</drivelicences>
+                    <drivelicences lang="fr">Titulaire du permis B</drivelicences>
                 </social>
             </items>
         </identity>
         <followMe anchor="followMe">
-            <AnchorTitle lang="en">Follow Me</AnchorTitle>
-            <AnchorTitle lang="fr">Suivez-moi</AnchorTitle>
+            <anchorTitle lang="en">Follow Me</anchorTitle>
+            <anchorTitle lang="fr">Suivez-moi</anchorTitle>
             <items>
                 <linkedin>
                     <title>Linked In</title>
@@ -84,15 +84,15 @@
             <presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo. </presentation>
         </lookingFor>
         <experiences anchor="experiences">
-            <AnchorTitle lang="en">Experiences</AnchorTitle>
-            <AnchorTitle lang="fr">Expériences Professionnelles</AnchorTitle>
+            <anchorTitle lang="en">Experiences</anchorTitle>
+            <anchorTitle lang="fr">Expériences Professionnelles</anchorTitle>
             <items>
                 <FirstExperience>
                     <date lang="en">Jan 2007 - Present</date>
                     <date lang="fr">Jan. 2007 - Aujourd'hui</date>
                     <job lang="en">My current job</job>
                     <job lang="fr">Mon poste actuel</job>
-                    <society crossref="Society/MyCompany"></society>
+                    <society crossref="societies/MyCompany"></society>
                     <missions lang="en">
                         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</item>
                         <item>Suspendisse nec mauris eu orci dapibus mollis ac ac mi.</item>
@@ -106,7 +106,7 @@
                     <date>Sept - Dec 2006</date>
                     <job lang="en">My previous job</job>
                     <job lang="fr">Mon poste précédent</job>
-                    <society crossref="Society/MyOtherCompany"></society>
+                    <society crossref="societies/MyOtherCompany"></society>
                 </SecondExperience>
                 <ThirdExperience collapse="true">
                     <date>Summer 2006</date>
@@ -120,8 +120,8 @@
             </items>
         </experiences>
         <skills anchor="skills">
-            <AnchorTitle lang="en">Skills</AnchorTitle>
-            <AnchorTitle lang="fr">Compétences</AnchorTitle>
+            <anchorTitle lang="en">Skills</anchorTitle>
+            <anchorTitle lang="fr">Compétences</anchorTitle>
             <items>
                 <Functional>
                     <title lang="en">Skills</title>
@@ -173,8 +173,8 @@
             </items>
         </skills>
         <educations anchor="educations">
-            <AnchorTitle lang="en">Educations</AnchorTitle>
-            <AnchorTitle lang="fr">Formations</AnchorTitle>
+            <anchorTitle lang="en">Educations</anchorTitle>
+            <anchorTitle lang="fr">Formations</anchorTitle>
             <items>
                 <University>
                     <date>2002 - 2005</date>
@@ -210,8 +210,8 @@
             </items>
         </educations>
         <languageSkills anchor="languageSkills">
-            <AnchorTitle lang="en">Languages</AnchorTitle>
-            <AnchorTitle lang="fr">Langues</AnchorTitle>
+            <anchorTitle lang="en">Languages</anchorTitle>
+            <anchorTitle lang="fr">Langues</anchorTitle>
             <items>
                 <French>
                     <title lang="en">French</title>
@@ -230,8 +230,8 @@
             </items>
         </languageSkills>
         <miscellaneous anchor="miscellaneous">
-            <AnchorTitle lang="en">Miscellaneous</AnchorTitle>
-            <AnchorTitle lang="fr">Divers</AnchorTitle>
+            <anchorTitle lang="en">Miscellaneous</anchorTitle>
+            <anchorTitle lang="fr">Divers</anchorTitle>
             <items>
                 <Practical>
                     <title lang="en">Practices</title>
@@ -242,8 +242,8 @@
                 </Practical>
             </items>
         </miscellaneous>
-    </CurriculumVitae>
-    <Society>
+    </curriculumVitae>
+    <societies>
         <MyCompany>
             <name>My Company</name>
             <address>the address of the company</address>
@@ -256,5 +256,5 @@
             <address lang="fr">l'adresse de la compagnie</address>
             <siteurl>http://www.MyCompany.com</siteurl>
         </MyOtherCompany>
-    </Society>
+    </societies>
 </root>
