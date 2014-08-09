@@ -28,12 +28,13 @@ You can see an example of all you can do with the [example.xml](https://github.c
 The main structure you need to allow the personlization of the CV is:
 
 ``` xml
-<xml version="1.0" encoding="UTF-8">
-<lang>
-</lang>
-<CurriculumVitae>
-</CurriculumVitae>
-</xml>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<root xsi:noNamespaceSchemaLocation="../../Entity/validator.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <lang>
+    </lang>
+    <CurriculumVitae>
+    </CurriculumVitae>
+</root>
 ```
 
 ## Block tag

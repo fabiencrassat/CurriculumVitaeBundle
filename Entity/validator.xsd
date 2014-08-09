@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Elément racine -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- elements -->
+  <xs:element name="lang">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any maxOccurs="1" minOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="icon" type="xs:anyURI"/>
+  <xs:element name="AnchorTitle">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="lang"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- attributes -->
+  <xs:attribute name="lang" type="xs:language"/>
+  <!-- skills special attributes -->
+  <xs:attribute name="striped" type="xs:boolean"/>
+  <xs:attribute name="class">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="success"/>
+        <xs:enumeration value="info"/>
+        <xs:enumeration value="warning"/>
+        <xs:enumeration value="danger"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="percentage">
+    <xs:simpleType>
+      <xs:restriction base="xs:nonNegativeInteger">
+        <xs:minInclusive value="0"/>
+        <xs:maxInclusive value="100"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  <!-- elements complexes -->
+  <xs:complexType name="itemsList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="item"/>
+    </xs:sequence>
+    <xs:attribute ref="lang"/>
+  </xs:complexType>
+  <!-- experiences > items > missions -->
+  <xs:element name="missions" type="itemsList"/>
+  <!-- educations > items > descriptions -->
+  <xs:element name="descriptions" type="itemsList"/>
+  <!-- Society -->
+  <xs:element name="siteurl" type="xs:anyURI"/>
+  <!-- Schéma XML -->
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- lang elements -->
+        <xs:element name="lang"/>
+        <!-- curriculumvitae elements -->
+        <xs:element name="CurriculumVitae"/>
+        <!-- Society elements -->
+        <xs:element maxOccurs="1" minOccurs="0" name="Society">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any maxOccurs="1" minOccurs="1" processContents="lax"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
