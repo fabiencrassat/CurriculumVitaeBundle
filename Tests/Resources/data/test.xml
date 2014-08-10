@@ -1,65 +1,66 @@
-<xml version="1.0" encoding="UTF-8">
-<langs>
-    <lang id="en">English</lang>
-</langs>
-<curriculumVitae>
-    <identity>
-        <items>
-            <myself>
-                <birthday format="dd/mm/yy">01/01/1975</birthday>
-                <age lang="en" getAge="curriculumVitae/identity/items/myself/BirthDay"></age>
-            </myself>
-        </items>
-    </identity>
-    <followMe>
-        <items>
-        </items>
-    </followMe>
-    <lookingFor>
-        <experience crossref="societies/MyCompany"></experience>
-    </lookingFor>
-    <experiences>
-        <items>
-        </items>
-    </experiences>
-    <skills>
-        <items>
-        </items>
-    </skills>
-    <educations>
-        <items>
-        </items>
-    </educations>
-    <languageSkills>
-        <items>
-        </items>
-    </languageSkills>
-    <miscellaneous>
-        <items>
-        </items>
-    </miscellaneous>
-</curriculumVitae>
-<societies>
-    <recursivity1>
-    <recursivity2>
-    <recursivity3>
-    <recursivity4>
-    <recursivity5>
-    <recursivity6>
-    <recursivity7>
-    <recursivity8>
-    </recursivity8>
-    </recursivity7>
-    </recursivity6>
-    </recursivity5>
-    </recursivity4>
-    </recursivity3>
-    </recursivity2>
-    </recursivity1>
-    <MyCompany>
-        <name>My Company</name>
-        <address>The address of the company</address>
-        <siteurl>http://www.MyCompany.com</siteurl>
-    </MyCompany>
-</societies>
-</xml>
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <langs>
+        <lang id="en">English</lang>
+    </langs>
+    <curriculumVitae>
+        <identity>
+            <items>
+                <myself>
+                    <birthday format="dd/mm/yy">01/01/1975</birthday>
+                    <age lang="en" getAge="curriculumVitae/identity/items/myself/birthday"></age>
+                </myself>
+            </items>
+        </identity>
+        <followMe>
+            <items>
+            </items>
+        </followMe>
+        <lookingFor>
+            <experience crossref="societies/MyCompany"></experience>
+        </lookingFor>
+        <experiences>
+            <items>
+            </items>
+        </experiences>
+        <skills>
+            <items>
+            </items>
+        </skills>
+        <educations>
+            <items>
+            </items>
+        </educations>
+        <languageSkills>
+            <items>
+            </items>
+        </languageSkills>
+        <miscellaneous>
+            <items>
+            </items>
+        </miscellaneous>
+    </curriculumVitae>
+    <societies>
+        <recursivity1>
+        <recursivity2>
+        <recursivity3>
+        <recursivity4>
+        <recursivity5>
+        <recursivity6>
+        <recursivity7>
+        <recursivity8>
+        </recursivity8>
+        </recursivity7>
+        </recursivity6>
+        </recursivity5>
+        </recursivity4>
+        </recursivity3>
+        </recursivity2>
+        </recursivity1>
+        <MyCompany>
+            <name>My Company</name>
+            <address>The address of the company</address>
+            <siteurl>http://www.MyCompany.com</siteurl>
+        </MyCompany>
+    </societies>
+</root>

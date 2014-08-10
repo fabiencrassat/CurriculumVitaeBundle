@@ -14,6 +14,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Entity;
 use FabienCrassat\CurriculumVitaeBundle\Utility\Calculator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
+
 class CurriculumVitae
 {
     private $CV;
@@ -214,7 +215,64 @@ class CurriculumVitae
         if (is_null($pathToFile) || !is_file($pathToFile)) {
             throw new InvalidArgumentException("The path " . $pathToFile . " is not a valid path to file.");
         }
+        $this->validateXmlCurriculumVitae($pathToFile);
+
         return simplexml_load_file($pathToFile);
     }
 
+    private function validateXmlCurriculumVitae($pathToFile)
+    {
+        // Activer "user error handling"
+        libxml_use_internal_errors(true);
+
+        // Instanciation d’un DOMDocument
+        $dom = new \DOMDocument("1.0");
+
+        // Charge du XML depuis un fichier
+        $dom->load($pathToFile);
+
+        // Validation du document XML
+        $validate = $dom->schemaValidate(__DIR__."/validator.xsd");
+        if (!$validate) {
+            throw new InvalidArgumentException($this->libxml_display_errors());
+        }
+        return $validate;
+    }
+
+    private function libxml_display_errors($display_errors = true) {
+        $errors = libxml_get_errors();
+        $chain_errors = "";
+
+        foreach ($errors as $error) {
+            $chain_errors .= preg_replace('/( in\ \/(.*))/', "", strip_tags($this->libxml_display_error($error)))."\n";
+            if ($display_errors) {
+                trigger_error($this->libxml_display_error($error), E_USER_WARNING);
+            }
+        }
+        libxml_clear_errors();
+
+        return $chain_errors;
+    }
+
+    private function libxml_display_error($error) {
+        $return = "";
+        switch ($error->level) {
+            case LIBXML_ERR_WARNING:
+                $return .= "Warning $error->code";
+                break;
+            case LIBXML_ERR_ERROR:
+                $return .= "Error $error->code";
+                break;
+            case LIBXML_ERR_FATAL:
+                $return .= "Fatal Error $error->code";
+                break;
+        }
+        if ($error->file) {
+            $return .= " in $error->file";
+        }
+        $return .= " on line $error->line:\n";
+        $return .= trim($error->message)."\n";
+
+        return $return;
+    }
 }

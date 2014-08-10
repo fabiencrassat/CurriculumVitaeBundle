@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<root xsi:noNamespaceSchemaLocation="../../Entity/validator.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<root>
     <langs>
         <lang id="en">English</lang>
         <lang id="fr">Français</lang>
@@ -113,6 +113,16 @@
                     <job lang="en">A summer job</job>
                     <job lang="fr">Un travail d'été</job>
                     <society>A society</society>
+                    <missions>
+                        <item>Suspendisse et arcu eget est feugiat elementum.</item>
+                    </missions>
+                </experience>
+                <experience id="FourthExperience" collapse="true">
+                    <date>Before 2006</date>
+                    <job lang="en">The job of my life</job>
+                    <job lang="fr">Le job de ma vie</job>
+                    <society lang="en">A society with a name per language</society>
+                    <society lang="fr">Une société avec un nom par langue</society>
                     <missions>
                         <item>Suspendisse et arcu eget est feugiat elementum.</item>
                     </missions>

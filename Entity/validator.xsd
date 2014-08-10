@@ -1,76 +1,241 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Elément racine -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <!-- elements -->
-  <xs:element name="lang">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:any maxOccurs="1" minOccurs="1"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="icon" type="xs:anyURI"/>
-  <xs:element name="AnchorTitle">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute ref="lang"/>
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-  <!-- attributes -->
-  <xs:attribute name="lang" type="xs:language"/>
-  <!-- skills special attributes -->
-  <xs:attribute name="striped" type="xs:boolean"/>
-  <xs:attribute name="class">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="success"/>
-        <xs:enumeration value="info"/>
-        <xs:enumeration value="warning"/>
-        <xs:enumeration value="danger"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:attribute>
-  <xs:attribute name="percentage">
-    <xs:simpleType>
-      <xs:restriction base="xs:nonNegativeInteger">
-        <xs:minInclusive value="0"/>
-        <xs:maxInclusive value="100"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:attribute>
-  <!-- elements complexes -->
-  <xs:complexType name="itemsList">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="1" name="item"/>
-    </xs:sequence>
-    <xs:attribute ref="lang"/>
-  </xs:complexType>
-  <!-- experiences > items > missions -->
-  <xs:element name="missions" type="itemsList"/>
-  <!-- educations > items > descriptions -->
-  <xs:element name="descriptions" type="itemsList"/>
-  <!-- Society -->
-  <xs:element name="siteurl" type="xs:anyURI"/>
-  <!-- Schéma XML -->
+<xs:schema
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>
+      This file is part of the FabienCrassat\CurriculumVitaeBundle Symfony bundle.
+      (c) Fabien Crassat fabien@crassat.com
+      For the full copyright and license information, please view the LICENSE
+      file that was distributed with this source code.
+    </xs:documentation>
+  </xs:annotation>
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
         <!-- lang elements -->
-        <xs:element name="lang"/>
-        <!-- curriculumvitae elements -->
-        <xs:element name="CurriculumVitae"/>
-        <!-- Society elements -->
-        <xs:element maxOccurs="1" minOccurs="0" name="Society">
+        <xs:element name="langs" minOccurs="1" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
-              <xs:any maxOccurs="1" minOccurs="1" processContents="lax"/>
+              <xs:element name="lang" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:token">
+                      <xs:attribute name="id" type="xs:language" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- curriculumvitae elements -->
+        <xs:element name="curriculumVitae" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identity" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="myself" minOccurs="1" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="name" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="birthday" minOccurs="1" maxOccurs="1"/>
+                                <xs:element name="age" minOccurs="1" maxOccurs="1" type="age"/>
+                                <xs:element name="birthplace" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                                <xs:element name="nationality" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                                <xs:element ref="picture" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="address" minOccurs="1" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="street" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="postalcode" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="city" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="country" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="googlemap" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="contact" minOccurs="1" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="mobile" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="email" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="social" minOccurs="1" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="marital" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                                <xs:element name="military" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                                <xs:element name="drivelicences" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <!-- TODO -->
+              <xs:element name="followMe" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="lookingFor" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="experience" minOccurs="1" maxOccurs="unbounded" type="textWithLangOrCrossRefAttributes"/>
+                    <xs:element name="presentation" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <!-- TODO -->
+              <xs:element name="experiences" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <!-- TODO -->
+              <xs:element name="skills" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <!-- TODO -->
+              <xs:element name="educations" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <!-- TODO -->
+              <xs:element name="languageSkills" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <!-- TODO -->
+              <xs:element name="miscellaneous" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="items" minOccurs="1" maxOccurs="1">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute ref="anchor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Society elements -->
+        <xs:element name="societies" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="society" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="name" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                    <xs:element name="address" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                    <xs:element ref="siteurl" minOccurs="0" maxOccurs="1"/>
+                  </xs:sequence>
+                  <xs:attribute ref="ref" use="required"/>
+                </xs:complexType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+<!-- Local complexTypes (default namespace) -->
+  <xs:complexType name="textWithLangAttribute">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="lang"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="age">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="lang"/>
+        <xs:attribute ref="getAge"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="textWithLangOrCrossRefAttributes">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="lang"/>
+        <xs:attribute ref="crossref"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+<!-- Local simpleTypes attributes (default namespace) -->
+  <!-- <xs:attribute name="id" type="xs:language"/> -->
+  <xs:attribute name="lang" type="xs:language"/>
+  <xs:attribute name="anchor" type="xs:ID"/>
+  <xs:attribute name="crossref" type="xs:token"/>
+  <xs:attribute name="getAge" type="xs:token"/>
+  <xs:attribute name="ref" type="xs:ID"/>
+
+<!-- Local simpleTypes elements (default namespace) -->
+  <xs:element name="anchorTitle" type="textWithLangAttribute"/>
+  <!-- identity myself -->
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="birthday" type="xs:date"/>
+    <xs:element name="picture" type="xs:anyURI"/>
+  <!-- identity address -->
+    <xs:element name="street" type="xs:string"/>
+    <xs:element name="postalcode" type="xs:string"/>
+    <xs:element name="city" type="xs:string"/>
+    <xs:element name="country" type="xs:string"/>
+    <xs:element name="googlemap" type="xs:anyURI"/>
+  <!-- dentitycontact -->
+    <xs:element name="mobile" type="xs:string"/>
+    <xs:element name="email" type="xs:string"/>
+  <!-- societies -->
+    <xs:element name="siteurl" type="xs:anyURI"/>
+
 </xs:schema>
