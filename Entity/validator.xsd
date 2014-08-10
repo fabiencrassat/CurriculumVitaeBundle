@@ -89,12 +89,25 @@
                   <xs:attribute ref="anchor" use="required"/>
                 </xs:complexType>
               </xs:element>
-              <!-- TODO -->
               <xs:element name="followMe" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="followItem" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="title" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="url" minOccurs="1" maxOccurs="1"/>
+                                <xs:element ref="icon" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                              <xs:attribute ref="id" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute ref="anchor" use="required"/>
@@ -114,6 +127,23 @@
                   <xs:sequence>
                     <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="experience" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="date" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="job" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="society" minOccurs="1" maxOccurs="unbounded"/>
+                                <!-- TODO -->
+                                <xs:element name="missions" minOccurs="0" maxOccurs="unbounded">
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute ref="id" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute ref="anchor" use="required"/>
@@ -213,7 +243,7 @@
   </xs:complexType>
 
 <!-- Local simpleTypes attributes (default namespace) -->
-  <!-- <xs:attribute name="id" type="xs:language"/> -->
+  <xs:attribute name="id" type="xs:NCName"/>
   <xs:attribute name="lang" type="xs:language"/>
   <xs:attribute name="anchor" type="xs:ID"/>
   <xs:attribute name="crossref" type="xs:token"/>
@@ -232,9 +262,17 @@
     <xs:element name="city" type="xs:string"/>
     <xs:element name="country" type="xs:string"/>
     <xs:element name="googlemap" type="xs:anyURI"/>
-  <!-- dentitycontact -->
+  <!-- identity contact -->
     <xs:element name="mobile" type="xs:string"/>
     <xs:element name="email" type="xs:string"/>
+  <!-- followMe -->
+    <xs:element name="title" type="textWithLangAttribute"/>
+    <xs:element name="url" type="xs:anyURI"/>
+    <xs:element name="icon" type="xs:anyURI"/>
+  <!-- experience -->
+    <xs:element name="date" type="textWithLangAttribute"/>
+    <xs:element name="job" type="textWithLangAttribute"/>
+    <xs:element name="society" type="textWithLangAttribute"/>
   <!-- societies -->
     <xs:element name="siteurl" type="xs:anyURI"/>
 
