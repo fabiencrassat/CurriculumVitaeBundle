@@ -19,7 +19,6 @@ class CurriculumVitae
 {
     private $CV;
     private $Lang;
-    private $nMaxRecursiveDepth = 8; 
 
     /**
      * @param string $pathToFile
@@ -116,12 +115,8 @@ class CurriculumVitae
 
     private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $calculator = new Calculator();
-
-        if ($depth >= $this->nMaxRecursiveDepth) {
-            throw new InvalidArgumentException("The recursive funtion xml2array (depth=" . $depth . ") is too high.");
-        } else {
-            $depth = $depth + 1;
-        }
+        
+        $depth = $depth + 1;
 
         // Extraction of the node
         $key = trim($xml->getName());
@@ -133,27 +128,23 @@ class CurriculumVitae
         $bContinue = TRUE;
         $attr = array();
 
-        if ($depth == 1 && $key == "") {
-            throw new InvalidArgumentException("The curriculum vitae xml file is not valid");
-        } else {
-            // Specific Attributes
-            foreach($attributes as $attributeKey => $attributeValue) {
-                $valuetemp = trim($attributeValue);
-                if ($attributeKey == "lang") {
-                    if($valuetemp <> $this->Lang) {
-                        $bContinue = FALSE;
-                        break;
-                    }
-                } elseif ($attributeKey == "crossref") {
-                    $CVCrossRef = $this->CV->xpath($valuetemp);
-                    $cr = $this->xml2array($CVCrossRef[0]);
-                    $arXML = array_merge($arXML, array($key => $cr));
+        // Specific Attributes
+        foreach($attributes as $attributeKey => $attributeValue) {
+            $valuetemp = trim($attributeValue);
+            if ($attributeKey == "lang") {
+                if($valuetemp <> $this->Lang) {
+                    $bContinue = FALSE;
                     break;
-                } elseif ($attributeKey == "id") {
-                    $key = (string) $attributeValue;
-                } else {
-                    $attr[$attributeKey] = $valuetemp;
                 }
+            } elseif ($attributeKey == "crossref") {
+                $CVCrossRef = $this->CV->xpath($valuetemp);
+                $cr = $this->xml2array($CVCrossRef[0]);
+                $arXML = array_merge($arXML, array($key => $cr));
+                break;
+            } elseif ($attributeKey == "id") {
+                $key = (string) $attributeValue;
+            } else {
+                $attr[$attributeKey] = $valuetemp;
             }
         }
 
@@ -237,7 +228,8 @@ class CurriculumVitae
         // Validation du document XML
         $validate = $dom->schemaValidate(__DIR__."/validator.xsd");
         if (!$validate) {
-            throw new InvalidArgumentException($this->libxml_display_errors());
+            $chain_errors = $this->libxml_display_errors();
+            throw new InvalidArgumentException($chain_errors);
         }
         return $validate;
     }
@@ -248,9 +240,9 @@ class CurriculumVitae
 
         foreach ($errors as $error) {
             $chain_errors .= preg_replace('/( in\ \/(.*))/', "", strip_tags($this->libxml_display_error($error)))."\n";
-            if ($display_errors) {
-                trigger_error($this->libxml_display_error($error), E_USER_WARNING);
-            }
+            // if ($display_errors) {
+            //     trigger_error($this->libxml_display_error($error), E_USER_WARNING);
+            // }
         }
         libxml_clear_errors();
 

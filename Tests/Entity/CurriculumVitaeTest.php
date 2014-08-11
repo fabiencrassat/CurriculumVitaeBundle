@@ -94,13 +94,24 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    // public function testInvalidArgumentExceptionWithNoValidXMLFile()
-    // {
-    //     // Read the Curriculum Vitae
-    //     $pathToFile = __DIR__.'/../Resources/data/empty.xml';
-    //     $this->CV = new CurriculumVitae($pathToFile);
-    //     $this->CV->getDropDownLanguages();
-    // }
+    public function testInvalidArgumentExceptionWithNoValidXMLFile()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../Resources/data/empty.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV->getDropDownLanguages();
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidArgumentExceptionWithFatalErrorXMLFile()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../Resources/data/fatalerror.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV->getDropDownLanguages();
+    }
 
     /**
      * Determine if two associative arrays are similar
