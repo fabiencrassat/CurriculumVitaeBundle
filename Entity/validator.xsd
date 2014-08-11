@@ -54,7 +54,7 @@
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="address" minOccurs="1" maxOccurs="1">
+                          <xs:element name="address" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="street" minOccurs="1" maxOccurs="1"/>
@@ -65,7 +65,7 @@
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="contact" minOccurs="1" maxOccurs="1">
+                          <xs:element name="contact" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="mobile" minOccurs="1" maxOccurs="1"/>
@@ -73,7 +73,7 @@
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="social" minOccurs="1" maxOccurs="1">
+                          <xs:element name="social" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="marital" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
@@ -96,7 +96,7 @@
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="followItem" minOccurs="1" maxOccurs="unbounded">
+                          <xs:element name="followItem" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="title" minOccurs="1" maxOccurs="1"/>
@@ -117,7 +117,7 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="experience" minOccurs="1" maxOccurs="unbounded" type="textWithLangOrCrossRefAttributes"/>
-                    <xs:element name="presentation" minOccurs="1" maxOccurs="unbounded" type="textWithLangAttribute"/>
+                    <xs:element name="presentation" minOccurs="0" maxOccurs="unbounded" type="textWithLangAttribute"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -128,7 +128,7 @@
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="experience" minOccurs="1" maxOccurs="unbounded">
+                          <xs:element name="experience" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="date" minOccurs="1" maxOccurs="unbounded"/>
@@ -154,7 +154,7 @@
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="skill" minOccurs="1" maxOccurs="unbounded">
+                          <xs:element name="skill" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="title" minOccurs="1" maxOccurs="unbounded"/>
@@ -194,7 +194,7 @@
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="education" minOccurs="1" maxOccurs="unbounded">
+                          <xs:element name="education" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="date" minOccurs="1" maxOccurs="unbounded"/>
@@ -219,7 +219,7 @@
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="languageSkill" minOccurs="1" maxOccurs="unbounded">
+                          <xs:element name="languageSkill" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="title" minOccurs="1" maxOccurs="unbounded"/>
@@ -243,7 +243,7 @@
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="miscellaneous" minOccurs="1" maxOccurs="unbounded">
+                          <xs:element name="miscellaneous" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="title" minOccurs="1" maxOccurs="unbounded"/>

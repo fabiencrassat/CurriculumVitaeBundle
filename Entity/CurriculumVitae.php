@@ -48,6 +48,9 @@ class CurriculumVitae
         foreach ($anchorsAttribute as $key => $value) {
             $anchor = (string) $value['anchor'];
             $title = $value->xpath("anchorTitle[@lang='" . $this->Lang . "']");
+            if (count($title) == 0) {
+                $title = $value->xpath("anchorTitle");
+            }
             $anchors[$anchor] = array(
                 'href'  => $anchor,
                 'title' => (string) $title[0],

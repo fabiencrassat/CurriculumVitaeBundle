@@ -4,63 +4,71 @@
         <lang id="en">English</lang>
     </langs>
     <curriculumVitae>
-        <identity>
+        <identity anchor="identity">
+            <anchorTitle>identity</anchorTitle>
             <items>
                 <myself>
-                    <birthday format="dd/mm/yy">01/01/1975</birthday>
+                    <name>First Name Last Name</name>
+                    <birthday>1975-01-01</birthday>
                     <age lang="en" getAge="curriculumVitae/identity/items/myself/birthday"></age>
+                    <birthplace>Paris</birthplace>
+                    <nationality>French Citizenship</nationality>
+                    <picture>bundles/fabiencrassatcurriculumvitae/img/example.png</picture>
                 </myself>
             </items>
         </identity>
-        <followMe>
+        <followMe anchor="followMe">
+            <anchorTitle>followMe</anchorTitle>
             <items>
             </items>
         </followMe>
         <lookingFor>
-            <experience crossref="societies/MyCompany"></experience>
+            <experience crossref="curriculumVitae/experiences/items/experience[@id='experience']"></experience>
         </lookingFor>
-        <experiences>
+        <experiences anchor="experiences">
+            <anchorTitle>experiences</anchorTitle>
             <items>
-            </items>
+                <experience id="experience">
+                    <date>Date</date>
+                    <job>The job</job>
+                    <society crossref="societies/society[@ref='MyCompany']"></society>
+                </experience>
+           </items>
         </experiences>
-        <skills>
+        <skills anchor="skills">
+            <anchorTitle>skills</anchorTitle>
             <items>
+                <skill id="recursivity">
+                    <title>recursivity</title>
+                    <lines>
+                        <line id="sucess">
+                            <label>recursivity</label>
+                        </line>
+                    </lines>
+                </skill>
             </items>
         </skills>
-        <educations>
+        <educations anchor="educations">
+            <anchorTitle>educations</anchorTitle>
             <items>
             </items>
         </educations>
-        <languageSkills>
+        <languageSkills anchor="languageSkills">
+            <anchorTitle>languageSkills</anchorTitle>
             <items>
             </items>
         </languageSkills>
-        <miscellaneous>
+        <miscellaneous anchor="miscellaneous">
+            <anchorTitle>miscellaneous</anchorTitle>
             <items>
             </items>
         </miscellaneous>
     </curriculumVitae>
     <societies>
-        <recursivity1>
-        <recursivity2>
-        <recursivity3>
-        <recursivity4>
-        <recursivity5>
-        <recursivity6>
-        <recursivity7>
-        <recursivity8>
-        </recursivity8>
-        </recursivity7>
-        </recursivity6>
-        </recursivity5>
-        </recursivity4>
-        </recursivity3>
-        </recursivity2>
-        </recursivity1>
-        <MyCompany>
+        <society ref="MyCompany">
             <name>My Company</name>
             <address>The address of the company</address>
             <siteurl>http://www.MyCompany.com</siteurl>
-        </MyCompany>
+        </society>
     </societies>
 </root>
