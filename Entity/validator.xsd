@@ -147,7 +147,6 @@
                   <xs:attribute ref="anchor" use="required"/>
                 </xs:complexType>
               </xs:element>
-              <!-- TODO -->
               <xs:element name="skills" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -159,8 +158,23 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element ref="title" minOccurs="1" maxOccurs="unbounded"/>
-                                <!-- TODO -->
                                 <xs:element name="lines" minOccurs="1" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="line" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element ref="label" minOccurs="1" maxOccurs="unbounded">
+                                            </xs:element>
+                                          </xs:sequence>
+                                          <xs:attribute ref="id" use="required"/>
+                                          <xs:attribute ref="percentage"/>
+                                          <xs:attribute ref="class"/>
+                                          <xs:attribute ref="striped"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
                                 </xs:element>
                               </xs:sequence>
                               <xs:attribute ref="id" use="required"/>
@@ -173,34 +187,74 @@
                   <xs:attribute ref="anchor" use="required"/>
                 </xs:complexType>
               </xs:element>
-              <!-- TODO -->
               <xs:element name="educations" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="education" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="date" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="education" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="descriptions" minOccurs="0" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                              <xs:attribute ref="id" use="required"/>
+                              <xs:attribute ref="collapse"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute ref="anchor" use="required"/>
                 </xs:complexType>
               </xs:element>
-              <!-- TODO -->
               <xs:element name="languageSkills" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="languageSkill" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="title" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="description" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="icon" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                              <xs:attribute ref="id" use="required"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute ref="anchor" use="required"/>
                 </xs:complexType>
               </xs:element>
-              <!-- TODO -->
               <xs:element name="miscellaneous" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="anchorTitle" minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element name="items" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="miscellaneous" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="title" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="miscellaneous" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element ref="description" minOccurs="0" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                              <xs:attribute ref="id" use="required"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute ref="anchor" use="required"/>
@@ -269,6 +323,9 @@
   <xs:attribute name="getAge" type="xs:token"/>
   <xs:attribute name="ref" type="xs:ID"/>
   <xs:attribute name="collapse" type="xs:boolean"/>
+  <xs:attribute name="percentage" type="xs:unsignedByte"/>
+  <xs:attribute name="class" type="xs:NCName"/>
+  <xs:attribute name="striped" type="xs:boolean"/>
 
 <!-- Local simpleTypes elements (default namespace) -->
   <xs:element name="anchorTitle" type="textWithLangAttribute"/>
@@ -295,6 +352,15 @@
     <xs:element name="society" type="textWithLangOrCrossRefAttributes"/>
     <xs:element name="missions" type="textWithLangAndItems"/>
     <xs:element name="item" type="xs:string"/>
+  <!-- skill -->
+    <xs:element name="label" type="textWithLangAttribute"/>
+  <!-- education -->
+    <xs:element name="education" type="textWithLangAttribute"/>
+    <xs:element name="descriptions" type="textWithLangAndItems"/>
+  <!-- languageSkill -->
+    <xs:element name="description" type="textWithLangAttribute"/>
+  <!-- miscellaneous -->
+    <xs:element name="miscellaneous" type="textWithLangAttribute"/>
   <!-- societies -->
     <xs:element name="siteurl" type="xs:anyURI"/>
 

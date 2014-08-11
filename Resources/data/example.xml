@@ -137,47 +137,47 @@
                     <title lang="en">Skills</title>
                     <title lang="fr">Compétences</title>
                     <lines>
-                        <sucess percentage="90" class="success" striped="true">
+                        <line id="sucess" percentage="90" class="success" striped="true">
                             <label lang="en">Increasing Skills</label>
                             <label lang="fr">Compétences grandissantes</label>
-                        </sucess>
-                        <otherSucess percentage="90" class="success">
+                        </line>
+                        <line id="otherSucess" percentage="90" class="success">
                             <label>sucess</label>
-                        </otherSucess>
-                        <info percentage="40" class="info" striped="false">
+                        </line>
+                        <line id="info" percentage="40" class="info" striped="false">
                             <label>info</label>
-                        </info>
-                        <warning percentage="20" class="warning">
+                        </line>
+                        <line id="warning" percentage="20" class="warning">
                             <label>warning</label>
-                        </warning>
-                        <danger percentage="10" class="danger">
+                        </line>
+                        <line id="danger" percentage="10" class="danger">
                             <label>danger</label>
-                        </danger>
-                        <noClass percentage="5">
+                        </line>
+                        <line id="noClass" percentage="5">
                             <label>noClass</label>
-                        </noClass>
-                        <nothing>
+                        </line>
+                        <line id="nothing">
                             <label>nothing</label>
-                        </nothing>
+                        </line>
                     </lines>
                 </skill>
                 <skill id="OtherSkill">
                     <title lang="en">One other</title>
                     <title lang="fr">Une autre</title>
                     <lines>
-                        <sucess percentage="90" class="success" striped="false">
+                        <line id="sucess" percentage="90" class="success" striped="false">
                             <label lang="en">Skills List</label>
                             <label lang="fr">Liste de Compétences</label>
-                        </sucess>
-                        <info percentage="40" class="info" striped="false">
+                        </line>
+                        <line id="info" percentage="40" class="info" striped="false">
                             <label>Label</label>
-                        </info>
-                        <warning percentage="20" class="warning" striped="false">
+                        </line>
+                        <line id="warning" percentage="20" class="warning" striped="false">
                             <label>Label</label>
-                        </warning>
-                        <danger percentage="10" class="danger" striped="true">
+                        </line>
+                        <line id="danger" percentage="10" class="danger" striped="true">
                             <label>Label</label>
-                        </danger>
+                        </line>
                     </lines>
                 </skill>
             </items>
