@@ -12,8 +12,8 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Utility\Calculator;
+use FabienCrassat\CurriculumVitaeBundle\Utility\LibXmlDisplayErrors;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-
 
 class CurriculumVitae
 {
@@ -115,7 +115,7 @@ class CurriculumVitae
 
     private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $calculator = new Calculator();
-        
+
         $depth = $depth + 1;
 
         // Extraction of the node
@@ -228,46 +228,10 @@ class CurriculumVitae
         // Validation du document XML
         $validate = $dom->schemaValidate(__DIR__."/validator.xsd");
         if (!$validate) {
-            $chain_errors = $this->libxml_display_errors();
+            $libxmlDisplayErrors = new LibXmlDisplayErrors;
+            $chain_errors = $libxmlDisplayErrors->libxml_display_errors();
             throw new InvalidArgumentException($chain_errors);
         }
         return $validate;
-    }
-
-    private function libxml_display_errors($display_errors = true) {
-        $errors = libxml_get_errors();
-        $chain_errors = "";
-
-        foreach ($errors as $error) {
-            $chain_errors .= preg_replace('/( in\ \/(.*))/', "", strip_tags($this->libxml_display_error($error)))."\n";
-            // if ($display_errors) {
-            //     trigger_error($this->libxml_display_error($error), E_USER_WARNING);
-            // }
-        }
-        libxml_clear_errors();
-
-        return $chain_errors;
-    }
-
-    private function libxml_display_error($error) {
-        $return = "";
-        switch ($error->level) {
-            case LIBXML_ERR_WARNING:
-                $return .= "Warning $error->code";
-                break;
-            case LIBXML_ERR_ERROR:
-                $return .= "Error $error->code";
-                break;
-            case LIBXML_ERR_FATAL:
-                $return .= "Fatal Error $error->code";
-                break;
-        }
-        if ($error->file) {
-            $return .= " in $error->file";
-        }
-        $return .= " on line $error->line:\n";
-        $return .= trim($error->message)."\n";
-
-        return $return;
     }
 }
