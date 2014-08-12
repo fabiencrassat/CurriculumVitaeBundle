@@ -11,41 +11,47 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Utility;
 
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+
 class LibXmlDisplayErrors
 {
-    public function libxml_display_errors($display_errors = true) {
-        $errors = libxml_get_errors();
-        $chain_errors = "";
+    private $error;
 
-        foreach ($errors as $error) {
-            $chain_errors .= preg_replace('/( in\ \/(.*))/', "", strip_tags($this->libxml_display_error($error)))."\n";
-            // if ($display_errors) {
-            //     trigger_error($this->libxml_display_error($error), E_USER_WARNING);
-            // }
+    public function __construct()
+    {
+        $this->errors = libxml_get_errors();
+        $this->chainErrors = "";
+    }
+
+    public function libXmlDisplayErrors() {
+        foreach ($this->errors as $error) {
+            $this->error = $error;
+            $this->chainErrors .= $this->libXmlDisplayError();
         }
         libxml_clear_errors();
 
-        return $chain_errors;
+        throw new InvalidArgumentException($this->chainErrors);
     }
 
-    private function libxml_display_error($error) {
+    private function libXmlDisplayError() {
         $return = "";
-        switch ($error->level) {
-            // case LIBXML_ERR_WARNING:
-            //     $return .= "Warning $error->code";
-            //     break;
+        switch ($this->error->level) {
+            case LIBXML_ERR_WARNING:
+                $return .= "Warning ".($this->error->code);
+                break;
             case LIBXML_ERR_ERROR:
-                $return .= "Error $error->code";
+                $return .= "Error ".($this->error->code);
                 break;
             case LIBXML_ERR_FATAL:
-                $return .= "Fatal Error $error->code";
+                $return .= "Fatal Error ".($this->error->code);
                 break;
         }
-        if ($error->file) {
-            $return .= " in $error->file";
+        if ($this->error->file) {
+            $return .= " in ".($this->error->file);
         }
-        $return .= " on line $error->line:\n";
-        $return .= trim($error->message)."\n";
+        $return .= " on line ".($this->error->line)." column ".($this->error->column).":\n";
+        $return .= trim($this->error->message)."\n";
+        $return = preg_replace('/( in\ \/(.*))/', "", strip_tags($return))."\n";
 
         return $return;
     }

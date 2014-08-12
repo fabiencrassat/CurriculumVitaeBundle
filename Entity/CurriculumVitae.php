@@ -217,7 +217,7 @@ class CurriculumVitae
     private function validateXmlCurriculumVitae($pathToFile)
     {
         // Activer "user error handling"
-        libxml_use_internal_errors(true);
+        libxml_use_internal_errors(TRUE);
 
         // Instanciation d’un DOMDocument
         $dom = new \DOMDocument("1.0");
@@ -226,12 +226,14 @@ class CurriculumVitae
         $dom->load($pathToFile);
 
         // Validation du document XML
-        $validate = $dom->schemaValidate(__DIR__."/validator.xsd");
+        $reflClass = new \ReflectionClass(get_class($this));
+        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
+        $validate = $dom->schemaValidate($xsdFile);
         if (!$validate) {
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            $chain_errors = $libxmlDisplayErrors->libxml_display_errors();
-            throw new InvalidArgumentException($chain_errors);
+            $libxmlDisplayErrors->libXmlDisplayErrors();
         }
+        
         return $validate;
     }
 }

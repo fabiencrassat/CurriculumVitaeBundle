@@ -24,7 +24,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->CV = new CurriculumVitae($pathToFile);
         $language = $this->CV->getDropDownLanguages();
         if (is_array($language)) {
-            $this->assertEquals(0, $this->arrays_are_similar(array('en' => 'en'), $language));
+            $this->assertEquals(0, $this->arraysAreSimilar(array('en' => 'en'), $language));
         }
     }
 
@@ -44,7 +44,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->CV = new CurriculumVitae($pathToFile);
         $anchors = $this->CV->getAnchors();
         if (is_array($anchors)) {
-            $this->assertEquals(0, $this->arrays_are_similar(
+            $this->assertEquals(0, $this->arraysAreSimilar(
                 array('identity' => array(
                         'href' => 'identity',
                         'title' => 'identity'),
@@ -123,8 +123,9 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
      * @param array $array2
      * @return bool
      */
-    private function arrays_are_similar($array1, $array2)
+    private function arraysAreSimilar($array1, $array2)
     {
+        $difference = array();
         foreach($array1 as $key => $value)  {
             if (is_array($value)) {
                 if (!isset($array2[$key])) {
@@ -132,7 +133,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 } elseif (!is_array($array2[$key])) {
                   $difference[$key] = $value;
                 } else {
-                    $new_diff = $this->arrays_are_similar($value, $array2[$key]);
+                    $new_diff = $this->arraysAreSimilar($value, $array2[$key]);
                     if($new_diff != FALSE) {
                         $difference[$key] = $new_diff;
                     }
@@ -141,7 +142,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 $difference[$key] = $value;
             }
         }
-        if (isset($difference)) {
+        if (count($difference) <> 0) {
             return $difference;
         } else {
             return 0;
