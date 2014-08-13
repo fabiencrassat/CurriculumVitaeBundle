@@ -15,6 +15,8 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class LibXmlDisplayErrors
 {
+    private $errors;
+    private $chainErrors;
     private $error;
 
     public function __construct()

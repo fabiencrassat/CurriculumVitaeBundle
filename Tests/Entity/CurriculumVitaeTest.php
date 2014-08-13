@@ -131,7 +131,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 if (!isset($array2[$key])) {
                     $difference[$key] = $value;
                 } elseif (!is_array($array2[$key])) {
-                  $difference[$key] = $value;
+                    $difference[$key] = $value;
                 } else {
                     $new_diff = $this->arraysAreSimilar($value, $array2[$key]);
                     if($new_diff != FALSE) {

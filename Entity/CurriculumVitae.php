@@ -214,6 +214,9 @@ class CurriculumVitae
         return simplexml_load_file($pathToFile);
     }
 
+    /**
+     * @param string $pathToFile
+     */
     private function validateXmlCurriculumVitae($pathToFile)
     {
         // Activer "user error handling"

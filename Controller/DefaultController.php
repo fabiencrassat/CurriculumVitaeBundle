@@ -115,7 +115,7 @@ class DefaultController extends ContainerAware
         }
 
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
