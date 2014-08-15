@@ -12,7 +12,6 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\Utility;
 
 use FabienCrassat\CurriculumVitaeBundle\Utility\Tools;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class ToolsTest extends \PHPUnit_Framework_TestCase
 {
