@@ -198,4 +198,4 @@ class DefaultController extends ContainerAware
         
         return $return;
     }
-};
+}

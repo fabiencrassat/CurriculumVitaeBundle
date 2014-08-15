@@ -234,7 +234,7 @@ class CurriculumVitae
         $validate = $dom->schemaValidate($xsdFile);
         if (!$validate) {
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            $libxmlDisplayErrors->libXmlDisplayErrors();
+            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
         }
         
         return $validate;

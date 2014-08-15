@@ -11,8 +11,6 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Utility;
 
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-
 class LibXmlDisplayErrors
 {
     private $errors;
@@ -32,7 +30,7 @@ class LibXmlDisplayErrors
         }
         libxml_clear_errors();
 
-        throw new InvalidArgumentException($this->chainErrors);
+        return $this->chainErrors;
     }
 
     private function libXmlDisplayError() {
