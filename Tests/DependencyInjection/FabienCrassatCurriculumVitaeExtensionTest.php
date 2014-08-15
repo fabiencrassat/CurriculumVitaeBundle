@@ -195,5 +195,4 @@ EOF;
     {
         $this->assertTrue($this->configuration->hasParameter($id));
     }
-
 }

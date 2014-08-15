@@ -89,17 +89,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    // public function testInvalidArgumentExceptionWithTooHighRecursivity()
-    // {
-    //     // Read the Curriculum Vitae
-    //     $pathToFile = __DIR__.'/../Resources/data/test.xml';
-    //     $this->CV = new CurriculumVitae($pathToFile);
-    //     $this->CV->getSkills();
-    // }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testInvalidArgumentExceptionWithNoValidXMLFile()
     {
         // Read the Curriculum Vitae

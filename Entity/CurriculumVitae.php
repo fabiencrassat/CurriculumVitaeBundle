@@ -113,7 +113,8 @@ class CurriculumVitae
         }
     }
 
-    private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
+    private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE)
+    {
         $calculator = new Calculator();
 
         $depth = $depth + 1;

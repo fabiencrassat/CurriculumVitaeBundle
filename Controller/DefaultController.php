@@ -124,7 +124,8 @@ class DefaultController extends ContainerAware
         );
     }
 
-    private function fileToLoad($cvxmlfile = NULL) {
+    private function fileToLoad($cvxmlfile = NULL)
+    {
         if (!$cvxmlfile) {
             // Retreive the CV file depending the configuration
             $cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
