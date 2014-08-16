@@ -108,11 +108,11 @@
                     <job lang="fr">Mon poste précédent</job>
                     <society crossref="societies/society[@ref='MyOtherCompany']"></society>
                 </experience>
-                <experience id="ThirdExperience" collapse="true">
+                <experience id="ThirdExperience">
                     <date>Summer 2006</date>
                     <job lang="en">A summer job</job>
                     <job lang="fr">Un travail d'été</job>
-                    <society>A society</society>
+                    <society crossref="societies/society[@ref='ACompanyWithoutSite']"></society>
                     <missions>
                         <item>Suspendisse et arcu eget est feugiat elementum.</item>
                     </missions>
@@ -265,6 +265,12 @@
             <address lang="en">the address of the company</address>
             <address lang="fr">l'adresse de la compagnie</address>
             <siteurl>http://www.MyCompany.com</siteurl>
+        </society>
+        <society ref="ACompanyWithoutSite">
+            <name lang="en">A company wihtout site</name>
+            <name lang="fr">Une compagnie sans site</name>
+            <address lang="en">the address of the company</address>
+            <address lang="fr">l'adresse de la compagnie</address>
         </society>
     </societies>
 </root>

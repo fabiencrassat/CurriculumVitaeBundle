@@ -64,7 +64,7 @@ file that was distributed with this source code.
     {% set societyName = line.society.name|default(line.society|default('')) %}
 
     <strong>{{ line.job }}</strong><br>
-    {% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{{ societyName }}</a>{% else %}{{ societyName }}<br>{% endif %}{% if line.society.address is defined %}, <small>{{ line.society.address }}</small><br>{% endif %}
+    {% if line.society.siteurl is defined %}<a href="{{ line.society.siteurl }}">{{ societyName }}</a>{% else %}{{ societyName }}{% endif %}{% if line.society.address is defined %}, <small>{{ line.society.address }}</small>{% endif %}<br>
     {% if line.missions is defined %}
         {% for item in line.missions.item %}
         <small>- {{ item }}</small><br>

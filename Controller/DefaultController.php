@@ -106,10 +106,10 @@ class DefaultController extends ContainerAware
         $identity = $this->ReadCVXml->getIdentity();
         $lookingFor = $this->ReadCVXml->getLookingFor();
 
-        if (isset($identity['myself']['Name']) && isset($lookingFor['experience']['job'])) {
-            $filename = $identity['myself']['Name'].' - '.$lookingFor['experience']['job'];
-        } elseif (isset($identity['myself']['Name']) && isset($lookingFor['experience'])) {
-            $filename = $identity['myself']['Name'].' - '.$lookingFor['experience'];
+        if (isset($identity['myself']['name']) && isset($lookingFor['experience']['job'])) {
+            $filename = $identity['myself']['name'].' - '.$lookingFor['experience']['job'];
+        } elseif (isset($identity['myself']['name']) && isset($lookingFor['experience'])) {
+            $filename = $identity['myself']['name'].' - '.$lookingFor['experience'];
         } else {
             $filename = $this->FileToLoad;
         }
