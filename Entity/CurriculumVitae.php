@@ -99,11 +99,6 @@ class CurriculumVitae
         return $this->getXMLValue($this->CV->curriculumVitae->miscellaneous->items);
     }
 
-    public function getSociety()
-    {
-        return $this->getXMLValue($this->CV->societies);
-    }
-
     private function getXMLValue($xml)
     {
         if (!$xml) {
