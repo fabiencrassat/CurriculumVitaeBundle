@@ -173,7 +173,7 @@ class DefaultControllerTest extends WebTestCase
         unset($CVXml['experiences']['SecondExperience']['collapse']);
         unset($CVXml['experiences']['SecondExperience']['society']['society']['ref']);
         unset($CVXml['experiences']['SecondExperience']['society']['siteurl']);
-        unset($CVXml['experiences']['ThirdExperience']['collapse']);
+        unset($CVXml['experiences']['ThirdExperience']['society']['society']['ref']);
         unset($CVXml['experiences']['FourthExperience']['collapse']);
         unset($CVXml['skills']['Functional']['lines']['sucess']['percentage']);
         unset($CVXml['skills']['Functional']['lines']['sucess']['class']);
