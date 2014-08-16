@@ -29,7 +29,7 @@ The main structure you need to allow the personlization of the CV is:
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<root xsi:noNamespaceSchemaLocation="../../Entity/validator.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<root>
     <langs>
     </langs>
     <curriculumVitae>
@@ -45,7 +45,7 @@ The main structure you need to allow the personlization of the CV is:
 
 It is all languages you want to expose in your curriculum vitae.
 
-```'<lang id="en">English</lang>``` value at least have to be filled, except if you set your own ```default_lang``` in your config file.
+```<lang id="en">English</lang>``` value at least have to be filled, except if you set your own ```default_lang``` in your config file.
 
 Each lang defined here will be used to determine the visibility of each element in the ```<curriculumVitae>``` block.
 That allow you to write all information in your curriculum vitae and after exposing the translation just when you want with the addition of the language in the ```<langs>``` block.
@@ -65,9 +65,9 @@ When a tag with a value is defined, add ```lang="en"``` as attribute will apply 
 
 For example:
 ``` xml
-<valueAlwaysDisplay>First Name Last Name</valueAlwaysDisplay>
-<valueDisplayForLangFR lang="fr">Paris</valueDisplayForLangFR>
-<valueDisplayForLangEN lang="en">French Citizenship</valueDisplayForLangEN>
+<valueAlwaysDisplay>Visible for all languages</valueAlwaysDisplay>
+<valueDisplayForLangFR lang="fr">Visible seulement pour la langue française</valueDisplayForLangFR>
+<valueDisplayForLangEN lang="en">Visible only for English language</valueDisplayForLangEN>
 ```
 
 
@@ -75,14 +75,17 @@ For example:
 
 This block is the main part of your curriculum vitae, where you will write all about you ;)
 
-All blocks inside will follow this structure:
+All blocks inside will follow this structure, exept [LookingFor block](#lookingfor-block "LookingFor block"):
 ``` xml
 <curriculumVitae>
     ...
-    <oneblock anchor="anchor_id">
+    <oneblock anchor="oneblock">
         <anchorTitle lang="en">Block title</anchorTitle>
         <anchorTitle lang="fr">Titre du block</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </oneblock>
     ...
@@ -100,6 +103,9 @@ The identity block allows to define you. There are different parts inside ```<it
         <anchorTitle lang="en">About Me</anchorTitle>
         <anchorTitle lang="fr">A propos</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </identity>
     ...
@@ -121,7 +127,7 @@ The identity block allows to define you. There are different parts inside ```<it
 </myself>
 ```
 
-And the bundle have some restriction:
+And the following elements have some restriction:
 
 *   ```birthday``` tag accept only the format attribute "YYYY-mm-dd"
 *   ```picture``` tag is the link to the filesystem of ```web/``` directory, so it is necessary to expose your file inside ```Resources/public/img``` of your bundle and launch the ``` php app/console assets:install ``` command
@@ -166,9 +172,12 @@ The FollowMe block presents site links. If you use [the export with Knp Snappy P
 <curriculumVitae>
     ...
     <followMe anchor="followMe">
-        <AnchorTitle lang="en">Follow Me</AnchorTitle>
-        <AnchorTitle lang="fr">Suivez-moi</AnchorTitle>
+        <anchorTitle lang="en">Follow Me</anchorTitle>
+        <anchorTitle lang="fr">Suivez-moi</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </followMe>
     ...
@@ -177,25 +186,25 @@ The FollowMe block presents site links. If you use [the export with Knp Snappy P
 
 In the ```<items>```, the structure is defined below:
 ``` xml
-<site>
+<followItem id="site">
     <title lang="en">Link Title</title>
     <title lang="fr">Titre du lien</title>
-    <url>http://www.facebook.com</url>
-    <icon>bundles/fabiencrassatcurriculumvitae/img/facebook.png</icon>
-</site>
+    <url>http://www.thesite.com</url>
+    <icon>bundles/fabiencrassatcurriculumvitae/img/icon.png</icon>
+</followItem>
 ``` 
 
 To help you, there are the following list of icons:
 
-Icon            | Image                                                                                                                                         | Property in icon tag
+Icon            | Image                                                                                                                                         | Property in icon element
 :---------------|:----------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------
- facebook       | ![facebook](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/facebook.png "facebook")                  | ```<icon>bundles/fabiencrassatcurriculumvitae/img/facebook.png</icon>```
- google+        | ![googleplus](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/googleplus.png "googleplus")            | ```<icon>bundles/fabiencrassatcurriculumvitae/img/googleplus.png</icon>```
- linkedin       | ![linkedin](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/linkedin.png "linkedin")                  | ```<icon>bundles/fabiencrassatcurriculumvitae/img/linkedin.png</icon>```
- monster        | ![monster](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/monster.png "monster")                     | ```<icon>bundles/fabiencrassatcurriculumvitae/img/monster.png</icon>```
- scrum-alliance | ![scrum-alliance](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/scrum-alliance.png "scrum-alliance")| ```<icon>bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png</icon>```
- twitter        | ![twitter](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/twitter.png "twitter")                     | ```<icon>bundles/fabiencrassatcurriculumvitae/img/twitter.png</icon>```
- viadeo         | ![viadeo](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/viadeo.png "viadeo")                        | ```<icon>bundles/fabiencrassatcurriculumvitae/img/viadeo.png</icon>```
+ facebook       | ![facebook](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/facebook.png "facebook")                  | ```bundles/fabiencrassatcurriculumvitae/img/facebook.png```
+ google+        | ![googleplus](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/googleplus.png "googleplus")            | ```bundles/fabiencrassatcurriculumvitae/img/googleplus.png```
+ linkedin       | ![linkedin](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/linkedin.png "linkedin")                  | ```bundles/fabiencrassatcurriculumvitae/img/linkedin.png```
+ monster        | ![monster](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/monster.png "monster")                     | ```bundles/fabiencrassatcurriculumvitae/img/monster.png```
+ scrum-alliance | ![scrum-alliance](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/scrum-alliance.png "scrum-alliance")| ```bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png```
+ twitter        | ![twitter](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/twitter.png "twitter")                     | ```bundles/fabiencrassatcurriculumvitae/img/twitter.png```
+ viadeo         | ![viadeo](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/viadeo.png "viadeo")                        | ```bundles/fabiencrassatcurriculumvitae/img/viadeo.png```
 
 #### LookingFor block
 
@@ -213,8 +222,8 @@ In the ```<lookingFor>```, the structure is defined below:
 ``` xml
 <experience lang="en">Curriculum Vitae Title</experience>
 <experience lang="fr">Titre du curriculum vitae</experience>
-<presentation lang="en">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem. </presentation>
-<presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo. </presentation>
+<presentation lang="en">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula.</presentation>
+<presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna.</presentation>
 ``` 
 
 #### Experiences block
@@ -224,9 +233,12 @@ The Experiences block presents your experiences.
 <curriculumVitae>
     ...
     <experiences anchor="experiences">
-        <AnchorTitle lang="en">Experiences</AnchorTitle>
-        <AnchorTitle lang="fr">Expériences Professionnelles</AnchorTitle>
+        <anchorTitle lang="en">Experiences</anchorTitle>
+        <anchorTitle lang="fr">Expériences Professionnelles</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </experiences>
     ...
@@ -235,7 +247,7 @@ The Experiences block presents your experiences.
 
 In the ```<items>```, the structure is defined below:
 ``` xml
-<OneExperience collapse="true">
+<experience id="OneExperience" collapse="true">
     <date lang="en">Jan 2007 - Present</date>
     <date lang="fr">Jan. 2007 - Aujourd'hui</date>
     <job lang="en">My current job</job>
@@ -249,7 +261,7 @@ In the ```<items>```, the structure is defined below:
         <item>Donec gravida enim viverra tempor dignissim.</item>
         <item>Sed a eros at mauris placerat adipiscing.</item>
     </missions>
-</OneExperience>
+</experience>
 ``` 
 
 ```collapse``` attribute is ```false``` by default.
@@ -261,9 +273,12 @@ The Skills block presents your skills.
 <curriculumVitae>
     ...
     <skills anchor="skills">
-        <AnchorTitle lang="en">Skills</AnchorTitle>
-        <AnchorTitle lang="fr">Compétences</AnchorTitle>
+        <anchorTitle lang="en">Skills</anchorTitle>
+        <anchorTitle lang="fr">Compétences</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </skills>
     ...
@@ -272,7 +287,7 @@ The Skills block presents your skills.
 
 In the ```<items>```, the structure is defined below:
 ``` xml
-<oneSkill>
+<skill id="oneSkill">
     <title lang="en">Skills</title>
     <title lang="fr">Compétences</title>
     <lines>
@@ -299,7 +314,7 @@ In the ```<items>```, the structure is defined below:
             <label>nothing</label>
         </nothing>
     </lines>
-</oneSkill>
+</skill>
 ``` 
 
 ```percentage``` attribute is ```0``` by default.
@@ -313,9 +328,12 @@ The Education block presents your educations.
 <curriculumVitae>
     ...
     <educations anchor="educations">
-        <AnchorTitle lang="en">Educations</AnchorTitle>
-        <AnchorTitle lang="fr">Formations</AnchorTitle>
+        <anchorTitle lang="en">Educations</anchorTitle>
+        <anchorTitle lang="fr">Formations</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </educations>
     ...
@@ -324,7 +342,7 @@ The Education block presents your educations.
 
 In the ```<items>```, the structure is defined below:
 ``` xml
-<OneSchool collapse="true">
+<education id="OneSchool" collapse="true">
     <date lang="en">June 2002</date>
     <date lang="fr">Juin 2002</date>
     <education lang="en">My diploma in my university</education>
@@ -336,7 +354,7 @@ In the ```<items>```, the structure is defined below:
         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim imperdiet consectetur. Praesent scelerisque neque.</item>
         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
     </descriptions>
-</OneSchool>
+</education>
 ``` 
 
 ```collapse``` attribute is ```false``` by default.
@@ -348,9 +366,12 @@ The LanguageSkills block presents your language level.
 <curriculumVitae>
     ...
     <languageSkills anchor="languageSkills">
-        <AnchorTitle lang="en">Languages</AnchorTitle>
-        <AnchorTitle lang="fr">Langues</AnchorTitle>
+        <anchorTitle lang="en">Languages</anchorTitle>
+        <anchorTitle lang="fr">Langues</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </languageSkills>
     ...
@@ -359,21 +380,21 @@ The LanguageSkills block presents your language level.
 
 In the ```<items>```, the structure is defined below:
 ``` xml
-<French>
+<languageSkill id="French">
     <title lang="en">French</title>
     <title lang="fr">Français</title>
     <description lang="en">Level of the skill.</description>
     <description lang="fr">Niveau</description>
     <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>
-</French>
+</languageSkill>
 ``` 
 
 To help you, there are the following list of icons:
 
 Icon     | Image                                                                                                                                    | Property in icon tag
 :--------|:-----------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------
- French  | ![French](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-France.png "French")           | ```<icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>```
- English | ![English](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-United-Kingdom.png "English") | ```<icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom</icon>```
+ French  | ![French](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-France.png "French")           | ```bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png```
+ English | ![English](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-United-Kingdom.png "English") | ```bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom```
 
 #### miscellaneous block
 
@@ -382,9 +403,12 @@ The miscellaneous block presents what you want ;).
 <curriculumVitae>
     ...
     <miscellaneous anchor="miscellaneous">
-        <AnchorTitle lang="en">Miscellaneous</AnchorTitle>
-        <AnchorTitle lang="fr">Divers</AnchorTitle>
+        <anchorTitle lang="en">Miscellaneous</anchorTitle>
+        <anchorTitle lang="fr">Divers</anchorTitle>
         <items>
+            ...
+            tag here
+            ...
         </items>
     </miscellaneous>
     ...
@@ -393,13 +417,13 @@ The miscellaneous block presents what you want ;).
 
 In the ```<items>```, the structure is defined below:
 ``` xml
-<Practical>
+<miscellaneous id="Practical">
     <title lang="en">Practices</title>
     <title lang="fr">Pratiques</title>
     <miscellaneous lang="en">My practices</miscellaneous>
     <miscellaneous lang="fr">Mes pratiques</miscellaneous>
-    <description lang="fr">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque, est vitae mattis faucibus, felis sapien lobortis augue.</description>
-</Practical>
+    <description lang="fr">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</description>
+</miscellaneous>
 ``` 
 
 #### Society block

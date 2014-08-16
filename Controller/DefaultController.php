@@ -176,7 +176,6 @@ class DefaultController extends ContainerAware
                 array(
                     'cvxmlfile'    => $this->FileToLoad,
                     'languageView' => $this->Lang,
-                    'society'      => $this->ReadCVXml->getSociety(),
                     'languages'    => $this->exposedLanguages,
                     'anchors'      => $this->ReadCVXml->getAnchors(),
                     'hasSnappyPDF' => $this->hasSnappyPDF,
