@@ -75,6 +75,9 @@ class CurriculumVitae
         }        
     }
 
+    /**
+     * @param string $pathToFile
+     */
     private function setFileName($pathToFile)
     {
         $data = explode("/", $pathToFile);
