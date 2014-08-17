@@ -88,6 +88,6 @@ class AgeCalculator
 
     private function setAgeByYear()
     {
-        $this->age = $this->today->year - $this->birth->year;
+        $this->age = (int) ($this->today->year - $this->birth->year);
     }
 }
