@@ -16,6 +16,7 @@ class LibXmlDisplayErrors
     private $errors;
     private $chainErrors;
     private $error;
+    private $content;
 
     public function __construct()
     {
@@ -34,25 +35,62 @@ class LibXmlDisplayErrors
     }
 
     private function libXmlDisplayError() {
-        $return = "";
+        $this->setEmptyContent();
+        $this->addErrorLevelContent();
+        $this->addFileContent();
+        $this->addLineAndColumnContent();
+        $this->addErrorMessageContent();
+        
+        return preg_replace('/( in\ \/(.*))/', "", strip_tags($this->getContent()))."\n";
+    }
+
+    private function addErrorLevelContent()
+    {
         switch ($this->error->level) {
             case LIBXML_ERR_WARNING:
-                $return .= "Warning ".($this->error->code);
+                $this->addInContent("Warning ".($this->error->code));
                 break;
             case LIBXML_ERR_ERROR:
-                $return .= "Error ".($this->error->code);
+                $this->addInContent("Error ".($this->error->code));
                 break;
             case LIBXML_ERR_FATAL:
-                $return .= "Fatal Error ".($this->error->code);
+                $this->addInContent("Fatal Error ".($this->error->code));
                 break;
-        }
-        if ($this->error->file) {
-            $return .= " in ".($this->error->file);
-        }
-        $return .= " on line ".($this->error->line)." column ".($this->error->column).":\n";
-        $return .= trim($this->error->message)."\n";
-        $return = preg_replace('/( in\ \/(.*))/', "", strip_tags($return))."\n";
+        }        
+    }
 
-        return $return;
+    private function addFileContent()
+    {
+        if ($this->error->file) {
+            $this->addInContent(" in ".($this->error->file));
+        }        
+    }
+
+    private function addLineAndColumnContent()
+    {
+        $this->addInContent(" on line ".($this->error->line)." column ".($this->error->column).":\n");        
+    }
+
+    private function addErrorMessageContent()
+    {
+        $this->addInContent(trim($this->error->message)."\n");
+    }
+
+    /**
+     * @param string $content
+     */
+    private function addInContent($content)
+    {
+        $this->content .= $content;
+    }
+
+    private function setEmptyContent()
+    {
+        $this->content = "";
+    }
+
+    private function getContent()
+    {
+        return $this->content;
     }
 }
