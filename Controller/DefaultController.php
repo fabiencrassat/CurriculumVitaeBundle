@@ -102,24 +102,13 @@ class DefaultController extends ContainerAware
 
         $html = $this->container->get('templating')->render(
             "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", $this->defineCVViewVariables());
-
-        $identity = $this->ReadCVXml->getIdentity();
-        $lookingFor = $this->ReadCVXml->getLookingFor();
-
-        if (isset($identity['myself']['name']) && isset($lookingFor['experience']['job'])) {
-            $filename = $identity['myself']['name'].' - '.$lookingFor['experience']['job'];
-        } elseif (isset($identity['myself']['name']) && isset($lookingFor['experience'])) {
-            $filename = $identity['myself']['name'].' - '.$lookingFor['experience'];
-        } else {
-            $filename = $this->FileToLoad;
-        }
-
+        
         return new Response(
             $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="'.$filename.'.pdf"'
+                'Content-Disposition'   => 'attachment; filename="'.$this->ReadCVXml->getHumanFileName().'.pdf"'
             )
         );
     }

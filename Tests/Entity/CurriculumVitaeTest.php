@@ -34,6 +34,30 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testSimpleHumanFileName()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../Resources/data/core.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $this->assertSame("core", $this->CV->getHumanFileName());
+    }
+
+    public function testHumanFileNameWithExperience()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../../Resources/data/example.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $this->assertSame("First Name Last Name - Curriculum Vitae Title", $this->CV->getHumanFileName());
+    }
+
+    public function testHumanFileNameWithJob()
+    {
+        // Read the Curriculum Vitae
+        $pathToFile = __DIR__.'/../Resources/data/test.xml';
+        $this->CV = new CurriculumVitae($pathToFile);
+        $this->assertSame("First Name Last Name - The job", $this->CV->getHumanFileName());
+    }
+
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag()
     {
         // Read the Curriculum Vitae

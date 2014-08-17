@@ -19,6 +19,7 @@ class CurriculumVitae
 {
     private $CV;
     private $Lang;
+    private $file;
 
     /**
      * @param string $pathToFile
@@ -27,6 +28,7 @@ class CurriculumVitae
     {
         $this->Lang = $Lang;
         $this->CV = $this->getXmlCurriculumVitae($pathToFile);
+        $this->setFileName($pathToFile);
     }
 
     public function getDropDownLanguages()
@@ -57,6 +59,28 @@ class CurriculumVitae
         };
 
         return $anchors;
+    }
+
+    public function getHumanFileName()
+    {
+        $identity = $this->getIdentity();
+        $lookingFor = $this->getLookingFor();
+
+        if (isset($identity['myself']['name']) && isset($lookingFor['experience']['job'])) {
+            return $identity['myself']['name'].' - '.$lookingFor['experience']['job'];
+        } elseif (isset($identity['myself']['name']) && isset($lookingFor['experience'])) {
+            return $identity['myself']['name'].' - '.$lookingFor['experience'];
+        } else {
+            return $this->file;
+        }        
+    }
+
+    private function setFileName($pathToFile)
+    {
+        $data = explode("/", $pathToFile);
+        $data = $data[count($data) - 1];
+        $data = explode(".", $data);;
+        $this->file = $data[0];
     }
 
     public function getIdentity()
