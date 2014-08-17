@@ -11,7 +11,7 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Entity;
 
-use FabienCrassat\CurriculumVitaeBundle\Utility\Calculator;
+use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 use FabienCrassat\CurriculumVitaeBundle\Utility\LibXmlDisplayErrors;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
@@ -110,8 +110,6 @@ class CurriculumVitae
 
     private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE)
     {
-        $calculator = new Calculator();
-
         $depth = $depth + 1;
 
         // Extraction of the node
@@ -164,7 +162,8 @@ class CurriculumVitae
                 };
 
                 $attr = array();
-                $value = $calculator->getAge((string) $cr);
+                $AgeCalculator = new AgeCalculator((string) $cr);
+                $value = $AgeCalculator->age();
             }
 
             // Value

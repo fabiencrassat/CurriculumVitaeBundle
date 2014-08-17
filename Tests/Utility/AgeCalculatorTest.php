@@ -11,10 +11,10 @@
 
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\Utility;
 
-use FabienCrassat\CurriculumVitaeBundle\Utility\Calculator;
+use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
-class CalculatorTest extends \PHPUnit_Framework_TestCase
+class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 {
 
     private $assert;
@@ -27,7 +27,6 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $this->calculator = new Calculator();
         $this->assert = date('Y') - $this->year;
         $this->actualMonth = date('n');
     }
@@ -62,7 +61,8 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
             $assert = $this->assert - 1;
         }
 
-        $age = $this->calculator->getAge($this->year."-".$month."-".$day);
+        $this->calculator = new AgeCalculator($this->year."-".$month."-".$day);
+        $age = $this->calculator->age();
         
         $this->assertEquals($assert, $age);
     }
@@ -72,7 +72,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadFormat()
     {
-        $this->calculator->getAge("0000/0/0");
+        $this->calculator = new AgeCalculator("0000/0/0");
     }
 
     /**
@@ -80,6 +80,6 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDate()
     {
-        $this->calculator->getAge("0000-0-0");
+        $this->calculator = new AgeCalculator("0000-0-0");
     }
 }
