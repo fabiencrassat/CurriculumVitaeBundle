@@ -31,6 +31,7 @@ class DefaultController extends ContainerAware
     private $exposedLanguages;
     private $hasSnappyPDF;
     private $requestFormat;
+    private $CVVariables = array();
 
     public function indexAction($cvxmlfile = NULL)
     {
@@ -68,11 +69,11 @@ class DefaultController extends ContainerAware
         $this->lang($_locale);
         $this->readCVFile();
         $this->requestFormat = $request->getRequestFormat();
+        $this->defineCVViewVariables();
 
-        $templateVariables = $this->defineCVViewVariables();
         switch ($this->requestFormat) {
             case 'json':
-                return new Response(json_encode($templateVariables));
+                return new Response(json_encode($this->CVVariables));
             case 'xml':
                 //initialisation du serializer
                 $encoders = array(new XmlEncoder('CurriculumVitae'), new JsonEncoder());
@@ -80,13 +81,13 @@ class DefaultController extends ContainerAware
                 $serializer = new Serializer($normalizers, $encoders);
 
                 $response = new Response();
-                $response->setContent($serializer->serialize($templateVariables, 'xml'));
+                $response->setContent($serializer->serialize($this->CVVariables, 'xml'));
                 $response->headers->set('Content-Type', 'application/xml');
 
                 return $response;
             default:
                 return $this->container->get('templating')->renderResponse(
-                $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $templateVariables);
+                $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $this->CVVariables);
         }
     }
 
@@ -95,21 +96,18 @@ class DefaultController extends ContainerAware
         $this->fileToLoad($cvxmlfile);
         $this->lang($_locale);
         $this->readCVFile();
+        $this->defineCVViewVariables();
 
         if (!$this->hasSnappyPDF) {
             throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
         };
 
-        $html = $this->container->get('templating')->render(
-            "FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", $this->defineCVViewVariables());
+        $html = $this->container->get('templating')->render("FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",$this->CVVariables);
         
-        return new Response(
-            $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
+        return new Response($this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="'.$this->ReadCVXml->getHumanFileName().'.pdf"'
-            )
+            array('Content-Type'        => 'application/pdf',
+                  'Content-Disposition' => 'attachment; filename="'.$this->ReadCVXml->getHumanFileName().'.pdf"')
         );
     }
 
@@ -156,35 +154,42 @@ class DefaultController extends ContainerAware
 
     private function defineCVViewVariables()
     {
-        $return = array();
-
-        if ($this->requestFormat == 'json' || $this->requestFormat == 'xml') {
-            NULL;
-        } else {
-            $return = array_merge($return,
-                array(
-                    'cvxmlfile'    => $this->FileToLoad,
-                    'languageView' => $this->Lang,
-                    'languages'    => $this->exposedLanguages,
-                    'anchors'      => $this->ReadCVXml->getAnchors(),
-                    'hasSnappyPDF' => $this->hasSnappyPDF,
-                )
-            );
+        if ($this->requestFormat != 'json' && $this->requestFormat != 'xml') {
+            $this->setToolCVVariables();
         }
+        $this->setCoreCVVariables();
+    }
 
-        $return = array_merge($return,
-            array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
-            )
-        );
-        
-        return $return;
+    private function setToolCVVariables()
+    {
+        $this->setCVVariables(array(
+            'cvxmlfile'    => $this->FileToLoad,
+            'languageView' => $this->Lang,
+            'languages'    => $this->exposedLanguages,
+            'anchors'      => $this->ReadCVXml->getAnchors(),
+            'hasSnappyPDF' => $this->hasSnappyPDF,
+        ));
+    }
+
+    private function setCoreCVVariables()
+    {
+        $this->setCVVariables(array(
+            'identity'          => $this->ReadCVXml->getIdentity(),
+            'followMe'          => $this->ReadCVXml->getFollowMe(),
+            'lookingFor'        => $this->ReadCVXml->getLookingFor(),
+            'experiences'       => $this->ReadCVXml->getExperiences(),
+            'skills'            => $this->ReadCVXml->getSkills(),
+            'educations'        => $this->ReadCVXml->getEducations(),
+            'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
+            'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
+        ));
+    }
+
+    /**
+     * @param array $newCVVariables
+     */
+    private function setCVVariables(array $newCVVariables)
+    {
+        $this->CVVariables = array_merge($this->CVVariables, $newCVVariables);
     }
 }
