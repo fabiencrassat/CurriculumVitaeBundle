@@ -25,53 +25,44 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     public function testNoLanguage()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/core.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
         $language = $this->CV->getDropDownLanguages();
         if (is_array($language)) {
-            $this->assertEquals(0, $this->tools->arraysAreSimilar(array('en' => 'en'), $language));
+            $this->assertEquals(0,
+                $this->tools->arraysAreSimilar(array('en' => 'en'), $language)
+            );
         }
     }
 
     public function testSimpleHumanFileName()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/core.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
         $this->assertSame("core", $this->CV->getHumanFileName());
     }
 
     public function testHumanFileNameWithExperience()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../../Resources/data/example.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
-        $this->assertSame("First Name Last Name - Curriculum Vitae Title", $this->CV->getHumanFileName());
+        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
+        $this->assertSame("First Name Last Name - Curriculum Vitae Title",
+            $this->CV->getHumanFileName()
+        );
     }
 
     public function testHumanFileNameWithJob()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/test.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/test.xml');
         $this->assertSame("First Name Last Name - The job", $this->CV->getHumanFileName());
     }
 
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/core.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
-        $identity = $this->CV->getIdentity();
-        $this->assertNull($identity);
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
+        $this->assertNull($this->CV->getIdentity());
     }
 
     public function testGetAnchorsWithNoLang()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/test.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/test.xml');
         $anchors = $this->CV->getAnchors();
         if (is_array($anchors)) {
             $this->assertEquals(0, $this->tools->arraysAreSimilar(
@@ -115,9 +106,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidArgumentExceptionWithNoValidXMLFile()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/empty.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV = new CurriculumVitae( __DIR__.'/../Resources/data/empty.xml');
         $this->CV->getDropDownLanguages();
     }
 
@@ -126,9 +115,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidArgumentExceptionWithFatalErrorXMLFile()
     {
-        // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../Resources/data/fatalerror.xml';
-        $this->CV = new CurriculumVitae($pathToFile);
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/fatalerror.xml');
         $this->CV->getDropDownLanguages();
     }
 }
