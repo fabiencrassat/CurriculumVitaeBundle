@@ -17,38 +17,44 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class CurriculumVitae
 {
+    private $pathToFile;
+    private $lang;
     private $CV;
-    private $Lang;
     private $file;
 
     /**
      * @param string $pathToFile
      */
-    public function __construct($pathToFile, $Lang = 'en')
-    {
-        $this->Lang = $Lang;
-        $this->CV = $this->getXmlCurriculumVitae($pathToFile);
-        $this->setFileName($pathToFile);
+    public function __construct($pathToFile, $lang = 'en') {
+        $this->pathToFile = $pathToFile;
+        $this->setFileName();
+        $this->lang = $lang;
+        $this->CV = $this->getXmlCurriculumVitae();
     }
 
-    public function getDropDownLanguages()
-    {
+    private function setFileName() {
+        $data = explode("/", $this->pathToFile);
+        $data = $data[count($data) - 1];
+        $data = explode(".", $data);;
+        $this->file = $data[0];
+    }
+
+    public function getDropDownLanguages() {
         $return = $this->xml2array($this->CV->langs);
         if(Count($return) == 0) {
-            $return = array($this->Lang => $this->Lang);
+            $return = array($this->lang => $this->lang);
         }
 
         return $return;
     }
 
-    public function getAnchors()
-    {
+    public function getAnchors() {
         $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
         
         $anchors = array();
         foreach ($anchorsAttribute as $key => $value) {
             $anchor = (string) $value['anchor'];
-            $title = $value->xpath("anchorTitle[@lang='" . $this->Lang . "']");
+            $title = $value->xpath("anchorTitle[@lang='" . $this->lang . "']");
             if (count($title) == 0) {
                 $title = $value->xpath("anchorTitle");
             }
@@ -61,73 +67,69 @@ class CurriculumVitae
         return $anchors;
     }
 
-    public function getHumanFileName()
-    {
-        $identity = $this->getIdentity();
-        $lookingFor = $this->getLookingFor();
-
-        if (isset($identity['myself']['name']) && isset($lookingFor['experience']['job'])) {
-            return $identity['myself']['name'].' - '.$lookingFor['experience']['job'];
-        } elseif (isset($identity['myself']['name']) && isset($lookingFor['experience'])) {
-            return $identity['myself']['name'].' - '.$lookingFor['experience'];
+    public function getHumanFileName() {
+        $myName = $this->getMyName();
+        $myCurrentJob = $this->getMyCurrentJob();
+        if (NULL != $myName) {
+            if (NULL != $myCurrentJob) {
+                return $myName.' - '.$myCurrentJob;
+            } else {
+                return $myName;
+            }
         } else {
             return $this->file;
         }        
     }
 
-    /**
-     * @param string $pathToFile
-     */
-    private function setFileName($pathToFile)
-    {
-        $data = explode("/", $pathToFile);
-        $data = $data[count($data) - 1];
-        $data = explode(".", $data);;
-        $this->file = $data[0];
+    private function getMyName() {
+        $identity = $this->getIdentity();
+        return $identity['myself']['name'];
     }
 
-    public function getIdentity()
-    {
+    private function getMyCurrentJob() {
+        $lookingFor = $this->getLookingFor();
+        if (isset($lookingFor['experience']['job'])) {
+            return $lookingFor['experience']['job'];
+        } elseif (isset($lookingFor['experience'])) {
+            return $lookingFor['experience'];
+        } else {
+            return NULL;
+        }
+    }
+
+    public function getIdentity() {
         return $this->getXMLValue($this->CV->curriculumVitae->identity->items);
     }
 
-    public function getFollowMe()
-    {
+    public function getFollowMe() {
         return $this->getXMLValue($this->CV->curriculumVitae->followMe->items);
     }
 
-    public function getLookingFor()
-    {
+    public function getLookingFor() {
         return $this->getXMLValue($this->CV->curriculumVitae->lookingFor);
     }
 
-    public function getExperiences()
-    {
+    public function getExperiences() {
         return $this->getXMLValue($this->CV->curriculumVitae->experiences->items);
     }
 
-    public function getSkills()
-    {
+    public function getSkills() {
         return $this->getXMLValue($this->CV->curriculumVitae->skills->items);
     }
 
-    public function getEducations()
-    {
+    public function getEducations() {
         return $this->getXMLValue($this->CV->curriculumVitae->educations->items);
     }
 
-    public function getLanguageSkills()
-    {
+    public function getLanguageSkills() {
         return $this->getXMLValue($this->CV->curriculumVitae->languageSkills->items);
     }
 
-    public function getMiscellaneous()
-    {
+    public function getMiscellaneous() {
         return $this->getXMLValue($this->CV->curriculumVitae->miscellaneous->items);
     }
 
-    private function getXMLValue($xml)
-    {
+    private function getXMLValue($xml) {
         if (!$xml) {
             return NULL;
         } else {
@@ -135,8 +137,7 @@ class CurriculumVitae
         }
     }
 
-    private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE)
-    {
+    private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $depth = $depth + 1;
 
         // Extraction of the node
@@ -153,7 +154,7 @@ class CurriculumVitae
         foreach($attributes as $attributeKey => $attributeValue) {
             $valuetemp = trim($attributeValue);
             if ($attributeKey == "lang") {
-                if($valuetemp <> $this->Lang) {
+                if($valuetemp <> $this->lang) {
                     $bContinue = FALSE;
                     break;
                 }
@@ -223,24 +224,16 @@ class CurriculumVitae
         }
     }
 
-    /**
-     * @param string $pathToFile
-     */
-    private function getXmlCurriculumVitae($pathToFile)
-    {
-        if (is_null($pathToFile) || !is_file($pathToFile)) {
-            throw new InvalidArgumentException("The path " . $pathToFile . " is not a valid path to file.");
+    private function getXmlCurriculumVitae() {
+        if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
+            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
         }
-        $this->validateXmlCurriculumVitae($pathToFile);
+        $this->validateXmlCurriculumVitae();
 
-        return simplexml_load_file($pathToFile);
+        return simplexml_load_file($this->pathToFile);
     }
 
-    /**
-     * @param string $pathToFile
-     */
-    private function validateXmlCurriculumVitae($pathToFile)
-    {
+    private function validateXmlCurriculumVitae() {
         // Activer "user error handling"
         libxml_use_internal_errors(TRUE);
 
@@ -248,7 +241,7 @@ class CurriculumVitae
         $dom = new \DOMDocument("1.0");
 
         // Charge du XML depuis un fichier
-        $dom->load($pathToFile);
+        $dom->load($this->pathToFile);
 
         // Validation du document XML
         $reflClass = new \ReflectionClass(get_class($this));

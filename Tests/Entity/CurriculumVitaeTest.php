@@ -54,6 +54,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("First Name Last Name - The job", $this->CV->getHumanFileName());
     }
 
+    public function testHumanFileNameWithOnLyName()
+    {
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/justIdentityMySelf.xml');
+        $this->assertSame("First Name Last Name", $this->CV->getHumanFileName());
+    }
+
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag()
     {
         $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <langs>
+    </langs>
+    <curriculumVitae>
+        <identity anchor="identity">
+            <anchorTitle>identity</anchorTitle>
+            <items>
+                <myself>
+                    <name>First Name Last Name</name>
+                    <birthday>1975-01-01</birthday>
+                    <age lang="en" getAge="curriculumVitae/identity/items/myself/birthday"></age>
+                    <birthplace>Paris</birthplace>
+                    <nationality>French Citizenship</nationality>
+                    <picture>bundles/fabiencrassatcurriculumvitae/img/example.png</picture>
+                </myself>
+            </items>
+        </identity>
+    </curriculumVitae>
+</root>
