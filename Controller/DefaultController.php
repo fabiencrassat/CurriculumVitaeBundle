@@ -102,7 +102,7 @@ class DefaultController extends ContainerAware
             throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
         };
 
-        $html = $this->container->get('templating')->render("FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig",$this->CVVariables);
+        $html = $this->container->get('templating')->render("FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", $this->CVVariables);
         
         return new Response($this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
