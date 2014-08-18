@@ -25,9 +25,10 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class DefaultController extends ContainerAware
 {
-    private $Lang;
+    private $cvxmlfile;
+    private $pathToFile;
+    private $lang;
     private $ReadCVXml;
-    private $FileToLoad;
     private $exposedLanguages;
     private $hasSnappyPDF;
     private $requestFormat;
@@ -35,15 +36,11 @@ class DefaultController extends ContainerAware
 
     public function indexAction($cvxmlfile = NULL)
     {
-        $this->fileToLoad($cvxmlfile);
-        $this->lang();
-        $this->readCVFile();
-
         if($cvxmlfile) {
             $path = array(
                 '_controller' => 'FabienCrassatCurriculumVitaeBundle:Default:display',
-                'cvxmlfile'   => $this->FileToLoad,
-                '_locale'     => $this->Lang,
+                'cvxmlfile'   => $cvxmlfile,
+                '_locale'     => $this->lang,
             );
             $request = $this->container->get('request');
             $subRequest = $request->duplicate(array(), NULL, $path);
@@ -55,19 +52,18 @@ class DefaultController extends ContainerAware
             );
             return $response;
         } else {
+            $this->initialization($cvxmlfile);
             return new RedirectResponse($this->container->get('router')->generate(
                 'fabiencrassat_curriculumvitae_cvxmlfileonly',
                 array(
-                    'cvxmlfile'   => $this->FileToLoad,
+                    'cvxmlfile'   => $this->cvxmlfile,
                 )), 301);
         }
     }
 
     public function displayAction($cvxmlfile, $_locale, Request $request)
     {
-        $this->fileToLoad($cvxmlfile);
-        $this->lang($_locale);
-        $this->readCVFile();
+        $this->initialization($cvxmlfile, $_locale);
         $this->requestFormat = $request->getRequestFormat();
         $this->defineCVViewVariables();
 
@@ -93,9 +89,7 @@ class DefaultController extends ContainerAware
 
     public function exportPDFAction($cvxmlfile, $_locale)
     {
-        $this->fileToLoad($cvxmlfile);
-        $this->lang($_locale);
-        $this->readCVFile();
+        $this->initialization($cvxmlfile, $_locale);
         $this->defineCVViewVariables();
 
         if (!$this->hasSnappyPDF) {
@@ -111,45 +105,61 @@ class DefaultController extends ContainerAware
         );
     }
 
-    private function fileToLoad($cvxmlfile = NULL)
+    private function initialization($file = NULL, $_locale = NULL)
     {
-        if (!$cvxmlfile) {
+        $this->setCVXmlFile($file);
+        $this->setPathToFile();
+        $this->setLanguage($_locale);
+        $this->setSnappyPDF();
+        $this->readCVFile();
+    }
+
+    private function setCVXmlFile($file) {
+        $this->cvxmlfile = $file;
+        if (!$this->cvxmlfile) {
             // Retreive the CV file depending the configuration
-            $cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
+            $this->cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
         }
-
-        $this->FileToLoad = (string) $cvxmlfile;
     }
 
-    private function lang($_locale = NULL)
-    {
-        if (!$_locale) {
-            $_locale = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
-        }
-        $this->Lang = (string) $_locale;
-    }
-
-    private function readCVFile()
-    {
+    private function setPathToFile() {
         // Check the file in the filesystem
-        $pathToFile = $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv').'/'.$this->FileToLoad.'.xml';
-        if (!is_file($pathToFile)) {
-            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->FileToLoad.' ('.$pathToFile.').');
+        $this->pathToFile = $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv').'/'.$this->cvxmlfile.'.xml';
+        if (!is_file($this->pathToFile)) {
+            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
         }
+    }
 
+    private function setLanguage($_locale = NULL) {
+        $this->lang = $_locale;
+        if (!$this->lang) {
+            $this->lang = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
+        }
+    }
+
+    private function setSnappyPDF() {
+        // Check if knp_snappy is existent
+        $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
+    }
+
+    private function readCVFile() {
         // Read the Curriculum Vitae
-        $this->ReadCVXml = new CurriculumVitae($pathToFile, $this->Lang);
+        $this->ReadCVXml = new CurriculumVitae($this->pathToFile, $this->lang);
 
+        if ($this->hasAtLeastOneLanguage()) {
+            throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->lang);
+        }
+    }
+
+    private function hasAtLeastOneLanguage() {
         // Check if there is at least 1 language defined
         $this->exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
         if(is_array($this->exposedLanguages)) {
-            if (!array_key_exists($this->Lang, $this->exposedLanguages)) {
-                throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->Lang);
+            if (!array_key_exists($this->lang, $this->exposedLanguages)) {
+                return TRUE;
             }
-        };
-
-        // Check if knp_snappy is existent
-        $this->hasSnappyPDF = $this->container->has('knp_snappy.pdf');
+        }
+        return FALSE;
     }
 
     private function defineCVViewVariables()
@@ -163,8 +173,8 @@ class DefaultController extends ContainerAware
     private function setToolCVVariables()
     {
         $this->setCVVariables(array(
-            'cvxmlfile'    => $this->FileToLoad,
-            'languageView' => $this->Lang,
+            'cvxmlfile'    => $this->cvxmlfile,
+            'languageView' => $this->lang,
             'languages'    => $this->exposedLanguages,
             'anchors'      => $this->ReadCVXml->getAnchors(),
             'hasSnappyPDF' => $this->hasSnappyPDF,
