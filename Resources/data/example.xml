@@ -264,7 +264,7 @@
             <name lang="fr">Mon autre compagnie</name>
             <address lang="en">the address of the company</address>
             <address lang="fr">l'adresse de la compagnie</address>
-            <siteurl>http://www.MyCompany.com</siteurl>
+            <siteurl>http://www.MyOtherCompany.com</siteurl>
         </society>
         <society ref="ACompanyWithoutSite">
             <name lang="en">A company wihtout site</name>

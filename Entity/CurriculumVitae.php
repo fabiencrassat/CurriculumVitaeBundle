@@ -150,78 +150,71 @@ class CurriculumVitae
         $bContinue = TRUE;
         $attr = array();
 
-        // Specific Attributes
+        // Specific Attributes: do nothing when it is not the good language
+        if ($attributes->lang) {
+            if ($attributes->lang <> $this->lang) {
+                return NULL;
+            }
+            unset($attributes->lang);
+        }
+        // Specific Attributes: change the key with the given id
+        if ($attributes->id) {
+            $key = (string) $attributes->id;
+            unset($attributes->id);
+        }
+        // Specific Attributes: Retreive the given crossref
+        if ($attributes->crossref) {
+            $CVCrossRef = $this->CV->xpath(trim($attributes->crossref));
+            $cr = $this->xml2array($CVCrossRef[0]);
+            $arXML = array_merge($arXML, array($key => $cr));
+            unset($attributes->crossref);
+        }
+        // Specific Attributes: Retreive the age
+        if ($attributes->getAge) {
+            $CVCrossRef = $this->CV->xpath(trim($attributes->getAge));
+            $cr = $this->xml2array($CVCrossRef[0], NULL, FALSE);
+            $cr = implode("", $cr);
+            $AgeCalculator = new AgeCalculator((string) $cr);
+            $value = $AgeCalculator->age();
+            unset($attributes->getAge);
+        }
+        // Standard Attributes (without Specific thanks to unset())
         foreach($attributes as $attributeKey => $attributeValue) {
-            $valuetemp = trim($attributeValue);
-            if ($attributeKey == "lang") {
-                if($valuetemp <> $this->lang) {
-                    $bContinue = FALSE;
-                    break;
-                }
-            } elseif ($attributeKey == "crossref") {
-                $CVCrossRef = $this->CV->xpath($valuetemp);
-                $cr = $this->xml2array($CVCrossRef[0]);
-                $arXML = array_merge($arXML, array($key => $cr));
-                break;
-            } elseif ($attributeKey == "id") {
-                $key = (string) $attributeValue;
+            $attr[$attributeKey] = trim($attributeValue);
+        }
+
+        if ($key == 'birthday') {
+            if ($format) {
+                setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
+                $value = strftime('%d %B %Y', strtotime(date($value)));
+            }
+        }
+
+        // Value
+        if ($value <> '') {
+            if ($key == "item") {
+                $arXML = array_merge($arXML, array($key => array($value)));
             } else {
-                $attr[$attributeKey] = $valuetemp;
+                $arXML = array_merge($arXML, array($key => $value));
             }
         }
-
-        if($bContinue) {
-
-            if ($key == 'birthday') {
-                if ($format) {
-                    setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
-                    $value = strftime('%d %B %Y', strtotime(date($value)));
-                }
-                $attr = array();
-            } elseif ($key == 'age' && array_key_exists("getAge", $attr)) {
-                $CVCrossRef = $this->CV;
-                $tabtemp = explode("/", $attr["getAge"]);
-                foreach ($tabtemp as $val) {
-                    $CVCrossRef = $CVCrossRef->{ $val };
-                }
-                $cr = $this->xml2array($CVCrossRef, NULL, FALSE);
-                if (count($cr) == 1) {
-                    $cr = implode("", $cr);
-                };
-
-                $attr = array();
-                $AgeCalculator = new AgeCalculator((string) $cr);
-                $value = $AgeCalculator->age();
-            }
-
-            // Value
-            if ($value <> '') {
-                if ($key == "item") {
-                    $arXML = array_merge($arXML, array($key => array($value)));
-                } else {
-                    $arXML = array_merge($arXML, array($key => $value));
-                }
-            }
-            // Attribute
-            if (count($attr) > 0) {
-                $arXML = array_merge($arXML, array($key => $attr));
-            }
-            // Children
-            if (Count($children) > 0) {
-                foreach($children as $childKey => $childValue) {
-                    $child = $this->xml2array($childValue, $depth);
-                    if ($depth > 1 && $child) {
-                        $arXML = array_merge_recursive($arXML, array($key => $child));
-                    } elseif ($child) {
-                        $arXML = array_merge_recursive($arXML, $child);
-                    }
-                }
-            }
-            
-            return $arXML;
-        } else {
-            return NULL;
+        // Attribute
+        if (count($attr) > 0) {
+            $arXML = array_merge($arXML, array($key => $attr));
         }
+        // Children
+        if (Count($children) > 0) {
+            foreach($children as $childKey => $childValue) {
+                $child = $this->xml2array($childValue, $depth);
+                if ($depth > 1 && $child) {
+                    $arXML = array_merge_recursive($arXML, array($key => $child));
+                } elseif ($child) {
+                    $arXML = array_merge_recursive($arXML, $child);
+                }
+            }
+        }
+        
+        return $arXML;
     }
 
     private function getXmlCurriculumVitae() {
