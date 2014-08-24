@@ -147,7 +147,6 @@ class CurriculumVitae
         $children = $xml->children();
 
         $arXML = array();
-        $bContinue = TRUE;
         $attr = array();
 
         // Specific Attributes: do nothing when it is not the good language
