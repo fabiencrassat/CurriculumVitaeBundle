@@ -21,6 +21,8 @@ class CurriculumVitae
     private $lang;
     private $CV;
     private $file;
+    // xml2array variables
+    private $key;
 
     /**
      * @param string $pathToFile
@@ -37,6 +39,37 @@ class CurriculumVitae
         $data = $data[count($data) - 1];
         $data = explode(".", $data);;
         $this->file = $data[0];
+    }
+
+    private function getXmlCurriculumVitae() {
+        if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
+            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
+        }
+        $this->validateXmlCurriculumVitae();
+
+        return simplexml_load_file($this->pathToFile);
+    }
+
+    private function validateXmlCurriculumVitae() {
+        // Activer "user error handling"
+        libxml_use_internal_errors(TRUE);
+
+        // Instanciation d’un DOMDocument
+        $dom = new \DOMDocument("1.0");
+
+        // Charge du XML depuis un fichier
+        $dom->load($this->pathToFile);
+
+        // Validation du document XML
+        $reflClass = new \ReflectionClass(get_class($this));
+        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
+        $validate = $dom->schemaValidate($xsdFile);
+        if (!$validate) {
+            $libxmlDisplayErrors = new LibXmlDisplayErrors;
+            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
+        }
+        
+        return $validate;
     }
 
     public function getDropDownLanguages() {
@@ -149,26 +182,26 @@ class CurriculumVitae
         $arXML = array();
         $attr = array();
 
-        // Specific Attributes: do nothing when it is not the good language
+        // Specific Attribute: do nothing when it is not the good language
         if ($attributes->lang) {
             if ($attributes->lang <> $this->lang) {
                 return NULL;
             }
             unset($attributes->lang);
         }
-        // Specific Attributes: change the key with the given id
+        // Specific Attribute: change the key with the given id
         if ($attributes->id) {
             $key = (string) $attributes->id;
             unset($attributes->id);
         }
-        // Specific Attributes: Retreive the given crossref
+        // Specific Attribute: Retreive the given crossref
         if ($attributes->crossref) {
             $CVCrossRef = $this->CV->xpath(trim($attributes->crossref));
             $cr = $this->xml2array($CVCrossRef[0]);
             $arXML = array_merge($arXML, array($key => $cr));
             unset($attributes->crossref);
         }
-        // Specific Attributes: Retreive the age
+        // Specific Attribute: Retreive the age
         if ($attributes->getAge) {
             $CVCrossRef = $this->CV->xpath(trim($attributes->getAge));
             $cr = $this->xml2array($CVCrossRef[0], NULL, FALSE);
@@ -182,20 +215,12 @@ class CurriculumVitae
             $attr[$attributeKey] = trim($attributeValue);
         }
 
-        if ($key == 'birthday') {
-            if ($format) {
-                setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
-                $value = strftime('%d %B %Y', strtotime(date($value)));
-            }
-        }
+        // Specific Key
+        $value = $this->setValueForSpecificKeys($key, $value, $format);
 
         // Value
         if ($value <> '') {
-            if ($key == "item") {
-                $arXML = array_merge($arXML, array($key => array($value)));
-            } else {
-                $arXML = array_merge($arXML, array($key => $value));
-            }
+            $arXML = array_merge($arXML, array($key => $value));
         }
         // Attribute
         if (count($attr) > 0) {
@@ -216,34 +241,18 @@ class CurriculumVitae
         return $arXML;
     }
 
-    private function getXmlCurriculumVitae() {
-        if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
-            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
+    private function setValueForSpecificKeys($key, $value, $format) {
+        // Specific Key: Format to french date format
+        if ($key == 'birthday') {
+            if ($format) {
+                setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
+                $value = strftime('%d %B %Y', strtotime(date($value)));
+            }
         }
-        $this->validateXmlCurriculumVitae();
-
-        return simplexml_load_file($this->pathToFile);
-    }
-
-    private function validateXmlCurriculumVitae() {
-        // Activer "user error handling"
-        libxml_use_internal_errors(TRUE);
-
-        // Instanciation d’un DOMDocument
-        $dom = new \DOMDocument("1.0");
-
-        // Charge du XML depuis un fichier
-        $dom->load($this->pathToFile);
-
-        // Validation du document XML
-        $reflClass = new \ReflectionClass(get_class($this));
-        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
-        $validate = $dom->schemaValidate($xsdFile);
-        if (!$validate) {
-            $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
+        // Specific Key: convert to apply array_merge()
+        if ($key == "item") {
+            $value = array($value);
         }
-        
-        return $validate;
+        return $value;
     }
 }
