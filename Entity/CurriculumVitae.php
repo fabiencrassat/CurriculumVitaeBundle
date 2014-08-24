@@ -22,7 +22,6 @@ class CurriculumVitae
     private $CV;
     private $file;
     // xml2array variables
-    private $key;
 
     /**
      * @param string $pathToFile
@@ -85,11 +84,11 @@ class CurriculumVitae
         $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
         
         $anchors = array();
-        foreach ($anchorsAttribute as $key => $value) {
-            $anchor = (string) $value['anchor'];
-            $title = $value->xpath("anchorTitle[@lang='" . $this->lang . "']");
+        foreach ($anchorsAttribute as $anchorsKey => $anchorsValue) {
+            $anchor = (string) $anchorsValue['anchor'];
+            $title = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
             if (count($title) == 0) {
-                $title = $value->xpath("anchorTitle");
+                $title = $anchorsValue->xpath("anchorTitle");
             }
             $anchors[$anchor] = array(
                 'href'  => $anchor,
@@ -241,6 +240,10 @@ class CurriculumVitae
         return $arXML;
     }
 
+    /**
+     * @param string $key
+     * @param boolean $format
+     */
     private function setValueForSpecificKeys($key, $value, $format) {
         // Specific Key: Format to french date format
         if ($key == 'birthday') {
