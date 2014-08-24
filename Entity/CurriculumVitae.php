@@ -40,8 +40,8 @@ class CurriculumVitae
     }
 
     public function getDropDownLanguages() {
-        $return = $this->xml2array($this->CV->langs);
-        if(Count($return) == 0) {
+        $return = $this->getXMLValue($this->CV->langs);
+        if(!$return) {
             $return = array($this->lang => $this->lang);
         }
 
@@ -210,7 +210,7 @@ class CurriculumVitae
             if (Count($children) > 0) {
                 foreach($children as $childKey => $childValue) {
                     $child = $this->xml2array($childValue, $depth);
-                    if ($depth > 1) {
+                    if ($depth > 1 && $child) {
                         $arXML = array_merge_recursive($arXML, array($key => $child));
                     } elseif ($child) {
                         $arXML = array_merge_recursive($arXML, $child);
