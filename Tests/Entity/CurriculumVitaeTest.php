@@ -528,9 +528,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             )
         );
         $this->assertGetEducations();
-    }
 
-    public function testGetEducationsWithFrenchLanguage() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'University' => array(
