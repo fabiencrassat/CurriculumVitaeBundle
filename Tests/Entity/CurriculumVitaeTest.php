@@ -151,48 +151,15 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetFollowMeWithEnglishLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
-        $this->assertArraysAreSimilar($this->CV->getFollowMe(), array(
-            'linkedin' => array(
-                'title' => 'Linked In',
-                'url'   => 'http://www.linkedin.com',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/linkedin.png'
-            ),
-            'viadeo' => array(
-                'title' => 'Viadeo',
-                'url'   => 'http://www.viadeo.com',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/viadeo.png'
-            ),
-            'monster' => array(
-                'title' => 'Monster',
-                'url'   => 'http://beknown.com',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/monster.png'
-            ),
-            'twitter' => array(
-                'title' => 'Twitter',
-                'url'   => 'https://twitter.com',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/twitter.png'
-            ),
-            'googleplus' => array(
-                'title' => 'Google+',
-                'url'   => 'https://plus.google.com',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/googleplus.png'
-            ),
-            'facebook' => array(
-                'title' => 'Facebook',
-                'url'   => 'https://www.facebook.com',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/facebook.png'
-            ),
-            'scrum' => array(
-                'title' => 'Scrum',
-                'url'   => 'http://www.scrumalliance.org',
-                'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png'
-            )
-        ));
+        $this->assertGetFollowMe();
     }
 
     public function testGetFollowMeWithFrenchLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', "fr");
+        $this->assertGetFollowMe("fr");
+    }
+
+    private function assertGetFollowMe($lang = "en") {
+        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
         $this->assertArraysAreSimilar($this->CV->getFollowMe(), array(
             'linkedin' => array(
                 'title' => 'Linked In',
