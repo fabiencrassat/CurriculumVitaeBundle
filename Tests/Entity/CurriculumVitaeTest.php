@@ -17,9 +17,13 @@ use FabienCrassat\CurriculumVitaeBundle\Utility\Tools;
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {
     private $CV;
+    private $lang;
+    private $interface;
+    private $arrayToCompare;
 
     public function __construct() {
         $this->tools = new Tools();
+        $this->lang = 'en';
     }
 
     public function testNoLanguage() {
@@ -27,7 +31,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $language = $this->CV->getDropDownLanguages();
         if (is_array($language)) {
             $this->assertEquals(0,
-                $this->tools->arraysAreSimilar(array('en' => 'en'), $language)
+                $this->tools->arraysAreSimilar(array($this->lang => $this->lang), $language)
             );
         }
     }
@@ -155,12 +159,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetFollowMeWithFrenchLanguage() {
-        $this->assertGetFollowMe("fr");
+        $this->lang = 'fr';
+        $this->assertGetFollowMe();
     }
 
-    private function assertGetFollowMe($lang = "en") {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getFollowMe(), array(
+    private function assertGetFollowMe() {
+        $this->arrayToCompare = array(
             'linkedin' => array(
                 'title' => 'Linked In',
                 'url'   => 'http://www.linkedin.com',
@@ -196,30 +200,35 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'url'   => 'http://www.scrumalliance.org',
                 'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png'
             )
-        ));
+        );
+        $this->interface = 'getFollowMe';
+        $this->assertCVInterface();
     }
 
     public function testGetLookingForWithEnglishLanguage() {
-        $this->assertGetLookingFor(NULL, array(
+        $this->arrayToCompare = array(
             'experience'   => "Curriculum Vitae Title",
             'presentation' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem.",
-        ));
+        );
+        $this->assertGetLookingFor();
     }
 
     public function testGetLookingForWithFrenchLanguage() {
-        $this->assertGetLookingFor("fr", array(
+        $this->lang = 'fr';
+        $this->arrayToCompare = array(
             'experience'   => "Titre du curriculum vitae",
             'presentation' => "Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo.",
-        ));
+        );
+        $this->assertGetLookingFor();
     }
 
-    private function assertGetLookingFor($lang = "en", array $toCompare) {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getLookingFor(), $toCompare);
+    private function assertGetLookingFor() {
+        $this->interface = 'getLookingFor';
+        $this->assertCVInterface();
     }
 
     public function testGetExperiencesWithEnglishLanguage() {
-        $this->assertGetExperiences(NULL, array(
+        $this->arrayToCompare = array(
             'FirstExperience' => array(
                 'date' => 'Jan 2007 - Present',
                 'job' => 'My current job',
@@ -272,11 +281,13 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-        ));
+        );
+        $this->assertGetExperiences();
     }
 
     public function testGetExperiencesWithFrenchLanguage() {
-        $this->assertGetExperiences("fr", array(
+        $this->lang = 'fr';
+        $this->arrayToCompare = array(
             'FirstExperience' => array(
                 'date' => 'Jan. 2007 - Aujourd\'hui',
                 'job' => 'Mon poste actuel',
@@ -329,16 +340,17 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-        ));
+        );
+        $this->assertGetExperiences();
     }
 
-    private function assertGetExperiences($lang = "en", array $toCompare) {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getExperiences(), $toCompare);
+    private function assertGetExperiences() {
+        $this->interface = 'getExperiences';
+        $this->assertCVInterface();
     }
 
     public function testGetSkillsWithEnglishLanguage() {
-        $this->assertGetSkills(NULL, array(
+        $this->arrayToCompare = array(
             'Functional' => array(
                 'title' => 'Skills',
                 'lines' => array(
@@ -407,11 +419,13 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-        ));
+        );
+        $this->assertGetSkills();
     }
 
     public function testGetSkillsWithFrenchLanguage() {
-        $this->assertGetSkills("fr", array(
+        $this->lang = 'fr';
+        $this->arrayToCompare = array(
             'Functional' => array(
                 'title' => 'Compétences',
                 'lines' => array(
@@ -480,16 +494,17 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-        ));
+        );
+        $this->assertGetSkills();
     }
 
-    private function assertGetSkills($lang = "en", array $toCompare) {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getSkills(), $toCompare);
+    private function assertGetSkills() {
+        $this->interface = 'getSkills';
+        $this->assertCVInterface();
     }
 
     public function testGetEducationsWithEnglishLanguage() {
-        $this->assertGetEducations(NULL, array(
+        $this->arrayToCompare = array(
             'University' => array(
                 'date' => '2002 - 2005',
                 'education' => 'My diploma in my university',
@@ -511,11 +526,13 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'June 2000',
                 'education' => 'My diploma in my first school'
             )
-        ));
+        );
+        $this->assertGetEducations();
     }
 
     public function testGetEducationsWithFrenchLanguage() {
-        $this->assertGetEducations("fr", array(
+        $this->lang = 'fr';
+        $this->arrayToCompare = array(
             'University' => array(
                 'date' => '2002 - 2005',
                 'education' => 'Mon diplôme dans mon université',
@@ -537,16 +554,17 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Juin 2000',
                 'education' => 'Mon diplôme dans mon collège'
             )
-        ));
+        );
+        $this->assertGetEducations();
     }
 
-    private function assertGetEducations($lang = "en", array $toCompare) {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getEducations(), $toCompare);
+    private function assertGetEducations() {
+        $this->interface = 'getEducations';
+        $this->assertCVInterface();
     }
 
     public function testGetLanguageSkillsWithEnglishLanguage() {
-        $this->assertGetLanguageSkills(NULL, array(
+        $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'French',
                 'description' => 'Level of the skill.',
@@ -557,11 +575,13 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'description' => 'Level of the skill.',
                 'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png'
             )
-        ));
+        );
+        $this->assertGetLanguageSkills();
     }
 
     public function testGetLanguageSkillsWithFrenchLanguage() {
-        $this->assertGetLanguageSkills("fr", array(
+        $this->lang = 'fr';
+        $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'Français',
                 'description' => 'Niveau',
@@ -572,44 +592,61 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'description' => 'Niveau',
                 'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png'
             )
-        ));
+        );
+        $this->assertGetLanguageSkills();
     }
 
-    private function assertGetLanguageSkills($lang = "en", array $toCompare) {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getLanguageSkills(), $toCompare);
+    private function assertGetLanguageSkills() {
+        $this->interface = 'getLanguageSkills';
+        $this->assertCVInterface();
     }
 
     public function testGetMiscellaneousWithEnglishLanguage() {
-        $this->assertGetMiscellaneous(NULL, array(
+        $this->arrayToCompare = array(
             'Practical' => array(
                 'title' => 'Practices',
                 'miscellaneous' => 'My practices'
             )
-        ));
+        );
+        $this->assertGetMiscellaneous();
     }
 
     public function testGetMiscellaneousWithFrenchLanguage() {
-        $this->assertGetMiscellaneous("fr", array(
+        $this->lang = 'fr';
+        $this->arrayToCompare = array(
             'Practical' => array(
                 'title' => 'Pratiques',
                 'miscellaneous' => 'Mes pratiques',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque, est vitae mattis faucibus, felis sapien lobortis augue.'
             )
-        ));
+        );
+        $this->assertGetMiscellaneous();
     }
 
-    private function assertGetMiscellaneous($lang = "en", array $toCompare) {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
-        $this->assertArraysAreSimilar($this->CV->getMiscellaneous(), $toCompare);
+    private function assertGetMiscellaneous() {
+        $this->interface = 'getMiscellaneous';
+        $this->assertCVInterface();
     }
 
-    private function assertArraysAreSimilar(array $CV, array $toCompare) {
-        $compare = $this->tools->arraysAreSimilar($CV, $toCompare);
+    private function assertCVInterface() {
+        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $this->lang);
+        $compare = $this->tools->arraysAreSimilar(
+            $this->CV->{$this->interface}(),
+            $this->arrayToCompare
+        );
         if ($compare <> 0) {
             print_r($compare);
         }
-        $this->assertEquals(0, $compare);    }
+        $this->assertEquals(0, $compare);
+    }
+
+    private function assertArraysAreSimilar(array $CV, array $arrayToCompare) {
+        $compare = $this->tools->arraysAreSimilar($CV, $arrayToCompare);
+        if ($compare <> 0) {
+            print_r($compare);
+        }
+        $this->assertEquals(0, $compare);
+    }
 
     /**
      * @expectedException InvalidArgumentException
