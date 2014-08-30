@@ -563,7 +563,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface();
     }
 
-    public function testGetLanguageSkillsWithEnglishLanguage() {
+    public function testGetLanguageSkills() {
         $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'French',
@@ -577,9 +577,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             )
         );
         $this->assertGetLanguageSkills();
-    }
 
-    public function testGetLanguageSkillsWithFrenchLanguage() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'French' => array(
