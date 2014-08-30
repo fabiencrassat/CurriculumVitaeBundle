@@ -93,7 +93,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetIdentityWithEnglishLanguage() {
         $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
-        $this->assertEquals(0, $this->tools->arraysAreSimilar(array(
+        $compare = $this->tools->arraysAreSimilar(array(
             'myself' => array(
                 'name' => 'First Name Last Name',
                 'birthday' => '01 janvier 1975' ,
@@ -114,14 +114,17 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             ),
             'social' => array(
                 'drivelicences' => 'French driving licence'
-            )),
-            $this->CV->getIdentity()
-        ));
+            )
+        ), $this->CV->getIdentity());
+        if ($compare <> 0) {
+            var_dump($compare);
+        }
+        $this->assertEquals(0, $compare);
     }
 
     public function testGetIdentityWithFrenchLanguage() {
         $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', "fr");
-        $this->assertEquals(0, $this->tools->arraysAreSimilar(array(
+        $compare = $this->tools->arraysAreSimilar(array(
             'myself' => array(
                 'name' => 'First Name Last Name',
                 'birthday' => '01 janvier 1975' ,
@@ -143,9 +146,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'marital' => 'Célibataire',
                 'military' => 'Dégagé des obligations militaires',
                 'drivelicences' => 'Titulaire du permis B'
-            )),
-            $this->CV->getIdentity()
-        ));
+            )
+        ), $this->CV->getIdentity());
+        if ($compare <> 0) {
+            var_dump($compare);
+        }
+        $this->assertEquals(0, $compare);
     }
 
     public function testGetFollowMeWithEnglishLanguage() {
