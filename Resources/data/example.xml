@@ -137,12 +137,12 @@
                     <title lang="en">Skills</title>
                     <title lang="fr">Compétences</title>
                     <lines>
-                        <line id="sucess" percentage="90" class="success" striped="true">
+                        <line id="success" percentage="90" class="success" striped="true">
                             <label lang="en">Increasing Skills</label>
                             <label lang="fr">Compétences grandissantes</label>
                         </line>
                         <line id="otherSucess" percentage="90" class="success">
-                            <label>sucess</label>
+                            <label>success</label>
                         </line>
                         <line id="info" percentage="40" class="info" striped="false">
                             <label>info</label>
@@ -165,7 +165,7 @@
                     <title lang="en">One other</title>
                     <title lang="fr">Une autre</title>
                     <lines>
-                        <line id="sucess" percentage="90" class="success" striped="false">
+                        <line id="success" percentage="90" class="success" striped="false">
                             <label lang="en">Skills List</label>
                             <label lang="fr">Liste de Compétences</label>
                         </line>

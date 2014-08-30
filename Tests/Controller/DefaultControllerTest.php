@@ -175,9 +175,9 @@ class DefaultControllerTest extends WebTestCase
         unset($CVXml['experiences']['SecondExperience']['society']['siteurl']);
         unset($CVXml['experiences']['ThirdExperience']['society']['society']['ref']);
         unset($CVXml['experiences']['FourthExperience']['collapse']);
-        unset($CVXml['skills']['Functional']['lines']['sucess']['percentage']);
-        unset($CVXml['skills']['Functional']['lines']['sucess']['class']);
-        unset($CVXml['skills']['Functional']['lines']['sucess']['striped']);
+        unset($CVXml['skills']['Functional']['lines']['success']['percentage']);
+        unset($CVXml['skills']['Functional']['lines']['success']['class']);
+        unset($CVXml['skills']['Functional']['lines']['success']['striped']);
         unset($CVXml['skills']['Functional']['lines']['otherSucess']['percentage']);
         unset($CVXml['skills']['Functional']['lines']['otherSucess']['class']);
         unset($CVXml['skills']['Functional']['lines']['info']['percentage']);
@@ -188,9 +188,9 @@ class DefaultControllerTest extends WebTestCase
         unset($CVXml['skills']['Functional']['lines']['danger']['percentage']);
         unset($CVXml['skills']['Functional']['lines']['danger']['class']);
         unset($CVXml['skills']['Functional']['lines']['noClass']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['sucess']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['sucess']['class']);
-        unset($CVXml['skills']['OtherSkill']['lines']['sucess']['striped']);
+        unset($CVXml['skills']['OtherSkill']['lines']['success']['percentage']);
+        unset($CVXml['skills']['OtherSkill']['lines']['success']['class']);
+        unset($CVXml['skills']['OtherSkill']['lines']['success']['striped']);
         unset($CVXml['skills']['OtherSkill']['lines']['info']['percentage']);
         unset($CVXml['skills']['OtherSkill']['lines']['info']['class']);
         unset($CVXml['skills']['OtherSkill']['lines']['info']['striped']);
