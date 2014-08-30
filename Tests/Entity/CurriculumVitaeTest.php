@@ -200,19 +200,22 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetLookingForWithEnglishLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
-        $this->assertArraysAreSimilar($this->CV->getLookingFor(), array(
+        $this->assertGetLookingFor(NULL, array(
             'experience'   => "Curriculum Vitae Title",
             'presentation' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem.",
         ));
     }
 
     public function testGetLookingForWithFrenchLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', "fr");
-        $this->assertArraysAreSimilar($this->CV->getLookingFor(), array(
+        $this->assertGetLookingFor("fr", array(
             'experience'   => "Titre du curriculum vitae",
             'presentation' => "Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo.",
         ));
+    }
+
+    private function assertGetLookingFor($lang = "en", array $toCompare) {
+        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $lang);
+        $this->assertArraysAreSimilar($this->CV->getLookingFor(), $toCompare);
     }
 
     public function testGetExperiencesWithEnglishLanguage() {
