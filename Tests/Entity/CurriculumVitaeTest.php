@@ -154,16 +154,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
-    public function testGetFollowMeWithEnglishLanguage() {
-        $this->assertGetFollowMe();
-    }
-
-    public function testGetFollowMeWithFrenchLanguage() {
-        $this->lang = 'fr';
-        $this->assertGetFollowMe();
-    }
-
-    private function assertGetFollowMe() {
+    public function testGetFollowMe() {
+        $this->interface = 'getFollowMe';
         $this->arrayToCompare = array(
             'linkedin' => array(
                 'title' => 'Linked In',
@@ -201,33 +193,33 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'icon'  => 'bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png'
             )
         );
-        $this->interface = 'getFollowMe';
+
+        $this->assertCVInterface();
+
+        $this->lang = 'fr';
         $this->assertCVInterface();
     }
 
-    public function testGetLookingForWithEnglishLanguage() {
+    public function testGetLookingFor() {
+        $this->interface = 'getLookingFor';
+
         $this->arrayToCompare = array(
             'experience'   => "Curriculum Vitae Title",
             'presentation' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem.",
         );
-        $this->assertGetLookingFor();
-    }
+        $this->assertCVInterface();
 
-    public function testGetLookingForWithFrenchLanguage() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'experience'   => "Titre du curriculum vitae",
             'presentation' => "Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo.",
         );
-        $this->assertGetLookingFor();
-    }
-
-    private function assertGetLookingFor() {
-        $this->interface = 'getLookingFor';
         $this->assertCVInterface();
     }
 
-    public function testGetExperiencesWithEnglishLanguage() {
+    public function testGetExperiences() {
+        $this->interface = 'getExperiences';
+
         $this->arrayToCompare = array(
             'FirstExperience' => array(
                 'date' => 'Jan 2007 - Present',
@@ -282,10 +274,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 )
             )
         );
-        $this->assertGetExperiences();
-    }
+        $this->assertCVInterface();
 
-    public function testGetExperiencesWithFrenchLanguage() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'FirstExperience' => array(
@@ -341,15 +331,10 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 )
             )
         );
-        $this->assertGetExperiences();
-    }
-
-    private function assertGetExperiences() {
-        $this->interface = 'getExperiences';
         $this->assertCVInterface();
     }
 
-    public function testGetSkillsWithEnglishLanguage() {
+    public function testGetSkills() {
         $this->interface = 'getSkills';
 
         $this->arrayToCompare = array(
@@ -498,7 +483,9 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface();
     }
 
-    public function testGetEducationsWithEnglishLanguage() {
+    public function testGetEducations() {
+        $this->interface = 'getEducations';
+
         $this->arrayToCompare = array(
             'University' => array(
                 'date' => '2002 - 2005',
@@ -522,7 +509,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'education' => 'My diploma in my first school'
             )
         );
-        $this->assertGetEducations();
+        $this->assertCVInterface();
 
         $this->lang = 'fr';
         $this->arrayToCompare = array(
@@ -548,15 +535,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'education' => 'Mon diplôme dans mon collège'
             )
         );
-        $this->assertGetEducations();
-    }
-
-    private function assertGetEducations() {
-        $this->interface = 'getEducations';
         $this->assertCVInterface();
     }
 
     public function testGetLanguageSkills() {
+        $this->interface = 'getLanguageSkills';
+
         $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'French',
@@ -569,7 +553,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png'
             )
         );
-        $this->assertGetLanguageSkills();
+        $this->assertCVInterface();
 
         $this->lang = 'fr';
         $this->arrayToCompare = array(
@@ -584,25 +568,20 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png'
             )
         );
-        $this->assertGetLanguageSkills();
-    }
-
-    private function assertGetLanguageSkills() {
-        $this->interface = 'getLanguageSkills';
         $this->assertCVInterface();
     }
 
-    public function testGetMiscellaneousWithEnglishLanguage() {
+    public function testGetMiscellaneous() {
+        $this->interface = 'getMiscellaneous';
+
         $this->arrayToCompare = array(
             'Practical' => array(
                 'title' => 'Practices',
                 'miscellaneous' => 'My practices'
             )
         );
-        $this->assertGetMiscellaneous();
-    }
+        $this->assertCVInterface();
 
-    public function testGetMiscellaneousWithFrenchLanguage() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'Practical' => array(
@@ -611,11 +590,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque, est vitae mattis faucibus, felis sapien lobortis augue.'
             )
         );
-        $this->assertGetMiscellaneous();
-    }
-
-    private function assertGetMiscellaneous() {
-        $this->interface = 'getMiscellaneous';
         $this->assertCVInterface();
     }
 
