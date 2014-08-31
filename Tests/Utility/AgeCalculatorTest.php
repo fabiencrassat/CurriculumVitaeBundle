@@ -21,14 +21,16 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
     private $minDay = 1;
     private $maxDay = 31;
     private $minMonth = 1;
-    private $actualMonth;
     private $maxMonth = 12;
+    private $actualMonth;
+    private $actualDay;
     private $year = 2000;
 
     public function __construct()
     {
         $this->assert = date('Y') - $this->year;
         $this->actualMonth = date('n');
+        $this->actualDay = date('d');
     }
 
     public function testEarlyYear()
@@ -58,7 +60,9 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
     {
         $assert = $this->assert;
         if($beforeBirthday) {
-            $assert = $this->assert - 1;
+            if(!($day == $this->actualDay && $month == $this->actualMonth)) {
+                $assert = $this->assert - 1;
+            }
         }
 
         $this->calculator = new AgeCalculator($this->year."-".$month."-".$day);
