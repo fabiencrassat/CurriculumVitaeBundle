@@ -20,6 +20,7 @@ class CurriculumVitae
     private $pathToFile;
     private $lang;
     private $CV;
+    private $interface;
     private $file;
     // xml2array variables
 
@@ -72,7 +73,8 @@ class CurriculumVitae
     }
 
     public function getDropDownLanguages() {
-        $return = $this->getXMLValue($this->CV->langs);
+        $this->interface = $this->CV->langs;
+        $return = $this->getXMLValue();
         if(!$return) {
             $return = array($this->lang => $this->lang);
         }
@@ -130,42 +132,50 @@ class CurriculumVitae
     }
 
     public function getIdentity() {
-        return $this->getXMLValue($this->CV->curriculumVitae->identity->items);
+        $this->interface = $this->CV->curriculumVitae->identity->items;
+        return $this->getXMLValue();
     }
 
     public function getFollowMe() {
-        return $this->getXMLValue($this->CV->curriculumVitae->followMe->items);
+        $this->interface = $this->CV->curriculumVitae->followMe->items;
+        return $this->getXMLValue();
     }
 
     public function getLookingFor() {
-        return $this->getXMLValue($this->CV->curriculumVitae->lookingFor);
+        $this->interface = $this->CV->curriculumVitae->lookingFor;
+        return $this->getXMLValue();
     }
 
     public function getExperiences() {
-        return $this->getXMLValue($this->CV->curriculumVitae->experiences->items);
+        $this->interface = $this->CV->curriculumVitae->experiences->items;
+        return $this->getXMLValue();
     }
 
     public function getSkills() {
-        return $this->getXMLValue($this->CV->curriculumVitae->skills->items);
+        $this->interface = $this->CV->curriculumVitae->skills->items;
+        return $this->getXMLValue();
     }
 
     public function getEducations() {
-        return $this->getXMLValue($this->CV->curriculumVitae->educations->items);
+        $this->interface = $this->CV->curriculumVitae->educations->items;
+        return $this->getXMLValue();
     }
 
     public function getLanguageSkills() {
-        return $this->getXMLValue($this->CV->curriculumVitae->languageSkills->items);
+        $this->interface = $this->CV->curriculumVitae->languageSkills->items;
+        return $this->getXMLValue();
     }
 
     public function getMiscellaneous() {
-        return $this->getXMLValue($this->CV->curriculumVitae->miscellaneous->items);
+        $this->interface = $this->CV->curriculumVitae->miscellaneous->items;
+        return $this->getXMLValue();
     }
 
-    private function getXMLValue($xml) {
-        if (!$xml) {
+    private function getXMLValue() {
+        if (!$this->interface) {
             return NULL;
         } else {
-            return $this->xml2array($xml);
+            return $this->xml2array($this->interface);
         }
     }
 
@@ -175,44 +185,23 @@ class CurriculumVitae
         // Extraction of the node
         $key = trim($xml->getName());
         $value = trim((string) $xml);
-        $attributes = $xml->attributes();
-        $children = $xml->children();
 
         $arXML = array();
         $attr = array();
 
         // Specific Attribute: do nothing when it is not the good language
-        if ($attributes->lang) {
-            if ($attributes->lang <> $this->lang) {
+        if ($xml->attributes()->lang) {
+            if ($xml->attributes()->lang <> $this->lang) {
                 return NULL;
             }
-            unset($attributes->lang);
+            unset($xml->attributes()->lang);
         }
-        // Specific Attribute: change the key with the given id
-        if ($attributes->id) {
-            $key = (string) $attributes->id;
-            unset($attributes->id);
-        }
-        // Specific Attribute: Retreive the given crossref
-        if ($attributes->crossref) {
-            $CVCrossRef = $this->CV->xpath(trim($attributes->crossref));
-            $cr = $this->xml2array($CVCrossRef[0]);
-            $arXML = array_merge($arXML, array($key => $cr));
-            unset($attributes->crossref);
-        }
-        // Specific Attribute: Retreive the age
-        if ($attributes->getAge) {
-            $CVCrossRef = $this->CV->xpath(trim($attributes->getAge));
-            $cr = $this->xml2array($CVCrossRef[0], NULL, FALSE);
-            $cr = implode("", $cr);
-            $AgeCalculator = new AgeCalculator((string) $cr);
-            $value = $AgeCalculator->age();
-            unset($attributes->getAge);
-        }
-        // Standard Attributes (without Specific thanks to unset())
-        foreach($attributes as $attributeKey => $attributeValue) {
-            $attr[$attributeKey] = trim($attributeValue);
-        }
+        // Specific Attributes
+        $key   = $this->setSpecificAttributeKeyWithGivenId($xml, $key);
+        $value = $this->setSpecificAttributeAge($xml, $value);
+        $arXML = $this->retrieveSpecificAttributeCrossRef($xml, $arXML, $key);
+        // Standard Attributes
+        $attr  = $this->setStandardAttributes($xml, $attr);
 
         // Specific Key
         $value = $this->setValueForSpecificKeys($key, $value, $format);
@@ -226,8 +215,8 @@ class CurriculumVitae
             $arXML = array_merge($arXML, array($key => $attr));
         }
         // Children
-        if (Count($children) > 0) {
-            foreach($children as $childKey => $childValue) {
+        if ($xml->children()->count() > 0) {
+            foreach($xml->children() as $childKey => $childValue) {
                 $child = $this->xml2array($childValue, $depth);
                 if ($depth > 1 && $child) {
                     $arXML = array_merge_recursive($arXML, array($key => $child));
@@ -237,6 +226,47 @@ class CurriculumVitae
             }
         }
         
+        return $arXML;
+    }
+
+    private function setStandardAttributes(\SimpleXMLElement $xml, array $attr) {
+        // Standard Attributes (without Specific thanks to unset())
+        foreach($xml->attributes() as $attributeKey => $attributeValue) {
+            $attr[$attributeKey] = trim($attributeValue);
+        }
+        return $attr;
+    }
+
+    private function setSpecificAttributeKeyWithGivenId(\SimpleXMLElement $xml, $key) {
+        // Specific Attribute: change the key with the given id
+        if ($xml->attributes()->id) {
+            $key = (string) $xml->attributes()->id;
+            unset($xml->attributes()->id);
+        }
+        return $key;
+    }
+
+    private function setSpecificAttributeAge(\SimpleXMLElement $xml, $value) {
+        // Specific Attribute: Retreive the age
+        if ($xml->attributes()->getAge) {
+            $CVCrossRef = $this->CV->xpath(trim($xml->attributes()->getAge));
+            $cr = $this->xml2array($CVCrossRef[0], NULL, FALSE);
+            $cr = implode("", $cr);
+            $AgeCalculator = new AgeCalculator((string) $cr);
+            $value = $AgeCalculator->age();
+            unset($xml->attributes()->getAge);
+        }
+        return $value;
+    }
+
+    private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, array $arXML, $key) {
+        // Specific Attribute: Retrieve the given crossref
+        if ($xml->attributes()->crossref) {
+            $CVCrossRef = $this->CV->xpath(trim($xml->attributes()->crossref));
+            $cr = $this->xml2array($CVCrossRef[0]);
+            $arXML = array_merge($arXML, array($key => $cr));
+            unset($xml->attributes()->crossref);
+        }
         return $arXML;
     }
 
