@@ -23,6 +23,9 @@ class CurriculumVitae
     private $interface;
     private $file;
     // xml2array variables
+    private $arXML;
+    private $attr;
+    private $key;
 
     /**
      * @param string $pathToFile
@@ -181,13 +184,12 @@ class CurriculumVitae
 
     private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $depth = $depth + 1;
+        $this->arXML = array();
+        $this->attr = array();
 
         // Extraction of the node
-        $key = trim($xml->getName());
+        $this->key = trim($xml->getName());
         $value = trim((string) $xml);
-
-        $arXML = array();
-        $attr = array();
 
         // Specific Attribute: do nothing when it is not the good language
         if ($xml->attributes()->lang) {
@@ -197,40 +199,34 @@ class CurriculumVitae
             unset($xml->attributes()->lang);
         }
         // Specific Attributes
-        $key   = $this->setSpecificAttributeKeyWithGivenId($xml, $key);
+        $this->key   = $this->setSpecificAttributeKeyWithGivenId($xml, $this->key);
         $value = $this->setSpecificAttributeAge($xml, $value);
-        $arXML = $this->retrieveSpecificAttributeCrossRef($xml, $arXML, $key);
+        $this->arXML = $this->retrieveSpecificAttributeCrossRef($xml, $this->arXML, $this->key);
         // Standard Attributes
-        $attr  = $this->setStandardAttributes($xml, $attr);
+        $this->setStandardAttributes($xml);
         // Specific Key
-        $value = $this->setValueForSpecificKeys($key, $value, $format);
+        $value = $this->setValueForSpecificKeys($this->key, $value, $format);
 
-        $arXML = $this->setValue($arXML, $key, $value);
-        $arXML = $this->setAttribute($arXML, $key, $attr);
-        $arXML = $this->setChildren($xml, $depth, $key, $arXML);
+        $this->setValue($value);
+        $this->setAttribute();
+        $this->arXML = $this->setChildren($xml, $depth, $this->key, $this->arXML);
         
-        return $arXML;
+        return $this->arXML;
     }
 
     /**
-     * @param string $key
      * @param string $value
      */
-    private function setValue(array $arXML, $key, $value) {
+    private function setValue($value) {
         if ($value <> '') {
-            $arXML = array_merge($arXML, array($key => $value));
+            $this->arXML = array_merge($this->arXML, array($this->key => $value));
         }
-        return $arXML;
     }
 
-    /**
-     * @param string $key
-     */
-    private function setAttribute(array $arXML, $key, array $attr) {
-        if (count($attr) > 0) {
-            $arXML = array_merge($arXML, array($key => $attr));
+    private function setAttribute() {
+        if (count($this->attr) > 0) {
+            $this->arXML = array_merge($this->arXML, array($this->key => $this->attr));
         }
-        return $arXML;
     }
 
     /**
@@ -251,12 +247,11 @@ class CurriculumVitae
         return $arXML;
     }
 
-    private function setStandardAttributes(\SimpleXMLElement $xml, array $attr) {
+    private function setStandardAttributes(\SimpleXMLElement $xml) {
         // Standard Attributes (without Specific thanks to unset())
         foreach($xml->attributes() as $attributeKey => $attributeValue) {
-            $attr[$attributeKey] = trim($attributeValue);
+            $this->attr[$attributeKey] = trim($attributeValue);
         }
-        return $attr;
     }
 
     /**
