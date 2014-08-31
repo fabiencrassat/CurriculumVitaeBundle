@@ -202,19 +202,41 @@ class CurriculumVitae
         $arXML = $this->retrieveSpecificAttributeCrossRef($xml, $arXML, $key);
         // Standard Attributes
         $attr  = $this->setStandardAttributes($xml, $attr);
-
         // Specific Key
         $value = $this->setValueForSpecificKeys($key, $value, $format);
 
-        // Value
+        $arXML = $this->setValue($arXML, $key, $value);
+        $arXML = $this->setAttribute($arXML, $key, $attr);
+        $arXML = $this->setChildren($xml, $depth, $key, $arXML);
+        
+        return $arXML;
+    }
+
+    /**
+     * @param string $key
+     * @param string $value
+     */
+    private function setValue(array $arXML, $key, $value) {
         if ($value <> '') {
             $arXML = array_merge($arXML, array($key => $value));
         }
-        // Attribute
+        return $arXML;
+    }
+
+    /**
+     * @param string $key
+     */
+    private function setAttribute(array $arXML, $key, array $attr) {
         if (count($attr) > 0) {
             $arXML = array_merge($arXML, array($key => $attr));
         }
-        // Children
+        return $arXML;
+    }
+
+    /**
+     * @param string $key
+     */
+    private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arXML) {
         if ($xml->children()->count() > 0) {
             foreach($xml->children() as $childKey => $childValue) {
                 $child = $this->xml2array($childValue, $depth);
@@ -225,7 +247,6 @@ class CurriculumVitae
                 }
             }
         }
-        
         return $arXML;
     }
 
@@ -237,6 +258,9 @@ class CurriculumVitae
         return $attr;
     }
 
+    /**
+     * @param string $key
+     */
     private function setSpecificAttributeKeyWithGivenId(\SimpleXMLElement $xml, $key) {
         // Specific Attribute: change the key with the given id
         if ($xml->attributes()->id) {
@@ -246,6 +270,9 @@ class CurriculumVitae
         return $key;
     }
 
+    /**
+     * @param string $value
+     */
     private function setSpecificAttributeAge(\SimpleXMLElement $xml, $value) {
         // Specific Attribute: Retreive the age
         if ($xml->attributes()->getAge) {
