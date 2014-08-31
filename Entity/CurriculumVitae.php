@@ -234,6 +234,7 @@ class CurriculumVitae
     }
 
     /**
+     * @param integer $depth
      * @param string $key
      */
     private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arXML) {
@@ -286,6 +287,9 @@ class CurriculumVitae
         return $value;
     }
 
+    /**
+     * @param string $key
+     */
     private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, array $arXML, $key) {
         // Specific Attribute: Retrieve the given crossref
         if ($xml->attributes()->crossref) {
