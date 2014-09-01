@@ -19,7 +19,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 
     private $assert;
     private $minDay = 1;
-    private $maxDay = 31;
+    private $maxDay;
     private $minMonth = 1;
     private $maxMonth = 12;
     private $actualMonth;
@@ -31,6 +31,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assert = date('Y') - $this->year;
         $this->actualMonth = date('n');
         $this->actualDay = date('d');
+        $this->maxDay = date("t", strtotime($this->year."-".$this->actualMonth."-23"));
     }
 
     public function testEarlyYear()
