@@ -40,7 +40,7 @@ class LibXmlDisplayErrors
         $this->addFileContent();
         $this->addLineAndColumnContent();
         $this->addErrorMessageContent();
-        
+
         return preg_replace('/( in\ \/(.*))/', "", strip_tags($this->getContent()))."\n";
     }
 
@@ -56,19 +56,19 @@ class LibXmlDisplayErrors
             case LIBXML_ERR_FATAL:
                 $this->addInContent("Fatal Error ".($this->error->code));
                 break;
-        }        
+        }
     }
 
     private function addFileContent()
     {
         if ($this->error->file) {
             $this->addInContent(" in ".($this->error->file));
-        }        
+        }
     }
 
     private function addLineAndColumnContent()
     {
-        $this->addInContent(" on line ".($this->error->line)." column ".($this->error->column).":\n");        
+        $this->addInContent(" on line ".($this->error->line)." column ".($this->error->column).":\n");
     }
 
     private function addErrorMessageContent()

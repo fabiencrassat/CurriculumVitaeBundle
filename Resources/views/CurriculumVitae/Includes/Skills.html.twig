@@ -54,7 +54,7 @@ file that was distributed with this source code.
                 {% if line.percentage|default(0) != 0 %}
                 {% for i in 1..((line.percentage|default(0))/4)|round %}
                 {% if line.striped|default('false') == 'true' %}|{% else %}.{% endif %}
-                {% endfor %} 
+                {% endfor %}
                 {% endif %}
                 {{ line.label }}
                 </div>

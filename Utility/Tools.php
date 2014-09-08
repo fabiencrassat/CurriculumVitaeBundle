@@ -17,8 +17,8 @@ class Tools
      * Determine if two associative arrays are similar
      *
      * Both arrays must have the same indexes with identical values
-     * without respect to key ordering 
-     * 
+     * without respect to key ordering
+     *
      * @param array $array1
      * @param array $array2
      */
