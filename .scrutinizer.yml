@@ -1,5 +1,4 @@
 # .scrutinizer.yml
-
 # inherit the next configuration down the chain
 inherit: true
 
