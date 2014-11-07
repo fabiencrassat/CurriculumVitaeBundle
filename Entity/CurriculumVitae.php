@@ -71,12 +71,12 @@ class CurriculumVitae
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
             throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
         }
-        
+
         return $validate;
     }
 
     public function getDropDownLanguages() {
-        $this->interface = $this->CV->langs;
+        $this->interface = $this->CV->{"langs"};
         $return = $this->getXMLValue();
         if(!$return) {
             $return = array($this->lang => $this->lang);
@@ -87,7 +87,7 @@ class CurriculumVitae
 
     public function getAnchors() {
         $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
-        
+
         $anchors = array();
         foreach ($anchorsAttribute as $anchorsKey => $anchorsValue) {
             $anchor = (string) $anchorsValue['anchor'];
@@ -115,7 +115,7 @@ class CurriculumVitae
             }
         } else {
             return $this->file;
-        }        
+        }
     }
 
     private function getMyName() {
@@ -210,7 +210,7 @@ class CurriculumVitae
         $this->setValue($value);
         $this->setAttribute();
         $this->arXML = $this->setChildren($xml, $depth, $this->key, $this->arXML);
-        
+
         return $this->arXML;
     }
 
