@@ -26,18 +26,14 @@ class Tools
     {
         $difference = array();
         foreach($array1 as $key => $value)  {
-            if (is_array($value)) {
-                if (!isset($array2[$key])) {
-                    $difference[$key] = $value;
-                } elseif (!is_array($array2[$key])) {
-                    $difference[$key] = $value;
-                } else {
-                    $new_diff = $this->arraysAreSimilar($value, $array2[$key]);
-                    if($new_diff != 0) {
-                        $difference[$key] = $new_diff;
-                    }
+            if (is_array($value) && isset($array2[$key]) && is_array($array2[$key])) {
+                $new_diff = $this->arraysAreSimilar($value, $array2[$key]);
+                if($new_diff != 0) {
+                    $difference[$key] = $new_diff;
                 }
-            } elseif (!array_key_exists($key, $array2) || $array2[$key] != $value) {
+            } elseif (!array_key_exists($key, $array2)
+            || $array2[$key] != $value
+            || is_array($value) && (!isset($array2[$key]) || !is_array($array2[$key]))) {
                 $difference[$key] = $value;
             }
         }
