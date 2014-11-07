@@ -17,12 +17,15 @@ class Xml2arrayFunctions {
     private $arXML;
     private $attr;
     private $key;
-    private $lang;
-    private $CV;
+    private $language;
+    private $CVFile;
 
-    public function __construct($CV, $lang = 'en') {
-        $this->lang = $lang;
-        $this->CV = $CV;
+    /**
+     * @param \SimpleXMLElement $CVFile
+     */
+    public function __construct($CVFile, $language = 'en') {
+        $this->language = $language;
+        $this->CVFile = $CVFile;
     }
 
     public function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
@@ -36,7 +39,7 @@ class Xml2arrayFunctions {
 
         // Specific Attribute: do nothing when it is not the good language
         if ($xml->attributes()->lang) {
-            if ($xml->attributes()->lang <> $this->lang) {
+            if ($xml->attributes()->lang <> $this->language) {
                 return NULL;
             }
             unset($xml->attributes()->lang);
@@ -115,7 +118,7 @@ class Xml2arrayFunctions {
     private function setSpecificAttributeAge(\SimpleXMLElement $xml, $value) {
         // Specific Attribute: Retreive the age
         if ($xml->attributes()->getAge) {
-            $CVCrossRef = $this->CV->xpath(trim($xml->attributes()->getAge));
+            $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->getAge));
             $cr = $this->xml2array($CVCrossRef[0], NULL, FALSE);
             $cr = implode("", $cr);
             $AgeCalculator = new AgeCalculator((string) $cr);
@@ -131,7 +134,7 @@ class Xml2arrayFunctions {
     private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, array $arXML, $key) {
         // Specific Attribute: Retrieve the given crossref
         if ($xml->attributes()->crossref) {
-            $CVCrossRef = $this->CV->xpath(trim($xml->attributes()->crossref));
+            $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->crossref));
             $cr = $this->xml2array($CVCrossRef[0]);
             $arXML = array_merge($arXML, array($key => $cr));
             unset($xml->attributes()->crossref);
@@ -142,6 +145,8 @@ class Xml2arrayFunctions {
     /**
      * @param string $key
      * @param boolean $format
+     *
+     * @return array|string $value
      */
     private function setValueForSpecificKeys($key, $value, $format) {
         if ($key == 'birthday') {
