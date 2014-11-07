@@ -25,6 +25,7 @@ class CurriculumVitae extends Xml2arrayFunctions
 
     /**
      * @param string $pathToFile
+     * @param string $lang
      */
     public function __construct($pathToFile, $lang = 'en') {
         $this->pathToFile = $pathToFile;
@@ -41,6 +42,9 @@ class CurriculumVitae extends Xml2arrayFunctions
         $this->file = $data[0];
     }
 
+    /**
+     * @return \SimpleXMLElement
+     */
     private function getXmlCurriculumVitae() {
         if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
             throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
@@ -50,6 +54,9 @@ class CurriculumVitae extends Xml2arrayFunctions
         return simplexml_load_file($this->pathToFile);
     }
 
+    /**
+     * @return boolean
+     */
     private function validateXmlCurriculumVitae() {
         // Activer "user error handling"
         libxml_use_internal_errors(TRUE);
@@ -72,6 +79,9 @@ class CurriculumVitae extends Xml2arrayFunctions
         return $validate;
     }
 
+    /**
+     * @return null|array
+     */
     public function getDropDownLanguages() {
         $this->interface = $this->CV->{"langs"};
         $return = $this->getXMLValue();
@@ -82,6 +92,9 @@ class CurriculumVitae extends Xml2arrayFunctions
         return $return;
     }
 
+    /**
+     * @return array
+     */
     public function getAnchors() {
         $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
 
@@ -101,6 +114,9 @@ class CurriculumVitae extends Xml2arrayFunctions
         return $anchors;
     }
 
+    /**
+     * @return string
+     */
     public function getHumanFileName() {
         $myName = $this->getMyName();
         $myCurrentJob = $this->getMyCurrentJob();
@@ -115,11 +131,17 @@ class CurriculumVitae extends Xml2arrayFunctions
         }
     }
 
+    /**
+     * @return string
+     */
     private function getMyName() {
         $identity = $this->getIdentity();
         return $identity['myself']['name'];
     }
 
+    /**
+     * @return null|string
+     */
     private function getMyCurrentJob() {
         $lookingFor = $this->getLookingFor();
         if (isset($lookingFor['experience']['job'])) {
@@ -131,46 +153,73 @@ class CurriculumVitae extends Xml2arrayFunctions
         }
     }
 
+    /**
+     * @return null|array
+     */
     public function getIdentity() {
         $this->interface = $this->CV->curriculumVitae->identity->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getFollowMe() {
         $this->interface = $this->CV->curriculumVitae->followMe->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getLookingFor() {
         $this->interface = $this->CV->curriculumVitae->lookingFor;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getExperiences() {
         $this->interface = $this->CV->curriculumVitae->experiences->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getSkills() {
         $this->interface = $this->CV->curriculumVitae->skills->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getEducations() {
         $this->interface = $this->CV->curriculumVitae->educations->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getLanguageSkills() {
         $this->interface = $this->CV->curriculumVitae->languageSkills->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     public function getMiscellaneous() {
         $this->interface = $this->CV->curriculumVitae->miscellaneous->items;
         return $this->getXMLValue();
     }
 
+    /**
+     * @return null|array
+     */
     private function getXMLValue() {
         if (!$this->interface) {
             return NULL;

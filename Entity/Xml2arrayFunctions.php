@@ -22,12 +22,20 @@ class Xml2arrayFunctions {
 
     /**
      * @param \SimpleXMLElement $CVFile
+     * @param string $language
      */
     public function __construct($CVFile, $language = 'en') {
         $this->language = $language;
         $this->CVFile = $CVFile;
     }
 
+    /**
+     * @param \SimpleXMLElement $xml
+     * @param integer $depth
+     * @param boolean $format
+     *
+     * @return null|array
+     */
     public function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $depth = $depth + 1;
         $this->arXML = array();
@@ -61,7 +69,7 @@ class Xml2arrayFunctions {
     }
 
     /**
-     * @param string $value
+     * @param array|string $value
      */
     private function setValue($value) {
         if ($value <> '') {
@@ -76,8 +84,12 @@ class Xml2arrayFunctions {
     }
 
     /**
+     * @param \SimpleXMLElement $xml
      * @param integer $depth
      * @param string $key
+     * @param array $arXML
+     *
+     * @return array
      */
     private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arXML) {
         if ($xml->children()->count() > 0) {
@@ -93,6 +105,9 @@ class Xml2arrayFunctions {
         return $arXML;
     }
 
+    /**
+     * @param \SimpleXMLElement $xml
+     */
     private function setStandardAttributes(\SimpleXMLElement $xml) {
         // Standard Attributes (without Specific thanks to unset())
         foreach($xml->attributes() as $attributeKey => $attributeValue) {
@@ -101,7 +116,10 @@ class Xml2arrayFunctions {
     }
 
     /**
+     * @param \SimpleXMLElement $xml
      * @param string $key
+     *
+     * @return string
      */
     private function setSpecificAttributeKeyWithGivenId(\SimpleXMLElement $xml, $key) {
         // Specific Attribute: change the key with the given id
@@ -113,7 +131,10 @@ class Xml2arrayFunctions {
     }
 
     /**
+     * @param \SimpleXMLElement $xml
      * @param string $value
+     *
+     * @return string
      */
     private function setSpecificAttributeAge(\SimpleXMLElement $xml, $value) {
         // Specific Attribute: Retreive the age
@@ -129,7 +150,11 @@ class Xml2arrayFunctions {
     }
 
     /**
+     * @param \SimpleXMLElement $xml
+     * @param array $arXML
      * @param string $key
+     *
+     * @return array
      */
     private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, array $arXML, $key) {
         // Specific Attribute: Retrieve the given crossref
@@ -144,9 +169,10 @@ class Xml2arrayFunctions {
 
     /**
      * @param string $key
+     * @param string $value
      * @param boolean $format
      *
-     * @return array|string $value
+     * @return array|string
      */
     private function setValueForSpecificKeys($key, $value, $format) {
         if ($key == 'birthday') {
@@ -163,6 +189,7 @@ class Xml2arrayFunctions {
     /**
      * Specific Key: Format to french date format
      *
+     * @param string $value
      * @param boolean $format
      *
      * @return string
@@ -178,6 +205,8 @@ class Xml2arrayFunctions {
 
     /**
      * Specific Key: convert to apply array_merge()
+     *
+     * @param string $value
      *
      * @return array
      */
