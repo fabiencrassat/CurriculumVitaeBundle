@@ -301,17 +301,39 @@ class CurriculumVitae
      * @param boolean $format
      */
     private function setValueForSpecificKeys($key, $value, $format) {
-        // Specific Key: Format to french date format
         if ($key == 'birthday') {
-            if ($format) {
-                setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
-                $value = strftime('%d %B %Y', strtotime(date($value)));
-            }
+            return $this->setValueForBirthdayKey($value, $format);
         }
-        // Specific Key: convert to apply array_merge()
-        if ($key == "item") {
-            $value = array($value);
+        elseif ($key == "item") {
+            return $this->setValueForItemKey($value);
         }
+        else {
+            return $value;
+        }
+    }
+
+    /**
+     * Specific Key: Format to french date format
+     *
+     * @param boolean $format
+     *
+     * @return string
+     */
+    private function setValueForBirthdayKey($value, $format) {
+        if ($format) {
+            setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
+            $value = strftime('%d %B %Y', strtotime(date($value)));
+        }
+
         return $value;
+    }
+
+    /**
+     * Specific Key: convert to apply array_merge()
+     *
+     * @return array
+     */
+    private function setValueForItemKey($value) {
+        return array($value);
     }
 }
