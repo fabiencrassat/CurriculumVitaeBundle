@@ -17,6 +17,8 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class CurriculumVitae
 {
+    use Xml2arrayFunctions;
+
     private $pathToFile;
     private $lang;
     private $CV;
@@ -181,6 +183,9 @@ class CurriculumVitae
             return $this->xml2array($this->interface);
         }
     }
+}
+
+trait Xml2arrayFunctions {
 
     private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $depth = $depth + 1;
