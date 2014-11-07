@@ -15,19 +15,13 @@ use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 use FabienCrassat\CurriculumVitaeBundle\Utility\LibXmlDisplayErrors;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
-class CurriculumVitae
+class CurriculumVitae extends Xml2arrayFunctions
 {
-    use Xml2arrayFunctions;
-
+    public $lang;
+    public $CV;
     private $pathToFile;
-    private $lang;
-    private $CV;
     private $interface;
     private $file;
-    // xml2array variables
-    private $arXML;
-    private $attr;
-    private $key;
 
     /**
      * @param string $pathToFile
@@ -185,9 +179,12 @@ class CurriculumVitae
     }
 }
 
-trait Xml2arrayFunctions {
+class Xml2arrayFunctions {
+    private $arXML;
+    private $attr;
+    private $key;
 
-    private function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
+    public function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
         $depth = $depth + 1;
         $this->arXML = array();
         $this->attr = array();
