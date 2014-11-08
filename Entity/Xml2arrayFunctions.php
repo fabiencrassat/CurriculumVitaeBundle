@@ -179,7 +179,7 @@ class Xml2arrayFunctions {
             return $this->setValueForBirthdayKey($value, $format);
         }
         elseif ($key == "item") {
-            return $this->setValueForItemKey($value);
+            return array($value); // convert to apply array_merge()
         }
         else {
             return $value;
@@ -201,16 +201,5 @@ class Xml2arrayFunctions {
         }
 
         return $value;
-    }
-
-    /**
-     * Specific Key: convert to apply array_merge()
-     *
-     * @param string $value
-     *
-     * @return array
-     */
-    private function setValueForItemKey($value) {
-        return array($value);
     }
 }
