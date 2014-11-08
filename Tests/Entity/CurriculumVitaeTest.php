@@ -220,7 +220,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testGetExperiences() {
         $this->interface = 'getExperiences';
 
-        $commonPart = array(
+        $this->arrayToCompare = array(
             'FirstExperience' => array(
                 'society' => array(
                     'society' => array('ref' => 'MyCompany'),
@@ -259,12 +259,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->getExperiencesEnglish($commonPart);
-        $this->getExperiencesFrench($commonPart);
+        $this->getExperiencesEnglish();
+        $this->getExperiencesFrench();
     }
 
-    private function getExperiencesEnglish(array $commonPart) {
-        $this->arrayToCompare = array_merge_recursive($commonPart, array(
+    private function getExperiencesEnglish() {
+        $this->arrayToCompare = array_merge($this->arrayToCompare, array(
             'FirstExperience' => array(
                 'date' => 'Jan 2007 - Present',
                 'job' => 'My current job',
@@ -297,9 +297,9 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface();
     }
 
-    private function getExperiencesFrench(array $commonPart) {
+    private function getExperiencesFrench() {
         $this->lang = 'fr';
-        $this->arrayToCompare = array_merge_recursive($commonPart, array(
+        $this->arrayToCompare = array_merge($this->arrayToCompare, array(
             'FirstExperience' => array(
                 'date' => 'Jan. 2007 - Aujourd\'hui',
                 'job' => 'Mon poste actuel',
@@ -335,7 +335,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testGetSkills() {
         $this->interface = 'getSkills';
 
-        $commonPart = array(
+        $this->arrayToCompare = array(
             'Functional' => array(
                 'lines' => array(
                     'success' => array(
@@ -402,12 +402,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->getSkillsEnglish($commonPart);
-        $this->getSkillsFrench($commonPart);
+        $this->getSkillsEnglish();
+        $this->getSkillsFrench();
     }
 
-    private function getSkillsEnglish(array $commonPart) {
-        $this->arrayToCompare = array_merge_recursive($commonPart, array(
+    private function getSkillsEnglish() {
+        $this->arrayToCompare = array_merge($this->arrayToCompare, array(
             'Functional' => array(
                 'title' => 'Skills',
                 'lines' => array(
@@ -428,10 +428,9 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface();
     }
 
-    private function getSkillsFrench(array $commonPart) {
+    private function getSkillsFrench() {
         $this->lang = 'fr';
-
-        $this->arrayToCompare = array_merge_recursive($commonPart, array(
+        $this->arrayToCompare = array_merge($this->arrayToCompare, array(
             'Functional' => array(
                 'title' => 'Compétences',
                 'lines' => array(
@@ -564,10 +563,14 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
         $this->CV = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
-        $this->assertArraysAreSimilar(
+        $compare = $this->tools->arraysAreSimilar(
             $this->CV->{$this->interface}(),
             $this->arrayToCompare
         );
+        if ($compare <> 0) {
+            print_r($compare);
+        }
+        $this->assertEquals(0, $compare);
     }
 
     private function assertArraysAreSimilar(array $CV, array $arrayToCompare) {
