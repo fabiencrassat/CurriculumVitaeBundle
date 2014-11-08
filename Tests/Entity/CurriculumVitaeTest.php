@@ -27,13 +27,13 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testNoLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
-        $language = $this->CV->getDropDownLanguages();
-        if (is_array($language)) {
-            $this->assertEquals(0,
-                $this->tools->arraysAreSimilar(array($this->lang => $this->lang), $language)
-            );
-        }
+        $this->interface = 'getDropDownLanguages';
+
+        $this->arrayToCompare = array(
+            $this->lang => $this->lang
+        );
+
+        $this->assertCVInterface('/../Resources/data/core.xml');
     }
 
     public function testSimpleHumanFileName() {
@@ -593,8 +593,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface();
     }
 
-    private function assertCVInterface() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', $this->lang);
+    private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
+        $this->CV = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
         $compare = $this->tools->arraysAreSimilar(
             $this->CV->{$this->interface}(),
             $this->arrayToCompare
