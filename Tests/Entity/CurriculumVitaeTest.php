@@ -220,11 +220,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testGetExperiences() {
         $this->interface = 'getExperiences';
 
-        $this->getExperiencesEnglish();
-        $this->getExperiencesFrench();
-    }
-
-    private function getExperiencesEnglish() {
         $this->arrayToCompare = array(
             'FirstExperience' => array(
                 'date' => 'Jan 2007 - Present',
@@ -280,9 +275,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             )
         );
         $this->assertCVInterface();
-    }
 
-    private function getExperiencesFrench() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'FirstExperience' => array(
@@ -344,11 +337,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testGetSkills() {
         $this->interface = 'getSkills';
 
-        $this->getSkillsEnglish();
-        $this->getSkillsFrench();
-    }
-
-    private function getSkillsEnglish() {
         $this->arrayToCompare = array(
             'Functional' => array(
                 'title' => 'Skills',
@@ -420,9 +408,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             )
         );
         $this->assertCVInterface();
-    }
 
-    private function getSkillsFrench() {
         $this->lang = 'fr';
         $this->arrayToCompare = array(
             'Functional' => array(
