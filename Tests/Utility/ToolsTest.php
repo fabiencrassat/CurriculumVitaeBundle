@@ -18,38 +18,32 @@ class ToolsTest extends \PHPUnit_Framework_TestCase
 
     private $tools;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->tools = new Tools();
     }
 
-    public function testArraysAreSimilar()
-    {
+    public function testArraysAreSimilar() {
         $this->assertEquals(0, $this->tools->arraysAreSimilar(array(), array()));
     }
 
-    public function testArraysAreNotSimilar()
-    {
+    public function testArraysAreNotSimilar() {
         $this->assertNotEquals(0, $this->tools->arraysAreSimilar(array("a"), array("b")));
     }
 
-    public function testArraysAreNotSimilarWithArray()
-    {
+    public function testArraysAreNotSimilarWithArray() {
         $this->assertNotEquals(0, $this->tools->arraysAreSimilar(array('a' => array("a")), array()));
     }
 
-    public function testArraysAreNotSimilarWithNotArray()
-    {
+    public function testArraysAreNotSimilarWithNotArray() {
         $this->assertNotEquals(0, $this->tools->arraysAreSimilar(
-            array('a' => array("a")), 
+            array('a' => array("a")),
             array('a' => "a")
         ));
     }
 
-    public function testArraysAreNotSimilarWithArrayInArray()
-    {
+    public function testArraysAreNotSimilarWithArrayInArray() {
         $this->assertNotEquals(0, $this->tools->arraysAreSimilar(
-            array('a' => array('b' => array('c'))), 
+            array('a' => array('b' => array('c'))),
             array('a' => array('b' => array('d')))
         ));
     }
