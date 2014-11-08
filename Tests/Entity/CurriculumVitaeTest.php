@@ -220,16 +220,54 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testGetExperiences() {
         $this->interface = 'getExperiences';
 
-        $this->arrayToCompare = array(
+        $commonPart = array(
             'FirstExperience' => array(
-                'date' => 'Jan 2007 - Present',
-                'job' => 'My current job',
                 'society' => array(
                     'society' => array('ref' => 'MyCompany'),
                     'name' => 'My Company',
                     'address' => 'the address of the company',
                     'siteurl' => 'http://www.MyCompany.com',
                 ),
+            ),
+            'SecondExperience' => array(
+                'collapse' => 'false',
+                'date' => 'Sept - Dec 2006',
+                'society' => array(
+                    'society' => array('ref' => 'MyOtherCompany'),
+                    'siteurl' => 'http://www.MyOtherCompany.com',
+                )
+            ),
+            'ThirdExperience' => array(
+                'date' => 'Summer 2006',
+                'society' => array(
+                    'society' => array('ref' => 'ACompanyWithoutSite'),
+                ),
+                'missions' => array(
+                    'item' => array(
+                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
+                    )
+                )
+            ),
+            'FourthExperience' => array(
+                'collapse' => 'true',
+                'date' => 'Before 2006',
+                'missions' => array(
+                    'item' => array(
+                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
+                    )
+                )
+            )
+        );
+
+        $this->getExperiencesEnglish($commonPart);
+        $this->getExperiencesFrench($commonPart);
+    }
+
+    private function getExperiencesEnglish(array $commonPart) {
+        $this->arrayToCompare = array_merge_recursive($commonPart, array(
+            'FirstExperience' => array(
+                'date' => 'Jan 2007 - Present',
+                'job' => 'My current job',
                 'missions' => array(
                     'item' => array(
                         0 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -238,55 +276,33 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 )
             ),
             'SecondExperience' => array(
-                'collapse' => 'false',
-                'date' => 'Sept - Dec 2006',
                 'job' => 'My previous job',
                 'society' => array(
-                    'society' => array('ref' => 'MyOtherCompany'),
                     'name' => 'My Other Company',
-                    'address' => 'the address of the company',
-                    'siteurl' => 'http://www.MyOtherCompany.com',
+                    'address' => 'the address of the company'
                 )
             ),
             'ThirdExperience' => array(
-                'date' => 'Summer 2006',
                 'job' => 'A summer job',
                 'society' => array(
-                    'society' => array('ref' => 'ACompanyWithoutSite'),
                     'name' => 'A company wihtout site',
                     'address' => 'the address of the company'
-                ),
-                'missions' => array(
-                    'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
                 )
             ),
             'FourthExperience' => array(
-                'collapse' => 'true',
-                'date' => 'Before 2006',
                 'job' => 'The job of my life',
-                'society' => 'A society with a name per language',
-                'missions' => array(
-                    'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
-                )
+                'society' => 'A society with a name per language'
             )
-        );
+        ));
         $this->assertCVInterface();
+    }
 
+    private function getExperiencesFrench(array $commonPart) {
         $this->lang = 'fr';
-        $this->arrayToCompare = array(
+        $this->arrayToCompare = array_merge_recursive($commonPart, array(
             'FirstExperience' => array(
                 'date' => 'Jan. 2007 - Aujourd\'hui',
                 'job' => 'Mon poste actuel',
-                'society' => array(
-                    'society' => array('ref' => 'MyCompany'),
-                    'name' => 'My Company',
-                    'address' => 'the address of the company',
-                    'siteurl' => 'http://www.MyCompany.com',
-                ),
                 'missions' => array(
                     'item' => array(
                         0 => 'Donec gravida enim viverra tempor dignissim.',
@@ -295,57 +311,37 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 )
             ),
             'SecondExperience' => array(
-                'collapse' => 'false',
-                'date' => 'Sept - Dec 2006',
                 'job' => 'Mon poste précédent',
                 'society' => array(
-                    'society' => array('ref' => 'MyOtherCompany'),
                     'name' => 'Mon autre compagnie',
-                    'address' => 'l\'adresse de la compagnie',
-                    'siteurl' => 'http://www.MyOtherCompany.com',
+                    'address' => 'l\'adresse de la compagnie'
                 )
             ),
             'ThirdExperience' => array(
-                'date' => 'Summer 2006',
                 'job' => 'Un travail d\'été',
                 'society' => array(
-                    'society' => array('ref' => 'ACompanyWithoutSite'),
                     'name' => 'Une compagnie sans site',
                     'address' => 'l\'adresse de la compagnie'
-                ),
-                'missions' => array(
-                    'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
                 )
             ),
             'FourthExperience' => array(
-                'collapse' => 'true',
-                'date' => 'Before 2006',
                 'job' => 'Le job de ma vie',
-                'society' => 'Une société avec un nom par langue',
-                'missions' => array(
-                    'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
-                )
+                'society' => 'Une société avec un nom par langue'
             )
-        );
+        ));
         $this->assertCVInterface();
     }
 
     public function testGetSkills() {
         $this->interface = 'getSkills';
 
-        $this->arrayToCompare = array(
+        $commonPart = array(
             'Functional' => array(
-                'title' => 'Skills',
                 'lines' => array(
                     'success' => array(
                         'percentage' => 90,
                         'class' => 'success',
                         'striped' => 'true',
-                        'label' => 'Increasing Skills',
                     ),
                     'otherSucess' => array(
                         'percentage' => 90,
@@ -374,6 +370,49 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     ),
                     'nothing' => array(
                         'label' => 'nothing',
+                    )
+                )
+            ),
+            'OtherSkill' => array(
+                'lines' => array(
+                    'success' => array(
+                        'percentage' => 90,
+                        'class' => 'success',
+                        'striped' => 'false',
+                    ),
+                    'info' => array(
+                        'percentage' => 40,
+                        'class' => 'info',
+                        'striped' => 'false',
+                        'label' => 'Label',
+                    ),
+                    'warning' => array(
+                        'percentage' => 20,
+                        'class' => 'warning',
+                        'striped' => 'false',
+                        'label' => 'Label',
+                    ),
+                    'danger' => array(
+                        'percentage' => 10,
+                        'class' => 'danger',
+                        'striped' => 'true',
+                        'label' => 'Label',
+                    )
+                )
+            )
+        );
+
+        $this->getSkillsEnglish($commonPart);
+        $this->getSkillsFrench($commonPart);
+    }
+
+    private function getSkillsEnglish(array $commonPart) {
+        $this->arrayToCompare = array_merge_recursive($commonPart, array(
+            'Functional' => array(
+                'title' => 'Skills',
+                'lines' => array(
+                    'success' => array(
+                        'label' => 'Increasing Skills'
                     )
                 )
             ),
@@ -381,72 +420,23 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'title' => 'One other',
                 'lines' => array(
                     'success' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'striped' => 'false',
-                        'label' => 'Skills List',
-                    ),
-                    'info' => array(
-                        'percentage' => 40,
-                        'class' => 'info',
-                        'striped' => 'false',
-                        'label' => 'Label',
-                    ),
-                    'warning' => array(
-                        'percentage' => 20,
-                        'class' => 'warning',
-                        'striped' => 'false',
-                        'label' => 'Label',
-                    ),
-                    'danger' => array(
-                        'percentage' => 10,
-                        'class' => 'danger',
-                        'striped' => 'true',
-                        'label' => 'Label',
+                        'label' => 'Skills List'
                     )
                 )
             )
-        );
+        ));
         $this->assertCVInterface();
+    }
 
+    private function getSkillsFrench(array $commonPart) {
         $this->lang = 'fr';
-        $this->arrayToCompare = array(
+
+        $this->arrayToCompare = array_merge_recursive($commonPart, array(
             'Functional' => array(
                 'title' => 'Compétences',
                 'lines' => array(
                     'success' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'striped' => 'true',
-                        'label' => 'Compétences grandissantes',
-                    ),
-                    'otherSucess' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'label' => 'success',
-                    ),
-                    'info' => array(
-                        'percentage' => 40,
-                        'class' => 'info',
-                        'striped' => 'false',
-                        'label' => 'info',
-                    ),
-                    'warning' => array(
-                        'percentage' => 20,
-                        'class' => 'warning',
-                        'label' => 'warning',
-                    ),
-                    'danger' => array(
-                        'percentage' => 10,
-                        'class' => 'danger',
-                        'label' => 'danger',
-                    ),
-                    'noClass' => array(
-                        'percentage' => 5,
-                        'label' => 'noClass',
-                    ),
-                    'nothing' => array(
-                        'label' => 'nothing',
+                        'label' => 'Compétences grandissantes'
                     )
                 )
             ),
@@ -454,32 +444,11 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'title' => 'Une autre',
                 'lines' => array(
                     'success' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'striped' => 'false',
-                        'label' => 'Liste de Compétences',
-                    ),
-                    'info' => array(
-                        'percentage' => 40,
-                        'class' => 'info',
-                        'striped' => 'false',
-                        'label' => 'Label',
-                    ),
-                    'warning' => array(
-                        'percentage' => 20,
-                        'class' => 'warning',
-                        'striped' => 'false',
-                        'label' => 'Label',
-                    ),
-                    'danger' => array(
-                        'percentage' => 10,
-                        'class' => 'danger',
-                        'striped' => 'true',
-                        'label' => 'Label',
+                        'label' => 'Liste de Compétences'
                     )
                 )
             )
-        );
+        ));
         $this->assertCVInterface();
     }
 
@@ -595,14 +564,10 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
         $this->CV = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
-        $compare = $this->tools->arraysAreSimilar(
+        $this->assertArraysAreSimilar(
             $this->CV->{$this->interface}(),
             $this->arrayToCompare
         );
-        if ($compare <> 0) {
-            print_r($compare);
-        }
-        $this->assertEquals(0, $compare);
     }
 
     private function assertArraysAreSimilar(array $CV, array $arrayToCompare) {
