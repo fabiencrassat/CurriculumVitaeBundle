@@ -68,7 +68,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->calculator = new AgeCalculator($this->year."-".$month."-".$day);
         $age = $this->calculator->age();
-        
+
         $this->assertEquals($assert, $age);
     }
 
