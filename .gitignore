@@ -1,5 +1,4 @@
 *.tmp
-*.db
 
 vendor
 composer.lock
