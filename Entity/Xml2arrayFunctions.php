@@ -95,9 +95,9 @@ class Xml2arrayFunctions {
         if ($xml->children()->count() > 0) {
             foreach($xml->children() as $childKey => $childValue) {
                 $child = $this->xml2array($childValue, $depth);
-                if ($depth > 1 && $child) {
+                if ($depth > 1 && ! empty($child)) {
                     $arXML = array_merge_recursive($arXML, array($key => $child));
-                } elseif ($child) {
+                } elseif (! empty($child)) {
                     $arXML = array_merge_recursive($arXML, $child);
                 }
             }

@@ -17,6 +17,7 @@ use FabienCrassat\CurriculumVitaeBundle\Utility\Tools;
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {
     private $CV;
+    private $tools;
     private $lang;
     private $interface;
     private $arrayToCompare;

@@ -24,7 +24,7 @@ foreach ($autoloads as $file) {
     }
 }
 
-if (!$autoloadFile) {
+if ($autoloadFile === false) {
     die('Unable to find autoload.php file, please use composer to load dependencies:
 
 wget http://getcomposer.org/composer.phar

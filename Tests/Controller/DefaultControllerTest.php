@@ -136,6 +136,34 @@ class DefaultControllerTest extends WebTestCase
         }
     }
 
+    public function testOutputFollowMeLink()
+    {
+        $this->client = static::createClient();
+
+        $langs = array('en', 'fr');
+        foreach ($langs as $lang) {
+            $crawler = $this->client->request('GET', '/example/'.$lang);
+
+            // Read the Curriculum Vitae
+            $pathToFile = __DIR__.'/../../Resources/data/example.xml';
+            $this->ReadCVXml = new CurriculumVitae($pathToFile, $lang);
+
+            $CVXml = array('followMe' => $this->ReadCVXml->getFollowMe());
+
+            $testValue = $this->array_values_recursive($CVXml);
+            foreach ($testValue as $key => $value) {
+                $alt = $crawler->filter('img[alt="'.$value.'"]')->count();
+                $alt += $crawler->filter('img[title="'.$value.'"]')->count();
+                $alt += $crawler->filter('img[src="/'.$value.'"]')->count();
+                $alt += $crawler->filter('a[href="'.$value.'"]')->count();
+
+                $this->assertGreaterThan(0, $alt,
+                    'The value '.$value.' is not diplay for language '.$lang
+                );
+            }
+        }
+    }
+
     private function OutputHtmlXmlComparaison($lang = 'en')
     {
         $crawler = $this->client->request('GET', '/example/'.$lang);
@@ -146,7 +174,6 @@ class DefaultControllerTest extends WebTestCase
 
         $CVXml = array(
                 'identity'          => $this->ReadCVXml->getIdentity(),
-                // 'followMe'          => $this->ReadCVXml->getFollowMe(),
                 'lookingFor'        => $this->ReadCVXml->getLookingFor(),
                 'experiences'       => $this->ReadCVXml->getExperiences(),
                 'skills'            => $this->ReadCVXml->getSkills(),

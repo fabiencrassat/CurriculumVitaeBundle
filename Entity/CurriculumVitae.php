@@ -121,7 +121,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         $myName = $this->getMyName();
         $myCurrentJob = $this->getMyCurrentJob();
         if (NULL != $myName) {
-            if (NULL != $myCurrentJob) {
+            if (NULL !== $myCurrentJob) {
                 return $myName.' - '.$myCurrentJob;
             } else {
                 return $myName;

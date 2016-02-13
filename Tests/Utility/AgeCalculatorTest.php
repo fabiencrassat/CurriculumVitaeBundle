@@ -25,6 +25,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
     private $actualMonth;
     private $actualDay;
     private $year = 2000;
+    private $calculator;
 
     public function __construct()
     {
