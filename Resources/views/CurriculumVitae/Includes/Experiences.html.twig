@@ -15,17 +15,19 @@ file that was distributed with this source code.
 {% set title    = anchors.experiences.title|default('') %}
 {% set blocks   = experiences %}
 
+{% import _self as myMacro %}
+
 {% if blocks is not null %}
 {# Display the main section #}
 {% if template == "OryzoneBoilerplate" %}
     <section {{ anchorId }} class="well">
         <h3>{{ title }}</h3>
-        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+        {{ myMacro.displayBlockInMainSection(blocks, id, template) }}
     </section>
 {% else %}
     <div {{ anchorId }}>
         <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
-        {{ _self.displayBlockInMainSection(blocks, id, template) }}
+        {{ myMacro.displayBlockInMainSection(blocks, id, template) }}
     </div>
 {% endif %}
 {% endif %}
