@@ -1,5 +1,5 @@
 fabiencrassat_curriculumvitae_root:
-    pattern:    /
+    path:       /
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
 
@@ -15,7 +15,7 @@ fabiencrassat_curriculumvitae_default:
         _format:        html
 
 fabiencrassat_curriculumvitae_cvxmlfileonly:
-    pattern:    /{cvxmlfile}.{_format}
+    path:       /{cvxmlfile}.{_format}
     defaults:
         _controller:    FabienCrassatCurriculumVitaeBundle:Default:index
         _format:        html
