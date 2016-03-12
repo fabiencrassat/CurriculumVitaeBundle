@@ -12,18 +12,15 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
-use FabienCrassat\CurriculumVitaeBundle\Utility\Tools;
 
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {
     private $CV;
-    private $tools;
     private $lang;
     private $interface;
     private $arrayToCompare;
 
     public function __construct() {
-        $this->tools = new Tools();
         $this->lang = 'en';
     }
 
@@ -100,8 +97,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
         $anchors = $this->CV->getAnchors();
         if (is_array($anchors)) {
-            $this->assertEquals(0, $this->tools->arraysAreSimilar(
-                array('identity' => array(
+            $this->assertEquals(array('identity' => array(
                         'href' => 'identity',
                         'title' => 'identity'),
                       'followMe' => array(
@@ -124,7 +120,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                         'title' => 'miscellaneous')
                 ),
                 $anchors
-            ));
+            );
         }
     }
 
@@ -133,10 +129,10 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $identity = $this->CV->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
-        $this->assertArraysAreSimilar($identity, array(
+        $this->assertEquals(array(
             'myself' => array(
                 'name' => 'First Name Last Name',
-                'age' => 39,
+                'age' => 41,
                 'nationality' => 'French Citizenship',
                 'picture' => 'bundles/fabiencrassatcurriculumvitae/img/example.png'
             ),
@@ -154,7 +150,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
             'social' => array(
                 'drivelicences' => 'French driving licence'
             )
-        ));
+        ), $identity);
     }
 
     public function testGetIdentityWithFrenchLanguage() {
@@ -162,7 +158,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $identity = $this->CV->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
-        $this->assertArraysAreSimilar($identity, array(
+        $this->assertEquals(array(
             'myself' => array(
                 'name' => 'First Name Last Name',
                 'birthplace' => 'Paris',
@@ -184,7 +180,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'military' => 'Dégagé des obligations militaires',
                 'drivelicences' => 'Titulaire du permis B'
             )
-        ));
+        ), $identity);
     }
 
     public function testGetDropDownLanguages() {
@@ -640,11 +636,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
         $this->CV = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
         $this->assertEquals($this->arrayToCompare, $this->CV->{$this->interface}());
-    }
-
-    private function assertArraysAreSimilar(array $CV, array $arrayToCompare) {
-        $compare = $this->tools->arraysAreSimilar($CV, $arrayToCompare);
-        $this->assertEquals(0, $compare);
     }
 
     /**

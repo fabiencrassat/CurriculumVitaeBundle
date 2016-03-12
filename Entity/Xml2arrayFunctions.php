@@ -42,7 +42,7 @@ class Xml2arrayFunctions {
         $this->attr = array();
 
         // Extraction of the node
-        $this->key = trim($xml->getName());
+        $key = trim($xml->getName());
         $value = trim((string) $xml);
 
         // Specific Attribute: do nothing when it is not the good language
@@ -53,17 +53,17 @@ class Xml2arrayFunctions {
             unset($xml->attributes()->lang);
         }
         // Specific Attributes
-        $this->key   = $this->setSpecificAttributeKeyWithGivenId($xml, $this->key);
+        $key         = $this->setSpecificAttributeKeyWithGivenId($xml, $key);
         $value       = $this->setSpecificAttributeAge($xml, $value);
-        $this->arXML = $this->retrieveSpecificAttributeCrossRef($xml, $this->arXML, $this->key);
+        $this->arXML = $this->retrieveSpecificAttributeCrossRef($xml, $this->arXML, $key);
         // Standard Attributes
         $this->setStandardAttributes($xml);
         // Specific Key
-        $value = $this->setValueForSpecificKeys($this->key, $value, $format);
+        $value = $this->setValueForSpecificKeys($key, $value, $format);
 
-        $this->setValue($value);
-        $this->setAttribute();
-        $this->arXML = $this->setChildren($xml, $depth, $this->key, $this->arXML);
+        $this->setValue($key, $value);
+        $this->setAttribute($key);
+        $this->arXML = $this->setChildren($xml, $depth, $key, $this->arXML);
 
         return $this->arXML;
     }
@@ -71,15 +71,15 @@ class Xml2arrayFunctions {
     /**
      * @param array|string $value
      */
-    private function setValue($value) {
+    private function setValue($key, $value) {
         if ($value <> '') {
-            $this->arXML = array_merge($this->arXML, array($this->key => $value));
+            $this->arXML = array_merge($this->arXML, array($key => $value));
         }
     }
 
-    private function setAttribute() {
+    private function setAttribute($key) {
         if (count($this->attr) > 0) {
-            $this->arXML = array_merge($this->arXML, array($this->key => $this->attr));
+            $this->arXML = array_merge($this->arXML, array($key => $this->attr));
         }
     }
 
@@ -140,7 +140,7 @@ class Xml2arrayFunctions {
         // Specific Attribute: Retreive the age
         if ($xml->attributes()->getAge) {
             $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->getAge));
-            $cr = $this->xml2array($CVCrossRef[0], NULL, FALSE);
+            $cr = $this->xml2array(clone $CVCrossRef[0], NULL, FALSE);
             $cr = implode("", $cr);
             $AgeCalculator = new AgeCalculator((string) $cr);
             $value = $AgeCalculator->age();
