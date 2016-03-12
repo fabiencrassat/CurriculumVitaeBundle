@@ -27,11 +27,7 @@ class Xml2arrayFunctionsTest extends \PHPUnit_Framework_TestCase
 XML;
         $expected = array();
 
-        $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $string, $string);
     }
 
     public function testXml2arrayWithBadLanguage() {
@@ -43,11 +39,7 @@ XML;
 XML;
         $expected = array();
 
-        $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $string, $string);
     }
 
     public function testXml2arraySimple() {
@@ -69,11 +61,7 @@ XML;
             'body'  => "I know that's the answer -- but what's the question?"
         );
 
-        $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $string, $string);
     }
 
     public function testXml2arrayWithAttribute() {
@@ -90,11 +78,7 @@ XML;
             'value'  => "value"
         );
 
-        $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $string, $string);
     }
 
     public function testXml2arrayWithCrossRefDepth1() {
@@ -124,12 +108,7 @@ XML;
             'society'   => array('ref' => "OneSociety")
         ));
 
-        $this->XML = simplexml_load_string($string);
-        $this->CV = simplexml_load_string($CV);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $CV, $string);
     }
 
     public function testXml2arrayWithCrossRefDepth2() {
@@ -165,12 +144,7 @@ XML;
             'job'   => "My first job"
         ));
 
-        $this->XML = simplexml_load_string($string);
-        $this->CV = simplexml_load_string($CV);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $CV, $string);
 
         $string = <<<XML
 <?xml version='1.0'?>
@@ -181,9 +155,16 @@ XML;
  </experience>
 </document>
 XML;
-        $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
-        $this->assertEquals($expected, $result);
+        $expected = array('OneExperience' => array(
+            'society' => array(
+                'name'      => "OneSociety",
+                'address'   => "An address",
+                'siteurl'   => "http://www.google.com",
+                'society'   => array('ref' => "OneSociety")),
+            'job'   => "My first job"
+        ));
+
+        $this->assertXml2Array($expected, $CV, $string);
 
         $string = <<<XML
 <?xml version='1.0'?>
@@ -191,9 +172,14 @@ XML;
   <society crossref="societies/society[@ref='OneSociety']"></society>
 </document>
 XML;
-        $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
-        $this->assertEquals($expected, $result);
+        $expected = array('society' => array(
+            'name'      => "OneSociety",
+            'address'   => "An address",
+            'siteurl'   => "http://www.google.com",
+            'society'   => array('ref' => "OneSociety"))
+        );
+
+        $this->assertXml2Array($expected, $CV, $string);
     }
 
     public function testXml2arrayWithCrossRef() {
@@ -229,68 +215,63 @@ XML;
             'job'   => "My first job"
         ));
 
-        $this->XML = simplexml_load_string($string);
-        $this->CV = simplexml_load_string($CV);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
-
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
-        $this->assertEquals($expected, $result);
+        $this->assertXml2Array($expected, $CV, $string);
     }
 
     public function testXml2arrayWithCVCrossRef() {
         $CV = <<<XML
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <root>
-<langs>
-    <lang id="en">English</lang>
-    <lang id="fr">Français</lang>
-</langs>
-<curriculumVitae>
-    <lookingFor>
-        <experience crossref="curriculumVitae/experiences/items/experience[@id='SecondJob']"></experience>
-        <presentation lang="en">A good presentation.</presentation>
-        <presentation lang="fr">Une bonne présentation.</presentation>
-    </lookingFor>
-    <experiences anchor="experiences">
-        <anchorTitle lang="en">Experiences</anchorTitle>
-        <anchorTitle lang="fr">Expériences Professionnelles</anchorTitle>
-        <items>
-            <experience id="SecondJob">
-                <date lang="en">Apr 2011 - Present</date>
-                <date lang="fr">Avr. 2011 - Aujourd'hui</date>
-                <job lang="en">Second Job</job>
-                <job lang="fr">Deuxième Job</job>
-                <society crossref="societies/society[@ref='OneSociety']"></society>
-                <missions lang="en">
-                    <item>A item.</item>
-                </missions>
-                <missions lang="fr">
-                    <item>Un item.</item>
-                </missions>
-            </experience>
-            <experience id="FirstJob">
-                <date lang="en">Nov 2009 - Apr 2011</date>
-                <date lang="fr">Nov. 2009 - Avr. 2011</date>
-                <job lang="en">First Job</job>
-                <job lang="fr">Premier Job</job>
-                <society crossref="societies/society[@ref='OneSociety']"></society>
-                <missions lang="en">
-                    <item>A item.</item>
-                </missions>
-                <missions lang="fr">
-                    <item>Un item.</item>
-                </missions>
-            </experience>
-        </items>
-    </experiences>
-</curriculumVitae>
-<societies>
-    <society ref="OneSociety">
-        <name>OneSociety</name>
-        <address>address</address>
-        <siteurl>http://www.google.com</siteurl>
-    </society>
-</societies>
+    <langs>
+        <lang id="en">English</lang>
+        <lang id="fr">Français</lang>
+    </langs>
+    <curriculumVitae>
+        <lookingFor>
+            <experience crossref="curriculumVitae/experiences/items/experience[@id='SecondJob']"></experience>
+            <presentation lang="en">A good presentation.</presentation>
+            <presentation lang="fr">Une bonne présentation.</presentation>
+        </lookingFor>
+        <experiences anchor="experiences">
+            <anchorTitle lang="en">Experiences</anchorTitle>
+            <anchorTitle lang="fr">Expériences Professionnelles</anchorTitle>
+            <items>
+                <experience id="SecondJob">
+                    <date lang="en">Apr 2011 - Present</date>
+                    <date lang="fr">Avr. 2011 - Aujourd'hui</date>
+                    <job lang="en">Second Job</job>
+                    <job lang="fr">Deuxième Job</job>
+                    <society crossref="societies/society[@ref='OneSociety']"></society>
+                    <missions lang="en">
+                        <item>A item.</item>
+                    </missions>
+                    <missions lang="fr">
+                        <item>Un item.</item>
+                    </missions>
+                </experience>
+                <experience id="FirstJob">
+                    <date lang="en">Nov 2009 - Apr 2011</date>
+                    <date lang="fr">Nov. 2009 - Avr. 2011</date>
+                    <job lang="en">First Job</job>
+                    <job lang="fr">Premier Job</job>
+                    <society crossref="societies/society[@ref='OneSociety']"></society>
+                    <missions lang="en">
+                        <item>A item.</item>
+                    </missions>
+                    <missions lang="fr">
+                        <item>Un item.</item>
+                    </missions>
+                </experience>
+            </items>
+        </experiences>
+    </curriculumVitae>
+    <societies>
+        <society ref="OneSociety">
+            <name>OneSociety</name>
+            <address>address</address>
+            <siteurl>http://www.google.com</siteurl>
+        </society>
+    </societies>
 </root>
 XML;
         $expected = array(
@@ -342,11 +323,13 @@ XML;
                     'ref' => "OneSociety"))
         );
 
-        $this->XML = simplexml_load_string($CV);
-        $this->CV = simplexml_load_string($CV);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
+        $this->assertXml2Array($expected, $CV, $CV);
+    }
 
-        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
+    private function assertXml2Array($expected, $CV, $XML) {
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($CV));
+        $result = $this->Xml2arrayFunctions->xml2array(simplexml_load_string($XML));
+
         $this->assertEquals($expected, $result);
     }
 }
