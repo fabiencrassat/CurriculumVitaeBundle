@@ -54,7 +54,7 @@ class Xml2arrayFunctions {
         }
         // Specific Attributes
         $this->key   = $this->setSpecificAttributeKeyWithGivenId($xml, $this->key);
-        $value = $this->setSpecificAttributeAge($xml, $value);
+        $value       = $this->setSpecificAttributeAge($xml, $value);
         $this->arXML = $this->retrieveSpecificAttributeCrossRef($xml, $this->arXML, $this->key);
         // Standard Attributes
         $this->setStandardAttributes($xml);
@@ -160,7 +160,7 @@ class Xml2arrayFunctions {
         // Specific Attribute: Retrieve the given crossref
         if ($xml->attributes()->crossref) {
             $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->crossref));
-            $cr = $this->xml2array($CVCrossRef[0]);
+            $cr = $this->xml2array(clone $CVCrossRef[0]);
             $arXML = array_merge($arXML, array($key => $cr));
             unset($xml->attributes()->crossref);
         }

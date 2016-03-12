@@ -27,6 +27,38 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->lang = 'en';
     }
 
+    public function testNew() {
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml', $this->lang);
+        $result = array();
+        $result = array_merge($result, array('lookingFor' => $this->CV->getLookingFor()));
+        $result = array_merge($result, array('experiences' => $this->CV->getExperiences()));
+
+        $expected = array(
+            'lookingFor' => array(
+                'experience'   => array(
+                    'date' => "Date",
+                    'job' => "The job",
+                    'society' => array(
+                        'name' => "My Company",
+                        'address' => "The address of the company",
+                        'siteurl' => "http://www.MyCompany.com",
+                        'society' => array(
+                            'ref' => "MyCompany"))),
+                'presentation' => "A presentation"),
+            'experiences' => array(
+                'LastJob' => array(
+                    'date' => "Date",
+                    'job' => "The job",
+                    'society' => array(
+                        'name' => "My Company",
+                        'address' => "The address of the company",
+                        'siteurl' => "http://www.MyCompany.com",
+                        'society' => array(
+                            'ref' => "MyCompany")))),
+        );
+        $this->assertEquals($expected, $result);
+    }
+
     public function testNoLanguage() {
         $this->interface = 'getDropDownLanguages';
 
@@ -153,6 +185,17 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'drivelicences' => 'Titulaire du permis B'
             )
         ));
+    }
+
+    public function testGetDropDownLanguages() {
+        $this->interface = 'getDropDownLanguages';
+        $this->arrayToCompare = array(
+            'en' => "English",
+            'fr' => "Français",
+            'es' => "español"
+        );
+
+        $this->assertCVInterface();
     }
 
     public function testGetFollowMe() {
@@ -596,22 +639,11 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
         $this->CV = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
-        $compare = $this->tools->arraysAreSimilar(
-            $this->CV->{$this->interface}(),
-            $this->arrayToCompare
-        );
-        if ($compare <> 0) {
-            print_r($compare);
-        }
-        // $this->assertEquals($this->arrayToCompare, $this->CV->{$this->interface}());
-        $this->assertEquals(0, $compare);
+        $this->assertEquals($this->arrayToCompare, $this->CV->{$this->interface}());
     }
 
     private function assertArraysAreSimilar(array $CV, array $arrayToCompare) {
         $compare = $this->tools->arraysAreSimilar($CV, $arrayToCompare);
-        if ($compare <> 0) {
-            print_r($compare);
-        }
         $this->assertEquals(0, $compare);
     }
 

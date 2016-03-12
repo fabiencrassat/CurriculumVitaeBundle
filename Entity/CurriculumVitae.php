@@ -35,50 +35,6 @@ class CurriculumVitae extends Xml2arrayFunctions
         $this->xml2arrayFunctions = New Xml2arrayFunctions($this->CV, $this->lang);
     }
 
-    private function setFileName() {
-        $data = explode("/", $this->pathToFile);
-        $data = $data[count($data) - 1];
-        $data = explode(".", $data);;
-        $this->file = $data[0];
-    }
-
-    /**
-     * @return \SimpleXMLElement
-     */
-    private function getXmlCurriculumVitae() {
-        if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
-            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
-        }
-        $this->validateXmlCurriculumVitae();
-
-        return simplexml_load_file($this->pathToFile);
-    }
-
-    /**
-     * @return boolean
-     */
-    private function validateXmlCurriculumVitae() {
-        // Activer "user error handling"
-        libxml_use_internal_errors(TRUE);
-
-        // Instanciation d’un DOMDocument
-        $dom = new \DOMDocument("1.0");
-
-        // Charge du XML depuis un fichier
-        $dom->load($this->pathToFile);
-
-        // Validation du document XML
-        $reflClass = new \ReflectionClass(get_class($this));
-        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
-        $validate = $dom->schemaValidate($xsdFile);
-        if (!$validate) {
-            $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
-        }
-
-        return $validate;
-    }
-
     /**
      * @return null|array
      */
@@ -128,28 +84,6 @@ class CurriculumVitae extends Xml2arrayFunctions
             }
         } else {
             return $this->file;
-        }
-    }
-
-    /**
-     * @return string
-     */
-    private function getMyName() {
-        $identity = $this->getIdentity();
-        return $identity['myself']['name'];
-    }
-
-    /**
-     * @return null|string
-     */
-    private function getMyCurrentJob() {
-        $lookingFor = $this->getLookingFor();
-        if (isset($lookingFor['experience']['job'])) {
-            return $lookingFor['experience']['job'];
-        } elseif (isset($lookingFor['experience'])) {
-            return $lookingFor['experience'];
-        } else {
-            return NULL;
         }
     }
 
@@ -215,6 +149,72 @@ class CurriculumVitae extends Xml2arrayFunctions
     public function getMiscellaneous() {
         $this->interface = $this->CV->curriculumVitae->miscellaneous->items;
         return $this->getXMLValue();
+    }
+
+    private function setFileName() {
+        $data = explode("/", $this->pathToFile);
+        $data = $data[count($data) - 1];
+        $data = explode(".", $data);;
+        $this->file = $data[0];
+    }
+
+    /**
+     * @return string
+     */
+    private function getMyName() {
+        $identity = $this->getIdentity();
+        return $identity['myself']['name'];
+    }
+
+    /**
+     * @return null|string
+     */
+    private function getMyCurrentJob() {
+        $lookingFor = $this->getLookingFor();
+        if (isset($lookingFor['experience']['job'])) {
+            return $lookingFor['experience']['job'];
+        } elseif (isset($lookingFor['experience'])) {
+            return $lookingFor['experience'];
+        } else {
+            return NULL;
+        }
+    }
+
+    /**
+     * @return \SimpleXMLElement
+     */
+    private function getXmlCurriculumVitae() {
+        if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
+            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
+        }
+        $this->validateXmlCurriculumVitae();
+
+        return simplexml_load_file($this->pathToFile);
+    }
+
+    /**
+     * @return boolean
+     */
+    private function validateXmlCurriculumVitae() {
+        // Activer "user error handling"
+        libxml_use_internal_errors(TRUE);
+
+        // Instanciation d’un DOMDocument
+        $dom = new \DOMDocument("1.0");
+
+        // Charge du XML depuis un fichier
+        $dom->load($this->pathToFile);
+
+        // Validation du document XML
+        $reflClass = new \ReflectionClass(get_class($this));
+        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
+        $validate = $dom->schemaValidate($xsdFile);
+        if (!$validate) {
+            $libxmlDisplayErrors = new LibXmlDisplayErrors;
+            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
+        }
+
+        return $validate;
     }
 
     /**
