@@ -16,7 +16,6 @@ use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 class Xml2arrayFunctions {
     private $arXML;
     private $attr;
-    private $key;
     private $language;
     private $CVFile;
 
