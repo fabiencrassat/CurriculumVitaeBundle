@@ -46,5 +46,9 @@ class ToolsTest extends \PHPUnit_Framework_TestCase
             array('a' => array('b' => array('c'))),
             array('a' => array('b' => array('d')))
         ));
+        $this->assertNotEquals(0, $this->tools->arraysAreSimilar(
+            array('top' => array('a' => array('b' => array('c')))),
+            array('a' => array('b' => array('d')))
+        ));
     }
 }

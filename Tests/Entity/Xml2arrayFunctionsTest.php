@@ -28,7 +28,7 @@ XML;
         $expected = array();
 
         $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions("<xml></xml>");
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
 
         $result = $this->Xml2arrayFunctions->xml2array($this->XML);
         $this->assertEquals($expected, $result);
@@ -44,7 +44,7 @@ XML;
         $expected = array();
 
         $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions("<xml></xml>");
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
 
         $result = $this->Xml2arrayFunctions->xml2array($this->XML);
         $this->assertEquals($expected, $result);
@@ -70,7 +70,7 @@ XML;
         );
 
         $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions("<xml></xml>");
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
 
         $result = $this->Xml2arrayFunctions->xml2array($this->XML);
         $this->assertEquals($expected, $result);
@@ -91,7 +91,7 @@ XML;
         );
 
         $this->XML = simplexml_load_string($string);
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions("<xml></xml>");
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->XML);
 
         $result = $this->Xml2arrayFunctions->xml2array($this->XML);
         $this->assertEquals($expected, $result);
@@ -230,6 +230,119 @@ XML;
         ));
 
         $this->XML = simplexml_load_string($string);
+        $this->CV = simplexml_load_string($CV);
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
+
+        $result = $this->Xml2arrayFunctions->xml2array($this->XML);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testXml2arrayWithCVCrossRef() {
+        $CV = <<<XML
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<root>
+<langs>
+    <lang id="en">English</lang>
+    <lang id="fr">Français</lang>
+</langs>
+<curriculumVitae>
+    <lookingFor>
+        <experience crossref="curriculumVitae/experiences/items/experience[@id='SecondJob']"></experience>
+        <presentation lang="en">A good presentation.</presentation>
+        <presentation lang="fr">Une bonne présentation.</presentation>
+    </lookingFor>
+    <experiences anchor="experiences">
+        <anchorTitle lang="en">Experiences</anchorTitle>
+        <anchorTitle lang="fr">Expériences Professionnelles</anchorTitle>
+        <items>
+            <experience id="SecondJob">
+                <date lang="en">Apr 2011 - Present</date>
+                <date lang="fr">Avr. 2011 - Aujourd'hui</date>
+                <job lang="en">Second Job</job>
+                <job lang="fr">Deuxième Job</job>
+                <society crossref="societies/society[@ref='OneSociety']"></society>
+                <missions lang="en">
+                    <item>A item.</item>
+                </missions>
+                <missions lang="fr">
+                    <item>Un item.</item>
+                </missions>
+            </experience>
+            <experience id="FirstJob">
+                <date lang="en">Nov 2009 - Apr 2011</date>
+                <date lang="fr">Nov. 2009 - Avr. 2011</date>
+                <job lang="en">First Job</job>
+                <job lang="fr">Premier Job</job>
+                <society crossref="societies/society[@ref='OneSociety']"></society>
+                <missions lang="en">
+                    <item>A item.</item>
+                </missions>
+                <missions lang="fr">
+                    <item>Un item.</item>
+                </missions>
+            </experience>
+        </items>
+    </experiences>
+</curriculumVitae>
+<societies>
+    <society ref="OneSociety">
+        <name>OneSociety</name>
+        <address>address</address>
+        <siteurl>http://www.google.com</siteurl>
+    </society>
+</societies>
+</root>
+XML;
+        $expected = array(
+            'langs'  => array(
+                'en' => "English",
+                'fr' => "Français"),
+            'curriculumVitae' => array(
+                'lookingFor'  => array(
+                    'experience'     => array(
+                        'job'      => "Second Job",
+                        'date'     => "Apr 2011 - Present",
+                        'society'  => array(
+                            'name'    => "OneSociety",
+                            'address' => "address",
+                            'siteurl' => "http://www.google.com",
+                            'society' => array('ref' => "OneSociety")),
+                        'missions' => array(
+                            'item' => array("A item."))),
+                    'presentation' => "A good presentation."),
+                'experiences' => array(
+                    'anchorTitle' => "Experiences",
+                    'items' => array(
+                        'SecondJob' => array(
+                            'job'      => "Second Job",
+                            'date'     => "Apr 2011 - Present",
+                            'society'  => array(
+                                'name'    => "OneSociety",
+                                'address' => "address",
+                                'siteurl' => "http://www.google.com",
+                                'society' => array('ref' => "OneSociety")),
+                            'missions' => array(
+                                'item' => array("A item."))),
+                        'FirstJob'  => array(
+                            'job'      => "First Job",
+                            'date'     => "Nov 2009 - Apr 2011",
+                            'society'  => array(
+                                'name'    => "OneSociety",
+                                'address' => "address",
+                                'siteurl' => "http://www.google.com",
+                                'society' => array('ref' => "OneSociety")),
+                            'missions' => array(
+                                'item' => array("A item.")))),
+                    'anchor' => "experiences")),
+            'societies' => array(
+                'society' => array(
+                    'name'    => "OneSociety",
+                    'address' => "address",
+                    'siteurl' => "http://www.google.com",
+                    'ref' => "OneSociety"))
+        );
+
+        $this->XML = simplexml_load_string($CV);
         $this->CV = simplexml_load_string($CV);
         $this->Xml2arrayFunctions = new Xml2arrayFunctions($this->CV);
 

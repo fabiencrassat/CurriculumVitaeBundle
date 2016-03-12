@@ -50,7 +50,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testHumanFileNameWithJob() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/test.xml');
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
         $this->assertSame("First Name Last Name - The job", $this->CV->getHumanFileName());
     }
 
@@ -65,7 +65,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetAnchorsWithNoLang() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/test.xml');
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
         $anchors = $this->CV->getAnchors();
         if (is_array($anchors)) {
             $this->assertEquals(0, $this->tools->arraysAreSimilar(
@@ -603,6 +603,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         if ($compare <> 0) {
             print_r($compare);
         }
+        // $this->assertEquals($this->arrayToCompare, $this->CV->{$this->interface}());
         $this->assertEquals(0, $compare);
     }
 
