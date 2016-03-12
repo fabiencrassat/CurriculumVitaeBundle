@@ -15,9 +15,7 @@ use FabienCrassat\CurriculumVitaeBundle\Entity\Xml2arrayFunctions;
 
 class Xml2arrayFunctionsTest extends \PHPUnit_Framework_TestCase
 {
-    private $XML;
     private $Xml2arrayFunctions;
-    private $CV;
 
     public function testXml2arrayEmpty() {
         $string = <<<XML
