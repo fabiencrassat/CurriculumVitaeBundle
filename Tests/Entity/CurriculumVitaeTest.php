@@ -24,11 +24,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->lang = 'en';
     }
 
-    public function testNew() {
+    public function testgetLookingForAndExperiencesAndHumanFileName() {
         $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml', $this->lang);
         $result = array();
         $result = array_merge($result, array('lookingFor' => $this->CV->getLookingFor()));
         $result = array_merge($result, array('experiences' => $this->CV->getExperiences()));
+        $result = array_merge($result, array('pdfFile' => $this->CV->getHumanFileName()));
 
         $expected = array(
             'lookingFor' => array(
@@ -38,9 +39,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     'society' => array(
                         'name' => "My Company",
                         'address' => "The address of the company",
-                        'siteurl' => "http://www.MyCompany.com",
-                        'society' => array(
-                            'ref' => "MyCompany"))),
+                        'siteurl' => "http://www.MyCompany.com")),
                 'presentation' => "A presentation"),
             'experiences' => array(
                 'LastJob' => array(
@@ -49,9 +48,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                     'society' => array(
                         'name' => "My Company",
                         'address' => "The address of the company",
-                        'siteurl' => "http://www.MyCompany.com",
-                        'society' => array(
-                            'ref' => "MyCompany")))),
+                        'siteurl' => "http://www.MyCompany.com"))),
+            'pdfFile' => "First Name Last Name - The job"
         );
         $this->assertEquals($expected, $result);
     }
@@ -74,6 +72,11 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     public function testHumanFileNameWithExperience() {
         $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
         $this->assertSame("First Name Last Name - Curriculum Vitae Title",
+            $this->CV->getHumanFileName()
+        );
+
+        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
+        $this->assertSame("First Name Last Name - The job",
             $this->CV->getHumanFileName()
         );
     }
@@ -265,7 +268,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Jan 2007 - Present',
                 'job' => 'My current job',
                 'society' => array(
-                    'society' => array('ref' => 'MyCompany'),
                     'name' => 'My Company',
                     'address' => 'the address of the company',
                     'siteurl' => 'http://www.MyCompany.com',
@@ -282,7 +284,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Sept - Dec 2006',
                 'job' => 'My previous job',
                 'society' => array(
-                    'society' => array('ref' => 'MyOtherCompany'),
                     'name' => 'My Other Company',
                     'address' => 'the address of the company',
                     'siteurl' => 'http://www.MyOtherCompany.com',
@@ -292,7 +293,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Summer 2006',
                 'job' => 'A summer job',
                 'society' => array(
-                    'society' => array('ref' => 'ACompanyWithoutSite'),
                     'name' => 'A company wihtout site',
                     'address' => 'the address of the company'
                 ),
@@ -322,7 +322,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Jan. 2007 - Aujourd\'hui',
                 'job' => 'Mon poste actuel',
                 'society' => array(
-                    'society' => array('ref' => 'MyCompany'),
                     'name' => 'My Company',
                     'address' => 'the address of the company',
                     'siteurl' => 'http://www.MyCompany.com',
@@ -339,7 +338,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Sept - Dec 2006',
                 'job' => 'Mon poste précédent',
                 'society' => array(
-                    'society' => array('ref' => 'MyOtherCompany'),
                     'name' => 'Mon autre compagnie',
                     'address' => 'l\'adresse de la compagnie',
                     'siteurl' => 'http://www.MyOtherCompany.com',
@@ -349,7 +347,6 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'date' => 'Summer 2006',
                 'job' => 'Un travail d\'été',
                 'society' => array(
-                    'society' => array('ref' => 'ACompanyWithoutSite'),
                     'name' => 'Une compagnie sans site',
                     'address' => 'l\'adresse de la compagnie'
                 ),

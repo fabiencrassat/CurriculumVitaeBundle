@@ -23,7 +23,7 @@
             </items>
         </followMe>
         <lookingFor>
-            <experience crossref="curriculumVitae/experiences/items/experience[@id='LastJob']"></experience>
+            <experience crossref="curriculumVitae/experiences/items/experience[@id='LastJob']/*"></experience>
             <presentation>A presentation</presentation>
         </lookingFor>
         <experiences anchor="experiences">
@@ -32,7 +32,7 @@
                 <experience id="LastJob">
                     <date>Date</date>
                     <job>The job</job>
-                    <society crossref="societies/society[@ref='MyCompany']"></society>
+                    <society crossref="societies/society[@ref='MyCompany']/*"></society>
                 </experience>
            </items>
         </experiences>

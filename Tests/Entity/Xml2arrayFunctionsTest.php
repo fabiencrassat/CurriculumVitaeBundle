@@ -66,13 +66,22 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
- <attr attributekey="attributevalue">We don't care of this value!!!</attr>
+ <attr attributekey="we don't care">The value win, not the attribute!!!</attr>
+ <attr2 attributekey="attributevalue"><product>product</product></attr2>
+ <onlyattribute attributekey="attributevalue"></onlyattribute>
  <value>value</value>
+ <id id="id"></id>
+ <ref ref="ref"></ref>
+ <lang lang="lang"></lang>
 </document>
 XML;
         $expected = array(
-            'attr'   => array(
+            'attr' => "The value win, not the attribute!!!",
+            'onlyattribute'   => array(
                 'attributekey' => "attributevalue"),
+            'attr2'   => array(
+                'attributekey' => "attributevalue",
+                'product' => "product"),
             'value'  => "value"
         );
 
@@ -83,7 +92,7 @@ XML;
         $CV = <<<XML
 <?xml version='1.0'?>
 <document>
- <society crossref="societies/society[@ref='OneSociety']"></society>
+ <society crossref="societies/society[@ref='OneSociety']/*"></society>
  <societies>
   <society ref="OneSociety">
     <name>OneSociety</name>
@@ -96,14 +105,13 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
- <society crossref="societies/society[@ref='OneSociety']"></society>
+ <society crossref="societies/society[@ref='OneSociety']/*"></society>
 </document>
 XML;
         $expected = array('society' => array(
             'name'      => "OneSociety",
             'address'   => "An address",
-            'siteurl'   => "http://www.google.com",
-            'society'   => array('ref' => "OneSociety")
+            'siteurl'   => "http://www.google.com"
         ));
 
         $this->assertXml2Array($expected, $CV, $string);
@@ -113,9 +121,9 @@ XML;
         $CV = <<<XML
 <?xml version='1.0'?>
 <document>
- <job crossref="experience[@id='OneExperience']"></job>
+ <job crossref="experience[@id='OneExperience']/*"></job>
  <experience id="OneExperience">
-  <society crossref="societies/society[@ref='OneSociety']"></society>
+  <society crossref="societies/society[@ref='OneSociety']/*"></society>
   <job>My first job</job>
  </experience>
  <societies>
@@ -130,15 +138,14 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
- <job crossref="experience[@id='OneExperience']"></job>
+ <job crossref="experience[@id='OneExperience']/*"></job>
 </document>
 XML;
         $expected = array('job' => array(
             'society' => array(
                 'name'      => "OneSociety",
                 'address'   => "An address",
-                'siteurl'   => "http://www.google.com",
-                'society'   => array('ref' => "OneSociety")),
+                'siteurl'   => "http://www.google.com"),
             'job'   => "My first job"
         ));
 
@@ -148,7 +155,7 @@ XML;
 <?xml version='1.0'?>
 <document>
  <experience id="OneExperience">
-  <society crossref="societies/society[@ref='OneSociety']"></society>
+  <society crossref="societies/society[@ref='OneSociety']/*"></society>
   <job>My first job</job>
  </experience>
 </document>
@@ -157,8 +164,7 @@ XML;
             'society' => array(
                 'name'      => "OneSociety",
                 'address'   => "An address",
-                'siteurl'   => "http://www.google.com",
-                'society'   => array('ref' => "OneSociety")),
+                'siteurl'   => "http://www.google.com"),
             'job'   => "My first job"
         ));
 
@@ -167,14 +173,13 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
-  <society crossref="societies/society[@ref='OneSociety']"></society>
+  <society crossref="societies/society[@ref='OneSociety']/*"></society>
 </document>
 XML;
         $expected = array('society' => array(
             'name'      => "OneSociety",
             'address'   => "An address",
-            'siteurl'   => "http://www.google.com",
-            'society'   => array('ref' => "OneSociety"))
+            'siteurl'   => "http://www.google.com")
         );
 
         $this->assertXml2Array($expected, $CV, $string);
@@ -184,9 +189,9 @@ XML;
         $CV = <<<XML
 <?xml version='1.0'?>
 <document>
- <job crossref="experience[@id='OneExperience']"></job>
+ <job crossref="experience[@id='OneExperience']/*"></job>
  <experience id="OneExperience">
-  <society crossref="societies/society[@ref='OneSociety']"></society>
+  <society crossref="societies/society[@ref='OneSociety']/*"></society>
   <job>My first job</job>
  </experience>
  <societies>
@@ -201,15 +206,14 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
- <job crossref="experience[@id='OneExperience']"></job>
+ <job crossref="experience[@id='OneExperience']/*"></job>
 </document>
 XML;
         $expected = array('job' => array(
             'society' => array(
                 'name'      => "OneSociety",
                 'address'   => "An address",
-                'siteurl'   => "http://www.google.com",
-                'society'   => array('ref' => "OneSociety")),
+                'siteurl'   => "http://www.google.com"),
             'job'   => "My first job"
         ));
 
@@ -226,7 +230,7 @@ XML;
     </langs>
     <curriculumVitae>
         <lookingFor>
-            <experience crossref="curriculumVitae/experiences/items/experience[@id='SecondJob']"></experience>
+            <experience crossref="curriculumVitae/experiences/items/experience[@id='SecondJob']/*"></experience>
             <presentation lang="en">A good presentation.</presentation>
             <presentation lang="fr">Une bonne présentation.</presentation>
         </lookingFor>
@@ -239,7 +243,7 @@ XML;
                     <date lang="fr">Avr. 2011 - Aujourd'hui</date>
                     <job lang="en">Second Job</job>
                     <job lang="fr">Deuxième Job</job>
-                    <society crossref="societies/society[@ref='OneSociety']"></society>
+                    <society crossref="societies/society[@ref='OneSociety']/*"></society>
                     <missions lang="en">
                         <item>A item.</item>
                     </missions>
@@ -252,7 +256,7 @@ XML;
                     <date lang="fr">Nov. 2009 - Avr. 2011</date>
                     <job lang="en">First Job</job>
                     <job lang="fr">Premier Job</job>
-                    <society crossref="societies/society[@ref='OneSociety']"></society>
+                    <society crossref="societies/society[@ref='OneSociety']/*"></society>
                     <missions lang="en">
                         <item>A item.</item>
                     </missions>
@@ -284,8 +288,7 @@ XML;
                         'society'  => array(
                             'name'    => "OneSociety",
                             'address' => "address",
-                            'siteurl' => "http://www.google.com",
-                            'society' => array('ref' => "OneSociety")),
+                            'siteurl' => "http://www.google.com"),
                         'missions' => array(
                             'item' => array("A item."))),
                     'presentation' => "A good presentation."),
@@ -298,8 +301,7 @@ XML;
                             'society'  => array(
                                 'name'    => "OneSociety",
                                 'address' => "address",
-                                'siteurl' => "http://www.google.com",
-                                'society' => array('ref' => "OneSociety")),
+                                'siteurl' => "http://www.google.com"),
                             'missions' => array(
                                 'item' => array("A item."))),
                         'FirstJob'  => array(
@@ -308,8 +310,7 @@ XML;
                             'society'  => array(
                                 'name'    => "OneSociety",
                                 'address' => "address",
-                                'siteurl' => "http://www.google.com",
-                                'society' => array('ref' => "OneSociety")),
+                                'siteurl' => "http://www.google.com"),
                             'missions' => array(
                                 'item' => array("A item.")))),
                     'anchor' => "experiences")),
@@ -317,8 +318,7 @@ XML;
                 'society' => array(
                     'name'    => "OneSociety",
                     'address' => "address",
-                    'siteurl' => "http://www.google.com",
-                    'ref' => "OneSociety"))
+                    'siteurl' => "http://www.google.com"))
         );
 
         $this->assertXml2Array($expected, $CV, $CV);

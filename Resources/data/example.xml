@@ -93,7 +93,7 @@
                     <date lang="fr">Jan. 2007 - Aujourd'hui</date>
                     <job lang="en">My current job</job>
                     <job lang="fr">Mon poste actuel</job>
-                    <society crossref="societies/society[@ref='MyCompany']"></society>
+                    <society crossref="societies/society[@ref='MyCompany']/*"></society>
                     <missions lang="en">
                         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</item>
                         <item>Suspendisse nec mauris eu orci dapibus mollis ac ac mi.</item>
@@ -107,13 +107,13 @@
                     <date>Sept - Dec 2006</date>
                     <job lang="en">My previous job</job>
                     <job lang="fr">Mon poste précédent</job>
-                    <society crossref="societies/society[@ref='MyOtherCompany']"></society>
+                    <society crossref="societies/society[@ref='MyOtherCompany']/*"></society>
                 </experience>
                 <experience id="ThirdExperience">
                     <date>Summer 2006</date>
                     <job lang="en">A summer job</job>
                     <job lang="fr">Un travail d'été</job>
-                    <society crossref="societies/society[@ref='ACompanyWithoutSite']"></society>
+                    <society crossref="societies/society[@ref='ACompanyWithoutSite']/*"></society>
                     <missions>
                         <item>Suspendisse et arcu eget est feugiat elementum.</item>
                     </missions>

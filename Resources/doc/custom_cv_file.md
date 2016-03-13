@@ -75,7 +75,7 @@ For example:
 
 This block is the main part of your curriculum vitae, where you will write all about you ;)
 
-All blocks inside will follow this structure, exept [LookingFor block](#lookingfor-block "LookingFor block"):
+All blocks inside will follow this structure, except [LookingFor block](#lookingfor-block "LookingFor block"):
 ``` xml
 <curriculumVitae>
     ...
@@ -192,7 +192,7 @@ In the ```<items>```, the structure is defined below:
     <url>http://www.thesite.com</url>
     <icon>bundles/fabiencrassatcurriculumvitae/img/icon.png</icon>
 </followItem>
-``` 
+```
 
 To help you, there are the following list of icons:
 
@@ -224,7 +224,7 @@ In the ```<lookingFor>```, the structure is defined below:
 <experience lang="fr">Titre du curriculum vitae</experience>
 <presentation lang="en">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula.</presentation>
 <presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna.</presentation>
-``` 
+```
 
 #### Experiences block
 
@@ -262,9 +262,10 @@ In the ```<items>```, the structure is defined below:
         <item>Sed a eros at mauris placerat adipiscing.</item>
     </missions>
 </experience>
-``` 
+```
 
-```collapse``` attribute is ```false``` by default.
+For each experience, you can add attributes to have more visual effects.
+* ```collapse``` attribute (```false``` by default) will collapse the experience to hide it and let your visitor the choice to show it or not. It is useful when you want to hide some no-interesting informations.
 
 #### Skills block
 
@@ -315,11 +316,11 @@ In the ```<items>```, the structure is defined below:
         </nothing>
     </lines>
 </skill>
-``` 
-
-```percentage``` attribute is ```0``` by default.
-```class``` attribute is ```info``` by default.
-```striped``` attribute is ```false``` by default.  
+```
+For each line, you can add attributes to have more visual effects.
+* ```percentage``` attribute (```0``` by default) can show how you know the skill.
+* ```class``` attribute (```info``` by default) can show how you know the skill.
+* ```striped``` attribute (```false``` by default) changes the visual of the line.
 
 #### Education block
 
@@ -355,9 +356,10 @@ In the ```<items>```, the structure is defined below:
         <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
     </descriptions>
 </education>
-``` 
+```
 
-```collapse``` attribute is ```false``` by default.
+For each education, you can add attributes to have more visual effects.
+* ```collapse``` attribute (```false``` by default) will collapse the education to hide it and let your visitor the choice to show it or not. It is useful when you want to hide some no-interesting informations.
 
 #### LanguageSkills block
 
@@ -387,7 +389,7 @@ In the ```<items>```, the structure is defined below:
     <description lang="fr">Niveau</description>
     <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>
 </languageSkill>
-``` 
+```
 
 To help you, there are the following list of icons:
 
@@ -424,12 +426,12 @@ In the ```<items>```, the structure is defined below:
     <miscellaneous lang="fr">Mes pratiques</miscellaneous>
     <description lang="fr">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</description>
 </miscellaneous>
-``` 
+```
 
 #### Society block
 
 The Society block allows to define each society you have worked (are working).
-Inside the block, you can declare all society you want like the following example. And the block **name** is one to be filled, but you can add the others tags to have more information.
+Inside the block, you can declare all society you want like the following example. And the block ```name``` is one to be filled, but you can add the others tags to have more information.
 
 ``` xml
 <societies>
@@ -443,5 +445,5 @@ Inside the block, you can declare all society you want like the following exampl
 
 To use one of societies in your curriculum vitae, you have to use the cross reference like this:
 ``` xml
-<society crossref="societies/society[@ref='MyCompany']"></society>
+<society crossref="societies/society[@ref='MyCompany']/*"></society>
 ```
