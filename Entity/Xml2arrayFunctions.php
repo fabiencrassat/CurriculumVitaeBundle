@@ -14,8 +14,6 @@ namespace FabienCrassat\CurriculumVitaeBundle\Entity;
 use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 
 class Xml2arrayFunctions {
-    private $arXML;
-    private $attr;
     private $language;
     private $CVFile;
 
