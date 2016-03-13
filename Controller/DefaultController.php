@@ -12,7 +12,8 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +24,10 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class DefaultController extends ContainerAware
+class DefaultController implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     private $cvxmlfile;
     private $pathToFile;
     private $lang;
