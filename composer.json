@@ -11,7 +11,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "~2.3"
+        "symfony/symfony": "~2.8"
     },
     "suggest": {
         "oryzone/boilerplate-bundle": "Make the curriculum vitae beautiful",
