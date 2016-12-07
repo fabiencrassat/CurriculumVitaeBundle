@@ -68,7 +68,7 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
-        foreach ($langs as $key => $value) {
+        foreach ($langs as $value) {
             $this->OutputHtmlXmlComparaison($value);
         }
     }
@@ -151,7 +151,7 @@ class DefaultControllerTest extends WebTestCase
             $CVXml = array('followMe' => $this->ReadCVXml->getFollowMe());
 
             $testValue = $this->array_values_recursive($CVXml);
-            foreach ($testValue as $key => $value) {
+            foreach ($testValue as $value) {
                 $alt = $crawler->filter('img[alt="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[title="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[src="/'.$value.'"]')->count();
@@ -244,7 +244,7 @@ class DefaultControllerTest extends WebTestCase
     private function array_values_recursive($array)
     {
         $return = array();
-        foreach($array as $key => $value) {
+        foreach($array as $value) {
             if(is_array($value)) {
                 $return = array_merge($return, $this->array_values_recursive($value));
             } else {

@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 class CurriculumVitae extends Xml2arrayFunctions
 {
     private $lang;
-    private $CV;
+    private $curriculumVitae;
     private $pathToFile;
     private $interface;
     private $file;
@@ -31,15 +31,15 @@ class CurriculumVitae extends Xml2arrayFunctions
         $this->pathToFile = $pathToFile;
         $this->setFileName();
         $this->lang = $lang;
-        $this->CV = $this->getXmlCurriculumVitae();
-        $this->xml2arrayFunctions = New Xml2arrayFunctions($this->CV, $this->lang);
+        $this->curriculumVitae = $this->getXmlCurriculumVitae();
+        $this->xml2arrayFunctions = New Xml2arrayFunctions($this->curriculumVitae, $this->lang);
     }
 
     /**
      * @return null|array
      */
     public function getDropDownLanguages() {
-        $this->interface = $this->CV->{"langs"};
+        $this->interface = $this->curriculumVitae->{"langs"};
         $return = $this->getXMLValue();
         if(!$return) {
             $return = array($this->lang => $this->lang);
@@ -52,10 +52,10 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return array
      */
     public function getAnchors() {
-        $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
+        $anchorsAttribute = $this->curriculumVitae->xpath("curriculumVitae/*[attribute::anchor]");
 
         $anchors = array();
-        foreach ($anchorsAttribute as $anchorsKey => $anchorsValue) {
+        foreach ($anchorsAttribute as $anchorsValue) {
             $anchor = (string) $anchorsValue['anchor'];
             $title = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
             if (count($title) == 0) {
@@ -91,7 +91,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getIdentity() {
-        $this->interface = $this->CV->curriculumVitae->identity->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->identity->items;
         return $this->getXMLValue();
     }
 
@@ -99,7 +99,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getFollowMe() {
-        $this->interface = $this->CV->curriculumVitae->followMe->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->followMe->items;
         return $this->getXMLValue();
     }
 
@@ -107,7 +107,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getLookingFor() {
-        $this->interface = $this->CV->curriculumVitae->lookingFor;
+        $this->interface = $this->curriculumVitae->curriculumVitae->lookingFor;
         return $this->getXMLValue();
     }
 
@@ -115,7 +115,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getExperiences() {
-        $this->interface = $this->CV->curriculumVitae->experiences->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->experiences->items;
         return $this->getXMLValue();
     }
 
@@ -123,7 +123,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getSkills() {
-        $this->interface = $this->CV->curriculumVitae->skills->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->skills->items;
         return $this->getXMLValue();
     }
 
@@ -131,7 +131,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getEducations() {
-        $this->interface = $this->CV->curriculumVitae->educations->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->educations->items;
         return $this->getXMLValue();
     }
 
@@ -139,7 +139,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getLanguageSkills() {
-        $this->interface = $this->CV->curriculumVitae->languageSkills->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->languageSkills->items;
         return $this->getXMLValue();
     }
 
@@ -147,7 +147,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getMiscellaneous() {
-        $this->interface = $this->CV->curriculumVitae->miscellaneous->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->miscellaneous->items;
         return $this->getXMLValue();
     }
 

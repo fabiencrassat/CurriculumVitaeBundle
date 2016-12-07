@@ -15,7 +15,7 @@ use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
 class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 {
-    private $CV;
+    private $curriculumVitae;
     private $lang;
     private $interface;
     private $arrayToCompare;
@@ -25,11 +25,11 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testgetLookingForAndExperiencesAndHumanFileName() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml', $this->lang);
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml', $this->lang);
         $result = array();
-        $result = array_merge($result, array('lookingFor' => $this->CV->getLookingFor()));
-        $result = array_merge($result, array('experiences' => $this->CV->getExperiences()));
-        $result = array_merge($result, array('pdfFile' => $this->CV->getHumanFileName()));
+        $result = array_merge($result, array('lookingFor' => $this->curriculumVitae->getLookingFor()));
+        $result = array_merge($result, array('experiences' => $this->curriculumVitae->getExperiences()));
+        $result = array_merge($result, array('pdfFile' => $this->curriculumVitae->getHumanFileName()));
 
         $expected = array(
             'lookingFor' => array(
@@ -65,40 +65,40 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testSimpleHumanFileName() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
-        $this->assertSame("core", $this->CV->getHumanFileName());
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
+        $this->assertSame("core", $this->curriculumVitae->getHumanFileName());
     }
 
     public function testHumanFileNameWithExperience() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
         $this->assertSame("First Name Last Name - Curriculum Vitae Title",
-            $this->CV->getHumanFileName()
+            $this->curriculumVitae->getHumanFileName()
         );
 
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
         $this->assertSame("First Name Last Name - The job",
-            $this->CV->getHumanFileName()
+            $this->curriculumVitae->getHumanFileName()
         );
     }
 
     public function testHumanFileNameWithJob() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
-        $this->assertSame("First Name Last Name - The job", $this->CV->getHumanFileName());
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
+        $this->assertSame("First Name Last Name - The job", $this->curriculumVitae->getHumanFileName());
     }
 
     public function testHumanFileNameWithOnLyName(){
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/justIdentityMySelf.xml');
-        $this->assertSame("First Name Last Name", $this->CV->getHumanFileName());
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/justIdentityMySelf.xml');
+        $this->assertSame("First Name Last Name", $this->curriculumVitae->getHumanFileName());
     }
 
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
-        $this->assertNull($this->CV->getIdentity());
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
+        $this->assertNull($this->curriculumVitae->getIdentity());
     }
 
     public function testGetAnchorsWithNoLang() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
-        $anchors = $this->CV->getAnchors();
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
+        $anchors = $this->curriculumVitae->getAnchors();
         if (is_array($anchors)) {
             $this->assertEquals(array('identity' => array(
                         'href' => 'identity',
@@ -128,8 +128,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetIdentityWithEnglishLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
-        $identity = $this->CV->getIdentity();
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
+        $identity = $this->curriculumVitae->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
         $this->assertEquals(array(
@@ -157,8 +157,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetIdentityWithFrenchLanguage() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', "fr");
-        $identity = $this->CV->getIdentity();
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', "fr");
+        $identity = $this->curriculumVitae->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
         $this->assertEquals(array(
@@ -631,30 +631,30 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
-        $this->CV = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
-        $this->assertEquals($this->arrayToCompare, $this->CV->{$this->interface}());
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.$pathToFile, $this->lang);
+        $this->assertEquals($this->arrayToCompare, $this->curriculumVitae->{$this->interface}());
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
     public function testInvalidArgumentExceptionWithBadCurriculumVitaeFile() {
-        $this->CV = new CurriculumVitae("abd file");
+        $this->curriculumVitae = new CurriculumVitae("abd file");
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
     public function testInvalidArgumentExceptionWithNoValidXMLFile() {
-        $this->CV = new CurriculumVitae( __DIR__.'/../Resources/data/empty.xml');
-        $this->CV->getDropDownLanguages();
+        $this->curriculumVitae = new CurriculumVitae( __DIR__.'/../Resources/data/empty.xml');
+        $this->curriculumVitae->getDropDownLanguages();
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
     public function testInvalidArgumentExceptionWithFatalErrorXMLFile() {
-        $this->CV = new CurriculumVitae(__DIR__.'/../Resources/data/fatalerror.xml');
-        $this->CV->getDropDownLanguages();
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/fatalerror.xml');
+        $this->curriculumVitae->getDropDownLanguages();
     }
 }

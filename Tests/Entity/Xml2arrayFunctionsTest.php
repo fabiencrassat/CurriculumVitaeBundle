@@ -89,7 +89,7 @@ XML;
     }
 
     public function testXml2arrayWithCrossRefDepth1() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
  <society crossref="societies/society[@ref='OneSociety']/*"></society>
@@ -114,11 +114,11 @@ XML;
             'siteurl'   => "http://www.google.com"
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
 
     public function testXml2arrayWithCrossRefDepth2() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
@@ -149,7 +149,7 @@ XML;
             'job'   => "My first job"
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
 
         $string = <<<XML
 <?xml version='1.0'?>
@@ -168,7 +168,7 @@ XML;
             'job'   => "My first job"
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
 
         $string = <<<XML
 <?xml version='1.0'?>
@@ -182,11 +182,11 @@ XML;
             'siteurl'   => "http://www.google.com")
         );
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
 
     public function testXml2arrayWithCrossRef() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
@@ -217,11 +217,11 @@ XML;
             'job'   => "My first job"
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
 
     public function testXml2arrayWithCVCrossRef() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <root>
     <langs>
@@ -321,11 +321,11 @@ XML;
                     'siteurl' => "http://www.google.com"))
         );
 
-        $this->assertXml2Array($expected, $CV, $CV);
+        $this->assertXml2Array($expected, $curriculumVitae, $curriculumVitae);
     }
 
-    private function assertXml2Array($expected, $CV, $XML) {
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($CV));
+    private function assertXml2Array($expected, $curriculumVitae, $XML) {
+        $this->Xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($curriculumVitae));
         $result = $this->Xml2arrayFunctions->xml2array(simplexml_load_string($XML));
 
         $this->assertEquals($expected, $result);

@@ -42,11 +42,14 @@ class AgeCalculator
             if ($this->birth->month == $this->today->month) {
                 if ($this->birth->day > $this->today->day) {
                     $this->setAgeMinusOne();
+                    return $this->getAge();
                 }
+
+                return $this->getAge();
             }
-            else {
-                $this->setAgeMinusOne();
-            }
+
+            $this->setAgeMinusOne();
+            return $this->getAge();
         };
 
         return $this->getAge();

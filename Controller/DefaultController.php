@@ -53,14 +53,14 @@ class DefaultController implements ContainerAwareInterface
                 HttpKernelInterface::SUB_REQUEST
             );
             return $response;
-        } else {
-            $this->initialization($cvxmlfile);
-            return new RedirectResponse($this->container->get('router')->generate(
-                'fabiencrassat_curriculumvitae_cvxmlfileonly',
-                array(
-                    'cvxmlfile'   => $this->cvxmlfile,
-                )), 301);
         }
+        
+        $this->initialization($cvxmlfile);
+        return new RedirectResponse($this->container->get('router')->generate(
+            'fabiencrassat_curriculumvitae_cvxmlfileonly',
+            array(
+                'cvxmlfile'   => $this->cvxmlfile,
+            )), 301);
     }
 
     public function displayAction($cvxmlfile, $_locale, Request $request)

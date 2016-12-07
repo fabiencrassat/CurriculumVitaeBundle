@@ -84,7 +84,7 @@ class Xml2arrayFunctions {
      */
     private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arXML) {
         if ($xml->children()->count() > 0) {
-            foreach($xml->children() as $childKey => $childValue) {
+            foreach($xml->children() as $childValue) {
                 $child = $this->xml2array($childValue, $depth);
                 if ($depth > 1 && ! empty($child)) {
                     $arXML = array_merge_recursive($arXML, array($key => $child));
@@ -140,9 +140,9 @@ class Xml2arrayFunctions {
         // Specific Attribute: Retreive the age
         if ($xml->attributes()->getAge) {
             $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->getAge));
-            $cr = $this->xml2array(clone $CVCrossRef[0], $depth, FALSE);
-            $cr = implode("", $cr);
-            $AgeCalculator = new AgeCalculator((string) $cr);
+            $birthday = $this->xml2array(clone $CVCrossRef[0], $depth, FALSE);
+            $birthday = implode("", $birthday);
+            $AgeCalculator = new AgeCalculator((string) $birthday);
             $value = $AgeCalculator->age();
         }
         return $value;
@@ -160,9 +160,9 @@ class Xml2arrayFunctions {
         if ($xml->attributes()->crossref) {
             $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->crossref));
             $temp = array();
-            foreach ($CVCrossRef as $ref => $value) {
-                $cr = $this->xml2array($value, $depth);
-                if($cr) $temp = array_merge($temp, $cr);
+            foreach ($CVCrossRef as $value) {
+                $resultArray = $this->xml2array($value, $depth);
+                if($resultArray) $temp = array_merge($temp, $resultArray);
             }
             $arXML = array_merge($arXML, array($key => $temp));
         }
@@ -183,9 +183,8 @@ class Xml2arrayFunctions {
         elseif ($key == "item") {
             return array($value); // convert to apply array_merge()
         }
-        else {
-            return $value;
-        }
+
+        return $value;
     }
 
     /**
