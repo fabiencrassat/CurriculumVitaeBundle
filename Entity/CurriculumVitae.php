@@ -223,8 +223,8 @@ class CurriculumVitae extends Xml2arrayFunctions
     private function getXMLValue() {
         if (!$this->interface) {
             return NULL;
-        } else {
-            return $this->xml2arrayFunctions->xml2array($this->interface);
         }
+        
+        return $this->xml2arrayFunctions->xml2array($this->interface);
     }
 }

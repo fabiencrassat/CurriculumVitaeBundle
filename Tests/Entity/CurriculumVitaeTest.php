@@ -270,15 +270,11 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'society' => array(
                     'name' => 'My Company',
                     'address' => 'the address of the company',
-                    'siteurl' => 'http://www.MyCompany.com',
-                ),
+                    'siteurl' => 'http://www.MyCompany.com'),
                 'missions' => array(
                     'item' => array(
                         0 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        1 => 'Suspendisse nec mauris eu orci dapibus mollis ac ac mi.'
-                    )
-                )
-            ),
+                        1 => 'Suspendisse nec mauris eu orci dapibus mollis ac ac mi.'))),
             'SecondExperience' => array(
                 'collapse' => 'false',
                 'date' => 'Sept - Dec 2006',
@@ -286,22 +282,16 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'society' => array(
                     'name' => 'My Other Company',
                     'address' => 'the address of the company',
-                    'siteurl' => 'http://www.MyOtherCompany.com',
-                )
-            ),
+                    'siteurl' => 'http://www.MyOtherCompany.com')),
             'ThirdExperience' => array(
                 'date' => 'Summer 2006',
                 'job' => 'A summer job',
                 'society' => array(
                     'name' => 'A company wihtout site',
-                    'address' => 'the address of the company'
-                ),
+                    'address' => 'the address of the company'),
                 'missions' => array(
                     'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
-                )
-            ),
+                        0 => 'Suspendisse et arcu eget est feugiat elementum.'))),
             'FourthExperience' => array(
                 'collapse' => 'true',
                 'date' => 'Before 2006',
@@ -309,10 +299,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'society' => 'A society with a name per language',
                 'missions' => array(
                     'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
-                )
-            )
+                        0 => 'Suspendisse et arcu eget est feugiat elementum.')))
         );
         $this->assertCVInterface();
 
@@ -324,15 +311,11 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'society' => array(
                     'name' => 'My Company',
                     'address' => 'the address of the company',
-                    'siteurl' => 'http://www.MyCompany.com',
-                ),
+                    'siteurl' => 'http://www.MyCompany.com'),
                 'missions' => array(
                     'item' => array(
                         0 => 'Donec gravida enim viverra tempor dignissim.',
-                        1 => 'Sed a eros at mauris placerat adipiscing.'
-                    )
-                )
-            ),
+                        1 => 'Sed a eros at mauris placerat adipiscing.'))),
             'SecondExperience' => array(
                 'collapse' => 'false',
                 'date' => 'Sept - Dec 2006',
@@ -340,22 +323,16 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'society' => array(
                     'name' => 'Mon autre compagnie',
                     'address' => 'l\'adresse de la compagnie',
-                    'siteurl' => 'http://www.MyOtherCompany.com',
-                )
-            ),
+                    'siteurl' => 'http://www.MyOtherCompany.com')),
             'ThirdExperience' => array(
                 'date' => 'Summer 2006',
                 'job' => 'Un travail d\'été',
                 'society' => array(
                     'name' => 'Une compagnie sans site',
-                    'address' => 'l\'adresse de la compagnie'
-                ),
+                    'address' => 'l\'adresse de la compagnie'),
                 'missions' => array(
                     'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
-                )
-            ),
+                        0 => 'Suspendisse et arcu eget est feugiat elementum.'))),
             'FourthExperience' => array(
                 'collapse' => 'true',
                 'date' => 'Before 2006',
@@ -363,10 +340,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
                 'society' => 'Une société avec un nom par langue',
                 'missions' => array(
                     'item' => array(
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.'
-                    )
-                )
-            )
+                        0 => 'Suspendisse et arcu eget est feugiat elementum.')))
         );
         $this->assertCVInterface();
     }
@@ -447,76 +421,14 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface();
 
         $this->lang = 'fr';
-        $this->arrayToCompare = array(
-            'Functional' => array(
-                'title' => 'Compétences',
-                'lines' => array(
-                    'success' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'striped' => 'true',
-                        'label' => 'Compétences grandissantes',
-                    ),
-                    'otherSucess' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'label' => 'success',
-                    ),
-                    'info' => array(
-                        'percentage' => 40,
-                        'class' => 'info',
-                        'striped' => 'false',
-                        'label' => 'info',
-                    ),
-                    'warning' => array(
-                        'percentage' => 20,
-                        'class' => 'warning',
-                        'label' => 'warning',
-                    ),
-                    'danger' => array(
-                        'percentage' => 10,
-                        'class' => 'danger',
-                        'label' => 'danger',
-                    ),
-                    'noClass' => array(
-                        'percentage' => 5,
-                        'label' => 'noClass',
-                    ),
-                    'nothing' => array(
-                        'label' => 'nothing',
-                    )
-                )
-            ),
-            'OtherSkill' => array(
-                'title' => 'Une autre',
-                'lines' => array(
-                    'success' => array(
-                        'percentage' => 90,
-                        'class' => 'success',
-                        'striped' => 'false',
-                        'label' => 'Liste de Compétences',
-                    ),
-                    'info' => array(
-                        'percentage' => 40,
-                        'class' => 'info',
-                        'striped' => 'false',
-                        'label' => 'Label',
-                    ),
-                    'warning' => array(
-                        'percentage' => 20,
-                        'class' => 'warning',
-                        'striped' => 'false',
-                        'label' => 'Label',
-                    ),
-                    'danger' => array(
-                        'percentage' => 10,
-                        'class' => 'danger',
-                        'striped' => 'true',
-                        'label' => 'Label',
-                    )
-                )
-            )
-        );
+        // Only set the french labels
+        $arrayToChange = $this->arrayToCompare;
+        $arrayToChange['Functional']['title'] = 'Compétences';
+        $arrayToChange['Functional']['lines']['success']['label'] = 'Compétences grandissantes';
+        $arrayToChange['OtherSkill']['title'] = 'Une autre';
+        $arrayToChange['OtherSkill']['lines']['success']['label'] = 'Liste de Compétences';
+
+        $this->arrayToCompare = $arrayToChange;
         $this->assertCVInterface();
     }
 

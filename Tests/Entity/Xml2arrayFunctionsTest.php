@@ -225,8 +225,7 @@ XML;
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <root>
     <langs>
-        <lang id="en">English</lang>
-        <lang id="fr">Français</lang>
+        <lang id="en">English</lang><lang id="fr">Français</lang>
     </langs>
     <curriculumVitae>
         <lookingFor>
@@ -269,17 +268,14 @@ XML;
     </curriculumVitae>
     <societies>
         <society ref="OneSociety">
-            <name>OneSociety</name>
-            <address>address</address>
-            <siteurl>http://www.google.com</siteurl>
+            <name>OneSociety</name><address>address</address><siteurl>http://www.google.com</siteurl>
         </society>
     </societies>
 </root>
 XML;
         $expected = array(
             'langs'  => array(
-                'en' => "English",
-                'fr' => "Français"),
+                'en' => "English", 'fr' => "Français"),
             'curriculumVitae' => array(
                 'lookingFor'  => array(
                     'experience'     => array(
@@ -316,9 +312,7 @@ XML;
                     'anchor' => "experiences")),
             'societies' => array(
                 'society' => array(
-                    'name'    => "OneSociety",
-                    'address' => "address",
-                    'siteurl' => "http://www.google.com"))
+                    'name' => "OneSociety", 'address' => "address", 'siteurl' => "http://www.google.com"))
         );
 
         $this->assertXml2Array($expected, $curriculumVitae, $curriculumVitae);
