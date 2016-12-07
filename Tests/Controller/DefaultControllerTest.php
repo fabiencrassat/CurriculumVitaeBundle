@@ -107,7 +107,7 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
-        foreach ($langs as $key => $value) {
+        foreach ($langs as $value) {
             $this->client->request('GET', '/example/'.$value.'.xml');
             $response = $this->client->getResponse();
             $response->headers->set('Content-Type', 'application/xml');

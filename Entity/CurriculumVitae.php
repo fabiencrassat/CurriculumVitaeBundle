@@ -175,9 +175,9 @@ class CurriculumVitae extends Xml2arrayFunctions
             return $lookingFor['experience']['job'];
         } elseif (isset($lookingFor['experience'])) {
             return $lookingFor['experience'];
-        } else {
-            return NULL;
         }
+        
+        return NULL;
     }
 
     /**
