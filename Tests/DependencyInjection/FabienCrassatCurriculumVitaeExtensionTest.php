@@ -189,10 +189,10 @@ EOF;
     /**
     * Asserts the given identifier matched a parameter
     *
-    * @param string $id
+    * @param string $identifier
     */
-    private function assertHasParameter($id)
+    private function assertHasParameter($identifier)
     {
-        $this->assertTrue($this->configuration->hasParameter($id));
+        $this->assertTrue($this->configuration->hasParameter($identifier));
     }
 }

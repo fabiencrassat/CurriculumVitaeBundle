@@ -78,7 +78,7 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
-        foreach ($langs as $key => $value) {
+        foreach ($langs as $value) {
             $this->client->request('GET', '/example/'.$value.'.json');
             $response = $this->client->getResponse();
             $data = json_decode($response->getContent(), TRUE);
@@ -233,7 +233,7 @@ class DefaultControllerTest extends WebTestCase
         unset($CVXml['languageSkills']['English']['icon']);
 
         $testValue = $this->array_values_recursive($CVXml);
-        foreach ($testValue as $key => $value) {
+        foreach ($testValue as $value) {
             $this->assertGreaterThan(0,
                 $crawler->filter('html:contains("'.$value.'")')->count(),
                 'The value '.$value.' is not diplay for language '.$lang
@@ -245,12 +245,17 @@ class DefaultControllerTest extends WebTestCase
     {
         $return = array();
         foreach($array as $value) {
-            if(is_array($value)) {
-                $return = array_merge($return, $this->array_values_recursive($value));
-            } else {
-                $return = array_merge($return, array($value));
-            }
+            $return = $this->array_values_merge($return, $value);
         }
         return $return;
+    }
+
+    private function array_values_merge($return, $value)
+    {
+        if(is_array($value)) {
+            return array_merge($return, $this->array_values_recursive($value));
+        }
+
+        return array_merge($return, array($value));
     }
 }

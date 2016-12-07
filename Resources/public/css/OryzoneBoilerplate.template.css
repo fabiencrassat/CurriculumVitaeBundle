@@ -52,27 +52,27 @@ dl.timeline > dd {
     }
     /* Progress Bar for Print */
     .progress {
-    border: 2px solid #F5F5F5 !important;
+    border: 2px solid #F5F5F5;
     }
     .progress-bar-info {
-        border: 2px solid #428BCA !important;
-        display: block !important;
+        border: 2px solid #428BCA;
+        display: block;
     }
     .progress-bar-success {
-        border: 2px solid #5CB85C !important;
-        display: block !important;
+        border: 2px solid #5CB85C;
+        display: block;
     }
     .progress-bar-warning {
-        border: 2px solid #F0AD4E !important;
-        display: block !important;
+        border: 2px solid #F0AD4E;
+        display: block;
     }
     .progress-bar-danger {
-        border: 2px solid #D9534F !important;
-        display: block !important;
+        border: 2px solid #D9534F;
+        display: block;
     }
     .progress, .progress > .progress-bar {
-        box-shadow: 0 0 inset !important;
-        display: block !important;
+        box-shadow: 0 0 inset;
+        display: block;
     }
     .collapse {
         display: inherit;

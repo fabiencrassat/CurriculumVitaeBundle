@@ -79,12 +79,12 @@ class CurriculumVitae extends Xml2arrayFunctions
         if (NULL != $myName) {
             if (NULL !== $myCurrentJob) {
                 return $myName.' - '.$myCurrentJob;
-            } else {
-                return $myName;
             }
-        } else {
-            return $this->file;
+
+            return $myName;
         }
+        
+        return $this->file;
     }
 
     /**

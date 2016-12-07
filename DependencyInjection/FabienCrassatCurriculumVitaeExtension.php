@@ -48,11 +48,11 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private function setPathToCVDirectory()
     {
         // Path to Curriculum Vitae Directory
+        $path_to_cv = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
         if(isset($this->config['path_to_cv'])) {
             $path_to_cv = $this->config['path_to_cv'];
-        } else {
-            $path_to_cv = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
         }
+        
         if (!is_dir($path_to_cv)) {
             throw new NotFoundHttpException('There is no directory defined here ('.$path_to_cv.').');
         }
