@@ -15,7 +15,7 @@ use FabienCrassat\CurriculumVitaeBundle\Entity\Xml2arrayFunctions;
 
 class Xml2arrayFunctionsTest extends \PHPUnit_Framework_TestCase
 {
-    private $Xml2arrayFunctions;
+    private $xml2arrayFunctions;
 
     public function testXml2arrayEmpty() {
         $string   = <<<XML
@@ -329,12 +329,12 @@ XML;
 
     /**
      * @param string $curriculumVitae
-     * @param string $XML
+     * @param string $xml
      */
     private function assertXml2Array($expected, $curriculumVitae, $xml) {
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($curriculumVitae));
+        $this->xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($curriculumVitae));
         
-        $result = $this->Xml2arrayFunctions->xml2array(simplexml_load_string($xml));
+        $result = $this->xml2arrayFunctions->xml2array(simplexml_load_string($xml));
 
         $this->assertEquals($expected, $result);
     }

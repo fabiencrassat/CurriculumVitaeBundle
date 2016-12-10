@@ -20,7 +20,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     private $curriculumVitae;
     private $pathToFile;
     private $interface;
-    private $file;
+    private $cvFile;
     private $xml2arrayFunctions;
 
     /**
@@ -28,7 +28,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @param string $lang
      */
     public function __construct($pathToFile, $lang = 'en') {
-        $this->pathToFile         = $pathToFile;
+        $this->pathToFile = $pathToFile;
         $this->setFileName();
         $this->lang               = $lang;
         $this->curriculumVitae    = $this->getXmlCurriculumVitae();
@@ -84,7 +84,7 @@ class CurriculumVitae extends Xml2arrayFunctions
             return $myName;
         }
         
-        return $this->file;
+        return $this->cvFile;
     }
 
     /**
@@ -154,8 +154,8 @@ class CurriculumVitae extends Xml2arrayFunctions
     private function setFileName() {
         $data = explode('/', $this->pathToFile);
         $data = $data[count($data) - 1];
-        $data = explode('.', $data);;
-        $this->file = $data[0];
+        $data = explode('.', $data);
+        $this->cvFile = $data[0];
     }
 
     /**
@@ -187,7 +187,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
             throw new InvalidArgumentException('The path ' . $this->pathToFile . ' is not a valid path to file.');
         }
-        $this->validateXmlCurriculumVitae();
+        $this->isValidXmlCurriculumVitae();
 
         return simplexml_load_file($this->pathToFile);
     }
@@ -195,7 +195,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     /**
      * @return boolean
      */
-    private function validateXmlCurriculumVitae() {
+    private function isValidXmlCurriculumVitae() {
         // Active "user error handling"
         libxml_use_internal_errors(TRUE);
 
@@ -211,7 +211,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         $validate  = $dom->schemaValidate($xsdFile);
         if (!$validate) {
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
+            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());
         }
 
         return $validate;

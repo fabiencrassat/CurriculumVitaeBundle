@@ -23,18 +23,18 @@ class Xml2arrayFunctions {
      */
     public function __construct($file, $language = 'en') {
         $this->language = $language;
-        $this->file = $file;
+        $this->file     = $file;
     }
 
     /**
      * @param \SimpleXMLElement $xml
-     * @param integer $depth
+     * @param integer $recursiveDepth
      * @param boolean $format
      *
      * @return null|array
      */
-    public function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
-        $depth  = $depth + 1;
+    public function xml2array(\SimpleXMLElement $xml, $recursiveDepth = 0, $format = TRUE) {
+        $recursiveDepth++;
         $result = array();
 
         // Extraction of the node
@@ -51,63 +51,63 @@ class Xml2arrayFunctions {
 
         // Specific Attributes changing the xml
         $key    = $this->setSpecificAttributeKeyWithGivenId($xml, $key);
-        $value  = $this->setSpecificAttributeAge($xml, $depth, $value);
-        $result = $this->retrieveSpecificAttributeCrossRef($xml, $depth, $result, $key);
+        $value  = $this->setSpecificAttributeAge($xml, $recursiveDepth, $value);
+        $result = $this->retrieveSpecificAttributeCrossRef($xml, $recursiveDepth, $result, $key);
         // Standard Attributes
         $result = $this->setStandardAttributes($xml, $result, $key);
         // Specific Key
         $value = $this->setValueForSpecificKeys($key, $value, $format);
 
         $result = $this->setValue($result, $key, $value);
-        $result = $this->setChildren($xml, $depth, $key, $result);
+        $result = $this->setChildren($xml, $recursiveDepth, $key, $result);
 
         return $result;
     }
 
     /**
-     * @param array $array
+     * @param array $arrayToSet
      * @param string $key
      * @param array|string $value
      *
      * @return array
      */
-    private function setValue($array, $key, $value) {
+    private function setValue($arrayToSet, $key, $value) {
         if ($value <> '') {
-            $array = array_merge($array, array($key => $value));
+            $arrayToSet = array_merge($arrayToSet, array($key => $value));
         }
-        return $array;
+        return $arrayToSet;
     }
 
     /**
      * @param \SimpleXMLElement $xml
      * @param integer $depth
      * @param string $key
-     * @param array $arXML
+     * @param array $arrayXML
      *
      * @return array
      */
-    private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arXML) {
+    private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arrayXML) {
         if ($xml->children()->count() > 0) {
             foreach($xml->children() as $childValue) {
                 $child = $this->xml2array($childValue, $depth);
                 if ($depth > 1 && ! empty($child)) {
-                    $arXML = array_merge_recursive($arXML, array($key => $child));
+                    $arrayXML = array_merge_recursive($arrayXML, array($key => $child));
                 } elseif (! empty($child)) {
-                    $arXML = array_merge_recursive($arXML, $child);
+                    $arrayXML = array_merge_recursive($arrayXML, $child);
                 }
             }
         }
-        return $arXML;
+        return $arrayXML;
     }
 
     /**
      * @param \SimpleXMLElement $xml
-     * @param array $result
+     * @param array $arrayToMerge
      * @param string $key
      *
      * @return array
      */
-    private function setStandardAttributes(\SimpleXMLElement $xml, $result, $key) {
+    private function setStandardAttributes(\SimpleXMLElement $xml, $arrayToMerge, $key) {
         // Standard Attributes (without Specific thanks to unset())
         $attributes = array();
         foreach($xml->attributes() as $attributeKey => $attributeValue) {
@@ -119,55 +119,55 @@ class Xml2arrayFunctions {
             }
         }
         if (count($attributes) > 0) {
-            $result = array_merge_recursive($result, array($key => $attributes));
+            $arrayToMerge = array_merge_recursive($arrayToMerge, array($key => $attributes));
         }
-        return $result;
+        return $arrayToMerge;
     }
 
     /**
      * @param \SimpleXMLElement $xml
-     * @param string $key
+     * @param string $keyValue
      *
      * @return string
      */
-    private function setSpecificAttributeKeyWithGivenId(\SimpleXMLElement $xml, $key) {
+    private function setSpecificAttributeKeyWithGivenId(\SimpleXMLElement $xml, $keyValue) {
         // Specific Attribute: change the key with the given id
         if ($xml->attributes()->id) {
-            $key = (string) $xml->attributes()->id;
+            $keyValue = (string) $xml->attributes()->id;
         }
-        return $key;
+        return $keyValue;
     }
 
     /**
      * @param \SimpleXMLElement $xml
      * @param integer $depth
-     * @param string $value
+     * @param string $age
      *
      * @return string
      */
-    private function setSpecificAttributeAge(\SimpleXMLElement $xml, $depth, $value) {
+    private function setSpecificAttributeAge(\SimpleXMLElement $xml, $depth, $age) {
         // Specific Attribute: Retreive the age
         if ($xml->attributes()->getAge) {
             $crossref = $this->file->xpath(trim($xml->attributes()->getAge));
             $birthday = $this->xml2array(clone $crossref[0], $depth, FALSE);
-            $birthday = implode("", $birthday);
+            $birthday = implode('', $birthday);
 
             $ageCalculator = new AgeCalculator((string) $birthday);
 
-            $value = (string) $ageCalculator->age();
+            $age = (string) $ageCalculator->age();
         }
-        return $value;
+        return $age;
     }
 
     /**
      * @param \SimpleXMLElement $xml
      * @param integer $depth
-     * @param array $arXML
+     * @param array $arrayXML
      * @param string $key
      *
      * @return array
      */
-    private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, $depth, array $arXML, $key) {
+    private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, $depth, array $arrayXML, $key) {
         // Specific Attribute: Retrieve the given crossref
         if ($xml->attributes()->crossref) {
             $crossref = $this->file->xpath(trim($xml->attributes()->crossref));
@@ -177,9 +177,9 @@ class Xml2arrayFunctions {
 
                 if($resultArray) $temp = array_merge($temp, $resultArray);
             }
-            $arXML = array_merge($arXML, array($key => $temp));
+            $arrayXML = array_merge($arrayXML, array($key => $temp));
         }
-        return $arXML;
+        return $arrayXML;
     }
 
     /**
@@ -203,17 +203,17 @@ class Xml2arrayFunctions {
     /**
      * Specific Key: Format to french date format
      *
-     * @param string $value
+     * @param string $date
      * @param boolean $format
      *
      * @return string
      */
-    private function setValueForBirthdayKey($value, $format) {
+    private function setValueForBirthdayKey($date, $format) {
         if ($format) {
             setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
-            $value = strftime('%d %B %Y', strtotime(date($value)));
+            $date = strftime('%d %B %Y', strtotime(date($date)));
         }
 
-        return $value;
+        return $date;
     }
 }

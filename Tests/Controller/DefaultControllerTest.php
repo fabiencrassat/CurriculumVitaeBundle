@@ -60,7 +60,7 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/example/XX');
     }
 
-    private $ReadCVXml;
+    private $curriculumVitae;
     private $client;
 
     public function testOutputHtmlXmlComparaison()
@@ -69,7 +69,7 @@ class DefaultControllerTest extends WebTestCase
 
         $langs = array('en', 'fr');
         foreach ($langs as $value) {
-            $this->OutputHtmlXmlComparaison($value);
+            $this->outputHtmlXmlComparaison($value);
         }
     }
 
@@ -85,18 +85,18 @@ class DefaultControllerTest extends WebTestCase
             $data     = json_decode($response->getContent(), TRUE);
 
             // Read the Curriculum Vitae
-            $pathToFile      = __DIR__.'/../../Resources/data/example.xml';
-            $this->ReadCVXml = new CurriculumVitae($pathToFile, $value);
+            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+            $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
             $cvXml = array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+                'identity'          => $this->curriculumVitae->getIdentity(),
+                'followMe'          => $this->curriculumVitae->getFollowMe(),
+                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+                'experiences'       => $this->curriculumVitae->getExperiences(),
+                'skills'            => $this->curriculumVitae->getSkills(),
+                'educations'        => $this->curriculumVitae->getEducations(),
+                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
             );
 
             $this->assertSame($cvXml, $data);
@@ -115,18 +115,18 @@ class DefaultControllerTest extends WebTestCase
             $data = $response->getContent();
 
             // Read the Curriculum Vitae
-            $pathToFile      = __DIR__.'/../../Resources/data/example.xml';
-            $this->ReadCVXml = new CurriculumVitae($pathToFile, $value);
+            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+            $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
             $cvXml = array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+                'identity'          => $this->curriculumVitae->getIdentity(),
+                'followMe'          => $this->curriculumVitae->getFollowMe(),
+                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+                'experiences'       => $this->curriculumVitae->getExperiences(),
+                'skills'            => $this->curriculumVitae->getSkills(),
+                'educations'        => $this->curriculumVitae->getEducations(),
+                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
             );
             //initialisation du serializer
             $encoders    = array(new XmlEncoder('CurriculumVitae'));
@@ -146,12 +146,12 @@ class DefaultControllerTest extends WebTestCase
             $crawler = $this->client->request('GET', '/example/'.$lang);
 
             // Read the Curriculum Vitae
-            $pathToFile      = __DIR__.'/../../Resources/data/example.xml';
-            $this->ReadCVXml = new CurriculumVitae($pathToFile, $lang);
+            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+            $this->curriculumVitae = new CurriculumVitae($pathToFile, $lang);
 
-            $cvXml = array('followMe' => $this->ReadCVXml->getFollowMe());
+            $cvXml = array('followMe' => $this->curriculumVitae->getFollowMe());
 
-            $testValue = $this->array_values_recursive($cvXml);
+            $testValue = $this->arrayValuesRecursive($cvXml);
             foreach ($testValue as $value) {
                 $alt  = $crawler->filter('img[alt="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[title="'.$value.'"]')->count();
@@ -165,22 +165,22 @@ class DefaultControllerTest extends WebTestCase
         }
     }
 
-    private function OutputHtmlXmlComparaison($lang = 'en')
+    private function outputHtmlXmlComparaison($lang = 'en')
     {
         $crawler = $this->client->request('GET', '/example/'.$lang);
 
         // Read the Curriculum Vitae
-        $pathToFile      = __DIR__.'/../../Resources/data/example.xml';
-        $this->ReadCVXml = new CurriculumVitae($pathToFile, $lang);
+        $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+        $this->curriculumVitae = new CurriculumVitae($pathToFile, $lang);
 
         $cvXml = array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+                'identity'          => $this->curriculumVitae->getIdentity(),
+                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+                'experiences'       => $this->curriculumVitae->getExperiences(),
+                'skills'            => $this->curriculumVitae->getSkills(),
+                'educations'        => $this->curriculumVitae->getEducations(),
+                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
         );
         // Remove all no visible elements
         switch ($lang) {
@@ -233,7 +233,7 @@ class DefaultControllerTest extends WebTestCase
         unset($cvXml['languageSkills']['French']['icon']);
         unset($cvXml['languageSkills']['English']['icon']);
 
-        $testValue = $this->array_values_recursive($cvXml);
+        $testValue = $this->arrayValuesRecursive($cvXml);
         foreach ($testValue as $value) {
             $this->assertGreaterThan(0,
                 $crawler->filter('html:contains("'.$value.'")')->count(),
@@ -242,19 +242,19 @@ class DefaultControllerTest extends WebTestCase
         }
     }
 
-    private function array_values_recursive($array)
+    private function arrayValuesRecursive($array)
     {
         $return = array();
         foreach($array as $value) {
-            $return = $this->array_values_merge($return, $value);
+            $return = $this->arrayValuesMerge($return, $value);
         }
         return $return;
     }
 
-    private function array_values_merge($return, $value)
+    private function arrayValuesMerge($return, $value)
     {
         if(is_array($value)) {
-            return array_merge($return, $this->array_values_recursive($value));
+            return array_merge($return, $this->arrayValuesRecursive($value));
         }
 
         return array_merge($return, array($value));

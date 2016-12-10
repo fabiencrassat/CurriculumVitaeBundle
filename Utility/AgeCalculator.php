@@ -29,7 +29,8 @@ class AgeCalculator
         $this->birthday = $birthday;
         $this->birth    = new \stdClass();
         $this->setBirthday();
-        $this->today    = new \stdClass();
+        
+        $this->today = new \stdClass();
         $this->setToday();
     }
 

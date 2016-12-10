@@ -99,7 +99,9 @@ class DefaultController implements ContainerAwareInterface
             throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
         };
 
-        $html = $this->container->get('templating')->render('FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig', $this->parameters);
+        $html = $this->container->get('templating')->render(
+            'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
+            $this->parameters);
 
         return new Response($this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
@@ -116,9 +118,13 @@ class DefaultController implements ContainerAwareInterface
             $this->cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
         }
         // Check the file in the filesystem
-        $this->pathToFile = $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv').'/'.$this->cvxmlfile.'.xml';
+        $this->pathToFile = 
+            $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
+            .'/'.$this->cvxmlfile.'.xml';
+        
         if (!is_file($this->pathToFile)) {
-            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
+            throw new NotFoundHttpException(
+                'There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
         }
         $this->lang = $_locale;
         if (!$this->lang) {
