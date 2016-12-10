@@ -26,6 +26,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     public function testgetLookingForAndExperiencesAndHumanFileName() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml', $this->lang);
+
         $result = array();
         $result = array_merge($result, array('lookingFor' => $this->curriculumVitae->getLookingFor()));
         $result = array_merge($result, array('experiences' => $this->curriculumVitae->getExperiences()));
@@ -34,22 +35,22 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $expected = array(
             'lookingFor' => array(
                 'experience'   => array(
-                    'date' => "Date",
-                    'job' => "The job",
+                    'date' => 'Date',
+                    'job' => 'The job',
                     'society' => array(
-                        'name' => "My Company",
-                        'address' => "The address of the company",
-                        'siteurl' => "http://www.MyCompany.com")),
-                'presentation' => "A presentation"),
+                        'name' => 'My Company',
+                        'address' => 'The address of the company',
+                        'siteurl' => 'http://www.MyCompany.com')),
+                'presentation' => 'A presentation'),
             'experiences' => array(
                 'LastJob' => array(
-                    'date' => "Date",
-                    'job' => "The job",
+                    'date' => 'Date',
+                    'job' => 'The job',
                     'society' => array(
-                        'name' => "My Company",
-                        'address' => "The address of the company",
-                        'siteurl' => "http://www.MyCompany.com"))),
-            'pdfFile' => "First Name Last Name - The job"
+                        'name' => 'My Company',
+                        'address' => 'The address of the company',
+                        'siteurl' => 'http://www.MyCompany.com'))),
+            'pdfFile' => 'First Name Last Name - The job'
         );
         $this->assertEquals($expected, $result);
     }
@@ -66,29 +67,29 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     public function testSimpleHumanFileName() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
-        $this->assertSame("core", $this->curriculumVitae->getHumanFileName());
+        $this->assertSame('core', $this->curriculumVitae->getHumanFileName());
     }
 
     public function testHumanFileNameWithExperience() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
-        $this->assertSame("First Name Last Name - Curriculum Vitae Title",
+        $this->assertSame('First Name Last Name - Curriculum Vitae Title',
             $this->curriculumVitae->getHumanFileName()
         );
 
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
-        $this->assertSame("First Name Last Name - The job",
+        $this->assertSame('First Name Last Name - The job',
             $this->curriculumVitae->getHumanFileName()
         );
     }
 
     public function testHumanFileNameWithJob() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
-        $this->assertSame("First Name Last Name - The job", $this->curriculumVitae->getHumanFileName());
+        $this->assertSame('First Name Last Name - The job', $this->curriculumVitae->getHumanFileName());
     }
 
     public function testHumanFileNameWithOnLyName(){
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/justIdentityMySelf.xml');
-        $this->assertSame("First Name Last Name", $this->curriculumVitae->getHumanFileName());
+        $this->assertSame('First Name Last Name', $this->curriculumVitae->getHumanFileName());
     }
 
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag() {
@@ -98,6 +99,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAnchorsWithNoLang() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
+
         $anchors = $this->curriculumVitae->getAnchors();
         if (is_array($anchors)) {
             $this->assertEquals(array('identity' => array(
@@ -129,6 +131,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetIdentityWithEnglishLanguage() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
+
         $identity = $this->curriculumVitae->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
@@ -157,7 +160,8 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetIdentityWithFrenchLanguage() {
-        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', "fr");
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml', 'fr');
+
         $identity = $this->curriculumVitae->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
@@ -187,18 +191,18 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetDropDownLanguages() {
-        $this->interface = 'getDropDownLanguages';
+        $this->interface      = 'getDropDownLanguages';
         $this->arrayToCompare = array(
-            'en' => "English",
-            'fr' => "Français",
-            'es' => "español"
+            'en' => 'English',
+            'fr' => 'Français',
+            'es' => 'español'
         );
 
         $this->assertCVInterface();
     }
 
     public function testGetFollowMe() {
-        $this->interface = 'getFollowMe';
+        $this->interface      = 'getFollowMe';
         $this->arrayToCompare = array(
             'linkedin' => array(
                 'title' => 'Linked In',
@@ -247,15 +251,15 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->interface = 'getLookingFor';
 
         $this->arrayToCompare = array(
-            'experience'   => "Curriculum Vitae Title",
-            'presentation' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem.",
+            'experience'   => 'Curriculum Vitae Title',
+            'presentation' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem.',
         );
         $this->assertCVInterface();
 
-        $this->lang = 'fr';
+        $this->lang           = 'fr';
         $this->arrayToCompare = array(
-            'experience'   => "Titre du curriculum vitae",
-            'presentation' => "Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo.",
+            'experience'   => 'Titre du curriculum vitae',
+            'presentation' => 'Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo.',
         );
         $this->assertCVInterface();
     }
@@ -303,7 +307,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertCVInterface();
 
-        $this->lang = 'fr';
+        $this->lang           = 'fr';
         $this->arrayToCompare = array(
             'FirstExperience' => array(
                 'date' => 'Jan. 2007 - Aujourd\'hui',
@@ -422,10 +426,10 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
 
         $this->lang = 'fr';
         // Only set the french labels
-        $arrayToChange = $this->arrayToCompare;
-        $arrayToChange['Functional']['title'] = 'Compétences';
+        $arrayToChange                                            = $this->arrayToCompare;
+        $arrayToChange['Functional']['title']                     = 'Compétences';
         $arrayToChange['Functional']['lines']['success']['label'] = 'Compétences grandissantes';
-        $arrayToChange['OtherSkill']['title'] = 'Une autre';
+        $arrayToChange['OtherSkill']['title']                     = 'Une autre';
         $arrayToChange['OtherSkill']['lines']['success']['label'] = 'Liste de Compétences';
 
         $this->arrayToCompare = $arrayToChange;
@@ -460,7 +464,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertCVInterface();
 
-        $this->lang = 'fr';
+        $this->lang           = 'fr';
         $this->arrayToCompare = array(
             'University' => array(
                 'date' => '2002 - 2005',
@@ -504,7 +508,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertCVInterface();
 
-        $this->lang = 'fr';
+        $this->lang           = 'fr';
         $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'Français',
@@ -531,7 +535,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertCVInterface();
 
-        $this->lang = 'fr';
+        $this->lang           = 'fr';
         $this->arrayToCompare = array(
             'Practical' => array(
                 'title' => 'Pratiques',
@@ -551,7 +555,7 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
      * @expectedException InvalidArgumentException
      */
     public function testInvalidArgumentExceptionWithBadCurriculumVitaeFile() {
-        $this->curriculumVitae = new CurriculumVitae("abd file");
+        $this->curriculumVitae = new CurriculumVitae('abd file');
     }
 
     /**

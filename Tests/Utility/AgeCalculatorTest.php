@@ -29,10 +29,10 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $this->assert = date('Y') - $this->year;
+        $this->assert      = date('Y') - $this->year;
         $this->actualMonth = date('n');
-        $this->actualDay = date('d');
-        $this->maxDay = date("t", strtotime($this->year."-".$this->actualMonth."-23"));
+        $this->actualDay   = date('d');
+        $this->maxDay      = date('t', strtotime($this->year.'-'.$this->actualMonth.'-23'));
     }
 
     public function testEarlyYear()
@@ -67,7 +67,8 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $this->calculator = new AgeCalculator($this->year."-".$month."-".$day);
+        $this->calculator = new AgeCalculator($this->year.'-'.$month.'-'.$day);
+        
         $age = $this->calculator->age();
 
         $this->assertEquals($assert, $age);
@@ -78,7 +79,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadFormat()
     {
-        $this->calculator = new AgeCalculator("0000/0/0");
+        $this->calculator = new AgeCalculator('0000/0/0');
     }
 
     /**
@@ -86,6 +87,6 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDate()
     {
-        $this->calculator = new AgeCalculator("0000-0-0");
+        $this->calculator = new AgeCalculator('0000-0-0');
     }
 }

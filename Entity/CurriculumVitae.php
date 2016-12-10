@@ -28,10 +28,10 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @param string $lang
      */
     public function __construct($pathToFile, $lang = 'en') {
-        $this->pathToFile = $pathToFile;
+        $this->pathToFile         = $pathToFile;
         $this->setFileName();
-        $this->lang = $lang;
-        $this->curriculumVitae = $this->getXmlCurriculumVitae();
+        $this->lang               = $lang;
+        $this->curriculumVitae    = $this->getXmlCurriculumVitae();
         $this->xml2arrayFunctions = New Xml2arrayFunctions($this->curriculumVitae, $this->lang);
     }
 
@@ -39,8 +39,8 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getDropDownLanguages() {
-        $this->interface = $this->curriculumVitae->{"langs"};
-        $return = $this->getXMLValue();
+        $this->interface = $this->curriculumVitae->{'langs'};
+        $return          = $this->getXMLValue();
         if(!$return) {
             $return = array($this->lang => $this->lang);
         }
@@ -52,14 +52,14 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return array
      */
     public function getAnchors() {
-        $anchorsAttribute = $this->curriculumVitae->xpath("curriculumVitae/*[attribute::anchor]");
+        $anchorsAttribute = $this->curriculumVitae->xpath('curriculumVitae/*[attribute::anchor]');
 
         $anchors = array();
         foreach ($anchorsAttribute as $anchorsValue) {
             $anchor = (string) $anchorsValue['anchor'];
-            $title = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
+            $title  = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
             if (count($title) == 0) {
-                $title = $anchorsValue->xpath("anchorTitle");
+                $title = $anchorsValue->xpath('anchorTitle');
             }
             $anchors[$anchor] = array(
                 'href'  => $anchor,
@@ -74,7 +74,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return string
      */
     public function getHumanFileName() {
-        $myName = $this->getMyName();
+        $myName       = $this->getMyName();
         $myCurrentJob = $this->getMyCurrentJob();
         if (NULL != $myName) {
             if (NULL !== $myCurrentJob) {
@@ -152,9 +152,9 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     private function setFileName() {
-        $data = explode("/", $this->pathToFile);
+        $data = explode('/', $this->pathToFile);
         $data = $data[count($data) - 1];
-        $data = explode(".", $data);;
+        $data = explode('.', $data);;
         $this->file = $data[0];
     }
 
@@ -185,7 +185,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      */
     private function getXmlCurriculumVitae() {
         if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
-            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
+            throw new InvalidArgumentException('The path ' . $this->pathToFile . ' is not a valid path to file.');
         }
         $this->validateXmlCurriculumVitae();
 
@@ -196,19 +196,19 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return boolean
      */
     private function validateXmlCurriculumVitae() {
-        // Activer "user error handling"
+        // Active "user error handling"
         libxml_use_internal_errors(TRUE);
 
-        // Instanciation d’un DOMDocument
-        $dom = new \DOMDocument("1.0");
+        // Instanciate of a DOMDocument
+        $dom = new \DOMDocument('1.0');
 
-        // Charge du XML depuis un fichier
+        // Load the XML from the file
         $dom->load($this->pathToFile);
 
-        // Validation du document XML
+        // Validation duof the XML document
         $reflClass = new \ReflectionClass(get_class($this));
-        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
-        $validate = $dom->schemaValidate($xsdFile);
+        $xsdFile   = dirname($reflClass->getFileName()).'/validator.xsd';
+        $validate  = $dom->schemaValidate($xsdFile);
         if (!$validate) {
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
             throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;

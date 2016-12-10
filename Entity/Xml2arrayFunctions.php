@@ -15,15 +15,15 @@ use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 
 class Xml2arrayFunctions {
     private $language;
-    private $CVFile;
+    private $file;
 
     /**
-     * @param \SimpleXMLElement $CVFile
+     * @param \SimpleXMLElement $file
      * @param string $language
      */
-    public function __construct($CVFile, $language = 'en') {
+    public function __construct($file, $language = 'en') {
         $this->language = $language;
-        $this->CVFile = $CVFile;
+        $this->file = $file;
     }
 
     /**
@@ -34,11 +34,11 @@ class Xml2arrayFunctions {
      * @return null|array
      */
     public function xml2array(\SimpleXMLElement $xml, $depth = 0, $format = TRUE) {
-        $depth = $depth + 1;
+        $depth  = $depth + 1;
         $result = array();
 
         // Extraction of the node
-        $key = trim($xml->getName());
+        $key   = trim($xml->getName());
         $value = trim((string) $xml);
 
         // Specific Attribute: do nothing when it is not the good language
@@ -50,9 +50,9 @@ class Xml2arrayFunctions {
         }
 
         // Specific Attributes changing the xml
-        $key         = $this->setSpecificAttributeKeyWithGivenId($xml, $key);
-        $value       = $this->setSpecificAttributeAge($xml, $depth, $value);
-        $result      = $this->retrieveSpecificAttributeCrossRef($xml, $depth, $result, $key);
+        $key    = $this->setSpecificAttributeKeyWithGivenId($xml, $key);
+        $value  = $this->setSpecificAttributeAge($xml, $depth, $value);
+        $result = $this->retrieveSpecificAttributeCrossRef($xml, $depth, $result, $key);
         // Standard Attributes
         $result = $this->setStandardAttributes($xml, $result, $key);
         // Specific Key
@@ -65,13 +65,17 @@ class Xml2arrayFunctions {
     }
 
     /**
+     * @param array $array
+     * @param string $key
      * @param array|string $value
+     *
+     * @return array
      */
-    private function setValue($result, $key, $value) {
+    private function setValue($array, $key, $value) {
         if ($value <> '') {
-            $result = array_merge($result, array($key => $value));
+            $array = array_merge($array, array($key => $value));
         }
-        return $result;
+        return $array;
     }
 
     /**
@@ -98,6 +102,10 @@ class Xml2arrayFunctions {
 
     /**
      * @param \SimpleXMLElement $xml
+     * @param array $result
+     * @param string $key
+     *
+     * @return array
      */
     private function setStandardAttributes(\SimpleXMLElement $xml, $result, $key) {
         // Standard Attributes (without Specific thanks to unset())
@@ -132,6 +140,7 @@ class Xml2arrayFunctions {
 
     /**
      * @param \SimpleXMLElement $xml
+     * @param integer $depth
      * @param string $value
      *
      * @return string
@@ -139,17 +148,20 @@ class Xml2arrayFunctions {
     private function setSpecificAttributeAge(\SimpleXMLElement $xml, $depth, $value) {
         // Specific Attribute: Retreive the age
         if ($xml->attributes()->getAge) {
-            $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->getAge));
-            $birthday = $this->xml2array(clone $CVCrossRef[0], $depth, FALSE);
+            $crossref = $this->file->xpath(trim($xml->attributes()->getAge));
+            $birthday = $this->xml2array(clone $crossref[0], $depth, FALSE);
             $birthday = implode("", $birthday);
-            $AgeCalculator = new AgeCalculator((string) $birthday);
-            $value = $AgeCalculator->age();
+
+            $ageCalculator = new AgeCalculator((string) $birthday);
+
+            $value = (string) $ageCalculator->age();
         }
         return $value;
     }
 
     /**
      * @param \SimpleXMLElement $xml
+     * @param integer $depth
      * @param array $arXML
      * @param string $key
      *
@@ -158,10 +170,11 @@ class Xml2arrayFunctions {
     private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, $depth, array $arXML, $key) {
         // Specific Attribute: Retrieve the given crossref
         if ($xml->attributes()->crossref) {
-            $CVCrossRef = $this->CVFile->xpath(trim($xml->attributes()->crossref));
-            $temp = array();
-            foreach ($CVCrossRef as $value) {
+            $crossref = $this->file->xpath(trim($xml->attributes()->crossref));
+            $temp     = array();
+            foreach ($crossref as $value) {
                 $resultArray = $this->xml2array($value, $depth);
+
                 if($resultArray) $temp = array_merge($temp, $resultArray);
             }
             $arXML = array_merge($arXML, array($key => $temp));
@@ -180,7 +193,7 @@ class Xml2arrayFunctions {
         if ($key == 'birthday') {
             return $this->setValueForBirthdayKey($value, $format);
         }
-        elseif ($key == "item") {
+        elseif ($key == 'item') {
             return array($value); // convert to apply array_merge()
         }
 

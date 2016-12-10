@@ -26,7 +26,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     public function __construct()
     {
         $this->configuration = new ContainerBuilder;
-        $this->loader = new FabienCrassatCurriculumVitaeExtension;
+        $this->loader        = new FabienCrassatCurriculumVitaeExtension;
     }
 
     /**
@@ -117,7 +117,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     */
     private function getEmptyConfig()
     {
-        $yaml = <<<EOF
+        $yaml   = <<<EOF
 EOF;
         $parser = new Parser;
 
@@ -131,7 +131,7 @@ EOF;
     */
     private function getFullConfig()
     {
-        $yaml = <<<EOF
+        $yaml   = <<<EOF
 path_to_cv:
     "./Tests/Resources/data"
 custo_default_cv:
@@ -153,7 +153,7 @@ EOF;
     */
     private function getBadPathToCvConfig()
     {
-        $yaml = <<<EOF
+        $yaml   = <<<EOF
 path_to_cv:
     "itIsNotADirectory"
 EOF;
