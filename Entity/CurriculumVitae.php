@@ -155,6 +155,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         $data = explode('/', $this->pathToFile);
         $data = $data[count($data) - 1];
         $data = explode('.', $data);
+        
         $this->cvFile = $data[0];
     }
 

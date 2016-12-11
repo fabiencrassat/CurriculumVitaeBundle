@@ -73,7 +73,7 @@ class Xml2arrayFunctions {
      */
     private function setValue($arrayToSet, $key, $value) {
         if ($value <> '') {
-            $arrayToSet = array_merge($arrayToSet, array($key => $value));
+            return array_merge($arrayToSet, array($key => $value));
         }
         return $arrayToSet;
     }
@@ -87,17 +87,18 @@ class Xml2arrayFunctions {
      * @return array
      */
     private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arrayXML) {
+        $return = $arrayXML;
         if ($xml->children()->count() > 0) {
             foreach($xml->children() as $childValue) {
                 $child = $this->xml2array($childValue, $depth);
                 if ($depth > 1 && ! empty($child)) {
-                    $arrayXML = array_merge_recursive($arrayXML, array($key => $child));
+                    $return = array_merge_recursive($return, array($key => $child));
                 } elseif (! empty($child)) {
-                    $arrayXML = array_merge_recursive($arrayXML, $child);
+                    $return = array_merge_recursive($return, $child);
                 }
             }
         }
-        return $arrayXML;
+        return $return;
     }
 
     /**
@@ -119,7 +120,7 @@ class Xml2arrayFunctions {
             }
         }
         if (count($attributes) > 0) {
-            $arrayToMerge = array_merge_recursive($arrayToMerge, array($key => $attributes));
+            return array_merge_recursive($arrayToMerge, array($key => $attributes));
         }
         return $arrayToMerge;
     }
@@ -133,7 +134,7 @@ class Xml2arrayFunctions {
     private function setSpecificAttributeKeyWithGivenId(\SimpleXMLElement $xml, $keyValue) {
         // Specific Attribute: change the key with the given id
         if ($xml->attributes()->id) {
-            $keyValue = (string) $xml->attributes()->id;
+            return (string) $xml->attributes()->id;
         }
         return $keyValue;
     }
@@ -154,7 +155,7 @@ class Xml2arrayFunctions {
 
             $ageCalculator = new AgeCalculator((string) $birthday);
 
-            $age = (string) $ageCalculator->age();
+            return (string) $ageCalculator->age();
         }
         return $age;
     }
@@ -177,7 +178,7 @@ class Xml2arrayFunctions {
 
                 if($resultArray) $temp = array_merge($temp, $resultArray);
             }
-            $arrayXML = array_merge($arrayXML, array($key => $temp));
+            return array_merge($arrayXML, array($key => $temp));
         }
         return $arrayXML;
     }
@@ -211,9 +212,8 @@ class Xml2arrayFunctions {
     private function setValueForBirthdayKey($date, $format) {
         if ($format) {
             setlocale(LC_TIME, array('fra_fra', 'fr', 'fr_FR', 'fr_FR.UTF8'));
-            $date = strftime('%d %B %Y', strtotime(date($date)));
+            return strftime('%d %B %Y', strtotime(date($date)));
         }
-
         return $date;
     }
 }

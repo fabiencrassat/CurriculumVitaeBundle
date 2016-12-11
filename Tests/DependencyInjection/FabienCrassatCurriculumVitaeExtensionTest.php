@@ -44,9 +44,12 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
         );
 
         $parameters = array(
-            'fabiencrassat_curriculumvitae.default_cv' => 'example',
-            'fabiencrassat_curriculumvitae.default_lang' => 'en',
-            'fabiencrassat_curriculumvitae.template' => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig',
+            'fabiencrassat_curriculumvitae.default_cv'
+                => 'example',
+            'fabiencrassat_curriculumvitae.default_lang'
+                => 'en',
+            'fabiencrassat_curriculumvitae.template'
+                => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig',
         );
         $this->compareParameters($parameters);
     }

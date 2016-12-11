@@ -16,6 +16,10 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string $today Timestamp that will be returned by date()
+     */
+    public static $today;
 
     private $assert;
     private $minDay = 1;
@@ -24,15 +28,15 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
     private $maxMonth = 12;
     private $actualMonth;
     private $actualDay;
-    private $year = 2000;
+    private $birthYear = 2000;
     private $calculator;
 
     public function __construct()
     {
-        $this->assert      = date('Y') - $this->year;
+        $this->assert      = date('Y') - $this->birthYear;
         $this->actualMonth = date('n');
         $this->actualDay   = date('d');
-        $this->maxDay      = date('t', strtotime($this->year.'-'.$this->actualMonth.'-23'));
+        $this->maxDay      = date('t', strtotime($this->birthYear.'-'.$this->actualMonth.'-23'));
     }
 
     public function testEarlyYear()
@@ -67,7 +71,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $this->calculator = new AgeCalculator($this->year.'-'.$month.'-'.$day);
+        $this->calculator = new AgeCalculator($this->birthYear.'-'.$month.'-'.$day);
         
         $age = $this->calculator->age();
 

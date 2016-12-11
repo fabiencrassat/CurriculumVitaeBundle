@@ -36,6 +36,9 @@ class DefaultController implements ContainerAwareInterface
     private $requestFormat;
     private $parameters = array();
 
+    /**
+     * @return Response
+     */
     public function indexAction($cvxmlfile = NULL)
     {
         if($cvxmlfile) {
@@ -64,6 +67,9 @@ class DefaultController implements ContainerAwareInterface
             )), 301);
     }
 
+    /**
+     * @return Response
+     */
     public function displayAction($cvxmlfile, $_locale, Request $request)
     {
         $this->initialization($cvxmlfile, $_locale);
@@ -86,7 +92,8 @@ class DefaultController implements ContainerAwareInterface
                 return $response;
             default:
                 return $this->container->get('templating')->renderResponse(
-                $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $this->parameters);
+                    $this->container->getParameter('fabiencrassat_curriculumvitae.template'),
+                    $this->parameters);
         }
     }
 
@@ -110,7 +117,7 @@ class DefaultController implements ContainerAwareInterface
         );
     }
 
-    private function initialization($file = NULL, $_locale = NULL)
+    private function initialization($file = NULL, $lang = NULL)
     {
         $this->cvxmlfile = $file;
         if (!$this->cvxmlfile) {
@@ -126,10 +133,12 @@ class DefaultController implements ContainerAwareInterface
             throw new NotFoundHttpException(
                 'There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
         }
-        $this->lang = $_locale;
+
+        $this->lang = $lang;
         if (!$this->lang) {
             $this->lang = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
         }
+        
         $this->readCVFile();
     }
 

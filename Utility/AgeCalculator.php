@@ -39,7 +39,7 @@ class AgeCalculator
         // The calculator of the age
         $this->setAgeByYear();
 
-        if ($this->today->month <= $this->birth->month) {
+        if ($this->birth->month >= $this->today->month) {
             if ($this->birth->month == $this->today->month) {
                 if ($this->birth->day > $this->today->day) {
                     $this->setAgeMinusOne();
