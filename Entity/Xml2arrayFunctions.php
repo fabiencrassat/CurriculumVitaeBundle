@@ -188,7 +188,7 @@ class Xml2arrayFunctions {
      * @param string $value
      * @param boolean $format
      *
-     * @return array|string
+     * @return string|string[]
      */
     private function setValueForSpecificKeys($key, $value, $format) {
         if ($key == 'birthday') {

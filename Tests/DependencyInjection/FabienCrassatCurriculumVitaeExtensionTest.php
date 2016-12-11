@@ -116,7 +116,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     /**
     * Gets an empty config
     *
-    * @return array
+    * @return String[]
     */
     private function getEmptyConfig()
     {
@@ -124,13 +124,13 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
 EOF;
         $parser = new Parser;
 
-        return $parser->parse($yaml);
+        return (array) $parser->parse($yaml);
     }
 
     /**
     * Gets a full config
     *
-    * @return array
+    * @return String[]
     */
     private function getFullConfig()
     {
@@ -146,13 +146,13 @@ template:
 EOF;
         $parser = new Parser;
 
-        return $parser->parse($yaml);
+        return (array) $parser->parse($yaml);
     }
 
     /**
     * Gets a full config
     *
-    * @return array
+    * @return String[]
     */
     private function getBadPathToCvConfig()
     {
@@ -162,7 +162,7 @@ path_to_cv:
 EOF;
         $parser = new Parser;
 
-        return $parser->parse($yaml);
+        return (array) $parser->parse($yaml);
     }
 
     /**
