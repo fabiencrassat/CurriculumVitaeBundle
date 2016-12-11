@@ -195,6 +195,12 @@ class DefaultControllerTest extends WebTestCase
         }
     }
 
+    /**
+     * @param string $lang
+     * @param array $cvXml
+     *
+     * @return array
+     */
     private function removeNoVisibleElementDependingOnLanguages($lang, $cvXml)
     {
         switch ($lang) {
@@ -208,6 +214,11 @@ class DefaultControllerTest extends WebTestCase
         return $cvXml;
     }
 
+    /**
+     * @param array $cvXml
+     *
+     * @return array
+     */
     private function removeNoVisibleElementForAllLanguages($cvXml)
     {
         unset($cvXml['identity']['myself']['picture']);
