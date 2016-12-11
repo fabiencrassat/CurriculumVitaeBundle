@@ -28,7 +28,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function testDisplay()
     {
-        $client = static::createClient();
+        $client  = static::createClient();
         $crawler = $client->request('GET', '/example');
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
     }
@@ -60,7 +60,7 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/example/XX');
     }
 
-    private $ReadCVXml;
+    private $curriculumVitae;
     private $client;
 
     public function testOutputHtmlXmlComparaison()
@@ -68,8 +68,8 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
-        foreach ($langs as $key => $value) {
-            $this->OutputHtmlXmlComparaison($value);
+        foreach ($langs as $value) {
+            $this->outputHtmlXmlComparaison($value);
         }
     }
 
@@ -78,27 +78,28 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
-        foreach ($langs as $key => $value) {
+        foreach ($langs as $value) {
             $this->client->request('GET', '/example/'.$value.'.json');
+
             $response = $this->client->getResponse();
-            $data = json_decode($response->getContent(), TRUE);
+            $data     = json_decode($response->getContent(), TRUE);
 
             // Read the Curriculum Vitae
-            $pathToFile = __DIR__.'/../../Resources/data/example.xml';
-            $this->ReadCVXml = new CurriculumVitae($pathToFile, $value);
+            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+            $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
-            $CVXml = array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+            $cvXml = array(
+                'identity'          => $this->curriculumVitae->getIdentity(),
+                'followMe'          => $this->curriculumVitae->getFollowMe(),
+                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+                'experiences'       => $this->curriculumVitae->getExperiences(),
+                'skills'            => $this->curriculumVitae->getSkills(),
+                'educations'        => $this->curriculumVitae->getEducations(),
+                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
             );
 
-            $this->assertSame($CVXml, $data);
+            $this->assertSame($cvXml, $data);
         }
     }
 
@@ -107,32 +108,32 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
-        foreach ($langs as $key => $value) {
+        foreach ($langs as $value) {
             $this->client->request('GET', '/example/'.$value.'.xml');
             $response = $this->client->getResponse();
             $response->headers->set('Content-Type', 'application/xml');
             $data = $response->getContent();
 
             // Read the Curriculum Vitae
-            $pathToFile = __DIR__.'/../../Resources/data/example.xml';
-            $this->ReadCVXml = new CurriculumVitae($pathToFile, $value);
+            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+            $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
-            $CVXml = array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'followMe'          => $this->ReadCVXml->getFollowMe(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+            $cvXml = array(
+                'identity'          => $this->curriculumVitae->getIdentity(),
+                'followMe'          => $this->curriculumVitae->getFollowMe(),
+                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+                'experiences'       => $this->curriculumVitae->getExperiences(),
+                'skills'            => $this->curriculumVitae->getSkills(),
+                'educations'        => $this->curriculumVitae->getEducations(),
+                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
             );
             //initialisation du serializer
-            $encoders = array(new XmlEncoder('CurriculumVitae'));
+            $encoders    = array(new XmlEncoder('CurriculumVitae'));
             $normalizers = array(new GetSetMethodNormalizer());
-            $serializer = new Serializer($normalizers, $encoders);
+            $serializer  = new Serializer($normalizers, $encoders);
 
-            $this->assertSame($serializer->serialize($CVXml, 'xml'), $data);
+            $this->assertSame($serializer->serialize($cvXml, 'xml'), $data);
         }
     }
 
@@ -145,14 +146,14 @@ class DefaultControllerTest extends WebTestCase
             $crawler = $this->client->request('GET', '/example/'.$lang);
 
             // Read the Curriculum Vitae
-            $pathToFile = __DIR__.'/../../Resources/data/example.xml';
-            $this->ReadCVXml = new CurriculumVitae($pathToFile, $lang);
+            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+            $this->curriculumVitae = new CurriculumVitae($pathToFile, $lang);
 
-            $CVXml = array('followMe' => $this->ReadCVXml->getFollowMe());
+            $cvXml = array('followMe' => $this->curriculumVitae->getFollowMe());
 
-            $testValue = $this->array_values_recursive($CVXml);
-            foreach ($testValue as $key => $value) {
-                $alt = $crawler->filter('img[alt="'.$value.'"]')->count();
+            $testValue = $this->arrayValuesRecursive($cvXml);
+            foreach ($testValue as $value) {
+                $alt  = $crawler->filter('img[alt="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[title="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[src="/'.$value.'"]')->count();
                 $alt += $crawler->filter('a[href="'.$value.'"]')->count();
@@ -164,76 +165,29 @@ class DefaultControllerTest extends WebTestCase
         }
     }
 
-    private function OutputHtmlXmlComparaison($lang = 'en')
+    private function outputHtmlXmlComparaison($lang = 'en')
     {
         $crawler = $this->client->request('GET', '/example/'.$lang);
 
         // Read the Curriculum Vitae
-        $pathToFile = __DIR__.'/../../Resources/data/example.xml';
-        $this->ReadCVXml = new CurriculumVitae($pathToFile, $lang);
+        $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
+        $this->curriculumVitae = new CurriculumVitae($pathToFile, $lang);
 
-        $CVXml = array(
-                'identity'          => $this->ReadCVXml->getIdentity(),
-                'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-                'experiences'       => $this->ReadCVXml->getExperiences(),
-                'skills'            => $this->ReadCVXml->getSkills(),
-                'educations'        => $this->ReadCVXml->getEducations(),
-                'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-                'miscellaneous'     => $this->ReadCVXml->getMiscellaneous()
+        $cvXml = array(
+                'identity'          => $this->curriculumVitae->getIdentity(),
+                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+                'experiences'       => $this->curriculumVitae->getExperiences(),
+                'skills'            => $this->curriculumVitae->getSkills(),
+                'educations'        => $this->curriculumVitae->getEducations(),
+                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
         );
-        # Remove all no visible elements
-        switch ($lang) {
-            case 'en':
-                unset($CVXml['identity']['myself']['birthday']);
-                break;
-            default:
-                # code...
-                break;
-        }
-        unset($CVXml['identity']['myself']['picture']);
-        unset($CVXml['identity']['address']['street']);
-        unset($CVXml['identity']['address']['postalcode']);
-        unset($CVXml['identity']['address']['googlemap']);
-        unset($CVXml['identity']['contact']['mobile']);
-        unset($CVXml['experiences']['FirstExperience']['society']['society']['ref']);
-        unset($CVXml['experiences']['FirstExperience']['society']['siteurl']);
-        unset($CVXml['experiences']['SecondExperience']['collapse']);
-        unset($CVXml['experiences']['SecondExperience']['society']['society']['ref']);
-        unset($CVXml['experiences']['SecondExperience']['society']['siteurl']);
-        unset($CVXml['experiences']['ThirdExperience']['society']['society']['ref']);
-        unset($CVXml['experiences']['FourthExperience']['collapse']);
-        unset($CVXml['skills']['Functional']['lines']['success']['percentage']);
-        unset($CVXml['skills']['Functional']['lines']['success']['class']);
-        unset($CVXml['skills']['Functional']['lines']['success']['striped']);
-        unset($CVXml['skills']['Functional']['lines']['otherSucess']['percentage']);
-        unset($CVXml['skills']['Functional']['lines']['otherSucess']['class']);
-        unset($CVXml['skills']['Functional']['lines']['info']['percentage']);
-        unset($CVXml['skills']['Functional']['lines']['info']['class']);
-        unset($CVXml['skills']['Functional']['lines']['info']['striped']);
-        unset($CVXml['skills']['Functional']['lines']['warning']['percentage']);
-        unset($CVXml['skills']['Functional']['lines']['warning']['class']);
-        unset($CVXml['skills']['Functional']['lines']['danger']['percentage']);
-        unset($CVXml['skills']['Functional']['lines']['danger']['class']);
-        unset($CVXml['skills']['Functional']['lines']['noClass']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['success']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['success']['class']);
-        unset($CVXml['skills']['OtherSkill']['lines']['success']['striped']);
-        unset($CVXml['skills']['OtherSkill']['lines']['info']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['info']['class']);
-        unset($CVXml['skills']['OtherSkill']['lines']['info']['striped']);
-        unset($CVXml['skills']['OtherSkill']['lines']['warning']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['warning']['class']);
-        unset($CVXml['skills']['OtherSkill']['lines']['warning']['striped']);
-        unset($CVXml['skills']['OtherSkill']['lines']['danger']['percentage']);
-        unset($CVXml['skills']['OtherSkill']['lines']['danger']['class']);
-        unset($CVXml['skills']['OtherSkill']['lines']['danger']['striped']);
-        unset($CVXml['educations']['HighSchool']['collapse']);
-        unset($CVXml['educations']['FirstSchool']['collapse']);
-        unset($CVXml['languageSkills']['French']['icon']);
-        unset($CVXml['languageSkills']['English']['icon']);
+        // Remove all no visible elements
+        $cvXml = $this->removeNoVisibleElementDependingOnLanguages($lang, $cvXml);
+        $cvXml = $this->removeNoVisibleElementForAllLanguages($cvXml);
 
-        $testValue = $this->array_values_recursive($CVXml);
-        foreach ($testValue as $key => $value) {
+        $testValue = $this->arrayValuesRecursive($cvXml);
+        foreach ($testValue as $value) {
             $this->assertGreaterThan(0,
                 $crawler->filter('html:contains("'.$value.'")')->count(),
                 'The value '.$value.' is not diplay for language '.$lang
@@ -241,16 +195,92 @@ class DefaultControllerTest extends WebTestCase
         }
     }
 
-    private function array_values_recursive($array)
+    /**
+     * @param string $lang
+     * @param array $cvXml
+     *
+     * @return array
+     */
+    private function removeNoVisibleElementDependingOnLanguages($lang, $cvXml)
+    {
+        switch ($lang) {
+            case 'en':
+                unset($cvXml['identity']['myself']['birthday']);
+                break;
+            default:
+                // code...
+                break;
+        }
+        return $cvXml;
+    }
+
+    /**
+     * @param array $cvXml
+     *
+     * @return array
+     */
+    private function removeNoVisibleElementForAllLanguages($cvXml)
+    {
+        unset($cvXml['identity']['myself']['picture']);
+        unset($cvXml['identity']['address']['street']);
+        unset($cvXml['identity']['address']['postalcode']);
+        unset($cvXml['identity']['address']['googlemap']);
+        unset($cvXml['identity']['contact']['mobile']);
+        unset($cvXml['experiences']['FirstExperience']['society']['society']['ref']);
+        unset($cvXml['experiences']['FirstExperience']['society']['siteurl']);
+        unset($cvXml['experiences']['SecondExperience']['collapse']);
+        unset($cvXml['experiences']['SecondExperience']['society']['society']['ref']);
+        unset($cvXml['experiences']['SecondExperience']['society']['siteurl']);
+        unset($cvXml['experiences']['ThirdExperience']['society']['society']['ref']);
+        unset($cvXml['experiences']['FourthExperience']['collapse']);
+        unset($cvXml['skills']['Functional']['lines']['success']['percentage']);
+        unset($cvXml['skills']['Functional']['lines']['success']['class']);
+        unset($cvXml['skills']['Functional']['lines']['success']['striped']);
+        unset($cvXml['skills']['Functional']['lines']['otherSucess']['percentage']);
+        unset($cvXml['skills']['Functional']['lines']['otherSucess']['class']);
+        unset($cvXml['skills']['Functional']['lines']['info']['percentage']);
+        unset($cvXml['skills']['Functional']['lines']['info']['class']);
+        unset($cvXml['skills']['Functional']['lines']['info']['striped']);
+        unset($cvXml['skills']['Functional']['lines']['warning']['percentage']);
+        unset($cvXml['skills']['Functional']['lines']['warning']['class']);
+        unset($cvXml['skills']['Functional']['lines']['danger']['percentage']);
+        unset($cvXml['skills']['Functional']['lines']['danger']['class']);
+        unset($cvXml['skills']['Functional']['lines']['noClass']['percentage']);
+        unset($cvXml['skills']['OtherSkill']['lines']['success']['percentage']);
+        unset($cvXml['skills']['OtherSkill']['lines']['success']['class']);
+        unset($cvXml['skills']['OtherSkill']['lines']['success']['striped']);
+        unset($cvXml['skills']['OtherSkill']['lines']['info']['percentage']);
+        unset($cvXml['skills']['OtherSkill']['lines']['info']['class']);
+        unset($cvXml['skills']['OtherSkill']['lines']['info']['striped']);
+        unset($cvXml['skills']['OtherSkill']['lines']['warning']['percentage']);
+        unset($cvXml['skills']['OtherSkill']['lines']['warning']['class']);
+        unset($cvXml['skills']['OtherSkill']['lines']['warning']['striped']);
+        unset($cvXml['skills']['OtherSkill']['lines']['danger']['percentage']);
+        unset($cvXml['skills']['OtherSkill']['lines']['danger']['class']);
+        unset($cvXml['skills']['OtherSkill']['lines']['danger']['striped']);
+        unset($cvXml['educations']['HighSchool']['collapse']);
+        unset($cvXml['educations']['FirstSchool']['collapse']);
+        unset($cvXml['languageSkills']['French']['icon']);
+        unset($cvXml['languageSkills']['English']['icon']);
+
+        return $cvXml;
+    } 
+
+    private function arrayValuesRecursive($array)
     {
         $return = array();
-        foreach($array as $key => $value) {
-            if(is_array($value)) {
-                $return = array_merge($return, $this->array_values_recursive($value));
-            } else {
-                $return = array_merge($return, array($value));
-            }
+        foreach($array as $value) {
+            $return = $this->arrayValuesMerge($return, $value);
         }
         return $return;
+    }
+
+    private function arrayValuesMerge($return, $value)
+    {
+        if(is_array($value)) {
+            return array_merge($return, $this->arrayValuesRecursive($value));
+        }
+
+        return array_merge($return, array($value));
     }
 }

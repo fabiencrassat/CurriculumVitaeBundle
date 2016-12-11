@@ -34,7 +34,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $this->container = $container;
-        $this->config = $this->processConfiguration(new Configuration(), $configs);
+        $this->config    = $this->processConfiguration(new Configuration(), $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
@@ -48,15 +48,15 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private function setPathToCVDirectory()
     {
         // Path to Curriculum Vitae Directory
+        $pathToCV = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
         if(isset($this->config['path_to_cv'])) {
-            $path_to_cv = $this->config['path_to_cv'];
-        } else {
-            $path_to_cv = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
+            $pathToCV = $this->config['path_to_cv'];
         }
-        if (!is_dir($path_to_cv)) {
-            throw new NotFoundHttpException('There is no directory defined here ('.$path_to_cv.').');
+        
+        if (!is_dir($pathToCV)) {
+            throw new NotFoundHttpException('There is no directory defined here ('.$pathToCV.').');
         }
-        $this->container->setParameter('fabiencrassat_curriculumvitae.path_to_cv', $path_to_cv);
+        $this->container->setParameter('fabiencrassat_curriculumvitae.path_to_cv', $pathToCV);
     }
 
     private function setDefaultCV()

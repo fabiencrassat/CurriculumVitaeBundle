@@ -17,10 +17,10 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 class CurriculumVitae extends Xml2arrayFunctions
 {
     private $lang;
-    private $CV;
+    private $curriculumVitae;
     private $pathToFile;
     private $interface;
-    private $file;
+    private $cvFile;
     private $xml2arrayFunctions;
 
     /**
@@ -30,17 +30,17 @@ class CurriculumVitae extends Xml2arrayFunctions
     public function __construct($pathToFile, $lang = 'en') {
         $this->pathToFile = $pathToFile;
         $this->setFileName();
-        $this->lang = $lang;
-        $this->CV = $this->getXmlCurriculumVitae();
-        $this->xml2arrayFunctions = New Xml2arrayFunctions($this->CV, $this->lang);
+        $this->lang               = $lang;
+        $this->curriculumVitae    = $this->getXmlCurriculumVitae();
+        $this->xml2arrayFunctions = New Xml2arrayFunctions($this->curriculumVitae, $this->lang);
     }
 
     /**
      * @return null|array
      */
     public function getDropDownLanguages() {
-        $this->interface = $this->CV->{"langs"};
-        $return = $this->getXMLValue();
+        $this->interface = $this->curriculumVitae->{'langs'};
+        $return          = $this->getXMLValue();
         if(!$return) {
             $return = array($this->lang => $this->lang);
         }
@@ -52,14 +52,14 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return array
      */
     public function getAnchors() {
-        $anchorsAttribute = $this->CV->xpath("curriculumVitae/*[attribute::anchor]");
+        $anchorsAttribute = $this->curriculumVitae->xpath('curriculumVitae/*[attribute::anchor]');
 
         $anchors = array();
-        foreach ($anchorsAttribute as $anchorsKey => $anchorsValue) {
+        foreach ($anchorsAttribute as $anchorsValue) {
             $anchor = (string) $anchorsValue['anchor'];
-            $title = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
+            $title  = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
             if (count($title) == 0) {
-                $title = $anchorsValue->xpath("anchorTitle");
+                $title = $anchorsValue->xpath('anchorTitle');
             }
             $anchors[$anchor] = array(
                 'href'  => $anchor,
@@ -74,24 +74,24 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return string
      */
     public function getHumanFileName() {
-        $myName = $this->getMyName();
+        $myName       = $this->getMyName();
         $myCurrentJob = $this->getMyCurrentJob();
         if (NULL != $myName) {
             if (NULL !== $myCurrentJob) {
                 return $myName.' - '.$myCurrentJob;
-            } else {
-                return $myName;
             }
-        } else {
-            return $this->file;
+
+            return $myName;
         }
+        
+        return $this->cvFile;
     }
 
     /**
      * @return null|array
      */
     public function getIdentity() {
-        $this->interface = $this->CV->curriculumVitae->identity->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->identity->items;
         return $this->getXMLValue();
     }
 
@@ -99,7 +99,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getFollowMe() {
-        $this->interface = $this->CV->curriculumVitae->followMe->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->followMe->items;
         return $this->getXMLValue();
     }
 
@@ -107,7 +107,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getLookingFor() {
-        $this->interface = $this->CV->curriculumVitae->lookingFor;
+        $this->interface = $this->curriculumVitae->curriculumVitae->lookingFor;
         return $this->getXMLValue();
     }
 
@@ -115,7 +115,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getExperiences() {
-        $this->interface = $this->CV->curriculumVitae->experiences->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->experiences->items;
         return $this->getXMLValue();
     }
 
@@ -123,7 +123,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getSkills() {
-        $this->interface = $this->CV->curriculumVitae->skills->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->skills->items;
         return $this->getXMLValue();
     }
 
@@ -131,7 +131,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getEducations() {
-        $this->interface = $this->CV->curriculumVitae->educations->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->educations->items;
         return $this->getXMLValue();
     }
 
@@ -139,7 +139,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getLanguageSkills() {
-        $this->interface = $this->CV->curriculumVitae->languageSkills->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->languageSkills->items;
         return $this->getXMLValue();
     }
 
@@ -147,15 +147,16 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array
      */
     public function getMiscellaneous() {
-        $this->interface = $this->CV->curriculumVitae->miscellaneous->items;
+        $this->interface = $this->curriculumVitae->curriculumVitae->miscellaneous->items;
         return $this->getXMLValue();
     }
 
     private function setFileName() {
-        $data = explode("/", $this->pathToFile);
+        $data = explode('/', $this->pathToFile);
         $data = $data[count($data) - 1];
-        $data = explode(".", $data);;
-        $this->file = $data[0];
+        $data = explode('.', $data);
+        
+        $this->cvFile = $data[0];
     }
 
     /**
@@ -175,9 +176,9 @@ class CurriculumVitae extends Xml2arrayFunctions
             return $lookingFor['experience']['job'];
         } elseif (isset($lookingFor['experience'])) {
             return $lookingFor['experience'];
-        } else {
-            return NULL;
         }
+        
+        return NULL;
     }
 
     /**
@@ -185,9 +186,9 @@ class CurriculumVitae extends Xml2arrayFunctions
      */
     private function getXmlCurriculumVitae() {
         if (is_null($this->pathToFile) || !is_file($this->pathToFile)) {
-            throw new InvalidArgumentException("The path " . $this->pathToFile . " is not a valid path to file.");
+            throw new InvalidArgumentException('The path ' . $this->pathToFile . ' is not a valid path to file.');
         }
-        $this->validateXmlCurriculumVitae();
+        $this->isValidXmlCurriculumVitae();
 
         return simplexml_load_file($this->pathToFile);
     }
@@ -195,23 +196,23 @@ class CurriculumVitae extends Xml2arrayFunctions
     /**
      * @return boolean
      */
-    private function validateXmlCurriculumVitae() {
-        // Activer "user error handling"
+    private function isValidXmlCurriculumVitae() {
+        // Active "user error handling"
         libxml_use_internal_errors(TRUE);
 
-        // Instanciation d’un DOMDocument
-        $dom = new \DOMDocument("1.0");
+        // Instanciate of a DOMDocument
+        $dom = new \DOMDocument('1.0');
 
-        // Charge du XML depuis un fichier
+        // Load the XML from the file
         $dom->load($this->pathToFile);
 
-        // Validation du document XML
+        // Validation duof the XML document
         $reflClass = new \ReflectionClass(get_class($this));
-        $xsdFile = dirname($reflClass->getFileName()).'/validator.xsd';
-        $validate = $dom->schemaValidate($xsdFile);
+        $xsdFile   = dirname($reflClass->getFileName()).'/validator.xsd';
+        $validate  = $dom->schemaValidate($xsdFile);
         if (!$validate) {
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());;
+            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());
         }
 
         return $validate;
@@ -223,8 +224,8 @@ class CurriculumVitae extends Xml2arrayFunctions
     private function getXMLValue() {
         if (!$this->interface) {
             return NULL;
-        } else {
-            return $this->xml2arrayFunctions->xml2array($this->interface);
         }
+        
+        return $this->xml2arrayFunctions->xml2array($this->interface);
     }
 }

@@ -20,13 +20,13 @@ class LibXmlDisplayErrors
 
     public function __construct()
     {
-        $this->errors = libxml_get_errors();
-        $this->chainErrors = "";
+        $this->errors      = libxml_get_errors();
+        $this->chainErrors = '';
     }
 
     public function libXmlDisplayErrors() {
         foreach ($this->errors as $error) {
-            $this->error = $error;
+            $this->error        = $error;
             $this->chainErrors .= $this->libXmlDisplayError();
         }
         libxml_clear_errors();
@@ -41,20 +41,20 @@ class LibXmlDisplayErrors
         $this->addLineAndColumnContent();
         $this->addErrorMessageContent();
 
-        return preg_replace('/( in\ \/(.*))/', "", strip_tags($this->getContent()))."\n";
+        return preg_replace('/( in\ \/(.*))/', '', strip_tags($this->getContent()))."\n";
     }
 
     private function addErrorLevelContent()
     {
         switch ($this->error->level) {
             case LIBXML_ERR_WARNING:
-                $this->addInContent("Warning ".($this->error->code));
+                $this->addInContent('Warning '.($this->error->code));
                 break;
             case LIBXML_ERR_ERROR:
-                $this->addInContent("Error ".($this->error->code));
+                $this->addInContent('Error '.($this->error->code));
                 break;
             case LIBXML_ERR_FATAL:
-                $this->addInContent("Fatal Error ".($this->error->code));
+                $this->addInContent('Fatal Error '.($this->error->code));
                 break;
         }
     }
@@ -62,13 +62,13 @@ class LibXmlDisplayErrors
     private function addFileContent()
     {
         if ($this->error->file) {
-            $this->addInContent(" in ".($this->error->file));
+            $this->addInContent(' in '.($this->error->file));
         }
     }
 
     private function addLineAndColumnContent()
     {
-        $this->addInContent(" on line ".($this->error->line)." column ".($this->error->column).":\n");
+        $this->addInContent(' on line '.($this->error->line).' column '.($this->error->column).":\n");
     }
 
     private function addErrorMessageContent()
@@ -86,7 +86,7 @@ class LibXmlDisplayErrors
 
     private function setEmptyContent()
     {
-        $this->content = "";
+        $this->content = '';
     }
 
     private function getContent()

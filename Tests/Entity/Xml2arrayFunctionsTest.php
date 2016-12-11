@@ -15,10 +15,10 @@ use FabienCrassat\CurriculumVitaeBundle\Entity\Xml2arrayFunctions;
 
 class Xml2arrayFunctionsTest extends \PHPUnit_Framework_TestCase
 {
-    private $Xml2arrayFunctions;
+    private $xml2arrayFunctions;
 
     public function testXml2arrayEmpty() {
-        $string = <<<XML
+        $string   = <<<XML
 <?xml version='1.0'?>
 <document>
 </document>
@@ -29,7 +29,7 @@ XML;
     }
 
     public function testXml2arrayWithBadLanguage() {
-        $string = <<<XML
+        $string   = <<<XML
 <?xml version='1.0'?>
 <document>
     <node lang='unknown'>something we don't want</node>
@@ -41,7 +41,7 @@ XML;
     }
 
     public function testXml2arraySimple() {
-        $string = <<<XML
+        $string   = <<<XML
 <?xml version='1.0'?>
 <document>
  <title>Forty What?</title>
@@ -53,9 +53,9 @@ XML;
 </document>
 XML;
         $expected = array(
-            'title' => "Forty What?",
-            'from'  => "Joe",
-            'to'    => "Jane",
+            'title' => 'Forty What?',
+            'from'  => 'Joe',
+            'to'    => 'Jane',
             'body'  => "I know that's the answer -- but what's the question?"
         );
 
@@ -63,7 +63,7 @@ XML;
     }
 
     public function testXml2arrayWithAttribute() {
-        $string = <<<XML
+        $string   = <<<XML
 <?xml version='1.0'?>
 <document>
  <attr attributekey="we don't care">The value win, not the attribute!!!</attr>
@@ -76,20 +76,20 @@ XML;
 </document>
 XML;
         $expected = array(
-            'attr' => "The value win, not the attribute!!!",
+            'attr' => 'The value win, not the attribute!!!',
             'onlyattribute'   => array(
-                'attributekey' => "attributevalue"),
+                'attributekey' => 'attributevalue'),
             'attr2'   => array(
-                'attributekey' => "attributevalue",
-                'product' => "product"),
-            'value'  => "value"
+                'attributekey' => 'attributevalue',
+                'product' => 'product'),
+            'value'  => 'value'
         );
 
         $this->assertXml2Array($expected, $string, $string);
     }
 
     public function testXml2arrayWithCrossRefDepth1() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
  <society crossref="societies/society[@ref='OneSociety']/*"></society>
@@ -102,23 +102,25 @@ XML;
  </societies>
 </document>
 XML;
+
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
  <society crossref="societies/society[@ref='OneSociety']/*"></society>
 </document>
 XML;
+
         $expected = array('society' => array(
-            'name'      => "OneSociety",
-            'address'   => "An address",
-            'siteurl'   => "http://www.google.com"
+            'name'      => 'OneSociety',
+            'address'   => 'An address',
+            'siteurl'   => 'http://www.google.com'
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
 
     public function testXml2arrayWithCrossRefDepth2() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
@@ -135,21 +137,23 @@ XML;
  </societies>
 </document>
 XML;
+
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
 </document>
 XML;
+
         $expected = array('job' => array(
             'society' => array(
-                'name'      => "OneSociety",
-                'address'   => "An address",
-                'siteurl'   => "http://www.google.com"),
-            'job'   => "My first job"
+                'name'      => 'OneSociety',
+                'address'   => 'An address',
+                'siteurl'   => 'http://www.google.com'),
+            'job'   => 'My first job'
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
 
         $string = <<<XML
 <?xml version='1.0'?>
@@ -160,15 +164,16 @@ XML;
  </experience>
 </document>
 XML;
+
         $expected = array('OneExperience' => array(
             'society' => array(
-                'name'      => "OneSociety",
-                'address'   => "An address",
-                'siteurl'   => "http://www.google.com"),
-            'job'   => "My first job"
+                'name'      => 'OneSociety',
+                'address'   => 'An address',
+                'siteurl'   => 'http://www.google.com'),
+            'job'   => 'My first job'
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
 
         $string = <<<XML
 <?xml version='1.0'?>
@@ -176,17 +181,18 @@ XML;
   <society crossref="societies/society[@ref='OneSociety']/*"></society>
 </document>
 XML;
+
         $expected = array('society' => array(
-            'name'      => "OneSociety",
-            'address'   => "An address",
-            'siteurl'   => "http://www.google.com")
+            'name'      => 'OneSociety',
+            'address'   => 'An address',
+            'siteurl'   => 'http://www.google.com')
         );
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
 
     public function testXml2arrayWithCrossRef() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
@@ -203,30 +209,31 @@ XML;
  </societies>
 </document>
 XML;
+
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
 </document>
 XML;
+
         $expected = array('job' => array(
             'society' => array(
-                'name'      => "OneSociety",
-                'address'   => "An address",
-                'siteurl'   => "http://www.google.com"),
-            'job'   => "My first job"
+                'name'      => 'OneSociety',
+                'address'   => 'An address',
+                'siteurl'   => 'http://www.google.com'),
+            'job'   => 'My first job'
         ));
 
-        $this->assertXml2Array($expected, $CV, $string);
+        $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
 
     public function testXml2arrayWithCVCrossRef() {
-        $CV = <<<XML
+        $curriculumVitae = <<<XML
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <root>
     <langs>
-        <lang id="en">English</lang>
-        <lang id="fr">Français</lang>
+        <lang id="en">English</lang><lang id="fr">Français</lang>
     </langs>
     <curriculumVitae>
         <lookingFor>
@@ -269,64 +276,65 @@ XML;
     </curriculumVitae>
     <societies>
         <society ref="OneSociety">
-            <name>OneSociety</name>
-            <address>address</address>
-            <siteurl>http://www.google.com</siteurl>
+            <name>OneSociety</name><address>address</address><siteurl>http://www.google.com</siteurl>
         </society>
     </societies>
 </root>
 XML;
+
         $expected = array(
             'langs'  => array(
-                'en' => "English",
-                'fr' => "Français"),
+                'en' => 'English', 'fr' => 'Français'),
             'curriculumVitae' => array(
                 'lookingFor'  => array(
                     'experience'     => array(
-                        'job'      => "Second Job",
-                        'date'     => "Apr 2011 - Present",
+                        'job'      => 'Second Job',
+                        'date'     => 'Apr 2011 - Present',
                         'society'  => array(
-                            'name'    => "OneSociety",
-                            'address' => "address",
-                            'siteurl' => "http://www.google.com"),
+                            'name'    => 'OneSociety',
+                            'address' => 'address',
+                            'siteurl' => 'http://www.google.com'),
                         'missions' => array(
-                            'item' => array("A item."))),
-                    'presentation' => "A good presentation."),
+                            'item' => array('A item.'))),
+                    'presentation' => 'A good presentation.'),
                 'experiences' => array(
-                    'anchorTitle' => "Experiences",
+                    'anchorTitle' => 'Experiences',
                     'items' => array(
                         'SecondJob' => array(
-                            'job'      => "Second Job",
-                            'date'     => "Apr 2011 - Present",
+                            'job'      => 'Second Job',
+                            'date'     => 'Apr 2011 - Present',
                             'society'  => array(
-                                'name'    => "OneSociety",
-                                'address' => "address",
-                                'siteurl' => "http://www.google.com"),
+                                'name'    => 'OneSociety',
+                                'address' => 'address',
+                                'siteurl' => 'http://www.google.com'),
                             'missions' => array(
-                                'item' => array("A item."))),
+                                'item' => array('A item.'))),
                         'FirstJob'  => array(
-                            'job'      => "First Job",
-                            'date'     => "Nov 2009 - Apr 2011",
+                            'job'      => 'First Job',
+                            'date'     => 'Nov 2009 - Apr 2011',
                             'society'  => array(
-                                'name'    => "OneSociety",
-                                'address' => "address",
-                                'siteurl' => "http://www.google.com"),
+                                'name'    => 'OneSociety',
+                                'address' => 'address',
+                                'siteurl' => 'http://www.google.com'),
                             'missions' => array(
-                                'item' => array("A item.")))),
-                    'anchor' => "experiences")),
+                                'item' => array('A item.')))),
+                    'anchor' => 'experiences')),
             'societies' => array(
                 'society' => array(
-                    'name'    => "OneSociety",
-                    'address' => "address",
-                    'siteurl' => "http://www.google.com"))
+                    'name' => 'OneSociety', 'address' => 'address', 'siteurl' => 'http://www.google.com'))
         );
 
-        $this->assertXml2Array($expected, $CV, $CV);
+        $this->assertXml2Array($expected, $curriculumVitae, $curriculumVitae);
     }
 
-    private function assertXml2Array($expected, $CV, $XML) {
-        $this->Xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($CV));
-        $result = $this->Xml2arrayFunctions->xml2array(simplexml_load_string($XML));
+    /**
+     * @param string $curriculumVitae
+     * @param string $xml
+     */
+    private function assertXml2Array($expected, $curriculumVitae, $xml) {
+        $this->xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($curriculumVitae));
+        
+        $result = $this->xml2arrayFunctions->xml2array(simplexml_load_string($xml));
 
         $this->assertEquals($expected, $result);
     }

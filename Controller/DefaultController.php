@@ -31,11 +31,14 @@ class DefaultController implements ContainerAwareInterface
     private $cvxmlfile;
     private $pathToFile;
     private $lang;
-    private $ReadCVXml;
+    private $curriculumVitae;
     private $exposedLanguages;
     private $requestFormat;
-    private $CVVariables = array();
+    private $parameters = array();
 
+    /**
+     * @return Response
+     */
     public function indexAction($cvxmlfile = NULL)
     {
         if($cvxmlfile) {
@@ -44,70 +47,77 @@ class DefaultController implements ContainerAwareInterface
                 'cvxmlfile'   => $cvxmlfile,
                 '_locale'     => $this->lang,
             );
-            $request = $this->container->get('request');
+
+            $request    = $this->container->get('request');
             $subRequest = $request->duplicate(array(), NULL, $path);
 
             $httpKernel = $this->container->get('http_kernel');
-            $response = $httpKernel->handle(
+            $response   = $httpKernel->handle(
                 $subRequest,
                 HttpKernelInterface::SUB_REQUEST
             );
             return $response;
-        } else {
-            $this->initialization($cvxmlfile);
-            return new RedirectResponse($this->container->get('router')->generate(
-                'fabiencrassat_curriculumvitae_cvxmlfileonly',
-                array(
-                    'cvxmlfile'   => $this->cvxmlfile,
-                )), 301);
         }
+        
+        $this->initialization($cvxmlfile);
+        return new RedirectResponse($this->container->get('router')->generate(
+            'fabiencrassat_curriculumvitae_cvxmlfileonly',
+            array(
+                'cvxmlfile'   => $this->cvxmlfile,
+            )), 301);
     }
 
+    /**
+     * @return Response
+     */
     public function displayAction($cvxmlfile, $_locale, Request $request)
     {
         $this->initialization($cvxmlfile, $_locale);
         $this->requestFormat = $request->getRequestFormat();
-        $this->defineCVViewVariables();
+        $this->setViewParameters();
 
         switch ($this->requestFormat) {
             case 'json':
-                return new Response(json_encode($this->CVVariables));
+                return new Response(json_encode($this->parameters));
             case 'xml':
                 //initialisation du serializer
-                $encoders = array(new XmlEncoder('CurriculumVitae'), new JsonEncoder());
+                $encoders    = array(new XmlEncoder('CurriculumVitae'), new JsonEncoder());
                 $normalizers = array(new GetSetMethodNormalizer());
-                $serializer = new Serializer($normalizers, $encoders);
+                $serializer  = new Serializer($normalizers, $encoders);
 
                 $response = new Response();
-                $response->setContent($serializer->serialize($this->CVVariables, 'xml'));
+                $response->setContent($serializer->serialize($this->parameters, 'xml'));
                 $response->headers->set('Content-Type', 'application/xml');
 
                 return $response;
             default:
                 return $this->container->get('templating')->renderResponse(
-                $this->container->getParameter('fabiencrassat_curriculumvitae.template'), $this->CVVariables);
+                    $this->container->getParameter('fabiencrassat_curriculumvitae.template'),
+                    $this->parameters);
         }
     }
 
     public function exportPDFAction($cvxmlfile, $_locale)
     {
         $this->initialization($cvxmlfile, $_locale);
-        $this->defineCVViewVariables();
+        $this->setViewParameters();
 
         if (!$this->container->has('knp_snappy.pdf')) {
             throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
         };
 
-        $html = $this->container->get('templating')->render("FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig", $this->CVVariables);
+        $html = $this->container->get('templating')->render(
+            'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
+            $this->parameters);
 
         return new Response($this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array('Content-Type'        => 'application/pdf',
-                  'Content-Disposition' => 'attachment; filename="'.$this->ReadCVXml->getHumanFileName().'.pdf"')
+                  'Content-Disposition' => 'attachment; filename="'.$this->curriculumVitae->getHumanFileName().'.pdf"')
         );
     }
 
-    private function initialization($file = NULL, $_locale = NULL)
+    private function initialization($file = NULL, $lang = NULL)
     {
         $this->cvxmlfile = $file;
         if (!$this->cvxmlfile) {
@@ -115,23 +125,29 @@ class DefaultController implements ContainerAwareInterface
             $this->cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
         }
         // Check the file in the filesystem
-        $this->pathToFile = $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv').'/'.$this->cvxmlfile.'.xml';
+        $this->pathToFile = 
+            $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
+            .'/'.$this->cvxmlfile.'.xml';
+        
         if (!is_file($this->pathToFile)) {
-            throw new NotFoundHttpException('There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
+            throw new NotFoundHttpException(
+                'There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
         }
-        $this->lang = $_locale;
+
+        $this->lang = $lang;
         if (!$this->lang) {
             $this->lang = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
         }
+        
         $this->readCVFile();
     }
 
     private function readCVFile() {
         // Read the Curriculum Vitae
-        $this->ReadCVXml = new CurriculumVitae($this->pathToFile, $this->lang);
+        $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $this->lang);
 
         // Check if there is at least 1 language defined
-        $this->exposedLanguages = $this->ReadCVXml->getDropDownLanguages();
+        $this->exposedLanguages = $this->curriculumVitae->getDropDownLanguages();
         if(is_array($this->exposedLanguages)) {
             if (!array_key_exists($this->lang, $this->exposedLanguages)) {
                 throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->lang);
@@ -139,44 +155,44 @@ class DefaultController implements ContainerAwareInterface
         }
     }
 
-    private function defineCVViewVariables()
+    private function setViewParameters()
     {
         if ($this->requestFormat != 'json' && $this->requestFormat != 'xml') {
-            $this->setToolCVVariables();
+            $this->setToolParameters();
         }
-        $this->setCoreCVVariables();
+        $this->setCoreParameters();
     }
 
-    private function setToolCVVariables()
+    private function setToolParameters()
     {
-        $this->setCVVariables(array(
+        $this->setParameters(array(
             'cvxmlfile'    => $this->cvxmlfile,
             'languageView' => $this->lang,
             'languages'    => $this->exposedLanguages,
-            'anchors'      => $this->ReadCVXml->getAnchors(),
+            'anchors'      => $this->curriculumVitae->getAnchors(),
             'hasSnappyPDF' => $this->container->has('knp_snappy.pdf'),
         ));
     }
 
-    private function setCoreCVVariables()
+    private function setCoreParameters()
     {
-        $this->setCVVariables(array(
-            'identity'          => $this->ReadCVXml->getIdentity(),
-            'followMe'          => $this->ReadCVXml->getFollowMe(),
-            'lookingFor'        => $this->ReadCVXml->getLookingFor(),
-            'experiences'       => $this->ReadCVXml->getExperiences(),
-            'skills'            => $this->ReadCVXml->getSkills(),
-            'educations'        => $this->ReadCVXml->getEducations(),
-            'languageSkills'    => $this->ReadCVXml->getLanguageSkills(),
-            'miscellaneous'     => $this->ReadCVXml->getMiscellaneous(),
+        $this->setParameters(array(
+            'identity'          => $this->curriculumVitae->getIdentity(),
+            'followMe'          => $this->curriculumVitae->getFollowMe(),
+            'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+            'experiences'       => $this->curriculumVitae->getExperiences(),
+            'skills'            => $this->curriculumVitae->getSkills(),
+            'educations'        => $this->curriculumVitae->getEducations(),
+            'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+            'miscellaneous'     => $this->curriculumVitae->getMiscellaneous(),
         ));
     }
 
     /**
-     * @param array $newCVVariables
+     * @param array $parametersToAdd
      */
-    private function setCVVariables(array $newCVVariables)
+    private function setParameters(array $parametersToAdd)
     {
-        $this->CVVariables = array_merge($this->CVVariables, $newCVVariables);
+        $this->parameters = array_merge($this->parameters, $parametersToAdd);
     }
 }

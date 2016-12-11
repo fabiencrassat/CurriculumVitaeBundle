@@ -26,7 +26,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     public function __construct()
     {
         $this->configuration = new ContainerBuilder;
-        $this->loader = new FabienCrassatCurriculumVitaeExtension;
+        $this->loader        = new FabienCrassatCurriculumVitaeExtension;
     }
 
     /**
@@ -44,9 +44,12 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
         );
 
         $parameters = array(
-            'fabiencrassat_curriculumvitae.default_cv' => 'example',
-            'fabiencrassat_curriculumvitae.default_lang' => 'en',
-            'fabiencrassat_curriculumvitae.template' => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig',
+            'fabiencrassat_curriculumvitae.default_cv'
+                => 'example',
+            'fabiencrassat_curriculumvitae.default_lang'
+                => 'en',
+            'fabiencrassat_curriculumvitae.template'
+                => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig',
         );
         $this->compareParameters($parameters);
     }
@@ -113,25 +116,25 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     /**
     * Gets an empty config
     *
-    * @return array
+    * @return String[]
     */
     private function getEmptyConfig()
     {
-        $yaml = <<<EOF
+        $yaml   = <<<EOF
 EOF;
         $parser = new Parser;
 
-        return $parser->parse($yaml);
+        return (array) $parser->parse($yaml);
     }
 
     /**
     * Gets a full config
     *
-    * @return array
+    * @return String[]
     */
     private function getFullConfig()
     {
-        $yaml = <<<EOF
+        $yaml   = <<<EOF
 path_to_cv:
     "./Tests/Resources/data"
 custo_default_cv:
@@ -143,23 +146,23 @@ template:
 EOF;
         $parser = new Parser;
 
-        return $parser->parse($yaml);
+        return (array) $parser->parse($yaml);
     }
 
     /**
     * Gets a full config
     *
-    * @return array
+    * @return String[]
     */
     private function getBadPathToCvConfig()
     {
-        $yaml = <<<EOF
+        $yaml   = <<<EOF
 path_to_cv:
     "itIsNotADirectory"
 EOF;
         $parser = new Parser;
 
-        return $parser->parse($yaml);
+        return (array) $parser->parse($yaml);
     }
 
     /**
@@ -189,10 +192,10 @@ EOF;
     /**
     * Asserts the given identifier matched a parameter
     *
-    * @param string $id
+    * @param string $identifier
     */
-    private function assertHasParameter($id)
+    private function assertHasParameter($identifier)
     {
-        $this->assertTrue($this->configuration->hasParameter($id));
+        $this->assertTrue($this->configuration->hasParameter($identifier));
     }
 }

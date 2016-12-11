@@ -27,8 +27,9 @@ class AgeCalculator
     public function __construct($birthday)
     {
         $this->birthday = $birthday;
-        $this->birth = new \stdClass();
+        $this->birth    = new \stdClass();
         $this->setBirthday();
+        
         $this->today = new \stdClass();
         $this->setToday();
     }
@@ -38,15 +39,18 @@ class AgeCalculator
         // The calculator of the age
         $this->setAgeByYear();
 
-        if ($this->today->month <= $this->birth->month) {
+        if ($this->birth->month >= $this->today->month) {
             if ($this->birth->month == $this->today->month) {
                 if ($this->birth->day > $this->today->day) {
                     $this->setAgeMinusOne();
+                    return $this->getAge();
                 }
+
+                return $this->getAge();
             }
-            else {
-                $this->setAgeMinusOne();
-            }
+
+            $this->setAgeMinusOne();
+            return $this->getAge();
         };
 
         return $this->getAge();
@@ -54,26 +58,26 @@ class AgeCalculator
 
     private function setBirthday()
     {
-        $this->birthdayDate = date_parse_from_format("Y-m-d", $this->birthday);
+        $this->birthdayDate = date_parse_from_format('Y-m-d', $this->birthday);
         if ($this->birthdayDate['error_count'] > 0) {
-            throw new InvalidArgumentException("The date (". $this->birthday .") is bad formatted, expected Y-m-d.");
+            throw new InvalidArgumentException('The date ('. $this->birthday .') is bad formatted, expected Y-m-d.');
         }
         // Retreive the date and transform it to integer
-        $this->birth->day   = (int) $this->birthdayDate["day"];
-        $this->birth->month = (int) $this->birthdayDate["month"];
-        $this->birth->year  = (int) $this->birthdayDate["year"];
+        $this->birth->day   = (int) $this->birthdayDate['day'];
+        $this->birth->month = (int) $this->birthdayDate['month'];
+        $this->birth->year  = (int) $this->birthdayDate['year'];
 
         if(!checkdate($this->birth->month, $this->birth->day, $this->birth->year)) {
-            throw new InvalidArgumentException("The date (". $this->birthday .") is unknown.");
+            throw new InvalidArgumentException('The date ('. $this->birthday .') is unknown.');
         };
     }
 
     private function setToday()
     {
         // Retreive today and transform it to integer
-        $this->today->day = (int) date('j');
+        $this->today->day   = (int) date('j');
         $this->today->month = (int) date('n');
-        $this->today->year = (int) date('Y');
+        $this->today->year  = (int) date('Y');
     }
 
     private function getAge()
