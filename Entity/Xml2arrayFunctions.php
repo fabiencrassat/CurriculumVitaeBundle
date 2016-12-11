@@ -112,10 +112,7 @@ class Xml2arrayFunctions {
         // Standard Attributes (without Specific thanks to unset())
         $attributes = array();
         foreach($xml->attributes() as $attributeKey => $attributeValue) {
-            if ($attributeKey <> 'id'
-            && $attributeKey <> 'ref'
-            && $attributeKey <> 'lang'
-            && $attributeKey <> 'crossref') {
+            if ($this->isStandardAttributes($attributeKey)) {
                 $attributes[$attributeKey] = trim($attributeValue);
             }
         }
@@ -123,6 +120,14 @@ class Xml2arrayFunctions {
             return array_merge_recursive($arrayToMerge, array($key => $attributes));
         }
         return $arrayToMerge;
+    }
+
+    private function isStandardAttributes($attribute)
+    {
+        return $attribute <> 'id'
+            && $attribute <> 'ref'
+            && $attribute <> 'lang'
+            && $attribute <> 'crossref';
     }
 
     /**

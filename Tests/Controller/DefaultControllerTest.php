@@ -183,6 +183,20 @@ class DefaultControllerTest extends WebTestCase
                 'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
         );
         // Remove all no visible elements
+        $cvXml = $this->removeNoVisibleElementDependingOnLanguages($lang, $cvXml);
+        $cvXml = $this->removeNoVisibleElementForAllLanguages($cvXml);
+
+        $testValue = $this->arrayValuesRecursive($cvXml);
+        foreach ($testValue as $value) {
+            $this->assertGreaterThan(0,
+                $crawler->filter('html:contains("'.$value.'")')->count(),
+                'The value '.$value.' is not diplay for language '.$lang
+            );
+        }
+    }
+
+    private function removeNoVisibleElementDependingOnLanguages($lang, $cvXml)
+    {
         switch ($lang) {
             case 'en':
                 unset($cvXml['identity']['myself']['birthday']);
@@ -191,6 +205,11 @@ class DefaultControllerTest extends WebTestCase
                 // code...
                 break;
         }
+        return $cvXml;
+    }
+
+    private function removeNoVisibleElementForAllLanguages($cvXml)
+    {
         unset($cvXml['identity']['myself']['picture']);
         unset($cvXml['identity']['address']['street']);
         unset($cvXml['identity']['address']['postalcode']);
@@ -233,14 +252,8 @@ class DefaultControllerTest extends WebTestCase
         unset($cvXml['languageSkills']['French']['icon']);
         unset($cvXml['languageSkills']['English']['icon']);
 
-        $testValue = $this->arrayValuesRecursive($cvXml);
-        foreach ($testValue as $value) {
-            $this->assertGreaterThan(0,
-                $crawler->filter('html:contains("'.$value.'")')->count(),
-                'The value '.$value.' is not diplay for language '.$lang
-            );
-        }
-    }
+        return $cvXml;
+    } 
 
     private function arrayValuesRecursive($array)
     {
