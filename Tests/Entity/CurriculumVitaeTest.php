@@ -133,12 +133,12 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../../Resources/data/example.xml');
 
         $identity = $this->curriculumVitae->getIdentity();
-        // We remove the format birthday because of travisci and scrutinizer
+        // We remove the values because of travisci and scrutinizer (depending of date)
         unset($identity['myself']['birthday']);
+        unset($identity['myself']['age']);
         $this->assertEquals(array(
             'myself' => array(
                 'name' => 'First Name Last Name',
-                'age' => 41,
                 'nationality' => 'French Citizenship',
                 'picture' => 'bundles/fabiencrassatcurriculumvitae/img/example.png'
             ),
