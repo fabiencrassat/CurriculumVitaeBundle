@@ -5,13 +5,13 @@
 The bundle comes with a configuration, which is listed below.
 So if you want to customized the bundle to call your CVs you have to define this configuration.
 
-*   ```path_to_cv```  
+*   ```path_to_cv```
     Defines the path where the bundle grabs the curriculum vitae xml files
-*   ```custo_default_cv```  
+*   ```custo_default_cv```
     It is the default curriculum vitae xml file called without route
-*   ```default_lang```  
+*   ```default_lang```
     It is the default curriculum vitae language
-*   ```template```  
+*   ```template```
     Defines your own twig template for you curriculum vitae
 
 For example:
