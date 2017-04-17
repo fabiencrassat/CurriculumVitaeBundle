@@ -167,7 +167,7 @@ And the following elements have some restriction:
 
 #### FollowMe block
 
-The FollowMe block presents site links. If you use [the export with Knp Snappy PDF](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md), this block is not export.
+The FollowMe block presents site links. If you use [an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md), this block is not export.
 ``` xml
 <curriculumVitae>
     ...

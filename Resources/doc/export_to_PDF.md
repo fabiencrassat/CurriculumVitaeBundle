@@ -1,7 +1,10 @@
-# Add the export to PDF with Knp Snappy
+# Add an export PDF service
+
+Mainly, Knp Snappy does the job.
+For hosting that are not allowing proc_open(), a5sys PDF bundle is a workaround.
 
 ## Installation
-*   Install the bundle ```knplabs/knp-snappy-bundle```. Googleize to know how install ;)
+*   Install the bundle ```knplabs/knp-snappy-bundle``` or ```a5sys/pdf-bundle```. Googleize to know how install ;)
 
 ## Deployment
 

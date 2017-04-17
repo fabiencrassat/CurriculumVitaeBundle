@@ -58,7 +58,7 @@ class DefaultController implements ContainerAwareInterface
             );
             return $response;
         }
-        
+
         $this->initialization($cvxmlfile);
         return new RedirectResponse($this->container->get('router')->generate(
             'fabiencrassat_curriculumvitae_cvxmlfileonly',
@@ -97,23 +97,37 @@ class DefaultController implements ContainerAwareInterface
         }
     }
 
+    /**
+     * @return Response
+     */
     public function exportPDFAction($cvxmlfile, $_locale)
     {
+        if (!$this->hasExportPDF()) {
+            throw new NotFoundHttpException('No export PDF service installed.');
+        }
+
         $this->initialization($cvxmlfile, $_locale);
         $this->setViewParameters();
-
-        if (!$this->container->has('knp_snappy.pdf')) {
-            throw new NotFoundHttpException('knp_snappy.pdf is non-existent');
-        };
 
         $html = $this->container->get('templating')->render(
             'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
             $this->parameters);
+        $filename = $this->curriculumVitae->getHumanFileName().'.pdf';
 
-        return new Response($this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
+        $hasPdfService = false;
+        if (!$hasPdfService && $this->container->has('a5sys_pdf.pdf_service')) {
+            $hasPdfService = true;
+            $content = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
+        };
+        if (!$hasPdfService && $this->container->has('knp_snappy.pdf')) {
+            $hasPdfService = true;
+            $content = $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
+        };
+
+        return new Response($content,
             200,
             array('Content-Type'        => 'application/pdf',
-                  'Content-Disposition' => 'attachment; filename="'.$this->curriculumVitae->getHumanFileName().'.pdf"')
+                  'Content-Disposition' => 'attachment; filename="'.$filename.'"')
         );
     }
 
@@ -125,10 +139,10 @@ class DefaultController implements ContainerAwareInterface
             $this->cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
         }
         // Check the file in the filesystem
-        $this->pathToFile = 
+        $this->pathToFile =
             $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
             .'/'.$this->cvxmlfile.'.xml';
-        
+
         if (!is_file($this->pathToFile)) {
             throw new NotFoundHttpException(
                 'There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
@@ -138,7 +152,7 @@ class DefaultController implements ContainerAwareInterface
         if (!$this->lang) {
             $this->lang = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
         }
-        
+
         $this->readCVFile();
     }
 
@@ -163,6 +177,11 @@ class DefaultController implements ContainerAwareInterface
         $this->setCoreParameters();
     }
 
+    private function hasExportPDF()
+    {
+        return $this->container->has('knp_snappy.pdf') xor $this->container->has('a5sys_pdf.pdf_service');
+    }
+
     private function setToolParameters()
     {
         $this->setParameters(array(
@@ -170,7 +189,7 @@ class DefaultController implements ContainerAwareInterface
             'languageView' => $this->lang,
             'languages'    => $this->exposedLanguages,
             'anchors'      => $this->curriculumVitae->getAnchors(),
-            'hasSnappyPDF' => $this->container->has('knp_snappy.pdf'),
+            'hasExportPDF' => $this->hasExportPDF(),
         ));
     }
 

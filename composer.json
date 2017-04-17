@@ -16,7 +16,8 @@
     "suggest": {
         "oryzone/boilerplate-bundle": "Make the curriculum vitae beautiful",
         "knplabs/knp-snappy-bundle": "Export your curriculum vitae to PDF",
-        "php": "PHP 5.5 is my website version"
+        "a5sys/pdf-bundle": "Export your curriculum vitae to PDF without proc_open",
+        "php": "PHP 5.7 is my website version"
     },
     "autoload": {
         "psr-4": {

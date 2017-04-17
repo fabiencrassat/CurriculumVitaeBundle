@@ -19,7 +19,7 @@ file that was distributed with this source code.
         </span>
         <div class="media-body">
             <h1 class="media-heading">{{ identity.myself.name|default('') }}</h1>
-            {% if hasSnappyPDF %}
+            {% if hasExportPDF %}
             <div class="pull-right hidden-print">
                 <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}" class="btn btn-default" role="button">
                     <span class="glyphicon glyphicon-cloud-download"></span>
@@ -48,7 +48,7 @@ file that was distributed with this source code.
         </span>
         <div>
             <h1>{{ identity.myself.name|default('') }}</h1>
-            {% if hasSnappyPDF %}
+            {% if hasExportPDF %}
             <div>
                 <a href="{{ path('fabiencrassat_curriculumvitae_exportPDF', {'_locale': languageView, 'cvxmlfile': cvxmlfile }) }}">{{ 'fabiencrassat_curriculumvitae.export_to_PDF'|trans }}</a>
             </div>
