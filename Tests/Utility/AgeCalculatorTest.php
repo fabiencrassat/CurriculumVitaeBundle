@@ -59,6 +59,11 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEqualsForAge($this->actualMonth, $this->maxDay, TRUE);
     }
 
+    public function testFirstDayOfTheYear()
+    {
+        $this->assertEqualsForAge($this->minMonth, $this->minDay);
+    }
+
     /**
      * @param integer $day
      */
@@ -72,7 +77,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->calculator = new AgeCalculator($this->birthYear.'-'.$month.'-'.$day);
-        
+
         $age = $this->calculator->age();
 
         $this->assertEquals($assert, $age);

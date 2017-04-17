@@ -36,7 +36,7 @@ class DefaultControllerTest extends WebTestCase
     /**
      * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
      */
-    public function testSnappyPDFisNotPresent()
+    public function testIfAnExportPDFServiceIsNotPresent()
     {
         $client = static::createClient();
         $client->request('GET', '/example/en/pdf');
@@ -264,7 +264,7 @@ class DefaultControllerTest extends WebTestCase
         unset($cvXml['languageSkills']['English']['icon']);
 
         return $cvXml;
-    } 
+    }
 
     private function arrayValuesRecursive($array)
     {

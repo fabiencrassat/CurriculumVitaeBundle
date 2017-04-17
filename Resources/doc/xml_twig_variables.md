@@ -4,7 +4,7 @@ Twig objects return by the controller:
 ```php
 'cvxmlfile'      => string,
 'languageView'   => string,
-'hasSnappyPDF'   => boolean,
+'hasExportPDF'   => boolean,
 'languages'      => array(...),
 'anchors'        => array(...),
 'identity'       => array(...),
@@ -23,8 +23,8 @@ It is your curriculum vitae file name, e.g. ```Mycv``` for ```mycv.xml```.
 ## languageView
 It is the ```_locale``` variable use in the url, e.g. ```fr```
 
-## hasSnappyPDF
-Tell if you have installed [SnappyPDF](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
+## hasExportPDF
+Tell if you have installed [an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
 
 ## languages
 ```array('en' => 'English', 'fr' => 'Français')```
