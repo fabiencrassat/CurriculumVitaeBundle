@@ -26,7 +26,7 @@ file that was distributed with this source code.
             </div>
         </div>
     {% else %}
-        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' %}
+        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': template} %}
         {% if template != "pdf" %}
         {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' %}
         {% endif %}

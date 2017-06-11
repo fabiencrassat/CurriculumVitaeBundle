@@ -17,6 +17,7 @@
         "oryzone/boilerplate-bundle": "Make the curriculum vitae beautiful",
         "knplabs/knp-snappy-bundle": "Export your curriculum vitae to PDF",
         "a5sys/pdf-bundle": "Export your curriculum vitae to PDF without proc_open",
+        "netinfluence/secure-display-bundle": "Protect your email and phone number",
         "php": "PHP 5.7 is my website version"
     },
     "autoload": {

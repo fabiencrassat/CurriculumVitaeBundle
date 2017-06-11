@@ -182,14 +182,20 @@ class DefaultController implements ContainerAwareInterface
         return $this->container->has('knp_snappy.pdf') xor $this->container->has('a5sys_pdf.pdf_service');
     }
 
+    private function hasSecureDisplayBundle()
+    {
+        return $this->container->has('netinfluence.twig.secure_display_extension');
+    }
+
     private function setToolParameters()
     {
         $this->setParameters(array(
-            'cvxmlfile'    => $this->cvxmlfile,
-            'languageView' => $this->lang,
-            'languages'    => $this->exposedLanguages,
-            'anchors'      => $this->curriculumVitae->getAnchors(),
-            'hasExportPDF' => $this->hasExportPDF(),
+            'cvxmlfile'              => $this->cvxmlfile,
+            'languageView'           => $this->lang,
+            'languages'              => $this->exposedLanguages,
+            'anchors'                => $this->curriculumVitae->getAnchors(),
+            'hasExportPDF'           => $this->hasExportPDF(),
+            'hasSecureDisplayBundle' => $this->hasSecureDisplayBundle(),
         ));
     }
 

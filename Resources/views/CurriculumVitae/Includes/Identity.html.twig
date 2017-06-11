@@ -22,43 +22,65 @@ file that was distributed with this source code.
 {% if template == "OryzoneBoilerplate" %}
     <section {{ anchorId }} class="well">
         <h3>{{ title }}</h3>
-        {{ myMacro.displayBlockInMainSection(blocks, id, template) }}
+        {{ myMacro.displayBlockInMainSection(blocks, id, template, hasSecureDisplayBundle) }}
     </section>
 {% else %}
     <div {{ anchorId }}>
         <h3>{{ title }}{% if template != "pdf" %} [<a href=#>top</a>]{% endif %}</h3>
-        {{ myMacro.displayBlockInMainSection(blocks, id, template) }}
+        {{ myMacro.displayBlockInMainSection(blocks, id, template, hasSecureDisplayBundle) }}
     </div>
 {% endif %}
 {% endif %}
 
 {# Display each block section in the main section #}
-{% macro displayBlockInMainSection(blocks, id, template) %}
+{% macro displayBlockInMainSection(blocks, id, template, hasSecureDisplayBundle) %}
     {% import _self as SelfFunction %}
     <address>
-        {% if template == "OryzoneBoilerplate" %}
-            {% if blocks.address.city is defined and blocks.address.country is defined %}
-            <span class="glyphicon glyphicon-map-marker"></span> <a target="_blank" href="{{ blocks.address.googlemap|default('') }}">{{ blocks.address.city }}, {{ blocks.address.country }}</a><br>
-            {% endif %}
-            {# <abbr title="Mobile">M:</abbr> {{ blocks.contact.mobile }}<br> #}
-            {% if blocks.contact.email is defined %}
-            <abbr title="Email"><span class="glyphicon glyphicon-envelope"></span> </abbr> <a href="mailto:{{ blocks.contact.email|default('') }}">{{ blocks.contact.email|default('') }}</a><br>
-            {% endif %}
-        {% else %}
-            {% if blocks.address.city is defined and blocks.address.country is defined %}
-            <a target="_blank" href="{{ blocks.address.googlemap|default('') }}">{{ blocks.address.city }}, {{ blocks.address.country }}</a><br>
-            {% endif %}
-            {# M: {{ blocks.contact.mobile }}<br> #}
-            {% if blocks.contact.email is defined %}
-            <a href="mailto:{{ blocks.contact.email|default('') }}">{{ blocks.contact.email|default('') }}</a><br>
-            {% endif %}
-        {% endif %}
+        {{ SelfFunction.DisplayLivePlace(template, blocks.address.googlemap, blocks.address.city, blocks.address.country) }}
+        {{ SelfFunction.DisplayPhone(template, hasSecureDisplayBundle, blocks.contact.mobile) }}
+        {{ SelfFunction.DisplayEmail(template, hasSecureDisplayBundle, blocks.contact.email) }}
         {{ SelfFunction.DisplayMyself(blocks.myself|default('')) }}
         {{ SelfFunction.DisplaySocial(blocks.social|default('')) }}
     </address>
 {% endmacro %}
 
 {# Display each item section inside block section #}
+{% macro DisplayLivePlace(template, googlemap, city, country) %}
+    {% if city is defined and country is defined %}
+    {% if city is not empty and country is not empty %}
+        {% if template == "OryzoneBoilerplate" %}
+            <span class='glyphicon glyphicon-map-marker'></span>&nbsp;
+        {% endif %}
+        <a target="_blank" href="{{ googlemap|default('') }}">{{ city }}, {{ country }}</a><br>
+    {% endif %}
+    {% endif %}
+{% endmacro %}
+{% macro DisplayPhone(template, hasSecureDisplayBundle, mobile) %}
+    {% if template == "pdf" and mobile is defined %}
+    {% if mobile is not empty %}
+        {% if template == "OryzoneBoilerplate" %}<abbr title="Mobile">M:</abbr>&nbsp;{% endif %}
+        {% if template != "pdf" and hasSecureDisplayBundle %}
+            {{ mobile|secureDisplay()|raw }}
+        {% else %}
+            {{ mobile }}
+        {% endif %}<br>
+    {% endif %}
+    {% endif %}
+{% endmacro %}
+{% macro DisplayEmail(template, hasSecureDisplayBundle, email) %}
+    {% if email is defined %}
+    {% if email is not empty %}
+        {% if template == "OryzoneBoilerplate" %}
+            <abbr title="Email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</abbr>&nbsp;
+        {% endif %}
+        {% if template != "pdf" and hasSecureDisplayBundle %}
+            {{ email|secureDisplay()|raw }}
+        {% else %}
+            {{ email }}
+        {% endif %}<br>
+    {% endif %}
+    {% endif %}
+{% endmacro %}
 {% macro DisplayMyself(myself) %}
     {% if myself.birthday is defined and myself.birthplace is defined %}
         Né le {{ myself.birthday }} à {{ myself.birthplace }}<br>
