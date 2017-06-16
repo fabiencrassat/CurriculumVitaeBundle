@@ -109,18 +109,18 @@ class DefaultController implements ContainerAwareInterface
         $this->initialization($cvxmlfile, $_locale);
         $this->setViewParameters();
 
-        $html = $this->container->get('templating')->render(
-            'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
-            $this->parameters);
+        $html     = $this->container->get('templating')->render(
+                    'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
+                    $this->parameters);
         $filename = $this->curriculumVitae->getHumanFileName().'.pdf';
 
         $hasPdfService = false;
+        $content = "";
         if (!$hasPdfService && $this->container->has('a5sys_pdf.pdf_service')) {
             $hasPdfService = true;
-            $content = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
+            $content       = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
         };
         if (!$hasPdfService && $this->container->has('knp_snappy.pdf')) {
-            $hasPdfService = true;
             $content = $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
         };
 
