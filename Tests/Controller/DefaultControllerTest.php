@@ -41,6 +41,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request('GET', '/example/en/pdf');
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
     /**
@@ -50,6 +51,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request('GET', '/nofile');
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
     /**
@@ -59,6 +61,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request('GET', '/example/XX');
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
     private $curriculumVitae;
