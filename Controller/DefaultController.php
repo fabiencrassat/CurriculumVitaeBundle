@@ -115,7 +115,7 @@ class DefaultController implements ContainerAwareInterface
         $filename = $this->curriculumVitae->getHumanFileName().'.pdf';
 
         $hasPdfService = false;
-        $content = "";
+        $content       = '';
         if (!$hasPdfService && $this->container->has('a5sys_pdf.pdf_service')) {
             $hasPdfService = true;
             $content       = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);

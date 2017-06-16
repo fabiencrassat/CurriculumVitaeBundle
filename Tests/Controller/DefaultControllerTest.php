@@ -140,7 +140,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function testOutputFollowMeLink()
     {
-        $result = array();
+        $result         = array();
         $arrayFunctions = new ArrayFunctions();
 
         $this->client = static::createClient();
@@ -157,7 +157,7 @@ class DefaultControllerTest extends WebTestCase
 
             $testValue = $arrayFunctions->arrayValuesRecursive($cvXml);
             foreach ($testValue as $value) {
-                $alt =  0;
+                $alt  = 0;
                 $alt += $crawler->filter('img[alt="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[title="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[src="/'.$value.'"]')->count();
@@ -176,7 +176,7 @@ class DefaultControllerTest extends WebTestCase
     private function outputHtmlXmlComparaison($lang = 'en')
     {
         $arrayFunctions = new ArrayFunctions();
-        $crawler = $this->client->request('GET', '/example/'.$lang);
+        $crawler        = $this->client->request('GET', '/example/'.$lang);
 
         // Read the Curriculum Vitae
         $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
@@ -196,7 +196,7 @@ class DefaultControllerTest extends WebTestCase
         $cvXml = $this->removeNoVisibleElementForAllLanguages($cvXml);
 
         $testValue = $arrayFunctions->arrayValuesRecursive($cvXml);
-        $result = array();
+        $result    = array();
         foreach ($testValue as $value) {
             if ($crawler->filter('html:contains("'.$value.'")')->count() == 0) {
                 $result[] = 'The value '.$value.' is not diplay for language '.$lang;
