@@ -1,2 +1,5 @@
+netinfluence_secure_display:
+    resource: "@NetinfluenceSecureDisplayBundle/Resources/config/routing.yml"
+
 fabiencrassat_curriculumvitae:
     resource: "@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.yml"

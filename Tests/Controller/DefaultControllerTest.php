@@ -12,6 +12,7 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Tests\Controller;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
+use FabienCrassat\CurriculumVitaeBundle\Utility\ArrayFunctions;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -139,6 +140,9 @@ class DefaultControllerTest extends WebTestCase
 
     public function testOutputFollowMeLink()
     {
+        $result = array();
+        $arrayFunctions = new ArrayFunctions();
+
         $this->client = static::createClient();
 
         $langs = array('en', 'fr');
@@ -151,22 +155,27 @@ class DefaultControllerTest extends WebTestCase
 
             $cvXml = array('followMe' => $this->curriculumVitae->getFollowMe());
 
-            $testValue = $this->arrayValuesRecursive($cvXml);
+            $testValue = $arrayFunctions->arrayValuesRecursive($cvXml);
             foreach ($testValue as $value) {
-                $alt  = $crawler->filter('img[alt="'.$value.'"]')->count();
+                $alt =  0;
+                $alt += $crawler->filter('img[alt="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[title="'.$value.'"]')->count();
                 $alt += $crawler->filter('img[src="/'.$value.'"]')->count();
                 $alt += $crawler->filter('a[href="'.$value.'"]')->count();
 
-                $this->assertGreaterThan(0, $alt,
-                    'The value '.$value.' is not diplay for language '.$lang
-                );
+                if ($alt == 0) {
+                    $result[] = 'The value '.$value.' is not diplay for language '.$lang;
+                }
             }
         }
+        $this->assertEquals(0, count($result),
+            implode("\n", $result)
+        );
     }
 
     private function outputHtmlXmlComparaison($lang = 'en')
     {
+        $arrayFunctions = new ArrayFunctions();
         $crawler = $this->client->request('GET', '/example/'.$lang);
 
         // Read the Curriculum Vitae
@@ -186,13 +195,16 @@ class DefaultControllerTest extends WebTestCase
         $cvXml = $this->removeNoVisibleElementDependingOnLanguages($lang, $cvXml);
         $cvXml = $this->removeNoVisibleElementForAllLanguages($cvXml);
 
-        $testValue = $this->arrayValuesRecursive($cvXml);
+        $testValue = $arrayFunctions->arrayValuesRecursive($cvXml);
+        $result = array();
         foreach ($testValue as $value) {
-            $this->assertGreaterThan(0,
-                $crawler->filter('html:contains("'.$value.'")')->count(),
-                'The value '.$value.' is not diplay for language '.$lang
-            );
+            if ($crawler->filter('html:contains("'.$value.'")')->count() == 0) {
+                $result[] = 'The value '.$value.' is not diplay for language '.$lang;
+            }
         }
+        $this->assertEquals(0, count($result),
+            implode("\n", $result)
+        );
     }
 
     /**
@@ -226,6 +238,7 @@ class DefaultControllerTest extends WebTestCase
         unset($cvXml['identity']['address']['postalcode']);
         unset($cvXml['identity']['address']['googlemap']);
         unset($cvXml['identity']['contact']['mobile']);
+        unset($cvXml['identity']['contact']['email']);
         unset($cvXml['experiences']['FirstExperience']['society']['society']['ref']);
         unset($cvXml['experiences']['FirstExperience']['society']['siteurl']);
         unset($cvXml['experiences']['SecondExperience']['collapse']);
@@ -264,23 +277,5 @@ class DefaultControllerTest extends WebTestCase
         unset($cvXml['languageSkills']['English']['icon']);
 
         return $cvXml;
-    }
-
-    private function arrayValuesRecursive($array)
-    {
-        $return = array();
-        foreach($array as $value) {
-            $return = $this->arrayValuesMerge($return, $value);
-        }
-        return $return;
-    }
-
-    private function arrayValuesMerge($return, $value)
-    {
-        if(is_array($value)) {
-            return array_merge($return, $this->arrayValuesRecursive($value));
-        }
-
-        return array_merge($return, array($value));
     }
 }
