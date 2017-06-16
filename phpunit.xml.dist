@@ -15,14 +15,14 @@
     <php>
         <server name="KERNEL_DIR" value="./Tests/Fixtures/App/app" />
     </php>
-    <!-- Les fichiers de tests à lancer -->
+    <!-- The test files to launch -->
     <testsuites>
         <testsuite name="Curriculum Vitae">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
 
-    <!-- Quels fichiers sont concernés par l'évaluation du code coverage -->
+    <!-- Which files are affected by the evaluation of the code coverage -->
     <filter>
         <whitelist>
             <directory>./</directory>
