@@ -113,3 +113,4 @@ The bulk of the documentation is stored in the `Resources/doc/` directory in thi
 - [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
 - [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
 - [Add an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
+- [Protect your email and phone number](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/protect_your_email_and_phone_number.md)
