@@ -8,7 +8,6 @@
         "name": "Fabien Crassat",
         "email": "fabien@crassat.com"
     }],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.8"
