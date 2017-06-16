@@ -19,6 +19,7 @@ class AppKernel extends Kernel
         return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
+            new Netinfluence\SecureDisplayBundle\NetinfluenceSecureDisplayBundle(),
             new FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle(),
         );
     }

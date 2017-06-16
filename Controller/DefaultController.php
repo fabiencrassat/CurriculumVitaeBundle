@@ -109,18 +109,18 @@ class DefaultController implements ContainerAwareInterface
         $this->initialization($cvxmlfile, $_locale);
         $this->setViewParameters();
 
-        $html = $this->container->get('templating')->render(
-            'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
-            $this->parameters);
+        $html     = $this->container->get('templating')->render(
+                    'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.pdf.twig',
+                    $this->parameters);
         $filename = $this->curriculumVitae->getHumanFileName().'.pdf';
 
         $hasPdfService = false;
+        $content       = '';
         if (!$hasPdfService && $this->container->has('a5sys_pdf.pdf_service')) {
             $hasPdfService = true;
-            $content = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
+            $content       = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
         };
         if (!$hasPdfService && $this->container->has('knp_snappy.pdf')) {
-            $hasPdfService = true;
             $content = $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
         };
 
@@ -182,14 +182,20 @@ class DefaultController implements ContainerAwareInterface
         return $this->container->has('knp_snappy.pdf') xor $this->container->has('a5sys_pdf.pdf_service');
     }
 
+    private function hasSecureDisplayBundle()
+    {
+        return $this->container->has('netinfluence.twig.secure_display_extension');
+    }
+
     private function setToolParameters()
     {
         $this->setParameters(array(
-            'cvxmlfile'    => $this->cvxmlfile,
-            'languageView' => $this->lang,
-            'languages'    => $this->exposedLanguages,
-            'anchors'      => $this->curriculumVitae->getAnchors(),
-            'hasExportPDF' => $this->hasExportPDF(),
+            'cvxmlfile'              => $this->cvxmlfile,
+            'languageView'           => $this->lang,
+            'languages'              => $this->exposedLanguages,
+            'anchors'                => $this->curriculumVitae->getAnchors(),
+            'hasExportPDF'           => $this->hasExportPDF(),
+            'hasSecureDisplayBundle' => $this->hasSecureDisplayBundle(),
         ));
     }
 
