@@ -60,7 +60,7 @@ file that was distributed with this source code.
     {% if mobile is not empty %}
         {% if template == "OryzoneBoilerplate" %}<abbr title="Mobile">M:</abbr>&nbsp;{% endif %}
         {% if template != "pdf" and hasSecureDisplayBundle %}
-            {{ mobile|secureDisplay()|raw }}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:ExternalTemplates/secureDisplay.html.twig' with {'dataToSecure': mobile} %}
         {% else %}
             {{ mobile }}
         {% endif %}<br>
@@ -74,7 +74,7 @@ file that was distributed with this source code.
             <abbr title="Email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</abbr>&nbsp;
         {% endif %}
         {% if template != "pdf" and hasSecureDisplayBundle %}
-            {{ email|secureDisplay()|raw }}
+            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:ExternalTemplates/secureDisplay.html.twig' with {'dataToSecure': email} %}
         {% else %}
             {{ email }}
         {% endif %}<br>
