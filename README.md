@@ -1,4 +1,4 @@
-#Fabien Crassat / Curriculumvitae Bundle
+# Fabien Crassat / Curriculumvitae Bundle
 
 Welcome to the Curriculumvitae bundle - an experimental CV display
 with [Symfony2][1] application that you can use to display your curriculum vitae.
