@@ -17,8 +17,6 @@ class CurriculumVitaeGetterFromBackboneXMLFileTest extends \PHPUnit_Framework_Te
 {
     private $curriculumVitae;
     private $lang;
-    private $interface;
-    private $arrayToCompare;
 
     public function __construct() {
         $this->lang = 'en';
