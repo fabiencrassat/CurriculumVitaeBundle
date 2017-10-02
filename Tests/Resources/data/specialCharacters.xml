@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <langs>
+    </langs>
+    <curriculumVitae>
+        <lookingFor>
+            <experience lang="en">Curriculum Vitae With Special Characters</experience>
+            <presentation lang="en">AZERTY keyboard Line 1 ²é"(-è_çà)= Line 1 with shift 1234567890°+ Line 1 with Alt Gr ~#{[|`\^@]} Line 2 azertyuiop^$ Line 2 with shift AZERTYUIOP¨£ Line 2 with Alt Gr €¤ Line 3 qsdfghjklmù* Line 3 with shift QSDFGHJKLM%µ Line 3 with Alt Gr  Line 4 wxcvbn,;:! Line 4 with shift WXCVBN?./§ Line 4 with Alt Gr  Escape Characters &lt; &gt; &amp; End</presentation>
+        </lookingFor>
+    </curriculumVitae>
+</root>

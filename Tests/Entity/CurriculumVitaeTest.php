@@ -65,6 +65,30 @@ class CurriculumVitaeTest extends \PHPUnit_Framework_TestCase
         $this->assertCVInterface('/../Resources/data/core.xml');
     }
 
+    public function testSpecialCharacters() {
+        $this->interface = 'getLookingFor';
+
+        $this->arrayToCompare = array(
+            'experience'   => 'Curriculum Vitae With Special Characters',
+            'presentation' => 'AZERTY keyboard'
+            .' Line 1 ²é"(-è_çà)='
+            .' Line 1 with shift 1234567890°+'
+            .' Line 1 with Alt Gr ~#{[|`\^@]}'
+            .' Line 2 azertyuiop^$'
+            .' Line 2 with shift AZERTYUIOP¨£'
+            .' Line 2 with Alt Gr €¤'
+            .' Line 3 qsdfghjklmù*'
+            .' Line 3 with shift QSDFGHJKLM%µ'
+            .' Line 3 with Alt Gr '
+            .' Line 4 wxcvbn,;:!'
+            .' Line 4 with shift WXCVBN?./§'
+            .' Line 4 with Alt Gr '
+            .' Escape Characters < > &'
+            .' End',
+        );
+        $this->assertCVInterface('/../Resources/data/specialCharacters.xml');
+    }
+
     public function testSimpleHumanFileName() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
         $this->assertSame('core', $this->curriculumVitae->getHumanFileName());
