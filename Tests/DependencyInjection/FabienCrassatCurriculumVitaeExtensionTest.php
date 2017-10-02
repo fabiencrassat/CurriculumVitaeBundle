@@ -73,14 +73,6 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    public function testBadDirectory()
-    {
-        $this->createBadConfiguration();
-    }
-
-    /**
     * Creates an empty configuration
     */
     private function createEmptyConfiguration()
@@ -94,14 +86,6 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit_Framework_TestC
     private function createFullConfiguration()
     {
         $this->createConfiguration($this->getFullConfig());
-    }
-
-    /**
-    * Creates a bad configuration
-    */
-    private function createBadConfiguration()
-    {
-        $this->createConfiguration($this->getBadPathToCvConfig());
     }
 
     /**
@@ -143,22 +127,6 @@ default_lang:
     "fr"
 template:
     "AcmeHelloBundle:CV:index.html.twig"
-EOF;
-        $parser = new Parser;
-
-        return (array) $parser->parse($yaml);
-    }
-
-    /**
-    * Gets a full config
-    *
-    * @return String[]
-    */
-    private function getBadPathToCvConfig()
-    {
-        $yaml   = <<<EOF
-path_to_cv:
-    "itIsNotADirectory"
 EOF;
         $parser = new Parser;
 
