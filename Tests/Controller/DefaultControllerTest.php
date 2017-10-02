@@ -34,36 +34,6 @@ class DefaultControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
     }
 
-    /**
-     * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
-     */
-    public function testIfAnExportPDFServiceIsNotPresent()
-    {
-        $client = static::createClient();
-        $client->request('GET', '/example/en/pdf');
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
-     */
-    public function testCVDoesNotExistIndex()
-    {
-        $client = static::createClient();
-        $client->request('GET', '/nofile');
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @expectedException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
-     */
-    public function testBadLanguage()
-    {
-        $client = static::createClient();
-        $client->request('GET', '/example/XX');
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
     private $curriculumVitae;
     private $client;
 
