@@ -21,7 +21,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public static $today;
 
-    private $assert;
+    private $yearsOld;
     private $minDay = 1;
     private $maxDay;
     private $minMonth = 1;
@@ -33,7 +33,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $this->assert      = date('Y') - $this->birthYear;
+        $this->yearsOld    = date('Y') - $this->birthYear;
         $this->actualMonth = date('n');
         $this->actualDay   = date('d');
         $this->maxDay      = date('t', strtotime($this->birthYear.'-'.$this->actualMonth.'-23'));
@@ -41,46 +41,65 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testEarlyYear()
     {
-        $this->assertEqualsForAge($this->minMonth, $this->minDay);
+        $this->assertEqualsForAge($this->minMonth, $this->minDay, $this->yearsOld);
     }
 
     public function testSameMonth()
     {
-        $this->assertEqualsForAge($this->actualMonth, $this->minDay);
+        $this->assertEqualsForAge($this->actualMonth, $this->minDay, $this->yearsOld);
     }
 
     public function testEndOfTheYear()
     {
-        $this->assertEqualsForAge($this->maxMonth, $this->maxDay, TRUE);
+        $this->assertEqualsForAgeBeforeBirthday($this->maxMonth, $this->maxDay);
     }
 
     public function testSameMonthAndLastDay()
     {
-        $this->assertEqualsForAge($this->actualMonth, $this->maxDay, TRUE);
+        $this->assertEqualsForAgeBeforeBirthday($this->actualMonth, $this->maxDay);
     }
 
     public function testFirstDayOfTheYear()
     {
-        $this->assertEqualsForAge($this->minMonth, $this->minDay);
+        $this->assertEqualsForAge($this->minMonth, $this->minDay, $this->yearsOld);
     }
 
     /**
+     * @param integer $month
      * @param integer $day
      */
-    private function assertEqualsForAge($month, $day, $beforeBirthday = FALSE)
+    private function assertEqualsForAgeBeforeBirthday($month, $day)
     {
-        $assert = $this->assert;
-        if($beforeBirthday) {
-            if(!($day == $this->actualDay && $month == $this->actualMonth)) {
-                $assert = $this->assert - 1;
-            }
+        $yearsOld = $this->yearsOld;
+        if(!($this->isBirthday($month, $day))) {
+            $yearsOld = $this->yearsOld - 1;
         }
 
+        $this->assertEqualsForAge($month, $day, $yearsOld);
+    }
+
+    /**
+     * @param integer $month
+     * @param integer $day
+     * @return boolean
+     */
+    private function isBirthday($month, $day)
+    {
+        return ($day == $this->actualDay && $month == $this->actualMonth);
+    }
+
+    /**
+     * @param integer $month
+     * @param integer $day
+     * @param integer $yearsOld
+     */
+    private function assertEqualsForAge($month, $day, $yearsOld)
+    {
         $this->calculator = new AgeCalculator($this->birthYear.'-'.$month.'-'.$day);
 
         $age = $this->calculator->age();
 
-        $this->assertEquals($assert, $age);
+        $this->assertEquals($yearsOld, $age);
     }
 
     /**
