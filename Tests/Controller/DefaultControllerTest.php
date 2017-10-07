@@ -28,7 +28,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function __construct() {
         $this->pathToFile = __DIR__.'/../../Resources/data/example.xml';
-        $this->langs = array('en', 'fr');
+        $this->langs      = array('en', 'fr');
     }
 
     public function testIndex()
