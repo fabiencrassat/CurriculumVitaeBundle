@@ -252,10 +252,10 @@ XML;
                     <job lang="fr">Deuxième Job</job>
                     <society crossref="societies/society[@ref='OneSociety']/*"></society>
                     <missions lang="en">
-                        <item>A item.</item>
+                        <item>A mission of my second job.</item>
                     </missions>
                     <missions lang="fr">
-                        <item>Un item.</item>
+                        <item>Une mission de mon deuxième job.</item>
                     </missions>
                 </experience>
                 <experience id="FirstJob">
@@ -265,10 +265,10 @@ XML;
                     <job lang="fr">Premier Job</job>
                     <society crossref="societies/society[@ref='OneSociety']/*"></society>
                     <missions lang="en">
-                        <item>A item.</item>
+                        <item>A mission of my first job.</item>
                     </missions>
                     <missions lang="fr">
-                        <item>Un item.</item>
+                        <item>Une mission de mon premier job.</item>
                     </missions>
                 </experience>
             </items>
@@ -282,46 +282,37 @@ XML;
 </root>
 XML;
 
+        $society = array(
+            'name'    => 'OneSociety',
+            'address' => 'address',
+            'siteurl' => 'http://www.google.com');
+        $currentExperience = array(
+            'job'      => 'Second Job',
+            'date'     => 'Apr 2011 - Present',
+            'society'  => $society,
+            'missions' => array(
+                'item' => array('A mission of my second job.')));
+
         $expected = array(
             'langs'  => array(
                 'en' => 'English', 'fr' => 'Français'),
             'curriculumVitae' => array(
                 'lookingFor'  => array(
-                    'experience'     => array(
-                        'job'      => 'Second Job',
-                        'date'     => 'Apr 2011 - Present',
-                        'society'  => array(
-                            'name'    => 'OneSociety',
-                            'address' => 'address',
-                            'siteurl' => 'http://www.google.com'),
-                        'missions' => array(
-                            'item' => array('A item.'))),
+                    'experience'   => $currentExperience,
                     'presentation' => 'A good presentation.'),
                 'experiences' => array(
                     'anchorTitle' => 'Experiences',
                     'items' => array(
-                        'SecondJob' => array(
-                            'job'      => 'Second Job',
-                            'date'     => 'Apr 2011 - Present',
-                            'society'  => array(
-                                'name'    => 'OneSociety',
-                                'address' => 'address',
-                                'siteurl' => 'http://www.google.com'),
-                            'missions' => array(
-                                'item' => array('A item.'))),
+                        'SecondJob' => $currentExperience,
                         'FirstJob'  => array(
                             'job'      => 'First Job',
                             'date'     => 'Nov 2009 - Apr 2011',
-                            'society'  => array(
-                                'name'    => 'OneSociety',
-                                'address' => 'address',
-                                'siteurl' => 'http://www.google.com'),
+                            'society'  => $society,
                             'missions' => array(
-                                'item' => array('A item.')))),
+                                'item' => array('A mission of my first job.')))),
                     'anchor' => 'experiences')),
             'societies' => array(
-                'society' => array(
-                    'name' => 'OneSociety', 'address' => 'address', 'siteurl' => 'http://www.google.com'))
+                'society' => $society)
         );
 
         $this->assertXml2Array($expected, $curriculumVitae, $curriculumVitae);
@@ -333,7 +324,7 @@ XML;
      */
     private function assertXml2Array($expected, $curriculumVitae, $xml) {
         $this->xml2arrayFunctions = new Xml2arrayFunctions(simplexml_load_string($curriculumVitae));
-        
+
         $result = $this->xml2arrayFunctions->xml2array(simplexml_load_string($xml));
 
         $this->assertEquals($expected, $result);
