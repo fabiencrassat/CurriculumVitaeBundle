@@ -88,9 +88,9 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return array
      */
-    public function getCurriculumViateArray() {
+    public function getCurriculumVitaeArray() {
         return array(
             'identity'          => $this->getIdentity(),
             'followMe'          => $this->getFollowMe(),
