@@ -62,18 +62,7 @@ class DefaultControllerTest extends WebTestCase
             $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
             $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
-            $cvXml = array(
-                'identity'          => $this->curriculumVitae->getIdentity(),
-                'followMe'          => $this->curriculumVitae->getFollowMe(),
-                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
-                'experiences'       => $this->curriculumVitae->getExperiences(),
-                'skills'            => $this->curriculumVitae->getSkills(),
-                'educations'        => $this->curriculumVitae->getEducations(),
-                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
-                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
-            );
-
-            $this->assertSame($cvXml, $data);
+            $this->assertSame($this->getCvXML(), $data);
         }
     }
 
@@ -92,23 +81,27 @@ class DefaultControllerTest extends WebTestCase
             $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
             $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
-            $cvXml = array(
-                'identity'          => $this->curriculumVitae->getIdentity(),
-                'followMe'          => $this->curriculumVitae->getFollowMe(),
-                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
-                'experiences'       => $this->curriculumVitae->getExperiences(),
-                'skills'            => $this->curriculumVitae->getSkills(),
-                'educations'        => $this->curriculumVitae->getEducations(),
-                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
-                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
-            );
             //initialisation du serializer
             $encoders    = array(new XmlEncoder('CurriculumVitae'));
             $normalizers = array(new GetSetMethodNormalizer());
             $serializer  = new Serializer($normalizers, $encoders);
 
-            $this->assertSame($serializer->serialize($cvXml, 'xml'), $data);
+            $this->assertSame($serializer->serialize($this->getCvXML(), 'xml'), $data);
         }
+    }
+
+    private function getCvXML()
+    {
+        return array(
+            'identity'          => $this->curriculumVitae->getIdentity(),
+            'followMe'          => $this->curriculumVitae->getFollowMe(),
+            'lookingFor'        => $this->curriculumVitae->getLookingFor(),
+            'experiences'       => $this->curriculumVitae->getExperiences(),
+            'skills'            => $this->curriculumVitae->getSkills(),
+            'educations'        => $this->curriculumVitae->getEducations(),
+            'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
+            'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
+        );
     }
 
     public function testOutputFollowMeLink()
