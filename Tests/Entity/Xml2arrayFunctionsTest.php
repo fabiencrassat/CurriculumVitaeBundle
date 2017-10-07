@@ -282,7 +282,7 @@ XML;
 </root>
 XML;
 
-        $society = array(
+        $society           = array(
             'name'    => 'OneSociety',
             'address' => 'address',
             'siteurl' => 'http://www.google.com');
