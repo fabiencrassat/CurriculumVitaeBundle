@@ -227,15 +227,15 @@
                 <languageSkill id="French">
                     <title lang="en">French</title>
                     <title lang="fr">Français</title>
-                    <description lang="en">Level of the skill.</description>
-                    <description lang="fr">Niveau</description>
+                    <description lang="en">My French level of the skill.</description>
+                    <description lang="fr">Mon niveau de Français.</description>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png</icon>
                 </languageSkill>
                 <languageSkill id="English">
                     <title lang="en">English</title>
                     <title lang="fr">Anglais</title>
-                    <description lang="en">Level of the skill.</description>
-                    <description lang="fr">Niveau</description>
+                    <description lang="en">My English level of the skill.</description>
+                    <description lang="fr">Mon niveau d'Anglais.</description>
                     <icon>bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png</icon>
                 </languageSkill>
             </items>

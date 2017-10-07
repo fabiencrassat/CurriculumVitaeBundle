@@ -354,16 +354,19 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit_Framework_Tes
     public function testGetLanguageSkills() {
         $this->interface = 'getLanguageSkills';
 
+        $frenchFlag  = 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png';
+        $englishFlag = 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png';
+
         $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'French',
-                'description' => 'Level of the skill.',
-                'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png'
+                'description' => 'My French level of the skill.',
+                'icon' => $frenchFlag
             ),
             'English' => array(
                 'title' => 'English',
-                'description' => 'Level of the skill.',
-                'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png'
+                'description' => 'My English level of the skill.',
+                'icon' => $englishFlag
             )
         );
         $this->assertCVInterface();
@@ -372,13 +375,13 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit_Framework_Tes
         $this->arrayToCompare = array(
             'French' => array(
                 'title' => 'Français',
-                'description' => 'Niveau',
-                'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png'
+                'description' => 'Mon niveau de Français.',
+                'icon' => $frenchFlag
             ),
             'English' => array(
                 'title' => 'Anglais',
-                'description' => 'Niveau',
-                'icon' => 'bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom.png'
+                'description' => 'Mon niveau d\'Anglais.',
+                'icon' => $englishFlag
             )
         );
         $this->assertCVInterface();
