@@ -88,7 +88,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array<string,null|array>
+     * @return null|array
      */
     public function getCurriculumVitaeArray() {
         return array(
