@@ -174,7 +174,7 @@ class DefaultController implements ContainerAwareInterface
         if ($this->requestFormat != 'json' && $this->requestFormat != 'xml') {
             $this->setToolParameters();
         }
-        $this->setCoreParameters();
+        $this->setParameters($this->curriculumVitae->getCurriculumViateArray());
     }
 
     private function hasExportPDF()
@@ -196,20 +196,6 @@ class DefaultController implements ContainerAwareInterface
             'anchors'                => $this->curriculumVitae->getAnchors(),
             'hasExportPDF'           => $this->hasExportPDF(),
             'hasSecureDisplayBundle' => $this->hasSecureDisplayBundle(),
-        ));
-    }
-
-    private function setCoreParameters()
-    {
-        $this->setParameters(array(
-            'identity'          => $this->curriculumVitae->getIdentity(),
-            'followMe'          => $this->curriculumVitae->getFollowMe(),
-            'lookingFor'        => $this->curriculumVitae->getLookingFor(),
-            'experiences'       => $this->curriculumVitae->getExperiences(),
-            'skills'            => $this->curriculumVitae->getSkills(),
-            'educations'        => $this->curriculumVitae->getEducations(),
-            'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
-            'miscellaneous'     => $this->curriculumVitae->getMiscellaneous(),
         ));
     }
 

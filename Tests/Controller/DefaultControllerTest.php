@@ -62,7 +62,9 @@ class DefaultControllerTest extends WebTestCase
             $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
             $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
 
-            $this->assertSame($this->getCvXML(), $data);
+            $this->assertSame(
+                $this->curriculumVitae->getCurriculumViateArray(),
+                $data);
         }
     }
 
@@ -86,13 +88,12 @@ class DefaultControllerTest extends WebTestCase
             $normalizers = array(new GetSetMethodNormalizer());
             $serializer  = new Serializer($normalizers, $encoders);
 
-            $this->assertSame($serializer->serialize($this->getCvXML(), 'xml'), $data);
+            $this->assertSame(
+                $serializer->serialize(
+                    $this->curriculumVitae->getCurriculumViateArray(),
+                    'xml'),
+                $data);
         }
-    }
-
-    private function getCvXML()
-    {
-        return $this->curriculumVitae->getCurriculumViateArray();
     }
 
     public function testOutputFollowMeLink()
