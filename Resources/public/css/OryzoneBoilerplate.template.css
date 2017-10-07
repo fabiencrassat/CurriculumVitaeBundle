@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 15px;
     font-weight: 700;
 }
-a.linkimage:hover {
+.linkimage:hover {
     text-decoration: none;
 }
 dl.timeline {
@@ -32,7 +32,7 @@ dl.timeline {
 dl.timeline dt {
     margin-bottom: 5px;
 }
-dl.timeline span.indent {
+dl.timeline .indent {
     display: inline-block;
     border-top: 2px solid #CCCCCC;
     width: 20px;
