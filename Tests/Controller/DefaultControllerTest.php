@@ -92,16 +92,7 @@ class DefaultControllerTest extends WebTestCase
 
     private function getCvXML()
     {
-        return array(
-            'identity'          => $this->curriculumVitae->getIdentity(),
-            'followMe'          => $this->curriculumVitae->getFollowMe(),
-            'lookingFor'        => $this->curriculumVitae->getLookingFor(),
-            'experiences'       => $this->curriculumVitae->getExperiences(),
-            'skills'            => $this->curriculumVitae->getSkills(),
-            'educations'        => $this->curriculumVitae->getEducations(),
-            'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
-            'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
-        );
+        return $this->curriculumVitae->getCurriculumViateArray();
     }
 
     public function testOutputFollowMeLink()

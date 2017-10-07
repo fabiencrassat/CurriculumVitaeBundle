@@ -83,8 +83,24 @@ class CurriculumVitae extends Xml2arrayFunctions
 
             return $myName;
         }
-        
+
         return $this->cvFile;
+    }
+
+    /**
+     * @return null|array
+     */
+    public function getCurriculumViateArray() {
+        return array(
+            'identity'          => $this->getIdentity(),
+            'followMe'          => $this->getFollowMe(),
+            'lookingFor'        => $this->getLookingFor(),
+            'experiences'       => $this->getExperiences(),
+            'skills'            => $this->getSkills(),
+            'educations'        => $this->getEducations(),
+            'languageSkills'    => $this->getLanguageSkills(),
+            'miscellaneous'     => $this->getMiscellaneous(),
+        );
     }
 
     /**
@@ -155,7 +171,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         $data = explode('/', $this->pathToFile);
         $data = $data[count($data) - 1];
         $data = explode('.', $data);
-        
+
         $this->cvFile = $data[0];
     }
 
@@ -177,7 +193,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         } elseif (isset($lookingFor['experience'])) {
             return $lookingFor['experience'];
         }
-        
+
         return NULL;
     }
 
@@ -225,7 +241,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         if (!$this->interface) {
             return NULL;
         }
-        
+
         return $this->xml2arrayFunctions->xml2array($this->interface);
     }
 }
