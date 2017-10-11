@@ -21,15 +21,11 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 class DefaultControllerTest extends WebTestCase
 {
 
-    private $pathToFile;
     private $curriculumVitae;
-    private $langs;
     private $client;
-
-    public function __construct() {
-        $this->pathToFile = __DIR__.'/../../Resources/data/example.xml';
-        $this->langs      = array('en', 'fr');
-    }
+    private $dir        = __DIR__;
+    private $pathToFile = '/../../Resources/data/example.xml';
+    private $langs      = array('en', 'fr');
 
     public function testIndex()
     {
@@ -65,7 +61,7 @@ class DefaultControllerTest extends WebTestCase
             $data     = json_decode($response->getContent(), TRUE);
 
             // Read the Curriculum Vitae
-            $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
+            $this->curriculumVitae = new CurriculumVitae($this->dir.$this->pathToFile, $lang);
 
             $this->assertSame(
                 $this->curriculumVitae->getCurriculumVitaeArray(),
@@ -84,7 +80,7 @@ class DefaultControllerTest extends WebTestCase
             $data = $response->getContent();
 
             // Read the Curriculum Vitae
-            $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
+            $this->curriculumVitae = new CurriculumVitae($this->dir.$this->pathToFile, $lang);
 
             $this->assertSame(
                 $this->initSerializer()->serialize(
@@ -113,7 +109,7 @@ class DefaultControllerTest extends WebTestCase
             $crawler = $this->client->request('GET', '/example/'.$lang);
 
             // Read the Curriculum Vitae
-            $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
+            $this->curriculumVitae = new CurriculumVitae($this->dir.$this->pathToFile, $lang);
 
             $cvXml = array('followMe' => $this->curriculumVitae->getFollowMe());
 
@@ -141,7 +137,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler        = $this->client->request('GET', '/example/'.$lang);
 
         // Read the Curriculum Vitae
-        $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
+        $this->curriculumVitae = new CurriculumVitae($this->dir.$this->pathToFile, $lang);
 
         $cvXml = array(
                 'identity'          => $this->curriculumVitae->getIdentity(),

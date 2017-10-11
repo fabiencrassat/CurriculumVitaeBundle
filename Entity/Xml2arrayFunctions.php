@@ -31,7 +31,7 @@ class Xml2arrayFunctions {
      * @param integer $recursiveDepth
      * @param boolean $format
      *
-     * @return null|array
+     * @return array
      */
     public function xml2array(\SimpleXMLElement $xml, $recursiveDepth = 0, $format = TRUE) {
         $recursiveDepth++;
@@ -71,7 +71,7 @@ class Xml2arrayFunctions {
      *
      * @return array
      */
-    private function setValue($arrayToSet, $key, $value) {
+    private function setValue(array $arrayToSet, $key, $value) {
         if ($value <> '') {
             return array_merge($arrayToSet, array($key => $value));
         }
@@ -108,7 +108,7 @@ class Xml2arrayFunctions {
      *
      * @return array
      */
-    private function setStandardAttributes(\SimpleXMLElement $xml, $arrayToMerge, $key) {
+    private function setStandardAttributes(\SimpleXMLElement $xml, array $arrayToMerge, $key) {
         // Standard Attributes (without Specific thanks to unset())
         $attributes = array();
         foreach($xml->attributes() as $attributeKey => $attributeValue) {
