@@ -23,7 +23,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
     private $configuration;
     private $loader;
 
-    public function __construct()
+    function setUp()
     {
         $this->configuration = new ContainerBuilder;
         $this->loader        = new FabienCrassatCurriculumVitaeExtension;

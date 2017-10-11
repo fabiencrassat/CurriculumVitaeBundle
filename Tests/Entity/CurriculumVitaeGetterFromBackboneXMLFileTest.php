@@ -18,7 +18,7 @@ class CurriculumVitaeGetterFromBackboneXMLFileTest extends \PHPUnit\Framework\Te
     private $curriculumVitae;
     private $lang;
 
-    public function __construct() {
+    function setUp() {
         $this->lang = 'en';
     }
 

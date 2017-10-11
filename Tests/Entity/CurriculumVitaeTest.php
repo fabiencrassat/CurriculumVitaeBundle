@@ -20,7 +20,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
     private $interface;
     private $arrayToCompare;
 
-    public function __construct() {
+    function setUp() {
         $this->lang = 'en';
     }
 

@@ -23,4 +23,4 @@ matrix:
 
 before_script: composer install
 
-script: phpunit --coverage-text --verbose --debug
+script: phpunit --coverage-text
