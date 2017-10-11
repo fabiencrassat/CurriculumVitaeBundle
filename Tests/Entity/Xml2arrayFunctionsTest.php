@@ -13,7 +13,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\Xml2arrayFunctions;
 
-class Xml2arrayFunctionsTest extends \PHPUnit_Framework_TestCase
+class Xml2arrayFunctionsTest extends \PHPUnit\Framework\TestCase
 {
     private $xml2arrayFunctions;
 

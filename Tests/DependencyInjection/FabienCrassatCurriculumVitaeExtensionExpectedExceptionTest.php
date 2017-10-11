@@ -15,7 +15,7 @@ use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\FabienCrassatCurricu
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
-class FabienCrassatCurriculumVitaeExtensionExpectedExceptionTest extends \PHPUnit_Framework_TestCase
+class FabienCrassatCurriculumVitaeExtensionExpectedExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
     * @var ContainerBuilder

@@ -13,7 +13,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
-class CurriculumVitaeInvalidArgumentExceptionTest extends \PHPUnit_Framework_TestCase
+class CurriculumVitaeInvalidArgumentExceptionTest extends \PHPUnit\Framework\TestCase
 {
     private $curriculumVitae;
 

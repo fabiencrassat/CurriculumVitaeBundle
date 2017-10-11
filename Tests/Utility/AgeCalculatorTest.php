@@ -14,7 +14,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Utility;
 use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
-class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
+class AgeCalculatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string $today Timestamp that will be returned by date()
