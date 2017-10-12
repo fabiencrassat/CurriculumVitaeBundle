@@ -13,7 +13,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Utility;
 
 use FabienCrassat\CurriculumVitaeBundle\Utility\ArrayFunctions;
 
-class ArrayFunctionsTest extends \PHPUnit_Framework_TestCase
+class ArrayFunctionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testArrayValuesRecursive()
     {

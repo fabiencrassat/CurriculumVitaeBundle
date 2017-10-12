@@ -174,7 +174,7 @@ class DefaultController implements ContainerAwareInterface
         if ($this->requestFormat != 'json' && $this->requestFormat != 'xml') {
             $this->setToolParameters();
         }
-        $this->setParameters($this->curriculumVitae->getCurriculumViateArray());
+        $this->setParameters($this->curriculumVitae->getCurriculumVitaeArray());
     }
 
     private function hasExportPDF()

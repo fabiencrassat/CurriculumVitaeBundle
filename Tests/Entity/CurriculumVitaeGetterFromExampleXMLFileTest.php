@@ -13,14 +13,14 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
-class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit_Framework_TestCase
+class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\TestCase
 {
     private $curriculumVitae;
     private $lang;
     private $interface;
     private $arrayToCompare;
 
-    public function __construct() {
+    public function setUp() {
         $this->lang = 'en';
     }
 

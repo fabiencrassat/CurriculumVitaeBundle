@@ -74,23 +74,19 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return string
      */
     public function getHumanFileName() {
-        $myName       = $this->getMyName();
+        $myName = $this->getMyName();
+        if (empty($myName)) return $this->cvFile;
+
         $myCurrentJob = $this->getMyCurrentJob();
-        if (NULL != $myName) {
-            if (NULL !== $myCurrentJob) {
-                return $myName.' - '.$myCurrentJob;
-            }
+        if (empty($myCurrentJob)) return $myName;
 
-            return $myName;
-        }
-
-        return $this->cvFile;
+        return $myName.' - '.$myCurrentJob;
     }
 
     /**
-     * @return null|array
+     * @return array<string,null|array<string,array>>
      */
-    public function getCurriculumViateArray() {
+    public function getCurriculumVitaeArray() {
         return array(
             'identity'          => $this->getIdentity(),
             'followMe'          => $this->getFollowMe(),
@@ -104,7 +100,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getIdentity() {
         $this->interface = $this->curriculumVitae->curriculumVitae->identity->items;
@@ -112,7 +108,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getFollowMe() {
         $this->interface = $this->curriculumVitae->curriculumVitae->followMe->items;
@@ -120,7 +116,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getLookingFor() {
         $this->interface = $this->curriculumVitae->curriculumVitae->lookingFor;
@@ -128,7 +124,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getExperiences() {
         $this->interface = $this->curriculumVitae->curriculumVitae->experiences->items;
@@ -136,7 +132,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getSkills() {
         $this->interface = $this->curriculumVitae->curriculumVitae->skills->items;
@@ -144,7 +140,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getEducations() {
         $this->interface = $this->curriculumVitae->curriculumVitae->educations->items;
@@ -152,7 +148,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getLanguageSkills() {
         $this->interface = $this->curriculumVitae->curriculumVitae->languageSkills->items;
@@ -160,7 +156,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     public function getMiscellaneous() {
         $this->interface = $this->curriculumVitae->curriculumVitae->miscellaneous->items;
@@ -176,11 +172,16 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     private function getMyName() {
         $identity = $this->getIdentity();
-        return $identity['myself']['name'];
+
+        if (isset($identity['myself']['name'])) {
+            return $identity['myself']['name'];
+        }
+
+        return NULL;
     }
 
     /**
@@ -189,9 +190,9 @@ class CurriculumVitae extends Xml2arrayFunctions
     private function getMyCurrentJob() {
         $lookingFor = $this->getLookingFor();
         if (isset($lookingFor['experience']['job'])) {
-            return $lookingFor['experience']['job'];
+            return (string) $lookingFor['experience']['job'];
         } elseif (isset($lookingFor['experience'])) {
-            return $lookingFor['experience'];
+            return (string) $lookingFor['experience'];
         }
 
         return NULL;
@@ -235,12 +236,10 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return null|array
+     * @return null|array<string,array>
      */
     private function getXMLValue() {
-        if (!$this->interface) {
-            return NULL;
-        }
+        if (!$this->interface) return NULL;
 
         return $this->xml2arrayFunctions->xml2array($this->interface);
     }

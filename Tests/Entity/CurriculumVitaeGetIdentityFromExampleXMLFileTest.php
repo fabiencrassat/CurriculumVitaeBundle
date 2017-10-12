@@ -13,7 +13,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Entity;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 
-class CurriculumVitaeGetIdentityFromExampleXMLFileTest extends \PHPUnit_Framework_TestCase
+class CurriculumVitaeGetIdentityFromExampleXMLFileTest extends \PHPUnit\Framework\TestCase
 {
     private $curriculumVitae;
 

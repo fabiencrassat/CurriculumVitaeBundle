@@ -14,7 +14,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Tests\Utility;
 use FabienCrassat\CurriculumVitaeBundle\Utility\AgeCalculator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
-class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
+class AgeCalculatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string $today Timestamp that will be returned by date()
@@ -31,7 +31,7 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
     private $birthYear = 2000;
     private $calculator;
 
-    public function __construct()
+    public function setUp()
     {
         $this->yearsOld    = date('Y') - $this->birthYear;
         $this->actualMonth = date('n');
@@ -71,21 +71,11 @@ class AgeCalculatorTest extends \PHPUnit_Framework_TestCase
     private function assertEqualsForAgeBeforeBirthday($month, $day)
     {
         $yearsOld = $this->yearsOld;
-        if(!($this->isBirthday($month, $day))) {
+        if(!($day == $this->actualDay && $month == $this->actualMonth)) {
             $yearsOld = $this->yearsOld - 1;
         }
 
         $this->assertEqualsForAge($month, $day, $yearsOld);
-    }
-
-    /**
-     * @param integer $month
-     * @param integer $day
-     * @return boolean
-     */
-    private function isBirthday($month, $day)
-    {
-        return ($day == $this->actualDay && $month == $this->actualMonth);
     }
 
     /**

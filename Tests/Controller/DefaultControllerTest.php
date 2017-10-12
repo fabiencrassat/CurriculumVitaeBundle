@@ -20,6 +20,18 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class DefaultControllerTest extends WebTestCase
 {
+
+    private $curriculumVitae;
+    private $client;
+    private $pathToFile;
+    private $langs;
+
+    public function setUp()
+    {
+        $this->pathToFile = __DIR__.'/../../Resources/data/example.xml';
+        $this->langs      = array('en', 'fr');
+    }
+
     public function testIndex()
     {
         $client = static::createClient();
@@ -34,16 +46,12 @@ class DefaultControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
     }
 
-    private $curriculumVitae;
-    private $client;
-
     public function testOutputHtmlXmlComparaison()
     {
         $this->client = static::createClient();
 
-        $langs = array('en', 'fr');
-        foreach ($langs as $value) {
-            $this->outputHtmlXmlComparaison($value);
+        foreach ($this->langs as $lang) {
+            $this->outputHtmlXmlComparaison($lang);
         }
     }
 
@@ -51,19 +59,17 @@ class DefaultControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
 
-        $langs = array('en', 'fr');
-        foreach ($langs as $value) {
-            $this->client->request('GET', '/example/'.$value.'.json');
+        foreach ($this->langs as $lang) {
+            $this->client->request('GET', '/example/'.$lang.'.json');
 
             $response = $this->client->getResponse();
             $data     = json_decode($response->getContent(), TRUE);
 
             // Read the Curriculum Vitae
-            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
-            $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
+            $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
             $this->assertSame(
-                $this->curriculumVitae->getCurriculumViateArray(),
+                $this->curriculumVitae->getCurriculumVitaeArray(),
                 $data);
         }
     }
@@ -72,28 +78,29 @@ class DefaultControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
 
-        $langs = array('en', 'fr');
-        foreach ($langs as $value) {
-            $this->client->request('GET', '/example/'.$value.'.xml');
+        foreach ($this->langs as $lang) {
+            $this->client->request('GET', '/example/'.$lang.'.xml');
             $response = $this->client->getResponse();
             $response->headers->set('Content-Type', 'application/xml');
             $data = $response->getContent();
 
             // Read the Curriculum Vitae
-            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
-            $this->curriculumVitae = new CurriculumVitae($pathToFile, $value);
-
-            //initialisation du serializer
-            $encoders    = array(new XmlEncoder('CurriculumVitae'));
-            $normalizers = array(new GetSetMethodNormalizer());
-            $serializer  = new Serializer($normalizers, $encoders);
+            $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
             $this->assertSame(
-                $serializer->serialize(
-                    $this->curriculumVitae->getCurriculumViateArray(),
+                $this->initSerializer()->serialize(
+                    $this->curriculumVitae->getCurriculumVitaeArray(),
                     'xml'),
                 $data);
         }
+    }
+
+    private function initSerializer()
+    {
+        //initialisation du serializer
+        $encoders    = array(new XmlEncoder('CurriculumVitae'));
+        $normalizers = array(new GetSetMethodNormalizer());
+        return new Serializer($normalizers, $encoders);
     }
 
     public function testOutputFollowMeLink()
@@ -103,13 +110,11 @@ class DefaultControllerTest extends WebTestCase
 
         $this->client = static::createClient();
 
-        $langs = array('en', 'fr');
-        foreach ($langs as $lang) {
+        foreach ($this->langs as $lang) {
             $crawler = $this->client->request('GET', '/example/'.$lang);
 
             // Read the Curriculum Vitae
-            $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
-            $this->curriculumVitae = new CurriculumVitae($pathToFile, $lang);
+            $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
             $cvXml = array('followMe' => $this->curriculumVitae->getFollowMe());
 
@@ -137,8 +142,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler        = $this->client->request('GET', '/example/'.$lang);
 
         // Read the Curriculum Vitae
-        $pathToFile            = __DIR__.'/../../Resources/data/example.xml';
-        $this->curriculumVitae = new CurriculumVitae($pathToFile, $lang);
+        $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
         $cvXml = array(
                 'identity'          => $this->curriculumVitae->getIdentity(),
