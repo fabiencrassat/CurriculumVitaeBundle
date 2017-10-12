@@ -75,10 +75,10 @@ class CurriculumVitae extends Xml2arrayFunctions
      */
     public function getHumanFileName() {
         $myName = $this->getMyName();
-        if ($myName == NULL) return $this->cvFile;
+        if (empty($myName)) return $this->cvFile;
 
         $myCurrentJob = $this->getMyCurrentJob();
-        if ($myCurrentJob == NULL) return $myName;
+        if (empty($myCurrentJob)) return $myName;
 
         return $myName.' - '.$myCurrentJob;
     }
