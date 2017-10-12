@@ -31,7 +31,7 @@ class AgeCalculatorTest extends \PHPUnit\Framework\TestCase
     private $birthYear = 2000;
     private $calculator;
 
-    function setUp()
+    public function setUp()
     {
         $this->yearsOld    = date('Y') - $this->birthYear;
         $this->actualMonth = date('n');

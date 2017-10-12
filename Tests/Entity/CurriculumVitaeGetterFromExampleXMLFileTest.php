@@ -20,7 +20,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
     private $interface;
     private $arrayToCompare;
 
-    function setUp() {
+    public function setUp() {
         $this->lang = 'en';
     }
 

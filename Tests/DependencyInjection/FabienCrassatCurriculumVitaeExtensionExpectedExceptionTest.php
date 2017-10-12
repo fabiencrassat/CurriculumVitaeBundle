@@ -23,7 +23,7 @@ class FabienCrassatCurriculumVitaeExtensionExpectedExceptionTest extends \PHPUni
     private $configuration;
     private $loader;
 
-    function setUp()
+    public function setUp()
     {
         $this->configuration = new ContainerBuilder;
         $this->loader        = new FabienCrassatCurriculumVitaeExtension;
