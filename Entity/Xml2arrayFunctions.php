@@ -31,7 +31,7 @@ class Xml2arrayFunctions {
      * @param integer $recursiveDepth
      * @param boolean $format
      *
-     * @return array<string,array>
+     * @return null|array<string,array>
      */
     public function xml2array(\SimpleXMLElement $xml, $recursiveDepth = 0, $format = TRUE) {
         $recursiveDepth++;
@@ -61,7 +61,6 @@ class Xml2arrayFunctions {
         $result = $this->setValue($result, $key, $value);
         $result = $this->setChildren($xml, $recursiveDepth, $key, $result);
 
-        if (empty($result)) return array();
         return $result;
     }
 
