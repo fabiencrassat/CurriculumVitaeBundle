@@ -61,6 +61,7 @@ class Xml2arrayFunctions {
         $result = $this->setValue($result, $key, $value);
         $result = $this->setChildren($xml, $recursiveDepth, $key, $result);
 
+        if (empty($result)) return array();
         return $result;
     }
 
