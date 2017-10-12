@@ -31,7 +31,7 @@ class Xml2arrayFunctions {
      * @param integer $recursiveDepth
      * @param boolean $format
      *
-     * @return array
+     * @return array<string,array>
      */
     public function xml2array(\SimpleXMLElement $xml, $recursiveDepth = 0, $format = TRUE) {
         $recursiveDepth++;
@@ -69,7 +69,7 @@ class Xml2arrayFunctions {
      * @param string $key
      * @param array|string $value
      *
-     * @return array
+     * @return array<string,string>
      */
     private function setValue(array $arrayToSet, $key, $value) {
         if ($value <> '') {
@@ -84,7 +84,7 @@ class Xml2arrayFunctions {
      * @param string $key
      * @param array $arrayXML
      *
-     * @return array
+     * @return array<string,array>
      */
     private function setChildren(\SimpleXMLElement $xml, $depth, $key, array $arrayXML) {
         $return = $arrayXML;
@@ -106,7 +106,7 @@ class Xml2arrayFunctions {
      * @param array $arrayToMerge
      * @param string $key
      *
-     * @return array
+     * @return array<string,string>
      */
     private function setStandardAttributes(\SimpleXMLElement $xml, array $arrayToMerge, $key) {
         // Standard Attributes (without Specific thanks to unset())
@@ -122,8 +122,12 @@ class Xml2arrayFunctions {
         return $arrayToMerge;
     }
 
-    private function isStandardAttributes($attribute)
-    {
+    /**
+     * @param string $attribute
+     *
+     * @return boolean
+     */
+    private function isStandardAttributes($attribute) {
         return $attribute <> 'id'
             && $attribute <> 'ref'
             && $attribute <> 'lang'
@@ -171,7 +175,7 @@ class Xml2arrayFunctions {
      * @param array $arrayXML
      * @param string $key
      *
-     * @return array
+     * @return array<string,array>
      */
     private function retrieveSpecificAttributeCrossRef(\SimpleXMLElement $xml, $depth, array $arrayXML, $key) {
         // Specific Attribute: Retrieve the given crossref
@@ -181,7 +185,7 @@ class Xml2arrayFunctions {
             foreach ($crossref as $value) {
                 $resultArray = $this->xml2array($value, $depth);
 
-                if($resultArray) $temp = array_merge($temp, $resultArray);
+                if (! empty($resultArray)) $temp = array_merge($temp, $resultArray);
             }
             return array_merge($arrayXML, array($key => $temp));
         }
