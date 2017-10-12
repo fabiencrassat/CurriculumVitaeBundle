@@ -84,7 +84,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array<string,array|null>
      */
     public function getCurriculumVitaeArray() {
         return array(
@@ -100,7 +100,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getIdentity() {
         $this->interface = $this->curriculumVitae->curriculumVitae->identity->items;
@@ -108,7 +108,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getFollowMe() {
         $this->interface = $this->curriculumVitae->curriculumVitae->followMe->items;
@@ -116,7 +116,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getLookingFor() {
         $this->interface = $this->curriculumVitae->curriculumVitae->lookingFor;
@@ -124,7 +124,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getExperiences() {
         $this->interface = $this->curriculumVitae->curriculumVitae->experiences->items;
@@ -132,7 +132,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getSkills() {
         $this->interface = $this->curriculumVitae->curriculumVitae->skills->items;
@@ -140,7 +140,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getEducations() {
         $this->interface = $this->curriculumVitae->curriculumVitae->educations->items;
@@ -148,7 +148,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getLanguageSkills() {
         $this->interface = $this->curriculumVitae->curriculumVitae->languageSkills->items;
@@ -156,7 +156,7 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getMiscellaneous() {
         $this->interface = $this->curriculumVitae->curriculumVitae->miscellaneous->items;
@@ -236,12 +236,10 @@ class CurriculumVitae extends Xml2arrayFunctions
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     private function getXMLValue() {
-        if (!$this->interface) {
-            return array();
-        }
+        if (!$this->interface) return NULL;
 
         return $this->xml2arrayFunctions->xml2array($this->interface);
     }

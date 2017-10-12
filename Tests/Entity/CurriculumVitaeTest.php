@@ -87,9 +87,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
 
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
-        $identity              = $this->curriculumVitae->getIdentity();
-        $this->assertFalse($identity === NULL);
-        $this->assertTrue($identity == NULL);
+        $this->assertNull($this->curriculumVitae->getIdentity());
     }
 
     private function assertCVInterface($pathToFile = '/../../Resources/data/example.xml') {
