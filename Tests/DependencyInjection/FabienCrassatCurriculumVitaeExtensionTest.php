@@ -43,14 +43,14 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
             $this->configuration->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
         );
 
-        $parameters = array(
+        $parameters = [
             'fabiencrassat_curriculumvitae.default_cv'
                 => 'example',
             'fabiencrassat_curriculumvitae.default_lang'
                 => 'en',
             'fabiencrassat_curriculumvitae.template'
-                => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig',
-        );
+                => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig'
+        ];
         $this->compareParameters($parameters);
     }
 
@@ -63,12 +63,12 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
 
         $this->assertHasParameters();
 
-        $parameters = array(
+        $parameters = [
             'fabiencrassat_curriculumvitae.path_to_cv' => './Tests/Resources/data',
             'fabiencrassat_curriculumvitae.default_cv' => 'mycv',
             'fabiencrassat_curriculumvitae.default_lang' => 'fr',
-            'fabiencrassat_curriculumvitae.template' => 'AcmeHelloBundle:CV:index.html.twig',
-        );
+            'fabiencrassat_curriculumvitae.template' => 'AcmeHelloBundle:CV:index.html.twig'
+        ];
         $this->compareParameters($parameters);
     }
 
@@ -93,7 +93,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
     */
     private function createConfiguration($config)
     {
-        $this->loader->load(array($config), $this->configuration);
+        $this->loader->load([$config], $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 

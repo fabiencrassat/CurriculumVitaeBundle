@@ -29,7 +29,7 @@ class AgeCalculator
         $this->birthday = $birthday;
         $this->birth    = new \stdClass();
         $this->setBirthday();
-        
+
         $this->today = new \stdClass();
         $this->setToday();
     }
@@ -67,7 +67,7 @@ class AgeCalculator
         $this->birth->month = (int) $this->birthdayDate['month'];
         $this->birth->year  = (int) $this->birthdayDate['year'];
 
-        if(!checkdate($this->birth->month, $this->birth->day, $this->birth->year)) {
+        if (!checkdate($this->birth->month, $this->birth->day, $this->birth->year)) {
             throw new InvalidArgumentException('The date ('. $this->birthday .') is unknown.');
         };
     }

@@ -19,13 +19,13 @@ class ArrayFunctionsTest extends \PHPUnit\Framework\TestCase
     {
         $arrayFunction = new ArrayFunctions();
 
-        $result = $arrayFunction->arrayValuesRecursive(Array(1, 2));
-        $this->assertEquals(Array(1, 2), $result);
+        $result = $arrayFunction->arrayValuesRecursive([1, 2]);
+        $this->assertEquals([1, 2], $result);
 
-        $result = $arrayFunction->arrayValuesRecursive(Array(Array(1, 2), Array(3, 4)));
-        $this->assertEquals(Array(1, 2, 3, 4), $result);
+        $result = $arrayFunction->arrayValuesRecursive([[1, 2], [3, 4]]);
+        $this->assertEquals([1, 2, 3, 4], $result);
 
-        $result = $arrayFunction->arrayValuesRecursive(Array(Array(Array(1))));
-        $this->assertEquals(Array(1), $result);
+        $result = $arrayFunction->arrayValuesRecursive([[[1]]]);
+        $this->assertEquals([1], $result);
     }
 }

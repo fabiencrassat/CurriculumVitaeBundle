@@ -29,7 +29,7 @@ class DefaultControllerTest extends WebTestCase
     public function setUp()
     {
         $this->pathToFile = __DIR__.'/../../Resources/data/example.xml';
-        $this->langs      = array('en', 'fr');
+        $this->langs      = ['en', 'fr'];
     }
 
     public function testIndex()
@@ -98,14 +98,14 @@ class DefaultControllerTest extends WebTestCase
     private function initSerializer()
     {
         //initialisation du serializer
-        $encoders    = array(new XmlEncoder('CurriculumVitae'));
-        $normalizers = array(new GetSetMethodNormalizer());
+        $encoders    = [new XmlEncoder('CurriculumVitae')];
+        $normalizers = [new GetSetMethodNormalizer()];
         return new Serializer($normalizers, $encoders);
     }
 
     public function testOutputFollowMeLink()
     {
-        $result         = array();
+        $result         = [];
         $arrayFunctions = new ArrayFunctions();
 
         $this->client = static::createClient();
@@ -116,7 +116,7 @@ class DefaultControllerTest extends WebTestCase
             // Read the Curriculum Vitae
             $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
-            $cvXml = array('followMe' => $this->curriculumVitae->getFollowMe());
+            $cvXml = ['followMe' => $this->curriculumVitae->getFollowMe()];
 
             $testValue = $arrayFunctions->arrayValuesRecursive($cvXml);
             foreach ($testValue as $value) {
@@ -144,7 +144,7 @@ class DefaultControllerTest extends WebTestCase
         // Read the Curriculum Vitae
         $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
-        $cvXml = array(
+        $cvXml = [
                 'identity'          => $this->curriculumVitae->getIdentity(),
                 'lookingFor'        => $this->curriculumVitae->getLookingFor(),
                 'experiences'       => $this->curriculumVitae->getExperiences(),
@@ -152,13 +152,13 @@ class DefaultControllerTest extends WebTestCase
                 'educations'        => $this->curriculumVitae->getEducations(),
                 'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
                 'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
-        );
+        ];
         // Remove all no visible elements
         $cvXml = $this->removeNoVisibleElementDependingOnLanguages($lang, $cvXml);
         $cvXml = $this->removeNoVisibleElementForAllLanguages($cvXml);
 
         $testValue = $arrayFunctions->arrayValuesRecursive($cvXml);
-        $result    = array();
+        $result    = [];
         foreach ($testValue as $value) {
             if ($crawler->filter('html:contains("'.$value.'")')->count() == 0) {
                 $result[] = 'The value '.$value.' is not diplay for language '.$lang;

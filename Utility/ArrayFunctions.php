@@ -18,8 +18,8 @@ class ArrayFunctions
      */
     public function arrayValuesRecursive($array)
     {
-        $result = array();
-        foreach($array as $value) {
+        $result = [];
+        foreach ($array as $value) {
             $result = $this->arrayValuesMerge($result, $value);
         }
         return $result;
@@ -27,10 +27,10 @@ class ArrayFunctions
 
     private function arrayValuesMerge($array, $value)
     {
-        if(is_array($value)) {
+        if (is_array($value)) {
             return array_merge($array, $this->arrayValuesRecursive($value));
         }
 
-        return array_merge($array, array($value));
+        return array_merge($array, [$value]);
     }
 }

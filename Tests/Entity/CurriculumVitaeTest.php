@@ -27,9 +27,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
     public function testNoLanguage() {
         $this->interface = 'getDropDownLanguages';
 
-        $this->arrayToCompare = array(
-            $this->lang => $this->lang
-        );
+        $this->arrayToCompare = [$this->lang => $this->lang];
 
         $this->assertCVInterface('/../Resources/data/core.xml');
     }
@@ -37,7 +35,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
     public function testSpecialCharacters() {
         $this->interface = 'getLookingFor';
 
-        $this->arrayToCompare = array(
+        $this->arrayToCompare = [
             'experience'   => 'Curriculum Vitae With Special Characters',
             'presentation' => 'AZERTY keyboard'
             .' Line 1 ²é"(-è_çà)='
@@ -53,8 +51,8 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
             .' Line 4 with shift WXCVBN?./§'
             .' Line 4 with Alt Gr '
             .' Escape Characters < > &'
-            .' End',
-        );
+            .' End'
+        ];
         $this->assertCVInterface('/../Resources/data/specialCharacters.xml');
     }
 

@@ -24,27 +24,23 @@ class CurriculumVitaeGetIdentityFromExampleXMLFileTest extends \PHPUnit\Framewor
         // We remove the values because of travisci and scrutinizer (depending of date)
         unset($identity['myself']['birthday']);
         unset($identity['myself']['age']);
-        $this->assertEquals(array(
-            'myself' => array(
+        $this->assertEquals([
+            'myself' => [
                 'name' => 'First Name Last Name',
                 'nationality' => 'French Citizenship',
-                'picture' => 'bundles/fabiencrassatcurriculumvitae/img/example.png'
-            ),
-            'address' => array(
+                'picture' => 'bundles/fabiencrassatcurriculumvitae/img/example.png'],
+            'address' => [
                 'street' => 'Street',
                 'postalcode' => 'PostalCode',
                 'city' => 'City',
                 'country' => 'Country',
-                'googlemap' => 'http://maps.google.com'
-            ),
-            'contact' => array(
+                'googlemap' => 'http://maps.google.com'],
+            'contact' => [
                 'mobile' => 'Telephone',
-                'email' => 'email_arobase_site_dot_com'
-            ),
-            'social' => array(
-                'drivelicences' => 'French driving licence'
-            )
-        ), $identity);
+                'email' => 'email_arobase_site_dot_com'],
+            'social' => [
+                'drivelicences' => 'French driving licence']
+        ], $identity);
     }
 
     public function testGetIdentityWithFrenchLanguage() {
@@ -53,28 +49,28 @@ class CurriculumVitaeGetIdentityFromExampleXMLFileTest extends \PHPUnit\Framewor
         $identity = $this->curriculumVitae->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
         unset($identity['myself']['birthday']);
-        $this->assertEquals(array(
-            'myself' => array(
-                'name' => 'First Name Last Name',
+        $this->assertEquals([
+            'myself' => [
+                'name'       => 'First Name Last Name',
                 'birthplace' => 'Paris',
-                'picture' => 'bundles/fabiencrassatcurriculumvitae/img/example.png'
-            ),
-            'address' => array(
-                'street' => 'Street',
+                'picture'    => 'bundles/fabiencrassatcurriculumvitae/img/example.png'
+            ],
+            'address' => [
+                'street'     => 'Street',
                 'postalcode' => 'PostalCode',
-                'city' => 'City',
-                'country' => 'Country',
-                'googlemap' => 'http://maps.google.com'
-            ),
-            'contact' => array(
+                'city'       => 'City',
+                'country'    => 'Country',
+                'googlemap'  => 'http://maps.google.com'
+            ],
+            'contact' => [
                 'mobile' => 'Telephone',
-                'email' => 'email_arobase_site_dot_com'
-            ),
-            'social' => array(
-                'marital' => 'Célibataire',
-                'military' => 'Dégagé des obligations militaires',
+                'email'  => 'email_arobase_site_dot_com'
+            ],
+            'social' => [
+                'marital'       => 'Célibataire',
+                'military'      => 'Dégagé des obligations militaires',
                 'drivelicences' => 'Titulaire du permis B'
-            )
-        ), $identity);
+            ]
+        ], $identity);
     }
 }

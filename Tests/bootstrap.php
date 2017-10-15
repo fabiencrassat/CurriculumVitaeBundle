@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-$autoloads = array(
+$autoloads = [
     __DIR__.'/../vendor/autoload.php',          // travis or standalone test
     __DIR__.'/../../../../vendor/autoload.php', // symfony & composer test
-);
+];
 
 $autoloadFile = FALSE;
 

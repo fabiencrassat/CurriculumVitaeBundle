@@ -23,7 +23,7 @@ class Xml2arrayFunctionsTest extends \PHPUnit\Framework\TestCase
 <document>
 </document>
 XML;
-        $expected = array();
+        $expected = [];
 
         $this->assertXml2Array($expected, $string, $string);
     }
@@ -35,7 +35,7 @@ XML;
     <node lang='unknown'>something we don't want</node>
 </document>
 XML;
-        $expected = array();
+        $expected = [];
 
         $this->assertXml2Array($expected, $string, $string);
     }
@@ -52,12 +52,12 @@ XML;
  </body>
 </document>
 XML;
-        $expected = array(
+        $expected = [
             'title' => 'Forty What?',
             'from'  => 'Joe',
             'to'    => 'Jane',
             'body'  => "I know that's the answer -- but what's the question?"
-        );
+        ];
 
         $this->assertXml2Array($expected, $string, $string);
     }
@@ -75,15 +75,15 @@ XML;
  <lang lang="lang"></lang>
 </document>
 XML;
-        $expected = array(
-            'attr' => 'The value win, not the attribute!!!',
-            'onlyattribute'   => array(
-                'attributekey' => 'attributevalue'),
-            'attr2'   => array(
+        $expected = [
+            'attr'            => 'The value win, not the attribute!!!',
+            'onlyattribute'   => [
+                'attributekey' => 'attributevalue'],
+            'attr2' => [
                 'attributekey' => 'attributevalue',
-                'product' => 'product'),
-            'value'  => 'value'
-        );
+                'product'      => 'product'],
+            'value' => 'value'
+        ];
 
         $this->assertXml2Array($expected, $string, $string);
     }
@@ -110,11 +110,11 @@ XML;
 </document>
 XML;
 
-        $expected = array('society' => array(
+        $expected = ['society' => [
             'name'      => 'OneSociety',
             'address'   => 'An address',
             'siteurl'   => 'http://www.google.com'
-        ));
+        ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
@@ -145,13 +145,13 @@ XML;
 </document>
 XML;
 
-        $expected = array('job' => array(
-            'society' => array(
+        $expected = ['job' => [
+            'society' => [
                 'name'      => 'OneSociety',
                 'address'   => 'An address',
-                'siteurl'   => 'http://www.google.com'),
+                'siteurl'   => 'http://www.google.com'],
             'job'   => 'My first job'
-        ));
+        ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
 
@@ -165,13 +165,13 @@ XML;
 </document>
 XML;
 
-        $expected = array('OneExperience' => array(
-            'society' => array(
+        $expected = ['OneExperience' => [
+            'society' => [
                 'name'      => 'OneSociety',
                 'address'   => 'An address',
-                'siteurl'   => 'http://www.google.com'),
+                'siteurl'   => 'http://www.google.com'],
             'job'   => 'My first job'
-        ));
+        ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
 
@@ -182,11 +182,11 @@ XML;
 </document>
 XML;
 
-        $expected = array('society' => array(
+        $expected = ['society' => [
             'name'      => 'OneSociety',
             'address'   => 'An address',
-            'siteurl'   => 'http://www.google.com')
-        );
+            'siteurl'   => 'http://www.google.com']
+        ];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
@@ -217,13 +217,13 @@ XML;
 </document>
 XML;
 
-        $expected = array('job' => array(
-            'society' => array(
+        $expected = ['job' => [
+            'society' => [
                 'name'      => 'OneSociety',
                 'address'   => 'An address',
-                'siteurl'   => 'http://www.google.com'),
+                'siteurl'   => 'http://www.google.com'],
             'job'   => 'My first job'
-        ));
+        ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
     }
@@ -282,38 +282,38 @@ XML;
 </root>
 XML;
 
-        $society           = array(
+        $society           = [
             'name'    => 'OneSociety',
             'address' => 'address',
-            'siteurl' => 'http://www.google.com');
-        $currentExperience = array(
+            'siteurl' => 'http://www.google.com'];
+        $currentExperience = [
             'job'      => 'Second Job',
             'date'     => 'Apr 2011 - Present',
             'society'  => $society,
-            'missions' => array(
-                'item' => array('A mission of my second job.')));
+            'missions' => [
+                'item' => ['A mission of my second job.']]];
 
-        $expected = array(
-            'langs'  => array(
-                'en' => 'English', 'fr' => 'Français'),
-            'curriculumVitae' => array(
-                'lookingFor'  => array(
+        $expected = [
+            'langs'  => [
+                'en' => 'English',
+                'fr' => 'Français'],
+            'curriculumVitae' => [
+                'lookingFor'  => [
                     'experience'   => $currentExperience,
-                    'presentation' => 'A good presentation.'),
-                'experiences' => array(
+                    'presentation' => 'A good presentation.'],
+                'experiences' => [
                     'anchorTitle' => 'Experiences',
-                    'items' => array(
+                    'items'       => [
                         'SecondJob' => $currentExperience,
-                        'FirstJob'  => array(
+                        'FirstJob'  => [
                             'job'      => 'First Job',
                             'date'     => 'Nov 2009 - Apr 2011',
                             'society'  => $society,
-                            'missions' => array(
-                                'item' => array('A mission of my first job.')))),
-                    'anchor' => 'experiences')),
-            'societies' => array(
-                'society' => $society)
-        );
+                            'missions' => [
+                                'item' => ['A mission of my first job.']]]],
+                    'anchor' => 'experiences']],
+            'societies' => ['society' => $society]
+        ];
 
         $this->assertXml2Array($expected, $curriculumVitae, $curriculumVitae);
     }

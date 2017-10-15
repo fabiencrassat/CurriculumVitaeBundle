@@ -32,7 +32,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         $this->setFileName();
         $this->lang               = $lang;
         $this->curriculumVitae    = $this->getXmlCurriculumVitae();
-        $this->xml2arrayFunctions = New Xml2arrayFunctions($this->curriculumVitae, $this->lang);
+        $this->xml2arrayFunctions = new Xml2arrayFunctions($this->curriculumVitae, $this->lang);
     }
 
     /**
@@ -41,8 +41,8 @@ class CurriculumVitae extends Xml2arrayFunctions
     public function getDropDownLanguages() {
         $this->interface = $this->curriculumVitae->{'langs'};
         $return          = $this->getXMLValue();
-        if(!$return) {
-            $return = array($this->lang => $this->lang);
+        if (!$return) {
+            $return = [$this->lang => $this->lang];
         }
 
         return $return;
@@ -54,17 +54,17 @@ class CurriculumVitae extends Xml2arrayFunctions
     public function getAnchors() {
         $anchorsAttribute = $this->curriculumVitae->xpath('curriculumVitae/*[attribute::anchor]');
 
-        $anchors = array();
+        $anchors = [];
         foreach ($anchorsAttribute as $anchorsValue) {
             $anchor = (string) $anchorsValue['anchor'];
             $title  = $anchorsValue->xpath("anchorTitle[@lang='" . $this->lang . "']");
             if (count($title) == 0) {
                 $title = $anchorsValue->xpath('anchorTitle');
             }
-            $anchors[$anchor] = array(
+            $anchors[$anchor] = [
                 'href'  => $anchor,
                 'title' => (string) $title[0],
-            );
+            ];
         };
 
         return $anchors;
@@ -75,10 +75,14 @@ class CurriculumVitae extends Xml2arrayFunctions
      */
     public function getHumanFileName() {
         $myName = $this->getMyName();
-        if (empty($myName)) return $this->cvFile;
+        if (empty($myName)) {
+            return $this->cvFile;
+        }
 
         $myCurrentJob = $this->getMyCurrentJob();
-        if (empty($myCurrentJob)) return $myName;
+        if (empty($myCurrentJob)) {
+            return $myName;
+        }
 
         return $myName.' - '.$myCurrentJob;
     }
@@ -87,7 +91,7 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return array<string,null|array<string,array>>
      */
     public function getCurriculumVitaeArray() {
-        return array(
+        return [
             'identity'          => $this->getIdentity(),
             'followMe'          => $this->getFollowMe(),
             'lookingFor'        => $this->getLookingFor(),
@@ -95,8 +99,8 @@ class CurriculumVitae extends Xml2arrayFunctions
             'skills'            => $this->getSkills(),
             'educations'        => $this->getEducations(),
             'languageSkills'    => $this->getLanguageSkills(),
-            'miscellaneous'     => $this->getMiscellaneous(),
-        );
+            'miscellaneous'     => $this->getMiscellaneous()
+        ];
     }
 
     /**
@@ -239,7 +243,9 @@ class CurriculumVitae extends Xml2arrayFunctions
      * @return null|array<string,array>
      */
     private function getXMLValue() {
-        if (!$this->interface) return NULL;
+        if (!$this->interface) {
+            return NULL;
+        }
 
         return $this->xml2arrayFunctions->xml2array($this->interface);
     }

@@ -71,7 +71,7 @@ class AgeCalculatorTest extends \PHPUnit\Framework\TestCase
     private function assertEqualsForAgeBeforeBirthday($month, $day)
     {
         $yearsOld = $this->yearsOld;
-        if(!($day == $this->actualDay && $month == $this->actualMonth)) {
+        if (!($day == $this->actualDay && $month == $this->actualMonth)) {
             $yearsOld = $this->yearsOld - 1;
         }
 

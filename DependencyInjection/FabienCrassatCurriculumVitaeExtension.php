@@ -49,10 +49,10 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     {
         // Path to Curriculum Vitae Directory
         $pathToCV = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
-        if(isset($this->config['path_to_cv'])) {
+        if (isset($this->config['path_to_cv'])) {
             $pathToCV = $this->config['path_to_cv'];
         }
-        
+
         if (!is_dir($pathToCV)) {
             throw new NotFoundHttpException('There is no directory defined here ('.$pathToCV.').');
         }
@@ -62,7 +62,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private function setDefaultCV()
     {
         // Default Curriculum Vitae
-        if(isset($this->config['custo_default_cv'])) {
+        if (isset($this->config['custo_default_cv'])) {
             $this->container->setParameter(
                 'fabiencrassat_curriculumvitae.default_cv',
                 $this->config['custo_default_cv']
@@ -73,7 +73,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private function setTemplate()
     {
         // Twig template of the Curriculum Vitae
-        if(isset($this->config['template'])) {
+        if (isset($this->config['template'])) {
             $this->container->setParameter(
                 'fabiencrassat_curriculumvitae.template',
                 $this->config['template']
@@ -84,7 +84,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private function setDefaultLanguage()
     {
         // default_lang of the Curriculum Vitae
-        if(isset($this->config['default_lang'])) {
+        if (isset($this->config['default_lang'])) {
             $this->container->setParameter(
                 'fabiencrassat_curriculumvitae.default_lang',
                 $this->config['default_lang']

@@ -34,22 +34,22 @@ class DefaultController implements ContainerAwareInterface
     private $curriculumVitae;
     private $exposedLanguages;
     private $requestFormat;
-    private $parameters = array();
+    private $parameters = [];
 
     /**
      * @return Response
      */
     public function indexAction($cvxmlfile = NULL)
     {
-        if($cvxmlfile) {
-            $path = array(
+        if ($cvxmlfile) {
+            $path = [
                 '_controller' => 'FabienCrassatCurriculumVitaeBundle:Default:display',
                 'cvxmlfile'   => $cvxmlfile,
                 '_locale'     => $this->lang,
-            );
+            ];
 
             $request    = $this->container->get('request');
-            $subRequest = $request->duplicate(array(), NULL, $path);
+            $subRequest = $request->duplicate([], NULL, $path);
 
             $httpKernel = $this->container->get('http_kernel');
             $response   = $httpKernel->handle(
@@ -62,9 +62,8 @@ class DefaultController implements ContainerAwareInterface
         $this->initialization($cvxmlfile);
         return new RedirectResponse($this->container->get('router')->generate(
             'fabiencrassat_curriculumvitae_cvxmlfileonly',
-            array(
-                'cvxmlfile'   => $this->cvxmlfile,
-            )), 301);
+            ['cvxmlfile' => $this->cvxmlfile]),
+            301);
     }
 
     /**
@@ -81,8 +80,8 @@ class DefaultController implements ContainerAwareInterface
                 return new Response(json_encode($this->parameters));
             case 'xml':
                 //initialisation du serializer
-                $encoders    = array(new XmlEncoder('CurriculumVitae'), new JsonEncoder());
-                $normalizers = array(new GetSetMethodNormalizer());
+                $encoders    = [new XmlEncoder('CurriculumVitae'), new JsonEncoder()];
+                $normalizers = [new GetSetMethodNormalizer()];
                 $serializer  = new Serializer($normalizers, $encoders);
 
                 $response = new Response();
@@ -124,10 +123,9 @@ class DefaultController implements ContainerAwareInterface
             $content = $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
         };
 
-        return new Response($content,
-            200,
-            array('Content-Type'        => 'application/pdf',
-                  'Content-Disposition' => 'attachment; filename="'.$filename.'"')
+        return new Response($content, 200,
+            ['Content-Type'       => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"']
         );
     }
 
@@ -162,7 +160,7 @@ class DefaultController implements ContainerAwareInterface
 
         // Check if there is at least 1 language defined
         $this->exposedLanguages = $this->curriculumVitae->getDropDownLanguages();
-        if(is_array($this->exposedLanguages)) {
+        if (is_array($this->exposedLanguages)) {
             if (!array_key_exists($this->lang, $this->exposedLanguages)) {
                 throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->lang);
             }
@@ -189,14 +187,14 @@ class DefaultController implements ContainerAwareInterface
 
     private function setToolParameters()
     {
-        $this->setParameters(array(
+        $this->setParameters([
             'cvxmlfile'              => $this->cvxmlfile,
             'languageView'           => $this->lang,
             'languages'              => $this->exposedLanguages,
             'anchors'                => $this->curriculumVitae->getAnchors(),
             'hasExportPDF'           => $this->hasExportPDF(),
-            'hasSecureDisplayBundle' => $this->hasSecureDisplayBundle(),
-        ));
+            'hasSecureDisplayBundle' => $this->hasSecureDisplayBundle()
+        ]);
     }
 
     /**
