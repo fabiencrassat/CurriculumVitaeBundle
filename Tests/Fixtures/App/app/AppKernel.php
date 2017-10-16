@@ -16,12 +16,12 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Netinfluence\SecureDisplayBundle\NetinfluenceSecureDisplayBundle(),
-            new FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle(),
-        );
+            new FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle()
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

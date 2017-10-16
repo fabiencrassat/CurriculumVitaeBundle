@@ -111,7 +111,7 @@ class Xml2arrayFunctions {
     private function setStandardAttributes(\SimpleXMLElement $xml, array $arrayToMerge, $key) {
         // Standard Attributes (without Specific thanks to unset())
         $attributes = [];
-        foreach($xml->attributes() as $attributeKey => $attributeValue) {
+        foreach ($xml->attributes() as $attributeKey => $attributeValue) {
             if ($this->isStandardAttributes($attributeKey)) {
                 $attributes[$attributeKey] = trim($attributeValue);
             }

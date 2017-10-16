@@ -50,7 +50,7 @@ class FabienCrassatCurriculumVitaeExtensionExpectedExceptionTest extends \PHPUni
     */
     private function createConfiguration($config)
     {
-        $this->loader->load(array($config), $this->configuration);
+        $this->loader->load([$config], $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
