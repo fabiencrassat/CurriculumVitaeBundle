@@ -2,6 +2,10 @@
 # inherit the next configuration down the chain
 inherit: true
 
+filter:
+    excluded_paths:
+        - "Resources/offline/js/bootstrap.min.js"
+
 tools: ~
 build:
     environment:

@@ -16,7 +16,7 @@ class ArrayFunctions
     /**
      * @param array $array
      */
-    public function arrayValuesRecursive($array)
+    public function arrayValuesRecursive(array $array)
     {
         $result = [];
         foreach ($array as $value) {
@@ -25,7 +25,7 @@ class ArrayFunctions
         return $result;
     }
 
-    private function arrayValuesMerge($array, $value)
+    private function arrayValuesMerge(array $array, $value)
     {
         if (is_array($value)) {
             return array_merge($array, $this->arrayValuesRecursive($value));
