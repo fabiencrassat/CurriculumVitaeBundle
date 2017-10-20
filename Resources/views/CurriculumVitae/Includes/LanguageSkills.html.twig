@@ -37,7 +37,7 @@ file that was distributed with this source code.
     {% if template == "OryzoneBoilerplate" %}
         <div class="row">
         {% for line in blocks %}
-        <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %}">
+        <div class="col-md-5{% if loop.index == 1 %} col-md-offset-1 {% endif %} languageSkill">
             <div class="pull-left">
                 <img class="media-object" src="{{ asset('' ~ line.icon) }}" alt="{{ line.title }}">
             </div>

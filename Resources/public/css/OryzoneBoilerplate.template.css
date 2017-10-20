@@ -34,6 +34,7 @@ dl.timeline dt {
 }
 dl.timeline .indent {
     display: inline-block;
+    box-sizing: border-box;
     border-top: 2px solid #CCCCCC;
     width: 20px;
     height: 4px;
@@ -43,7 +44,7 @@ dl.timeline > dd {
     margin-bottom: 10px;
     margin-left: 10px;
 }
-#languageSkills .col-md-5 {
+.languageSkill {
     padding-bottom: 20px;
 }
 @media print {
