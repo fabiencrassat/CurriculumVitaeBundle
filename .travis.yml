@@ -27,6 +27,8 @@ addons:
     token:
       secure: $SONAR_TOKEN
 
-before_script:
-  - composer install
+before_script: composer install
+  
+script:
+  - phpunit --coverage-text
   - sonar-scanner
