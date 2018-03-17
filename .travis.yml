@@ -21,6 +21,12 @@ matrix:
   allow_failures:
     - php: hhvm
 
-before_script: composer install
+addons:
+  sonarcloud:
+    organization: "fabiencrassat-github"
+    token:
+      secure: $SONAR_TOKEN
 
-script: phpunit --coverage-text
+before_script:
+  - composer install
+  - sonar-scanner
