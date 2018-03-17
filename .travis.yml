@@ -34,4 +34,4 @@ before_script: composer install
 script:
   - if [[ $TEST_FILES != true ]]; then phpunit --coverage-text; fi
   - if [[ $TEST_FILES == true ]]; then phpunit --coverage-text --log-junit tests.junit.xml --coverage-clover coverage.clover.xml; fi
-  - if [[ $TEST_FILES == true ]]; then sonar-scanner; fi
+  - if [[ $TEST_FILES == true ]]; then sonar-scanner "-Dsonar.projectVersion=$(git describe --tags)+build.$TRAVIS_BUILD_NUMBER"; fi
