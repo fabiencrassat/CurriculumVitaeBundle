@@ -24,17 +24,17 @@ class LibXmlDisplayErrors
         $this->chainErrors = '';
     }
 
-    public function libXmlDisplayErrors() {
+    public function displayErrors() {
         foreach ($this->errors as $error) {
             $this->error        = $error;
-            $this->chainErrors .= $this->libXmlDisplayError();
+            $this->chainErrors .= $this->displayError();
         }
         libxml_clear_errors();
 
         return $this->chainErrors;
     }
 
-    private function libXmlDisplayError() {
+    private function displayError() {
         $this->setEmptyContent();
         $this->addErrorLevelContent();
         $this->addFileContent();
@@ -56,6 +56,8 @@ class LibXmlDisplayErrors
             case LIBXML_ERR_FATAL:
                 $this->addInContent('Fatal Error '.($this->error->code));
                 break;
+            default:
+                $this->addInContent('Info '.($this->error->code));
         }
     }
 

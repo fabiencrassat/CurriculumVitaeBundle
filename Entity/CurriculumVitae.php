@@ -65,7 +65,7 @@ class CurriculumVitae extends Xml2arrayFunctions
                 'href'  => $anchor,
                 'title' => (string) $title[0],
             ];
-        };
+        }
 
         return $anchors;
     }
@@ -233,7 +233,7 @@ class CurriculumVitae extends Xml2arrayFunctions
         $validate  = $dom->schemaValidate($xsdFile);
         if (!$validate) {
             $libxmlDisplayErrors = new LibXmlDisplayErrors;
-            throw new InvalidArgumentException($libxmlDisplayErrors->libXmlDisplayErrors());
+            throw new InvalidArgumentException($libxmlDisplayErrors->displayErrors());
         }
 
         return $validate;

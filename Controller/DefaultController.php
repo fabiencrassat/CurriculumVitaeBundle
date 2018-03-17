@@ -52,11 +52,11 @@ class DefaultController implements ContainerAwareInterface
             $subRequest = $request->duplicate([], NULL, $path);
 
             $httpKernel = $this->container->get('http_kernel');
-            $response   = $httpKernel->handle(
+
+            return $httpKernel->handle(
                 $subRequest,
                 HttpKernelInterface::SUB_REQUEST
             );
-            return $response;
         }
 
         $this->initialization($cvxmlfile);
@@ -118,10 +118,10 @@ class DefaultController implements ContainerAwareInterface
         if (!$hasPdfService && $this->container->has('a5sys_pdf.pdf_service')) {
             $hasPdfService = true;
             $content       = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
-        };
+        }
         if (!$hasPdfService && $this->container->has('knp_snappy.pdf')) {
             $content = $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
-        };
+        }
 
         return new Response($content, 200,
             ['Content-Type'       => 'application/pdf',
@@ -160,10 +160,8 @@ class DefaultController implements ContainerAwareInterface
 
         // Check if there is at least 1 language defined
         $this->exposedLanguages = $this->curriculumVitae->getDropDownLanguages();
-        if (is_array($this->exposedLanguages)) {
-            if (!array_key_exists($this->lang, $this->exposedLanguages)) {
-                throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->lang);
-            }
+        if (is_array($this->exposedLanguages) && !array_key_exists($this->lang, $this->exposedLanguages)) {
+            throw new NotFoundHttpException('There is no curriculum vitae defined for the language '.$this->lang);
         }
     }
 

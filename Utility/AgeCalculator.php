@@ -51,7 +51,7 @@ class AgeCalculator
 
             $this->setAgeMinusOne();
             return $this->getAge();
-        };
+        }
 
         return $this->getAge();
     }
@@ -69,7 +69,7 @@ class AgeCalculator
 
         if (!checkdate($this->birth->month, $this->birth->day, $this->birth->year)) {
             throw new InvalidArgumentException('The date ('. $this->birthday .') is unknown.');
-        };
+        }
     }
 
     private function setToday()

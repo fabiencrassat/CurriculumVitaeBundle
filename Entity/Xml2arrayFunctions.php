@@ -59,9 +59,7 @@ class Xml2arrayFunctions {
         $value = $this->setValueForSpecificKeys($key, $value, $format);
 
         $result = $this->setValue($result, $key, $value);
-        $result = $this->setChildren($xml, $recursiveDepth, $key, $result);
-
-        return $result;
+        return $this->setChildren($xml, $recursiveDepth, $key, $result);
     }
 
     /**
