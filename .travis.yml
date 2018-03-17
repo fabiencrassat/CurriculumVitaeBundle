@@ -1,6 +1,5 @@
 # faster builds on new travis setup not using sudo
-dist: trusty
-sudo: required
+sudo: false
 language: php
 
 php:
@@ -24,19 +23,8 @@ matrix:
 
 addons:
   sonarcloud:
-    organization: "CurriculumVitaeBundle"
+    organization: "fabiencrassat-github"
     token:
       secure: $SONAR_TOKEN
 
-jdk:
-  - oraclejdk8
-
 before_script: composer install
-
-script:
-  - phpunit --coverage-text
-  - sonar-scanner
-
-cache:
-  directories:
-    - '$HOME/.sonar/cache'
