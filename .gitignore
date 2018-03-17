@@ -1,3 +1,6 @@
+coverage.clover.xml
+tests.junit.xml
+
 *.tmp
 
 vendor
