@@ -20,6 +20,8 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
     private $interface;
     private $arrayToCompare;
 
+    const XML_CORE = '/../Resources/data/core.xml';
+
     public function setUp() {
         $this->lang = 'en';
     }
@@ -29,7 +31,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
 
         $this->arrayToCompare = [$this->lang => $this->lang];
 
-        $this->assertCVInterface('/../Resources/data/core.xml');
+        $this->assertCVInterface(self::XML_CORE);
     }
 
     public function testSpecialCharacters() {
@@ -57,7 +59,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testSimpleHumanFileName() {
-        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.self::XML_CORE);
         $this->assertSame('core', $this->curriculumVitae->getHumanFileName());
     }
 
@@ -84,7 +86,7 @@ class CurriculumVitaeTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testNullReturnWithNoDeclarationInCurriculumVitaeTag() {
-        $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/core.xml');
+        $this->curriculumVitae = new CurriculumVitae(__DIR__.self::XML_CORE);
         $this->assertNull($this->curriculumVitae->getIdentity());
     }
 

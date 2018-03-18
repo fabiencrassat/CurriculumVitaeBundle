@@ -40,15 +40,15 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
 
         $this->assertStringEndsWith(
             'Resources/data',
-            $this->configuration->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
+            $this->configuration->getParameter(FabienCrassatCurriculumVitaeExtension::PATH_TO_CV)
         );
 
         $parameters = [
-            'fabiencrassat_curriculumvitae.default_cv'
+            FabienCrassatCurriculumVitaeExtension::DEFAULT_CV
                 => 'example',
-            'fabiencrassat_curriculumvitae.default_lang'
+            FabienCrassatCurriculumVitaeExtension::DEFAULT_LANG
                 => 'en',
-            'fabiencrassat_curriculumvitae.template'
+            FabienCrassatCurriculumVitaeExtension::TEMPLATE
                 => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig'
         ];
         $this->compareParameters($parameters);
@@ -64,10 +64,10 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
         $this->assertHasParameters();
 
         $parameters = [
-            'fabiencrassat_curriculumvitae.path_to_cv' => './Tests/Resources/data',
-            'fabiencrassat_curriculumvitae.default_cv' => 'mycv',
-            'fabiencrassat_curriculumvitae.default_lang' => 'fr',
-            'fabiencrassat_curriculumvitae.template' => 'AcmeHelloBundle:CV:index.html.twig'
+            FabienCrassatCurriculumVitaeExtension::PATH_TO_CV   => './Tests/Resources/data',
+            FabienCrassatCurriculumVitaeExtension::DEFAULT_CV   => 'mycv',
+            FabienCrassatCurriculumVitaeExtension::DEFAULT_LANG => 'fr',
+            FabienCrassatCurriculumVitaeExtension::TEMPLATE     => 'AcmeHelloBundle:CV:index.html.twig'
         ];
         $this->compareParameters($parameters);
     }
@@ -138,10 +138,10 @@ EOF;
     */
     private function assertHasParameters()
     {
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.path_to_cv');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_cv');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.default_lang');
-        $this->assertHasParameter('fabiencrassat_curriculumvitae.template');
+        $this->assertHasParameter(FabienCrassatCurriculumVitaeExtension::PATH_TO_CV);
+        $this->assertHasParameter(FabienCrassatCurriculumVitaeExtension::DEFAULT_CV);
+        $this->assertHasParameter(FabienCrassatCurriculumVitaeExtension::DEFAULT_LANG);
+        $this->assertHasParameter(FabienCrassatCurriculumVitaeExtension::TEMPLATE);
     }
 
     /**

@@ -28,6 +28,11 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private $config;
     private $container;
 
+    const PATH_TO_CV   = 'fabiencrassat_curriculumvitae.path_to_cv';
+    const DEFAULT_CV   = 'fabiencrassat_curriculumvitae.default_cv';
+    const DEFAULT_LANG = 'fabiencrassat_curriculumvitae.default_lang';
+    const TEMPLATE     = 'fabiencrassat_curriculumvitae.template';
+
     /**
      * {@inheritDoc}
      */

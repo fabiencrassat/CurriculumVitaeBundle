@@ -78,16 +78,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
 
         $this->arrayToCompare = [
             'experience'   => 'Curriculum Vitae Title',
-            'presentation' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            .' Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent'
-            .' ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus'
-            .' scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula'
-            .' a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse'
-            .' ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at'
-            .' adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus'
-            .' sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu'
-            .' ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas'
-            .' nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem.'
+            'presentation' => 'Sed ultrices urna condimentum, luctus nisi sit amet, vehicula dolor. Proin at augue sapien. Phasellus nec sem euismod, ultrices orci sit amet, ultrices turpis. Phasellus ut libero tellus. Maecenas nec neque sagittis, scelerisque orci sed, posuere ligula. Curabitur euismod malesuada purus, ac semper quam. Suspendisse consequat, est a volutpat molestie, metus risus porta est, id interdum turpis justo ac lorem. Mauris id mollis nisi, ut hendrerit augue. Vestibulum aliquet felis aliquet risus porttitor, aliquam porttitor nibh euismod.'
         ];
         $this->assertCVInterface();
 
@@ -145,7 +136,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                 'society'  => 'A society with a name per language',
                 'missions' => [
                     'item' => [
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.']]]
+                        0 => 'In et felis leo. Donec viverra vestibulum eros in sagittis.']]]
         ];
         $this->assertCVInterface();
 
@@ -186,7 +177,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                 'society'  => 'Une société avec un nom par langue',
                 'missions' => [
                     'item' => [
-                        0 => 'Suspendisse et arcu eget est feugiat elementum.']]]
+                        0 => 'In et felis leo. Donec viverra vestibulum eros in sagittis.']]]
         ];
         $this->assertCVInterface();
     }
@@ -286,8 +277,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                 'date'         => '2002 - 2005',
                 'education'    => 'My diploma in my university',
                 'descriptions' => ['item' => [
-                    0 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in'
-                        .' auctor ipsum. Nullam venenatis sem.'
+                    0 => 'Quisque eu sapien tortor. Morbi erat lorem, facilisis tempor pulvinar eu, sollicitudin a tellus. Phasellus consequat viverra mattis. Vestibulum convallis ornare eros, ac placerat neque. Aliquam viverra iaculis ex, egestas ornare ipsum fringilla id. Fusce turpis leo, iaculis id vestibulum sed, pharetra malesuada velit. Ut risus leo, consectetur eu pretium id, convallis in nisi. Sed vel varius nulla. Sed id scelerisque est.'
                 ]]
             ],
             'HighSchool' => [
@@ -295,12 +285,8 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                 'date'         => 'June 2002',
                 'education'    => 'My diploma in my high school',
                 'descriptions' => ['item' => [
-                    0 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit'
-                        .' dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim'
-                        .' imperdiet consectetur. Praesent scelerisque neque.',
-                    1 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium'
-                        .' varius est sit amet consectetur. Suspendisse cursus dapibus egestas.'
-                        .' Ut id augue quis mi scelerisque.'
+                    0 => 'Duis egestas ipsum nulla, et maximus ligula mollis sed. Phasellus aliquet ac orci in fermentum. Donec cursus id tellus ac sagittis. Praesent et elit tincidunt sem lobortis porttitor. Suspendisse lorem purus, gravida et tellus in, ultrices ornare libero. In bibendum consectetur enim nec commodo. Sed non neque sodales, mollis arcu et, dapibus purus.',
+                    1 => 'Duis faucibus tortor nec enim auctor ultrices non vitae erat. Suspendisse in scelerisque ipsum. Proin eu neque rutrum, condimentum ligula vitae, tempor metus. Quisque non massa at nibh maximus rutrum ut ac ligula. Fusce dolor mi, imperdiet tincidunt molestie non, volutpat quis mauris. In aliquet laoreet dolor in pharetra. Pellentesque feugiat mollis turpis, vel faucibus metus suscipit sed.'
                 ]]
             ],
             'FirstSchool' => [
@@ -317,12 +303,8 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                 'date'         => '2002 - 2005',
                 'education'    => 'Mon diplôme dans mon université',
                 'descriptions' => ['item' => [
-                    0 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui,'
-                        .' faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim'
-                        .' imperdiet consectetur. Praesent scelerisque neque.',
-                    1 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium'
-                        .' varius est sit amet consectetur. Suspendisse cursus dapibus egestas.'
-                        .' Ut id augue quis mi scelerisque.'
+                    0 => 'Suspendisse pellentesque eros eget enim pulvinar maximus. Mauris tristique hendrerit arcu eleifend pharetra. Donec et ultricies lorem. Maecenas non ipsum iaculis, efficitur mi nec, gravida felis. Etiam facilisis tincidunt justo. Nulla nibh mi, vulputate vitae lectus a, egestas porta magna. Nulla nec nisl gravida, venenatis mauris sit amet, tincidunt ligula. Praesent dignissim lectus accumsan ullamcorper suscipit.',
+                    1 => 'Vestibulum elementum cursus sagittis. Donec tristique nisl ac urna varius, vitae tempor dui sagittis. Aliquam libero urna, ultricies eu luctus sit amet, fermentum nec sapien. Phasellus ultrices felis at tempus tincidunt. Nullam at augue non justo lacinia vestibulum. Morbi vel dui eget enim consectetur ultrices faucibus sed turpis. Integer maximus enim eu mollis dignissim. Fusce aliquet est nibh, non lacinia urna hendrerit ac.'
                 ]]
             ],
             'HighSchool' => [
@@ -330,8 +312,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                 'date'         => 'Juin 2002',
                 'education'    => 'Mon diplôme dans mon lycée',
                 'descriptions' => ['item' => [
-                    0 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor'
-                        .' ipsum. Nullam venenatis sem.'
+                    0 => 'Aenean pellentesque, arcu eu commodo mollis, lacus augue vehicula justo, nec interdum nisl quam eu arcu. Aliquam ultricies purus vitae justo accumsan congue. Aliquam fermentum in arcu nec auctor. Cras tincidunt dapibus scelerisque. Duis pretium ac massa ac varius. Vivamus eget imperdiet risus. Mauris feugiat nisi non lectus laoreet, vitae ultrices ex dapibus. Aliquam non sagittis ex. Phasellus eget congue diam.'
                 ]]
             ],
             'FirstSchool' => [
@@ -395,9 +376,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
             'Practical' => [
                 'title'         => 'Pratiques',
                 'miscellaneous' => 'Mes pratiques',
-                'description'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                        .' Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque,'
-                        .' est vitae mattis faucibus, felis sapien lobortis augue.'
+                'description'   => 'Integer rutrum congue odio. Donec ut sem sed ligula blandit rutrum consequat in quam. Donec quis pharetra lacus. Pellentesque turpis neque, dignissim non erat quis, tincidunt tempus arcu. Praesent eget blandit odio. Nullam et felis vitae nulla tincidunt efficitur at vel nulla. Nam rhoncus eu est mattis gravida. Nam id vulputate ex. Pellentesque aliquam arcu eu lacinia commodo.'
             ]
         ];
         $this->assertCVInterface();

@@ -23,6 +23,9 @@ class CurriculumVitae extends Xml2arrayFunctions
     private $cvFile;
     private $xml2arrayFunctions;
 
+    const IDENTITY_MYSELF = 'myself';
+    const EXPERIENCES     = 'experiences';
+
     /**
      * @param string $pathToFile
      * @param string $lang
@@ -95,7 +98,7 @@ class CurriculumVitae extends Xml2arrayFunctions
             'identity'          => $this->getIdentity(),
             'followMe'          => $this->getFollowMe(),
             'lookingFor'        => $this->getLookingFor(),
-            'experiences'       => $this->getExperiences(),
+            self::EXPERIENCES   => $this->getExperiences(),
             'skills'            => $this->getSkills(),
             'educations'        => $this->getEducations(),
             'languageSkills'    => $this->getLanguageSkills(),
@@ -181,8 +184,8 @@ class CurriculumVitae extends Xml2arrayFunctions
     private function getMyName() {
         $identity = $this->getIdentity();
 
-        if (isset($identity['myself']['name'])) {
-            return $identity['myself']['name'];
+        if (isset($identity[self::IDENTITY_MYSELF]['name'])) {
+            return $identity[self::IDENTITY_MYSELF]['name'];
         }
 
         return NULL;
@@ -193,10 +196,11 @@ class CurriculumVitae extends Xml2arrayFunctions
      */
     private function getMyCurrentJob() {
         $lookingFor = $this->getLookingFor();
-        if (isset($lookingFor['experience']['job'])) {
-            return (string) $lookingFor['experience']['job'];
-        } elseif (isset($lookingFor['experience'])) {
-            return (string) $lookingFor['experience'];
+        $experience = 'experience';
+        if (isset($lookingFor[$experience]['job'])) {
+            return (string) $lookingFor[$experience]['job'];
+        } elseif (isset($lookingFor[$experience])) {
+            return (string) $lookingFor[$experience];
         }
 
         return NULL;

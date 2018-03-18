@@ -12,6 +12,7 @@
 namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
+use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\FabienCrassatCurriculumVitaeExtension;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -36,6 +37,10 @@ class DefaultController implements ContainerAwareInterface
     private $requestFormat;
     private $parameters = [];
 
+    const URL_CVXMLFILE = 'cvxmlfile';
+    const PDF_A5SYS     = 'a5sys_pdf.pdf_service';
+    const PDF_SNAPPY    = 'knp_snappy.pdf';
+
     /**
      * @return Response
      */
@@ -43,9 +48,9 @@ class DefaultController implements ContainerAwareInterface
     {
         if ($cvxmlfile) {
             $path = [
-                '_controller' => 'FabienCrassatCurriculumVitaeBundle:Default:display',
-                'cvxmlfile'   => $cvxmlfile,
-                '_locale'     => $this->lang,
+                '_controller'       => 'FabienCrassatCurriculumVitaeBundle:Default:display',
+                self::URL_CVXMLFILE => $cvxmlfile,
+                '_locale'           => $this->lang,
             ];
 
             $request    = $this->container->get('request');
@@ -62,7 +67,7 @@ class DefaultController implements ContainerAwareInterface
         $this->initialization($cvxmlfile);
         return new RedirectResponse($this->container->get('router')->generate(
             'fabiencrassat_curriculumvitae_cvxmlfileonly',
-            ['cvxmlfile' => $this->cvxmlfile]),
+            [self::URL_CVXMLFILE => $this->cvxmlfile]),
             301);
     }
 
@@ -91,7 +96,7 @@ class DefaultController implements ContainerAwareInterface
                 return $response;
             default:
                 return $this->container->get('templating')->renderResponse(
-                    $this->container->getParameter('fabiencrassat_curriculumvitae.template'),
+                    $this->container->getParameter(FabienCrassatCurriculumVitaeExtension::TEMPLATE),
                     $this->parameters);
         }
     }
@@ -115,12 +120,12 @@ class DefaultController implements ContainerAwareInterface
 
         $hasPdfService = false;
         $content       = '';
-        if (!$hasPdfService && $this->container->has('a5sys_pdf.pdf_service')) {
+        if (!$hasPdfService && $this->container->has(self::PDF_A5SYS)) {
             $hasPdfService = true;
-            $content       = $this->container->get('a5sys_pdf.pdf_service')->sendPDF($html, $filename);
+            $content       = $this->container->get(self::PDF_A5SYS)->sendPDF($html, $filename);
         }
-        if (!$hasPdfService && $this->container->has('knp_snappy.pdf')) {
-            $content = $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
+        if (!$hasPdfService && $this->container->has(self::PDF_SNAPPY)) {
+            $content = $this->container->get(self::PDF_SNAPPY)->getOutputFromHtml($html);
         }
 
         return new Response($content, 200,
@@ -134,11 +139,11 @@ class DefaultController implements ContainerAwareInterface
         $this->cvxmlfile = $file;
         if (!$this->cvxmlfile) {
             // Retreive the CV file depending the configuration
-            $this->cvxmlfile = $this->container->getParameter('fabiencrassat_curriculumvitae.default_cv');
+            $this->cvxmlfile = $this->container->getParameter(FabienCrassatCurriculumVitaeExtension::DEFAULT_CV);
         }
         // Check the file in the filesystem
         $this->pathToFile =
-            $this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv')
+            $this->container->getParameter(FabienCrassatCurriculumVitaeExtension::PATH_TO_CV)
             .'/'.$this->cvxmlfile.'.xml';
 
         if (!is_file($this->pathToFile)) {
@@ -148,7 +153,7 @@ class DefaultController implements ContainerAwareInterface
 
         $this->lang = $lang;
         if (!$this->lang) {
-            $this->lang = $this->container->getParameter('fabiencrassat_curriculumvitae.default_lang');
+            $this->lang = $this->container->getParameter(FabienCrassatCurriculumVitaeExtension::DEFAULT_LANG);
         }
 
         $this->readCVFile();
@@ -175,7 +180,7 @@ class DefaultController implements ContainerAwareInterface
 
     private function hasExportPDF()
     {
-        return $this->container->has('knp_snappy.pdf') xor $this->container->has('a5sys_pdf.pdf_service');
+        return $this->container->has(self::PDF_SNAPPY) xor $this->container->has(self::PDF_A5SYS);
     }
 
     private function hasSecureDisplayBundle()
@@ -186,7 +191,7 @@ class DefaultController implements ContainerAwareInterface
     private function setToolParameters()
     {
         $this->setParameters([
-            'cvxmlfile'              => $this->cvxmlfile,
+            self::URL_CVXMLFILE      => $this->cvxmlfile,
             'languageView'           => $this->lang,
             'languages'              => $this->exposedLanguages,
             'anchors'                => $this->curriculumVitae->getAnchors(),

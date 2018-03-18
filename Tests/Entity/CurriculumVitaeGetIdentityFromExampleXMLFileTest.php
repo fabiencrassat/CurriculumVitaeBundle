@@ -22,10 +22,10 @@ class CurriculumVitaeGetIdentityFromExampleXMLFileTest extends \PHPUnit\Framewor
 
         $identity = $this->curriculumVitae->getIdentity();
         // We remove the values because of travisci and scrutinizer (depending of date)
-        unset($identity['myself']['birthday']);
-        unset($identity['myself']['age']);
+        unset($identity[CurriculumVitae::IDENTITY_MYSELF]['birthday']);
+        unset($identity[CurriculumVitae::IDENTITY_MYSELF]['age']);
         $this->assertEquals([
-            'myself' => [
+            CurriculumVitae::IDENTITY_MYSELF => [
                 'name' => 'First Name Last Name',
                 'nationality' => 'French Citizenship',
                 'picture' => 'bundles/fabiencrassatcurriculumvitae/img/example.png'],
@@ -48,9 +48,9 @@ class CurriculumVitaeGetIdentityFromExampleXMLFileTest extends \PHPUnit\Framewor
 
         $identity = $this->curriculumVitae->getIdentity();
         // We remove the format birthday because of travisci and scrutinizer
-        unset($identity['myself']['birthday']);
+        unset($identity[CurriculumVitae::IDENTITY_MYSELF]['birthday']);
         $this->assertEquals([
-            'myself' => [
+            CurriculumVitae::IDENTITY_MYSELF => [
                 'name'       => 'First Name Last Name',
                 'birthplace' => 'Paris',
                 'picture'    => 'bundles/fabiencrassatcurriculumvitae/img/example.png'

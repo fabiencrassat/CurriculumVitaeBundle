@@ -81,7 +81,7 @@
         <lookingFor>
             <experience lang="en">Curriculum Vitae Title</experience>
             <experience lang="fr">Titre du curriculum vitae</experience>
-            <presentation lang="en">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu lectus facilisis, posuere leo laoreet, dignissim ligula. Praesent ultricies dignissim diam vitae dictum. Donec sed nisi tortor. Proin tempus scelerisque lectus, sit amet convallis mi semper a. Integer blandit a ligula a volutpat. Ut dolor eros, interdum quis ante ac, tempus commodo odio. Suspendisse ut nisi purus. Mauris vestibulum nibh sit amet turpis consequat pharetra. Duis at adipiscing risus. Vivamus vitae orci ac felis porta euismod. Fusce sit amet metus sem. Maecenas suscipit tincidunt ante, sed feugiat odio eleifend eu. Sed eu ultricies ipsum. In cursus tincidunt elit a gravida. Nam eu aliquet leo. Maecenas nibh leo, eleifend fermentum neque sit amet, viverra consequat lorem. </presentation>
+            <presentation lang="en">Sed ultrices urna condimentum, luctus nisi sit amet, vehicula dolor. Proin at augue sapien. Phasellus nec sem euismod, ultrices orci sit amet, ultrices turpis. Phasellus ut libero tellus. Maecenas nec neque sagittis, scelerisque orci sed, posuere ligula. Curabitur euismod malesuada purus, ac semper quam. Suspendisse consequat, est a volutpat molestie, metus risus porta est, id interdum turpis justo ac lorem. Mauris id mollis nisi, ut hendrerit augue. Vestibulum aliquet felis aliquet risus porttitor, aliquam porttitor nibh euismod.</presentation>
             <presentation lang="fr">Mauris rutrum justo ac bibendum ultrices. Mauris a dolor a diam tempus ornare vel non urna. Donec a dui vel nunc ultrices porta non vitae felis. Ut blandit ullamcorper orci. Quisque quis justo vitae nisl auctor laoreet non eget mauris. Sed volutpat enim est, vitae vulputate nibh laoreet gravida. Duis nec tincidunt ante. Nullam metus turpis, accumsan nec laoreet et, consectetur et ligula. Curabitur convallis feugiat lorem, sit amet tincidunt arcu sollicitudin vel. Aliquam erat volutpat. In odio elit, accumsan in facilisis at, ultricies quis justo. </presentation>
         </lookingFor>
         <experiences anchor="experiences">
@@ -125,7 +125,7 @@
                     <society lang="en">A society with a name per language</society>
                     <society lang="fr">Une société avec un nom par langue</society>
                     <missions>
-                        <item>Suspendisse et arcu eget est feugiat elementum.</item>
+                        <item>In et felis leo. Donec viverra vestibulum eros in sagittis.</item>
                     </missions>
                 </experience>
             </items>
@@ -192,11 +192,11 @@
                     <education lang="en">My diploma in my university</education>
                     <education lang="fr">Mon diplôme dans mon université</education>
                     <descriptions lang="en">
-                        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor ipsum. Nullam venenatis sem.</item>
+                        <item>Quisque eu sapien tortor. Morbi erat lorem, facilisis tempor pulvinar eu, sollicitudin a tellus. Phasellus consequat viverra mattis. Vestibulum convallis ornare eros, ac placerat neque. Aliquam viverra iaculis ex, egestas ornare ipsum fringilla id. Fusce turpis leo, iaculis id vestibulum sed, pharetra malesuada velit. Ut risus leo, consectetur eu pretium id, convallis in nisi. Sed vel varius nulla. Sed id scelerisque est.</item>
                     </descriptions>
                     <descriptions lang="fr">
-                        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim imperdiet consectetur. Praesent scelerisque neque.</item>
-                        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
+                        <item>Suspendisse pellentesque eros eget enim pulvinar maximus. Mauris tristique hendrerit arcu eleifend pharetra. Donec et ultricies lorem. Maecenas non ipsum iaculis, efficitur mi nec, gravida felis. Etiam facilisis tincidunt justo. Nulla nibh mi, vulputate vitae lectus a, egestas porta magna. Nulla nec nisl gravida, venenatis mauris sit amet, tincidunt ligula. Praesent dignissim lectus accumsan ullamcorper suscipit.</item>
+                        <item>Vestibulum elementum cursus sagittis. Donec tristique nisl ac urna varius, vitae tempor dui sagittis. Aliquam libero urna, ultricies eu luctus sit amet, fermentum nec sapien. Phasellus ultrices felis at tempus tincidunt. Nullam at augue non justo lacinia vestibulum. Morbi vel dui eget enim consectetur ultrices faucibus sed turpis. Integer maximus enim eu mollis dignissim. Fusce aliquet est nibh, non lacinia urna hendrerit ac.</item>
                     </descriptions>
                 </education>
                 <education id="HighSchool" collapse="false">
@@ -205,11 +205,11 @@
                     <education lang="en">My diploma in my high school</education>
                     <education lang="fr">Mon diplôme dans mon lycée</education>
                     <descriptions lang="en">
-                        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit dui, faucibus non laoreet luctus, dignissim at lectus. Quisque dignissim imperdiet consectetur. Praesent scelerisque neque.</item>
-                        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium varius est sit amet consectetur. Suspendisse cursus dapibus egestas. Ut id augue quis mi scelerisque.</item>
+                        <item>Duis egestas ipsum nulla, et maximus ligula mollis sed. Phasellus aliquet ac orci in fermentum. Donec cursus id tellus ac sagittis. Praesent et elit tincidunt sem lobortis porttitor. Suspendisse lorem purus, gravida et tellus in, ultrices ornare libero. In bibendum consectetur enim nec commodo. Sed non neque sodales, mollis arcu et, dapibus purus.</item>
+                        <item>Duis faucibus tortor nec enim auctor ultrices non vitae erat. Suspendisse in scelerisque ipsum. Proin eu neque rutrum, condimentum ligula vitae, tempor metus. Quisque non massa at nibh maximus rutrum ut ac ligula. Fusce dolor mi, imperdiet tincidunt molestie non, volutpat quis mauris. In aliquet laoreet dolor in pharetra. Pellentesque feugiat mollis turpis, vel faucibus metus suscipit sed.</item>
                     </descriptions>
                     <descriptions lang="fr">
-                        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in auctor ipsum. Nullam venenatis sem.</item>
+                        <item>Aenean pellentesque, arcu eu commodo mollis, lacus augue vehicula justo, nec interdum nisl quam eu arcu. Aliquam ultricies purus vitae justo accumsan congue. Aliquam fermentum in arcu nec auctor. Cras tincidunt dapibus scelerisque. Duis pretium ac massa ac varius. Vivamus eget imperdiet risus. Mauris feugiat nisi non lectus laoreet, vitae ultrices ex dapibus. Aliquam non sagittis ex. Phasellus eget congue diam.</item>
                     </descriptions>
                 </education>
                 <education id="FirstSchool" collapse="true">
@@ -249,7 +249,7 @@
                     <title lang="fr">Pratiques</title>
                     <miscellaneous lang="en">My practices</miscellaneous>
                     <miscellaneous lang="fr">Mes pratiques</miscellaneous>
-                    <description lang="fr">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec auctor nisl, eu fringilla nisi. Morbi scelerisque, est vitae mattis faucibus, felis sapien lobortis augue.</description>
+                    <description lang="fr">Integer rutrum congue odio. Donec ut sem sed ligula blandit rutrum consequat in quam. Donec quis pharetra lacus. Pellentesque turpis neque, dignissim non erat quis, tincidunt tempus arcu. Praesent eget blandit odio. Nullam et felis vitae nulla tincidunt efficitur at vel nulla. Nam rhoncus eu est mattis gravida. Nam id vulputate ex. Pellentesque aliquam arcu eu lacinia commodo.</description>
                 </miscellaneous>
             </items>
         </miscellaneous>

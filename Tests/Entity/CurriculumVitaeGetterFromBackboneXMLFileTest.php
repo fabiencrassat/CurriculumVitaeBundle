@@ -26,9 +26,9 @@ class CurriculumVitaeGetterFromBackboneXMLFileTest extends \PHPUnit\Framework\Te
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml', $this->lang);
 
         $result = [];
-        $result = array_merge($result, ['lookingFor' => $this->curriculumVitae->getLookingFor()]);
-        $result = array_merge($result, ['experiences' => $this->curriculumVitae->getExperiences()]);
-        $result = array_merge($result, ['pdfFile' => $this->curriculumVitae->getHumanFileName()]);
+        $result = array_merge($result, ['lookingFor'                 => $this->curriculumVitae->getLookingFor()]);
+        $result = array_merge($result, [CurriculumVitae::EXPERIENCES => $this->curriculumVitae->getExperiences()]);
+        $result = array_merge($result, ['pdfFile'                    => $this->curriculumVitae->getHumanFileName()]);
 
         $expected = [
             'lookingFor' => [
@@ -40,7 +40,7 @@ class CurriculumVitaeGetterFromBackboneXMLFileTest extends \PHPUnit\Framework\Te
                         'address' => 'The address of the company',
                         'siteurl' => 'http://www.MyCompany.com']],
                 'presentation' => 'A presentation'],
-            'experiences' => [
+            CurriculumVitae::EXPERIENCES => [
                 'LastJob' => [
                     'date'    => 'Date',
                     'job'     => 'The job',
@@ -55,31 +55,40 @@ class CurriculumVitaeGetterFromBackboneXMLFileTest extends \PHPUnit\Framework\Te
 
     public function testGetAnchorsWithNoLang() {
         $this->curriculumVitae = new CurriculumVitae(__DIR__.'/../Resources/data/backbone.xml');
+        $href                  = 'href';
+        $title                 = 'title';
+        $identity              = 'identity';
+        $followMe              = 'followMe';
+        $experiences           = 'experiences';
+        $skills                = 'skills';
+        $educations            = 'educations';
+        $languageSkills        = 'languageSkills';
+        $miscellaneous         = 'miscellaneous';
 
         $anchors = $this->curriculumVitae->getAnchors();
         if (is_array($anchors)) {
             $this->assertEquals([
-                'identity' => [
-                    'href'  => 'identity',
-                    'title' => 'identity'],
-                'followMe' => [
-                    'href'  => 'followMe',
-                    'title' => 'followMe'],
-                'experiences' => [
-                    'href'  => 'experiences',
-                    'title' => 'experiences'],
-                'skills' => [
-                    'href'  => 'skills',
-                    'title' => 'skills'],
-                'educations' => [
-                    'href'  => 'educations',
-                    'title' => 'educations'],
-                'languageSkills' => [
-                    'href'  => 'languageSkills',
-                    'title' => 'languageSkills'],
-                'miscellaneous' => [
-                    'href'  => 'miscellaneous',
-                    'title' => 'miscellaneous']],
+                $identity => [
+                    $href  => $identity,
+                    $title => $identity],
+                $followMe => [
+                    $href  => $followMe,
+                    $title => $followMe],
+                $experiences => [
+                    $href  => $experiences,
+                    $title => $experiences],
+                $skills => [
+                    $href  => $skills,
+                    $title => $skills],
+                $educations => [
+                    $href  => $educations,
+                    $title => $educations],
+                $languageSkills => [
+                    $href  => $languageSkills,
+                    $title => $languageSkills],
+                $miscellaneous => [
+                    $href  => $miscellaneous,
+                    $title => $miscellaneous]],
                 $anchors
             );
         }
