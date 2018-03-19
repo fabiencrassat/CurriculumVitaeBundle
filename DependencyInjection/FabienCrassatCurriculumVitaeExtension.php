@@ -53,7 +53,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
     private function setPathToCVDirectory()
     {
         // Path to Curriculum Vitae Directory
-        $pathToCV = __DIR__.'/../'.$this->container->getParameter('fabiencrassat_curriculumvitae.path_to_cv');
+        $pathToCV = __DIR__.'/../'.$this->container->getParameter(self::PATH_TO_CV);
         if (isset($this->config['path_to_cv'])) {
             $pathToCV = $this->config['path_to_cv'];
         }
@@ -61,7 +61,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         if (!is_dir($pathToCV)) {
             throw new NotFoundHttpException('There is no directory defined here ('.$pathToCV.').');
         }
-        $this->container->setParameter('fabiencrassat_curriculumvitae.path_to_cv', $pathToCV);
+        $this->container->setParameter(self::PATH_TO_CV, $pathToCV);
     }
 
     private function setDefaultCV()

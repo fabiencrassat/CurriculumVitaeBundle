@@ -92,12 +92,12 @@ XML;
         $curriculumVitae = <<<XML
 <?xml version='1.0'?>
 <document>
- <society crossref="societies/society[@ref='OneSociety']/*"></society>
+ <mysociety crossref="societies/society[@ref='SocietyFoo']/*"></mysociety>
  <societies>
-  <society ref="OneSociety">
-    <name>OneSociety</name>
-    <address>An address</address>
-    <siteurl>http://www.google.com</siteurl>
+  <society ref="SocietyFoo">
+    <name>SocietyFoo</name>
+    <anaddress>An address</anaddress>
+    <url>http://www.google.com</url>
   </society>
  </societies>
 </document>
@@ -106,14 +106,14 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
- <society crossref="societies/society[@ref='OneSociety']/*"></society>
+ <mysociety crossref="societies/society[@ref='SocietyFoo']/*"></mysociety>
 </document>
 XML;
 
-        $expected = ['society' => [
-            'name'      => 'OneSociety',
-            'address'   => 'An address',
-            'siteurl'   => 'http://www.google.com'
+        $expected = ['mysociety' => [
+            'name'      => 'SocietyFoo',
+            'anaddress' => 'An address',
+            'url'       => 'http://www.google.com'
         ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
@@ -125,14 +125,14 @@ XML;
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
  <experience id="OneExperience">
-  <society crossref="societies/society[@ref='OneSociety']/*"></society>
+  <asociety crossref="societies/society[@ref='SocietyBar']/*"></asociety>
   <job>My first job</job>
  </experience>
  <societies>
-  <society ref="OneSociety">
+  <society ref="SocietyBar">
     <name>OneSociety</name>
     <address>An address</address>
-    <siteurl>http://www.google.com</siteurl>
+    <linktositeurl>http://www.anurl.com</linktositeurl>
   </society>
  </societies>
 </document>
@@ -146,10 +146,10 @@ XML;
 XML;
 
         $expected = ['job' => [
-            'society' => [
-                'name'      => 'OneSociety',
-                'address'   => 'An address',
-                'siteurl'   => 'http://www.google.com'],
+            'asociety' => [
+                'name'          => 'OneSociety',
+                'address'       => 'An address',
+                'linktositeurl' => 'http://www.anurl.com'],
             'job'   => 'My first job'
         ]];
 
@@ -159,17 +159,17 @@ XML;
 <?xml version='1.0'?>
 <document>
  <experience id="OneExperience">
-  <society crossref="societies/society[@ref='OneSociety']/*"></society>
+  <asociety crossref="societies/society[@ref='SocietyBar']/*"></asociety>
   <job>My first job</job>
  </experience>
 </document>
 XML;
 
         $expected = ['OneExperience' => [
-            'society' => [
-                'name'      => 'OneSociety',
-                'address'   => 'An address',
-                'siteurl'   => 'http://www.google.com'],
+            'asociety' => [
+                'name'          => 'OneSociety',
+                'address'       => 'An address',
+                'linktositeurl' => 'http://www.anurl.com'],
             'job'   => 'My first job'
         ]];
 
@@ -178,14 +178,14 @@ XML;
         $string = <<<XML
 <?xml version='1.0'?>
 <document>
-  <society crossref="societies/society[@ref='OneSociety']/*"></society>
+  <asociety crossref="societies/society[@ref='SocietyBar']/*"></asociety>
 </document>
 XML;
 
-        $expected = ['society' => [
-            'name'      => 'OneSociety',
-            'address'   => 'An address',
-            'siteurl'   => 'http://www.google.com']
+        $expected = ['asociety' => [
+            'name'          => 'OneSociety',
+            'address'       => 'An address',
+            'linktositeurl' => 'http://www.anurl.com']
         ];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
@@ -197,14 +197,14 @@ XML;
 <document>
  <job crossref="experience[@id='OneExperience']/*"></job>
  <experience id="OneExperience">
-  <society crossref="societies/society[@ref='OneSociety']/*"></society>
-  <job>My first job</job>
+  <society crossref="societies/society[@ref='MySociety']/*"></society>
+  <job>A experience</job>
  </experience>
  <societies>
-  <society ref="OneSociety">
-    <name>OneSociety</name>
-    <address>An address</address>
-    <siteurl>http://www.google.com</siteurl>
+  <society ref="MySociety">
+    <name>MySociety</name>
+    <oneaddress>My address</oneaddress>
+    <siteurl>http://www.crassat.com</siteurl>
   </society>
  </societies>
 </document>
@@ -219,10 +219,10 @@ XML;
 
         $expected = ['job' => [
             'society' => [
-                'name'      => 'OneSociety',
-                'address'   => 'An address',
-                'siteurl'   => 'http://www.google.com'],
-            'job'   => 'My first job'
+                'name'       => 'MySociety',
+                'oneaddress' => 'My address',
+                'siteurl'    => 'http://www.crassat.com'],
+            'job'   => 'A experience'
         ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
@@ -250,7 +250,7 @@ XML;
                     <date lang="fr">Avr. 2011 - Aujourd'hui</date>
                     <job lang="en">Second Job</job>
                     <job lang="fr">Deuxième Job</job>
-                    <society crossref="societies/society[@ref='OneSociety']/*"></society>
+                    <onesociety crossref="societies/society[@ref='ASociety']/*"></onesociety>
                     <missions lang="en">
                         <item>A mission of my second job.</item>
                     </missions>
@@ -263,7 +263,7 @@ XML;
                     <date lang="fr">Nov. 2009 - Avr. 2011</date>
                     <job lang="en">First Job</job>
                     <job lang="fr">Premier Job</job>
-                    <society crossref="societies/society[@ref='OneSociety']/*"></society>
+                    <onesociety crossref="societies/society[@ref='ASociety']/*"></onesociety>
                     <missions lang="en">
                         <item>A mission of my first job.</item>
                     </missions>
@@ -275,23 +275,25 @@ XML;
         </experiences>
     </curriculumVitae>
     <societies>
-        <society ref="OneSociety">
-            <name>OneSociety</name><address>address</address><siteurl>http://www.google.com</siteurl>
+        <society ref="ASociety">
+            <name>ASociety</name>
+            <myaddress>myaddress</myaddress>
+            <siteurl>http://cv.crassat.com</siteurl>
         </society>
     </societies>
 </root>
 XML;
 
         $society           = [
-            'name'    => 'OneSociety',
-            'address' => 'address',
-            'siteurl' => 'http://www.google.com'];
+            'name'      => 'ASociety',
+            'myaddress' => 'myaddress',
+            'siteurl'   => 'http://cv.crassat.com'];
         $currentExperience = [
-            'job'      => 'Second Job',
-            'date'     => 'Apr 2011 - Present',
-            'society'  => $society,
-            'missions' => [
-                'item' => ['A mission of my second job.']]];
+            'job'        => 'Second Job',
+            'date'       => 'Apr 2011 - Present',
+            'onesociety' => $society,
+            'missions'   => [
+                'item'   => ['A mission of my second job.']]];
 
         $expected = [
             'langs'  => [
@@ -306,11 +308,11 @@ XML;
                     'items'       => [
                         'SecondJob' => $currentExperience,
                         'FirstJob'  => [
-                            'job'      => 'First Job',
-                            'date'     => 'Nov 2009 - Apr 2011',
-                            'society'  => $society,
-                            'missions' => [
-                                'item' => ['A mission of my first job.']]]],
+                            'job'        => 'First Job',
+                            'date'       => 'Nov 2009 - Apr 2011',
+                            'onesociety' => $society,
+                            'missions'   => [
+                                'item'   => ['A mission of my first job.']]]],
                     'anchor' => 'experiences']],
             'societies' => ['society' => $society]
         ];
