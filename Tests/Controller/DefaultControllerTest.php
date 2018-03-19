@@ -145,13 +145,13 @@ class DefaultControllerTest extends WebTestCase
         $this->curriculumVitae = new CurriculumVitae($this->pathToFile, $lang);
 
         $cvXml = [
-                'identity'          => $this->curriculumVitae->getIdentity(),
-                'lookingFor'        => $this->curriculumVitae->getLookingFor(),
-                'experiences'       => $this->curriculumVitae->getExperiences(),
-                'skills'            => $this->curriculumVitae->getSkills(),
-                'educations'        => $this->curriculumVitae->getEducations(),
-                'languageSkills'    => $this->curriculumVitae->getLanguageSkills(),
-                'miscellaneous'     => $this->curriculumVitae->getMiscellaneous()
+                'identity'                   => $this->curriculumVitae->getIdentity(),
+                'lookingFor'                 => $this->curriculumVitae->getLookingFor(),
+                CurriculumVitae::EXPERIENCES => $this->curriculumVitae->getExperiences(),
+                'skills'                     => $this->curriculumVitae->getSkills(),
+                'educations'                 => $this->curriculumVitae->getEducations(),
+                'languageSkills'             => $this->curriculumVitae->getLanguageSkills(),
+                'miscellaneous'              => $this->curriculumVitae->getMiscellaneous()
         ];
         // Remove all no visible elements
         $cvXml = $this->removeNoVisibleElementDependingOnLanguages($lang, $cvXml);
@@ -178,7 +178,7 @@ class DefaultControllerTest extends WebTestCase
     private function removeNoVisibleElementDependingOnLanguages($lang, $cvXml)
     {
         if ($lang === 'en') {
-            unset($cvXml['identity']['myself']['birthday']);
+            unset($cvXml['identity'][CurriculumVitae::IDENTITY_MYSELF]['birthday']);
         }
         return $cvXml;
     }
@@ -190,19 +190,19 @@ class DefaultControllerTest extends WebTestCase
      */
     private function removeNoVisibleElementForAllLanguages($cvXml)
     {
-        unset($cvXml['identity']['myself']['picture']);
+        unset($cvXml['identity'][CurriculumVitae::IDENTITY_MYSELF]['picture']);
         unset($cvXml['identity']['address']['street']);
         unset($cvXml['identity']['address']['postalcode']);
         unset($cvXml['identity']['address']['googlemap']);
         unset($cvXml['identity']['contact']['mobile']);
         unset($cvXml['identity']['contact']['email']);
-        unset($cvXml['experiences']['FirstExperience']['society']['society']['ref']);
-        unset($cvXml['experiences']['FirstExperience']['society']['siteurl']);
-        unset($cvXml['experiences']['SecondExperience']['collapse']);
-        unset($cvXml['experiences']['SecondExperience']['society']['society']['ref']);
-        unset($cvXml['experiences']['SecondExperience']['society']['siteurl']);
-        unset($cvXml['experiences']['ThirdExperience']['society']['society']['ref']);
-        unset($cvXml['experiences']['FourthExperience']['collapse']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['FirstExperience']['society']['society']['ref']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['FirstExperience']['society']['siteurl']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['SecondExperience']['collapse']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['SecondExperience']['society']['society']['ref']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['SecondExperience']['society']['siteurl']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['ThirdExperience']['society']['society']['ref']);
+        unset($cvXml[CurriculumVitae::EXPERIENCES]['FourthExperience']['collapse']);
         unset($cvXml['skills']['Functional']['lines']['success']['percentage']);
         unset($cvXml['skills']['Functional']['lines']['success']['class']);
         unset($cvXml['skills']['Functional']['lines']['success']['striped']);

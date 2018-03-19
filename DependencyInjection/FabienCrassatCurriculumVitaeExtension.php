@@ -69,7 +69,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         // Default Curriculum Vitae
         if (isset($this->config['custo_default_cv'])) {
             $this->container->setParameter(
-                'fabiencrassat_curriculumvitae.default_cv',
+                self::DEFAULT_CV,
                 $this->config['custo_default_cv']
             );
         }
@@ -80,7 +80,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         // Twig template of the Curriculum Vitae
         if (isset($this->config['template'])) {
             $this->container->setParameter(
-                'fabiencrassat_curriculumvitae.template',
+                self::TEMPLATE,
                 $this->config['template']
             );
         }
@@ -91,7 +91,7 @@ class FabienCrassatCurriculumVitaeExtension extends Extension
         // default_lang of the Curriculum Vitae
         if (isset($this->config['default_lang'])) {
             $this->container->setParameter(
-                'fabiencrassat_curriculumvitae.default_lang',
+                self::DEFAULT_LANG,
                 $this->config['default_lang']
             );
         }

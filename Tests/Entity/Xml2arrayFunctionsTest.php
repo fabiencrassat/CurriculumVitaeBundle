@@ -145,12 +145,15 @@ XML;
 </document>
 XML;
 
+        $society = [
+            'name'          => 'OneSociety',
+            'address'       => 'An address',
+            'linktositeurl' => 'http://www.anurl.com'
+        ];
+
         $expected = ['job' => [
-            'asociety' => [
-                'name'          => 'OneSociety',
-                'address'       => 'An address',
-                'linktositeurl' => 'http://www.anurl.com'],
-            'job'   => 'My first job'
+            'asociety' => $society,
+            'job'      => 'My first job'
         ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
@@ -166,11 +169,8 @@ XML;
 XML;
 
         $expected = ['OneExperience' => [
-            'asociety' => [
-                'name'          => 'OneSociety',
-                'address'       => 'An address',
-                'linktositeurl' => 'http://www.anurl.com'],
-            'job'   => 'My first job'
+            'asociety' => $society,
+            'job'      => 'My first job'
         ]];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
@@ -182,11 +182,7 @@ XML;
 </document>
 XML;
 
-        $expected = ['asociety' => [
-            'name'          => 'OneSociety',
-            'address'       => 'An address',
-            'linktositeurl' => 'http://www.anurl.com']
-        ];
+        $expected = ['asociety' => $society];
 
         $this->assertXml2Array($expected, $curriculumVitae, $string);
     }

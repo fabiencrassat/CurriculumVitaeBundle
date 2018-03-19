@@ -59,38 +59,36 @@ class CurriculumVitaeGetterFromBackboneXMLFileTest extends \PHPUnit\Framework\Te
         $title                 = 'title';
         $identity              = 'identity';
         $followMe              = 'followMe';
-        $experiences           = 'experiences';
+        $experiences           = CurriculumVitae::EXPERIENCES;
         $skills                = 'skills';
         $educations            = 'educations';
         $languageSkills        = 'languageSkills';
         $miscellaneous         = 'miscellaneous';
 
         $anchors = $this->curriculumVitae->getAnchors();
-        if (is_array($anchors)) {
-            $this->assertEquals([
-                $identity => [
-                    $href  => $identity,
-                    $title => $identity],
-                $followMe => [
-                    $href  => $followMe,
-                    $title => $followMe],
-                $experiences => [
-                    $href  => $experiences,
-                    $title => $experiences],
-                $skills => [
-                    $href  => $skills,
-                    $title => $skills],
-                $educations => [
-                    $href  => $educations,
-                    $title => $educations],
-                $languageSkills => [
-                    $href  => $languageSkills,
-                    $title => $languageSkills],
-                $miscellaneous => [
-                    $href  => $miscellaneous,
-                    $title => $miscellaneous]],
-                $anchors
-            );
-        }
+        $this->assertEquals([
+            $identity => [
+                $href  => $identity,
+                $title => $identity],
+            $followMe => [
+                $href  => $followMe,
+                $title => $followMe],
+            $experiences => [
+                $href  => $experiences,
+                $title => $experiences],
+            $skills => [
+                $href  => $skills,
+                $title => $skills],
+            $educations => [
+                $href  => $educations,
+                $title => $educations],
+            $languageSkills => [
+                $href  => $languageSkills,
+                $title => $languageSkills],
+            $miscellaneous => [
+                $href  => $miscellaneous,
+                $title => $miscellaneous]],
+            $anchors
+        );
     }
 }

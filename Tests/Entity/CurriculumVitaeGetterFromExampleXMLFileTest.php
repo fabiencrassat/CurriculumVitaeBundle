@@ -97,7 +97,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
         $this->assertCVInterface();
     }
 
-    public function testGetExperiences() {
+    public function testGetExperiencesEN() {
         $this->interface = 'getExperiences';
 
         $this->arrayToCompare = [
@@ -139,6 +139,10 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
                         0 => 'In et felis leo. Donec viverra vestibulum eros in sagittis.']]]
         ];
         $this->assertCVInterface();
+    }
+
+    public function testGetExperiencesFR() {
+        $this->interface = 'getExperiences';
 
         $this->lang           = 'fr';
         $this->arrayToCompare = [

@@ -37,9 +37,9 @@ class DefaultController implements ContainerAwareInterface
     private $requestFormat;
     private $parameters = [];
 
-    const URL_CVXMLFILE = 'cvxmlfile';
-    const PDF_A5SYS     = 'a5sys_pdf.pdf_service';
-    const PDF_SNAPPY    = 'knp_snappy.pdf';
+    const CVXMLFILE  = 'cvxmlfile';
+    const PDF_A5SYS  = 'a5sys_pdf.pdf_service';
+    const PDF_SNAPPY = 'knp_snappy.pdf';
 
     /**
      * @return Response
@@ -49,7 +49,7 @@ class DefaultController implements ContainerAwareInterface
         if ($cvxmlfile) {
             $path = [
                 '_controller'       => 'FabienCrassatCurriculumVitaeBundle:Default:display',
-                self::URL_CVXMLFILE => $cvxmlfile,
+                self::CVXMLFILE => $cvxmlfile,
                 '_locale'           => $this->lang,
             ];
 
@@ -67,7 +67,7 @@ class DefaultController implements ContainerAwareInterface
         $this->initialization($cvxmlfile);
         return new RedirectResponse($this->container->get('router')->generate(
             'fabiencrassat_curriculumvitae_cvxmlfileonly',
-            [self::URL_CVXMLFILE => $this->cvxmlfile]),
+            [self::CVXMLFILE => $this->cvxmlfile]),
             301);
     }
 
@@ -118,13 +118,10 @@ class DefaultController implements ContainerAwareInterface
                     $this->parameters);
         $filename = $this->curriculumVitae->getHumanFileName().'.pdf';
 
-        $hasPdfService = false;
-        $content       = '';
-        if (!$hasPdfService && $this->container->has(self::PDF_A5SYS)) {
-            $hasPdfService = true;
-            $content       = $this->container->get(self::PDF_A5SYS)->sendPDF($html, $filename);
-        }
-        if (!$hasPdfService && $this->container->has(self::PDF_SNAPPY)) {
+        $content = '';
+        if ($this->container->has(self::PDF_A5SYS)) {
+            $content = $this->container->get(self::PDF_A5SYS)->sendPDF($html, $filename);
+        } elseif ($this->container->has(self::PDF_SNAPPY)) {
             $content = $this->container->get(self::PDF_SNAPPY)->getOutputFromHtml($html);
         }
 
@@ -191,7 +188,7 @@ class DefaultController implements ContainerAwareInterface
     private function setToolParameters()
     {
         $this->setParameters([
-            self::URL_CVXMLFILE      => $this->cvxmlfile,
+            self::CVXMLFILE      => $this->cvxmlfile,
             'languageView'           => $this->lang,
             'languages'              => $this->exposedLanguages,
             'anchors'                => $this->curriculumVitae->getAnchors(),
