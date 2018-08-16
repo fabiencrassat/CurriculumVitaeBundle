@@ -5,5 +5,5 @@ tests.junit.xml
 
 vendor
 composer.lock
-Tests/Fixtures/App/app/cache
+Tests/Fixtures/App/var/
 phpunit

@@ -8,12 +8,11 @@
     convertWarningsToExceptions="true"
     processIsolation="false"
     stopOnFailure="false"
-    syntaxCheck="false"
     bootstrap="./Tests/bootstrap.php"
 >
 
     <php>
-        <server name="KERNEL_DIR" value="./Tests/Fixtures/App/app" />
+        <env name="KERNEL_CLASS" value="FabienCrassat\CurriculumVitaeBundle\Test\Kernel" />
     </php>
     <!-- The test files to launch -->
     <testsuites>

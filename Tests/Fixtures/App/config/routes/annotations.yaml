@@ -1,0 +1,2 @@
+fabiencrassat_curriculumvitae:
+    resource: "@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.yml"
