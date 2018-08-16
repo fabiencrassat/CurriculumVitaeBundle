@@ -1,7 +1,7 @@
 # Fabien Crassat / Curriculumvitae Bundle
 
 Welcome to the Curriculumvitae bundle - an experimental CV display
-with [Symfony2][1] application that you can use to display your curriculum vitae.
+with [Symfony][1] application that you can use to display your curriculum vitae.
 
 [1]: http://symfony.com
 
@@ -12,9 +12,9 @@ with [Symfony2][1] application that you can use to display your curriculum vitae
 
 ## Prerequisites
 
-This version of the bundle requires Symfony 2.4.1+.
+This version of the bundle requires Symfony 4.1+.
 
-### Translations
+### [TOCHECK] Translations
 
 If you wish to use default texts provided in this bundle, you have to make
 sure you have translator enabled in your config.
@@ -37,6 +37,7 @@ For more information about translations, check [Symfony documentation](http://sy
 ### Step 1: Install Curriculumvitae Bundle
 
 Add the following dependency to your composer.json file:
+
 ``` json
 {
     "require": {
@@ -45,15 +46,16 @@ Add the following dependency to your composer.json file:
     }
 }
 ```
+
 Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ php composer.phar update fabiencrassat/curriculumvitae
+php composer.phar update fabiencrassat/curriculumvitae
 ```
 
 Composer will install the bundle to your project's `vendor/fabiencrassat` directory.
 
-### Step 2: Enable the bundle
+### [TOCHECK] Step 2: Enable the bundle
 
 Enable the bundle in the kernel:
 
@@ -72,7 +74,7 @@ public function registerBundles()
 ?>
 ```
 
-### Step 3: Import FabienCrassat CurriculumVitae Bundle routing
+### [TOCHECK] Step 3: Import FabienCrassat CurriculumVitae Bundle routing
 
 Finally, now that you have activated and configured the bundle, all that is left to do is
 import the routing file.
@@ -93,15 +95,16 @@ Or if you prefer XML:
 <import resource="@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.xml" prefix="/cv" />
 ```
 
-## Usage
+## [TOCHECK] Usage
 
-### Assets installation
+### [TOCHECK] Assets installation
 
 ``` bash
-$ php app/console assets:install
+php app/console assets:install
 ```
 
-### View the result
+### [TOCHECK] View the result
+
 Go to your site and add /cv, for example: `http://localhost/app_dev.php/cv`
 
 ## Documentation

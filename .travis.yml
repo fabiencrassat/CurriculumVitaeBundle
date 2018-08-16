@@ -3,18 +3,14 @@ sudo: false
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
   - nightly
 
 matrix:
   fast_finish: true
   include:
-    - php: 5.6
-      env: TEST_FILES=true
+    - php: 7.1
+      env: TEST_FILES=true SYMFONY_VERSION='4.1.*'
     # test against the latest HHVM version by using trusty
     - php: hhvm
       sudo: true
