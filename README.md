@@ -86,13 +86,13 @@ php bin/console assets:install
 
 ### View the result
 
-Go to your site and add /cv, for example: `http://localhost/app_dev.php/cv`
+Go to your site and add /cv, for example: `http://localhost:8000/cv`
 
 ## [TO_CHECK] Documentation
 
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
-- [TO_CHECK] [Expose your custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
+- [Expose your custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
 - [TO_CHECK] [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
 - [TO_CHECK] [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
 - [TO_CHECK] [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)

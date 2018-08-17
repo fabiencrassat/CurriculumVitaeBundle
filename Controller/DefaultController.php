@@ -47,9 +47,9 @@ class DefaultController extends AbstractController
             $response = $this->forward(
                 'FabienCrassat\CurriculumVitaeBundle\Controller\DefaultController::displayAction',
                 array(
-                    'cvxmlfile' => $cvxmlfile,
-                    '_locale'   => $this->lang,
-                    'request'   => $request,
+                    self::CVXMLFILE => $cvxmlfile,
+                    '_locale'       => $this->lang,
+                    'request'       => $request,
                 )
             );
             return $response;
@@ -136,7 +136,7 @@ class DefaultController extends AbstractController
 
         if (!is_file($this->pathToFile)) {
             throw new NotFoundHttpException(
-                'There is no curriculum vitae file defined for '.$this->cvxmlfile.' ('.$this->pathToFile.').');
+                'There is no curriculum vitae file defined for "'.$this->cvxmlfile.'" ('.$this->pathToFile.').');
         }
 
         $this->lang = $lang;
