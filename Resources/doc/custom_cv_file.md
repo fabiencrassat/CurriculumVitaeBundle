@@ -5,23 +5,27 @@ The structure of the Curriculum is not store in database, but in xml file.
 You can see an example of all you can do with the [example.xml](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/data/example.xml "example.xml")
 
 ## Summarize
-*   [Main Structure](#main-structure "Main Structure")
-*   [Block tag](#block-tag "Block tag")
-    *   [Langs Block](#lang-block "Langs Block")
-    *   [CurriculumVitae Block](#curriculumvitae-block "CurriculumVitae Block")
-        *   [Identity block](#identity-block "Identity block")
-            *   [Myself tag](#myself-tag "Myself tag")
-            *   [Address tag](#address-tag "Address tag")
-            *   [Contact tag](#contact-tag "Contact tag")
-            *   [Social tag](#social-tag "Social tag")
-        *   [FollowMe block](#followme-block "FollowMe block")
-        *   [LookingFor block](#lookingfor-block "LookingFor block")
-        *   [Experiences block](#experiences-block "Experiences block")
-        *   [Skills block](#skills-block "Skills block")
-        *   [Education block](#education-block "Education block")
-        *   [LanguageSkills block](#languageskills-block "LanguageSkills block")
-        *   [Miscellaneous block](#miscellaneous-block "Miscellaneous block")
-    *   [Society block](#society-block "Society block") [todo]
+
+- [Summarize](#summarize)
+- [Main Structure](#main-structure)
+- [Block tag](#block-tag)
+    - [Langs Block](#langs-block)
+        - [Declaration](#declaration)
+        - [How to use](#how-to-use)
+    - [CurriculumVitae Block](#curriculumvitae-block)
+        - [Identity block](#identity-block)
+            - [Myself tag](#myself-tag)
+            - [Address tag](#address-tag)
+            - [Contact tag](#contact-tag)
+            - [Social tag](#social-tag)
+        - [FollowMe block](#followme-block)
+        - [LookingFor block](#lookingfor-block)
+        - [Experiences block](#experiences-block)
+        - [Skills block](#skills-block)
+        - [Education block](#education-block)
+        - [LanguageSkills block](#languageskills-block)
+        - [miscellaneous block](#miscellaneous-block)
+        - [Society block](#society-block)
 
 ## Main Structure
 
@@ -45,12 +49,12 @@ The main structure you need to allow the personlization of the CV is:
 
 It is all languages you want to expose in your curriculum vitae.
 
-```<lang id="en">English</lang>``` value at least have to be filled, except if you set your own ```default_lang``` in your config file.
+`<lang id="en">English</lang>` value at least have to be filled, except if you set your own `default_lang` in your config file.
 
-Each lang defined here will be used to determine the visibility of each element in the ```<curriculumVitae>``` block.
-That allow you to write all information in your curriculum vitae and after exposing the translation just when you want with the addition of the language in the ```<langs>``` block.
+Each lang defined here will be used to determine the visibility of each element in the `<curriculumVitae>` block.
+That allow you to write all information in your curriculum vitae and after exposing the translation just when you want with the addition of the language in the `<langs>` block.
 
-The following example allow to use the english and the french language in the route with the **en** and **fr** parameters, like ```/cv/example/en``` and ```/cv/example/fr```.
+The following example allow to use the english and the french language in the route with the **en** and **fr** parameters, like `/cv/example/en` and `/cv/example/fr`.
 
 ``` xml
 <langs>
@@ -61,21 +65,22 @@ The following example allow to use the english and the french language in the ro
 
 #### How to use
 
-When a tag with a value is defined, add ```lang="en"``` as attribute will apply a filter for the language defined. If there is not this attribute then the tag value will appear for all languages.
+When a tag with a value is defined, add `lang="en"` as attribute will apply a filter for the language defined. If there is not this attribute then the tag value will appear for all languages.
 
 For example:
+
 ``` xml
 <valueAlwaysDisplay>Visible for all languages</valueAlwaysDisplay>
 <valueDisplayForLangFR lang="fr">Visible seulement pour la langue française</valueDisplayForLangFR>
 <valueDisplayForLangEN lang="en">Visible only for English language</valueDisplayForLangEN>
 ```
 
-
 ### CurriculumVitae Block
 
 This block is the main part of your curriculum vitae, where you will write all about you ;)
 
 All blocks inside will follow this structure, except [LookingFor block](#lookingfor-block "LookingFor block"):
+
 ``` xml
 <curriculumVitae>
     ...
@@ -92,10 +97,10 @@ All blocks inside will follow this structure, except [LookingFor block](#looking
 </curriculumVitae>
 ```
 
-
 #### Identity block
 
-The identity block allows to define you. There are different parts inside ```<items>``` tag.
+The identity block allows to define you. There are different parts inside `<items>` tag.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -114,7 +119,8 @@ The identity block allows to define you. There are different parts inside ```<it
 
 ##### Myself tag
 
-```<myself>``` tag is to present you.
+`<myself>` tag is to present you.
+
 ``` xml
 <myself>
     <name>Fabien Crassat</name>
@@ -129,12 +135,13 @@ The identity block allows to define you. There are different parts inside ```<it
 
 And the following elements have some restriction:
 
-*   ```birthday``` tag accept only the format attribute "YYYY-mm-dd"
-*   ```picture``` tag is the link to the filesystem of ```web/``` directory, so it is necessary to expose your file inside ```Resources/public/img``` of your bundle and launch the ``` php app/console assets:install ``` command
+- `birthday` tag accept only the format attribute "YYYY-mm-dd"
+- `picture` tag is the link to the filesystem of `web/` directory, so it is necessary to expose your file inside `Resources/public/img` of your bundle and launch the `php app/console assets:install` command
 
 ##### Address tag
 
-```<address>``` tag is to present where you live.
+`<address>` tag is to present where you live.
+
 ``` xml
 <address>
     <city>Chicago</city>
@@ -146,7 +153,8 @@ And the following elements have some restriction:
 
 ##### Contact tag
 
-```<contact>``` tag is to present how contact you.
+`<contact>` tag is to present how contact you.
+
 ``` xml
 <contact>
     <email>email_arobase_site_dot_com</email>
@@ -155,7 +163,8 @@ And the following elements have some restriction:
 
 ##### Social tag
 
-```<social>``` tag is to present the social references.
+`<social>` tag is to present the social references.
+
 ``` xml
 <social>
     <marital lang="fr">Célibataire</marital>
@@ -168,6 +177,7 @@ And the following elements have some restriction:
 #### FollowMe block
 
 The FollowMe block presents site links. If you use [an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md), this block is not export.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -184,7 +194,8 @@ The FollowMe block presents site links. If you use [an export PDF service](https
 </curriculumVitae>
 ```
 
-In the ```<items>```, the structure is defined below:
+In the `<items>`, the structure is defined below:
+
 ``` xml
 <followItem id="site">
     <title lang="en">Link Title</title>
@@ -198,17 +209,18 @@ To help you, there are the following list of icons:
 
 Icon            | Image                                                                                                                                         | Property in icon element
 :---------------|:----------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------
- facebook       | ![facebook](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/facebook.png "facebook")                  | ```bundles/fabiencrassatcurriculumvitae/img/facebook.png```
- google+        | ![googleplus](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/googleplus.png "googleplus")            | ```bundles/fabiencrassatcurriculumvitae/img/googleplus.png```
- linkedin       | ![linkedin](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/linkedin.png "linkedin")                  | ```bundles/fabiencrassatcurriculumvitae/img/linkedin.png```
- monster        | ![monster](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/monster.png "monster")                     | ```bundles/fabiencrassatcurriculumvitae/img/monster.png```
- scrum-alliance | ![scrum-alliance](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/scrum-alliance.png "scrum-alliance")| ```bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png```
- twitter        | ![twitter](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/twitter.png "twitter")                     | ```bundles/fabiencrassatcurriculumvitae/img/twitter.png```
- viadeo         | ![viadeo](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/viadeo.png "viadeo")                        | ```bundles/fabiencrassatcurriculumvitae/img/viadeo.png```
+ facebook       | ![facebook](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/facebook.png "facebook")                  | `bundles/fabiencrassatcurriculumvitae/img/facebook.png`
+ google+        | ![googleplus](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/googleplus.png "googleplus")            | `bundles/fabiencrassatcurriculumvitae/img/googleplus.png`
+ linkedin       | ![linkedin](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/linkedin.png "linkedin")                  | `bundles/fabiencrassatcurriculumvitae/img/linkedin.png`
+ monster        | ![monster](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/monster.png "monster")                     | `bundles/fabiencrassatcurriculumvitae/img/monster.png`
+ scrum-alliance | ![scrum-alliance](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/scrum-alliance.png "scrum-alliance")| `bundles/fabiencrassatcurriculumvitae/img/scrum-alliance.png`
+ twitter        | ![twitter](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/twitter.png "twitter")                     | `bundles/fabiencrassatcurriculumvitae/img/twitter.png`
+ viadeo         | ![viadeo](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/viadeo.png "viadeo")                        | `bundles/fabiencrassatcurriculumvitae/img/viadeo.png`
 
 #### LookingFor block
 
 The LookingFor block presents the head of you curriculum vitae.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -218,7 +230,8 @@ The LookingFor block presents the head of you curriculum vitae.
 </curriculumVitae>
 ```
 
-In the ```<lookingFor>```, the structure is defined below:
+In the `<lookingFor>`, the structure is defined below:
+
 ``` xml
 <experience lang="en">Curriculum Vitae Title</experience>
 <experience lang="fr">Titre du curriculum vitae</experience>
@@ -229,6 +242,7 @@ In the ```<lookingFor>```, the structure is defined below:
 #### Experiences block
 
 The Experiences block presents your experiences.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -245,7 +259,8 @@ The Experiences block presents your experiences.
 </curriculumVitae>
 ```
 
-In the ```<items>```, the structure is defined below:
+In the `<items>`, the structure is defined below:
+
 ``` xml
 <experience id="OneExperience" collapse="true">
     <date lang="en">Jan 2007 - Present</date>
@@ -265,11 +280,13 @@ In the ```<items>```, the structure is defined below:
 ```
 
 For each experience, you can add attributes to have more visual effects.
-* ```collapse``` attribute (```false``` by default) will collapse the experience to hide it and let your visitor the choice to show it or not. It is useful when you want to hide some no-interesting informations.
+
+- `collapse` attribute (`false` by default) will collapse the experience to hide it and let your visitor the choice to show it or not. It is useful when you want to hide some no-interesting informations.
 
 #### Skills block
 
 The Skills block presents your skills.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -286,7 +303,8 @@ The Skills block presents your skills.
 </curriculumVitae>
 ```
 
-In the ```<items>```, the structure is defined below:
+In the `<items>`, the structure is defined below:
+
 ``` xml
 <skill id="oneSkill">
     <title lang="en">Skills</title>
@@ -317,14 +335,17 @@ In the ```<items>```, the structure is defined below:
     </lines>
 </skill>
 ```
+
 For each line, you can add attributes to have more visual effects.
-* ```percentage``` attribute (```0``` by default) can show how you know the skill.
-* ```class``` attribute (```info``` by default) can show how you know the skill.
-* ```striped``` attribute (```false``` by default) changes the visual of the line.
+
+- `percentage` attribute (`0` by default) can show how you know the skill.
+- `class` attribute (`info` by default) can show how you know the skill.
+- `striped` attribute (`false` by default) changes the visual of the line.
 
 #### Education block
 
 The Education block presents your educations.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -341,7 +362,8 @@ The Education block presents your educations.
 </curriculumVitae>
 ```
 
-In the ```<items>```, the structure is defined below:
+In the `<items>`, the structure is defined below:
+
 ``` xml
 <education id="OneSchool" collapse="true">
     <date lang="en">June 2002</date>
@@ -359,11 +381,13 @@ In the ```<items>```, the structure is defined below:
 ```
 
 For each education, you can add attributes to have more visual effects.
-* ```collapse``` attribute (```false``` by default) will collapse the education to hide it and let your visitor the choice to show it or not. It is useful when you want to hide some no-interesting informations.
+
+- `collapse` attribute (`false` by default) will collapse the education to hide it and let your visitor the choice to show it or not. It is useful when you want to hide some no-interesting informations.
 
 #### LanguageSkills block
 
 The LanguageSkills block presents your language level.
+
 ``` xml
 <curriculumVitae>
     ...
@@ -380,7 +404,8 @@ The LanguageSkills block presents your language level.
 </curriculumVitae>
 ```
 
-In the ```<items>```, the structure is defined below:
+In the `<items>`, the structure is defined below:
+
 ``` xml
 <languageSkill id="French">
     <title lang="en">French</title>
@@ -395,12 +420,13 @@ To help you, there are the following list of icons:
 
 Icon     | Image                                                                                                                                    | Property in icon tag
 :--------|:-----------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------
- French  | ![French](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-France.png "French")           | ```bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png```
- English | ![English](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-United-Kingdom.png "English") | ```bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom```
+ French  | ![French](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-France.png "French")           | `bundles/fabiencrassatcurriculumvitae/img/Flag-of-France.png`
+ English | ![English](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/public/img/Flag-of-United-Kingdom.png "English") | `bundles/fabiencrassatcurriculumvitae/img/Flag-of-United-Kingdom`
 
 #### miscellaneous block
 
 The miscellaneous block presents what you want ;).
+
 ``` xml
 <curriculumVitae>
     ...
@@ -417,7 +443,8 @@ The miscellaneous block presents what you want ;).
 </curriculumVitae>
 ```
 
-In the ```<items>```, the structure is defined below:
+In the `<items>`, the structure is defined below:
+
 ``` xml
 <miscellaneous id="Practical">
     <title lang="en">Practices</title>
@@ -431,7 +458,7 @@ In the ```<items>```, the structure is defined below:
 #### Society block
 
 The Society block allows to define each society you have worked (are working).
-Inside the block, you can declare all society you want like the following example. And the block ```name``` is one to be filled, but you can add the others tags to have more information.
+Inside the block, you can declare all society you want like the following example. And the block `name` is one to be filled, but you can add the others tags to have more information.
 
 ``` xml
 <societies>
@@ -444,6 +471,7 @@ Inside the block, you can declare all society you want like the following exampl
 ```
 
 To use one of societies in your curriculum vitae, you have to use the cross reference like this:
+
 ``` xml
 <society crossref="societies/society[@ref='MyCompany']/*"></society>
 ```

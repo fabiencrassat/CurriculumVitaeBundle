@@ -1,6 +1,7 @@
 # Understand the link beetween xml file and twig variables
 
 Twig objects return by the controller:
+
 ```php
 'cvxmlfile'      => string,
 'languageView'   => string,
@@ -18,18 +19,23 @@ Twig objects return by the controller:
 ```
 
 ## cvxmlfile
-It is your curriculum vitae file name, e.g. ```Mycv``` for ```mycv.xml```.
+
+It is your curriculum vitae file name, e.g. `Mycv` for `mycv.xml`.
 
 ## languageView
-It is the ```_locale``` variable use in the url, e.g. ```fr```
+
+It is the `_locale` variable use in the url, e.g. `fr`
 
 ## hasExportPDF
+
 Tell if you have installed [an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
 
 ## languages
-```array('en' => 'English', 'fr' => 'Français')```
+
+`array('en' => 'English', 'fr' => 'Français')`
 
 ## anchors
+
 ```php
 array(
     'identity' => array (
@@ -64,6 +70,7 @@ array(
 ```
 
 ## identity
+
 ```php
 array(
     'myself' => array (
@@ -94,6 +101,7 @@ array(
 ```
 
 ## followMe
+
 ```php
 array(
     'linkedin' => array (
@@ -106,6 +114,7 @@ array(
 ```
 
 ## lookingFor
+
 ```php
 array(
     'experience' => 'Curriculum Vitae Title',
@@ -114,6 +123,7 @@ array(
 ```
 
 ## experiences
+
 ```php
 array(
     'FirstExperience' => array(
@@ -134,6 +144,7 @@ array(
 ```
 
 ## skills
+
 ```php
 array(
     'OneSkill' => array(
@@ -161,6 +172,7 @@ array(
 ```
 
 ## educations
+
 ```php
 array(
     'University' => array(
@@ -180,6 +192,7 @@ array(
 ```
 
 ## languageSkills
+
 ```php
 array(
     'English' => array(
@@ -192,6 +205,7 @@ array(
 ```
 
 ## miscellaneous
+
 ```php
 array(
     'Practical' => array(
