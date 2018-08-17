@@ -14,26 +14,26 @@ file that was distributed with this source code.
 {% set template = template|default("") %}
 
 <div id="CurriculumVitae" class="container">
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/BusinessCard.html.twig' with {'template': template} %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/BusinessCard.html.twig' with {'template': template} %}
     {% if template == "OryzoneBoilerplate" %}
         <div class="row">
             <div class="col-md-6">
-                {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+                {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/Identity.html.twig' with {'template': 'OryzoneBoilerplate'} %}
             </div>
 
             <div class="col-md-6">
-                {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+                {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/FollowMe.html.twig' with {'template': 'OryzoneBoilerplate'} %}
             </div>
         </div>
     {% else %}
-        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Identity.html.twig' with {'template': template} %}
+        {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/Identity.html.twig' with {'template': template} %}
         {% if template != "pdf" %}
-        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/FollowMe.html.twig' %}
+        {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/FollowMe.html.twig' %}
         {% endif %}
     {% endif %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Experiences.html.twig' with {'template': template} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Skills.html.twig' with {'template': template} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Educations.html.twig' with {'template': template} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/LanguageSkills.html.twig' with {'template': template} %}
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Includes/Miscellaneous.html.twig' with {'template': template} %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/Experiences.html.twig' with {'template': template} %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/Skills.html.twig' with {'template': template} %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/Educations.html.twig' with {'template': template} %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/LanguageSkills.html.twig' with {'template': template} %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Includes/Miscellaneous.html.twig' with {'template': template} %}
 </div>

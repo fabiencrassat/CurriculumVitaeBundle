@@ -13,8 +13,7 @@ namespace FabienCrassat\CurriculumVitaeBundle\Controller;
 
 use FabienCrassat\CurriculumVitaeBundle\Entity\CurriculumVitae;
 use FabienCrassat\CurriculumVitaeBundle\DependencyInjection\FabienCrassatCurriculumVitaeExtension;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +24,8 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class DefaultController implements ContainerAwareInterface
+class DefaultController extends AbstractController
 {
-    use ContainerAwareTrait;
-
     private $cvxmlfile;
     private $pathToFile;
     private $lang;
@@ -44,24 +41,18 @@ class DefaultController implements ContainerAwareInterface
     /**
      * @return Response
      */
-    public function indexAction($cvxmlfile = NULL)
+    public function indexAction($cvxmlfile = NULL, Request $request)
     {
         if ($cvxmlfile) {
-            $path = [
-                '_controller'       => 'FabienCrassatCurriculumVitaeBundle:Default:display',
-                self::CVXMLFILE => $cvxmlfile,
-                '_locale'           => $this->lang,
-            ];
-
-            $request    = $this->container->get('request');
-            $subRequest = $request->duplicate([], NULL, $path);
-
-            $httpKernel = $this->container->get('http_kernel');
-
-            return $httpKernel->handle(
-                $subRequest,
-                HttpKernelInterface::SUB_REQUEST
+            $response = $this->forward(
+                'FabienCrassat\CurriculumVitaeBundle\Controller\DefaultController::displayAction',
+                array(
+                    'cvxmlfile' => $cvxmlfile,
+                    '_locale'   => $this->lang,
+                    'request'   => $request,
+                )
             );
+            return $response;
         }
 
         $this->initialization($cvxmlfile);
@@ -95,7 +86,7 @@ class DefaultController implements ContainerAwareInterface
 
                 return $response;
             default:
-                return $this->container->get('templating')->renderResponse(
+                return $this->render(
                     $this->container->getParameter(FabienCrassatCurriculumVitaeExtension::TEMPLATE),
                     $this->parameters);
         }

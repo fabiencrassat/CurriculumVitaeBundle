@@ -14,20 +14,6 @@ with [Symfony][1] application that you can use to display your curriculum vitae.
 
 This version of the bundle requires Symfony 4.1+.
 
-### [TOCHECK] Translations
-
-If you wish to use default texts provided in this bundle, you have to make
-sure you have translator enabled in your config.
-
-``` yaml
-# app/config/config.yml
-
-framework:
-    translator: ~
-```
-
-For more information about translations, check [Symfony documentation](http://symfony.com/doc/current/book/translation.html).
-
 ## Installation
 
 1. Install Curriculumvitae Bundle
@@ -55,26 +41,21 @@ php composer.phar update fabiencrassat/curriculumvitae
 
 Composer will install the bundle to your project's `vendor/fabiencrassat` directory.
 
-### [TOCHECK] Step 2: Enable the bundle
+### Step 2: Enable the bundle
 
 Enable the bundle in the kernel:
 
 ``` php
 <?php
-// app/AppKernel.php
-
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle(),
-    );
-}
+// config/bundles.php
+return [
+    // ...
+    FabienCrassat\CurriculumVitaeBundle\FabienCrassatCurriculumVitaeBundle::class => ['all' => true],
+];
 // ...
-?>
 ```
 
-### [TOCHECK] Step 3: Import FabienCrassat CurriculumVitae Bundle routing
+### Step 3: Import FabienCrassat CurriculumVitae Bundle routing
 
 Finally, now that you have activated and configured the bundle, all that is left to do is
 import the routing file.
@@ -82,7 +63,7 @@ import the routing file.
 In YAML:
 
 ``` yaml
-# app/config/routing.yml
+# config/routes.yml
 fabiencrassat_curriculumvitae:
     resource: "@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.yml"
     prefix:   /cv
@@ -91,29 +72,29 @@ fabiencrassat_curriculumvitae:
 Or if you prefer XML:
 
 ``` xml
-<!-- app/config/routing.xml -->
+<!-- config/routes.xml -->
 <import resource="@FabienCrassatCurriculumVitaeBundle/Resources/config/routing.xml" prefix="/cv" />
 ```
 
-## [TOCHECK] Usage
+## Usage
 
-### [TOCHECK] Assets installation
+### Assets installation
 
 ``` bash
-php app/console assets:install
+php bin/console assets:install
 ```
 
-### [TOCHECK] View the result
+### View the result
 
 Go to your site and add /cv, for example: `http://localhost/app_dev.php/cv`
 
-## Documentation
+## [TO_CHECK] Documentation
 
 The bulk of the documentation is stored in the `Resources/doc/` directory in this bundle:
 
-- [Expose your custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
-- [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
-- [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
-- [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
-- [Add an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
-- [Protect your email and phone number](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/protect_your_email_and_phone_number.md)
+- [TO_CHECK] [Expose your custom Curriculum Vitae Files](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/expose_your_cv.md)
+- [TO_CHECK] [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
+- [TO_CHECK] [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
+- [TO_CHECK] [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
+- [TO_CHECK] [Add an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
+- [TO_CHECK] [Protect your email and phone number](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/protect_your_email_and_phone_number.md)

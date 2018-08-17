@@ -47,7 +47,7 @@ if ($.fn.button == undefined) {
 {% endblock %}
 
 {% block body_container_main %}
-{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:navigation.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:body.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+{% include '@FabienCrassatCurriculumVitae/CurriculumVitae/navigation.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+{% include '@FabienCrassatCurriculumVitae/CurriculumVitae/body.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+{% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Nav/TopButton.html.twig' with {'template': 'OryzoneBoilerplate'} %}
 {% endblock %}

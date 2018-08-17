@@ -11,11 +11,11 @@ file that was distributed with this source code.
 
 {# FabienCrassat/CurriculumVitaeBundle/Resources/views/CurriculumVitae/index.html.twig #}
 
-{% extends "::base.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block title %}CV {{ cvxmlfile|title }}{% endblock %}
 
 {% block body %}
-{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:navigation.html.twig' %}
-{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:body.html.twig' %}
+{% include '@FabienCrassatCurriculumVitae/CurriculumVitae/navigation.html.twig' %}
+{% include '@FabienCrassatCurriculumVitae/CurriculumVitae/body.html.twig' %}
 {% endblock %}

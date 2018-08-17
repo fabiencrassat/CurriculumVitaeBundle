@@ -16,5 +16,5 @@ file that was distributed with this source code.
 {% block title %}CV {{ cvxmlfile|title }}{% endblock %}
 
 {% block body %}
-{% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:body.html.twig' with {'template': 'pdf'} %}
+{% include '@FabienCrassatCurriculumVitae/CurriculumVitae/body.html.twig' with {'template': 'pdf'} %}
 {% endblock %}

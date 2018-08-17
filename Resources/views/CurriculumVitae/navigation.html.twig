@@ -30,8 +30,8 @@ file that was distributed with this source code.
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
-            {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
+            {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Nav/LanguagesList.html.twig' with {'template': 'OryzoneBoilerplate'} %}
+            {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Nav/Anchors.html.twig' %}
         </ul>
     </div>
   </div>
@@ -39,9 +39,9 @@ file that was distributed with this source code.
 {% else %}
 <div>
     <a href="#">Curriculum Vitae</a>
-    {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/LanguagesList.html.twig' %}
+    {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Nav/LanguagesList.html.twig' %}
     <div><ul>
-        {% include 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:Nav/Anchors.html.twig' %}
+        {% include '@FabienCrassatCurriculumVitae/CurriculumVitae/Nav/Anchors.html.twig' %}
     </ul></div>
 </div>
 {% endif %}
