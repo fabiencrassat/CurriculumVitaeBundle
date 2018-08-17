@@ -49,7 +49,7 @@ class FabienCrassatCurriculumVitaeExtensionTest extends \PHPUnit\Framework\TestC
             FabienCrassatCurriculumVitaeExtension::DEFAULT_LANG
                 => 'en',
             FabienCrassatCurriculumVitaeExtension::TEMPLATE
-                => 'FabienCrassatCurriculumVitaeBundle:CurriculumVitae:index.html.twig'
+                => '@FabienCrassatCurriculumVitae/CurriculumVitae/index.html.twig'
         ];
         $this->compareParameters($parameters);
     }
