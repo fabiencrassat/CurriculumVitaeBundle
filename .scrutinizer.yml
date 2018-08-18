@@ -12,6 +12,12 @@ build:
     environment:
         php:
             version: 7.1
-
+    tests:
+        override:
+            -
+                command: vendor/bin/phpunit --coverage-clover=clover.xml
+                coverage:
+                    file: clover.xml
+                    format: clover
 before_commands:
     - "composer install --prefer-source --dev"
