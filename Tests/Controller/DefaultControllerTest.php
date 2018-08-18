@@ -42,7 +42,8 @@ class DefaultControllerTest extends WebTestCase
     public function testDisplay()
     {
         $clientForTestDisplay = static::createClient();
-        $crawler              = $clientForTestDisplay->request('GET', '/example');
+        $crawler = $clientForTestDisplay->request('GET', '/example');
+        $this->assertEquals(200, $clientForTestDisplay->getResponse()->getStatusCode());
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First Name Last Name")')->count());
     }
 
