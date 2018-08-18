@@ -28,8 +28,7 @@ class CurriculumVitaeGetterFromExampleXMLFileTest extends \PHPUnit\Framework\Tes
         $this->interface      = 'getDropDownLanguages';
         $this->arrayToCompare = [
             'en' => 'English',
-            'fr' => 'Français',
-            'es' => 'español'];
+            'fr' => 'Français'];
 
         $this->assertCVInterface();
     }
