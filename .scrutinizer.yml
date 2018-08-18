@@ -9,7 +9,8 @@ filter:
 tools: ~
 build:
     environment:
-        php: '5.5.25'
+        php:
+            version: 7.1
     tests:
         override:
             -
