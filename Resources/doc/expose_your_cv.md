@@ -17,9 +17,9 @@ So if you want to customized the bundle to call your CVs you have to define this
 For example:
 
 ``` yml
-# config/fabiencrassat_curriculumvitae.yaml
+# config/packages/fabiencrassat_curriculumvitae.yaml
 fabien_crassat_curriculum_vitae:
-    path_to_cv:       "%kernel.root_dir%\..\resources\curriculumvitae"
+    path_to_cv:       "%kernel.root_dir%/resources/curriculumvitae"
     custo_default_cv: "mycv"
     default_lang:     "fr"
     template:         "CV/index.html.twig"

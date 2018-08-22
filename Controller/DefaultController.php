@@ -179,7 +179,7 @@ class DefaultController extends AbstractController
     private function setToolParameters()
     {
         $this->setParameters([
-            self::CVXMLFILE      => $this->cvxmlfile,
+            self::CVXMLFILE          => $this->cvxmlfile,
             'languageView'           => $this->lang,
             'languages'              => $this->exposedLanguages,
             'anchors'                => $this->curriculumVitae->getAnchors(),

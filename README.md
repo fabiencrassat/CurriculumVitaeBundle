@@ -41,7 +41,9 @@ php composer.phar update fabiencrassat/curriculumvitae
 
 Composer will install the bundle to your project's `vendor/fabiencrassat` directory.
 
-### Step 2: Enable the bundle
+### Step 2: Enable the bundle without flex
+
+> *In a default Symfony application that uses Symfony Flex, bundles are enabled/disabled automatically for you when installing/removing them, so you don't need to look at or edit this bundles.php file.*
 
 Enable the bundle in the kernel:
 
