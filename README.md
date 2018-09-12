@@ -98,5 +98,6 @@ The bulk of the documentation is stored in the `Resources/doc/` directory in thi
 - [Custom your curriculum vitae](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/custom_cv_file.md)
 - [Understand the link beetween xml file and twig variables](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/xml_twig_variables.md)
 - [Make the curriculum vitae beautiful with OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/OrizoneBoilerplateTemplate.md)
+- [Add Google Analytics in the OrizoneBoilerplate](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/ConfigureGoogleAnalytics.md)
 - [TO_CHECK] [Add an export PDF service](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/export_to_PDF.md)
 - [TO_CHECK] [Protect your email and phone number](https://github.com/fabiencrassat/CurriculumVitaeBundle/blob/master/Resources/doc/protect_your_email_and_phone_number.md)
